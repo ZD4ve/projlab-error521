@@ -1,32 +1,31 @@
 @startuml
 participant ":Insect" as insect
 participant "location:Tecton" as location
+participant "sporeTaken:Spore" as sporeTaken
 participant "effect:InsectEffect" as effect
 
 -> insect : eatSpore()
 activate insect
 
+' állapotgép szerint átdolgozni
 opt cooldown == 0
     insect -> location : takeSpore()
     activate location
 
-    opt hasSpore
-        location -> "spore:Spore" !!
-    end
-
     insect <-- location : sporeTaken
     deactivate location
 
-    opt sporeTaken
-        create effect
-        insect -> effect : createRandom(self)
+    opt sporeTaken exists
+        insect -> sporeTaken : getEffect()
+        activate sporeTaken
+        
+        ' TODO: effect létrehozás
+
+        insect <-- sporeTaken : effect
+        destroy sporeTaken
+
+        insect -> effect : applyTo(self)
         activate effect
-
-        effect -> insect : applyEffect(self)
-        activate insect
-
-        effect <-- insect
-        deactivate insect
 
         insect <-- effect
         deactivate effect

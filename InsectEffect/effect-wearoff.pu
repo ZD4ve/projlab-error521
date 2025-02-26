@@ -7,7 +7,9 @@ participant "target:Insect" as target
 activate effect
 
 opt remainingTime == 0
-    effect -> target : removeEffect(self)
+
+    ' TODO use getters and setter here instead
+    effect -> target : removeEffect()
     activate target
 
     effect <-- target

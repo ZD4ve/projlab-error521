@@ -12,7 +12,7 @@ together {
     abstract InsectEffect
 }
 
-IActive : tick()
+IActive : tick(dT)
 
 IActive ()- Tecton
 IActive ()- Mushroom
@@ -20,27 +20,34 @@ IActive ()- Mycelium
 IActive ()- Insect
 IActive ()- InsectEffect
 
-
 Tecton o-- "*" Tecton : neighbors
 Tecton "2" -- "*" Mycelium
 Tecton *-- "*" Spore
 Tecton "1" *--o "0..1" Mushroom
 Tecton : growMushroom(Fungus)
 Tecton : growMycelium(Fungus, Tecton)
+Tecton : isNeighbor(Tecton)
+Tecton : removeInsect(Insect)
+Tecton : addInsect(Insect)
 
 Mushroom : burstSpore(Tecton)
 
 Mycelium o-- Fungus
+Mycelium : destroy()
 
-Insect *--o "0..*" InsectEffect
-Insect -- "1" Tecton
+Insect *--o "*" InsectEffect : activeEffects
+Insect "*" -- Tecton : location
+Insect : cooldown
+Insect : score
 Insect : eatSpore()
 Insect : moveTo(Tecton)
 Insect : chewMycelium(Mycelium)
 
 Spore o-- Fungus
+Spore : getEffect()
 
 InsectEffect <-- Spore
+InsectEffect : applyTo(Insect)
 
 Fungus -- Mushroom
 @enduml

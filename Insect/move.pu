@@ -13,7 +13,7 @@ opt cooldown == 0
     insect -> location : isNeighbor(target)
     activate location
 
-    insect <-- location
+    insect <-- location : neighbor
     deactivate location
 
     opt neighbor
