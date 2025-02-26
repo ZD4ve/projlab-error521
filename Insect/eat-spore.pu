@@ -1,0 +1,39 @@
+@startuml
+participant ":Insect" as insect
+participant "location:Tecton" as location
+participant "effect:InsectEffect" as effect
+
+-> insect : eatSpore()
+activate insect
+
+opt cooldown == 0
+    insect -> location : takeSpore()
+    activate location
+
+    opt hasSpore
+        location -> "spore:Spore" !!
+    end
+
+    insect <-- location : sporeTaken
+    deactivate location
+
+    opt sporeTaken
+        create effect
+        insect -> effect : createRandom(self)
+        activate effect
+
+        effect -> insect : applyEffect(self)
+        activate insect
+
+        effect <-- insect
+        deactivate insect
+
+        insect <-- effect
+        deactivate effect
+    end
+end
+
+<-- insect
+deactivate insect
+
+@enduml

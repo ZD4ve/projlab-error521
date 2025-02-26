@@ -1,0 +1,20 @@
+@startuml
+
+participant ":InsectEffect" as effect
+participant "target:Insect" as target
+
+-> effect : tick()
+activate effect
+
+opt remainingTime == 0
+    effect -> target : removeEffect(self)
+    activate target
+
+    effect <-- target
+    deactivate target
+end
+
+<-- effect
+destroy effect
+
+@enduml

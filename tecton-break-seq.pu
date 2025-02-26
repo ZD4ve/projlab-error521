@@ -1,5 +1,6 @@
 @startuml
 participant Tecton as Dying
+' valszeg ez looppal kellene
 participant Tecton as Neighbors order 100
 participant Insect as Insects order 101
 

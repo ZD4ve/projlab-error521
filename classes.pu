@@ -35,7 +35,7 @@ Mycelium o-- Fungus
 Insect *--o "0..*" InsectEffect
 Insect -- "1" Tecton
 Insect : eatSpore()
-Insect : move(Tecton)
+Insect : moveTo(Tecton)
 Insect : chewMycelium(Mycelium)
 
 Spore o-- Fungus

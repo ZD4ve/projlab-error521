@@ -1,0 +1,31 @@
+@startuml
+
+participant ":Insect" as insect
+participant "target:Mycelium" as target
+participant "species:Fungus" as species
+
+-> insect : chewMycelium(target)
+activate insect
+
+opt cooldown == 0
+    insect -> target : destroy()
+    activate target
+
+    target -> species : removeDisconnectedMycelia()
+    activate species
+
+    ref over species
+        remove_disconnected_mycelia
+    end ref
+
+    target <-- species
+    deactivate species
+
+    insect <-- target
+    destroy target
+end
+
+<-- insect
+deactivate insect
+
+@enduml

@@ -1,0 +1,39 @@
+@startuml
+
+participant ":Insect" as insect
+participant "location:Tecton" as location
+participant "target:Tecton" as target
+
+
+-> insect : moveTo(target)
+activate insect
+
+opt cooldown == 0
+
+    insect -> location : isNeighbor(target)
+    activate location
+
+    insect <-- location
+    deactivate location
+
+    opt neighbor
+
+        insect -> location : removeInsect(self)
+        activate location
+
+        insect <-- location
+        deactivate location
+        
+        insect -> target : addInsect(self)
+        activate target
+
+        insect <-- target
+        deactivate target
+    end
+
+end
+
+<-- insect
+deactivate insect
+
+@enduml
