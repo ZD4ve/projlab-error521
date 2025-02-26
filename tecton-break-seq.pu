@@ -9,11 +9,14 @@ opt break
 Dying -> Neighbors : removeNeighbor(self)
 
 create Tecton as New1
-Dying -> New1 : new(neighbors, mushroom, spores, effect)
-create Tecton as New2
-Dying -> New2 : new(neighbors, mushroom, spores, effect)
+Dying -> New1 : newMe()
+Dying -> New1 : fillWithStuff(...)
 
+' set location on moved objects ...
 Dying -> Insects : setLocation(tecton)
+
+' unsubscribe from tick
+<- Dying : unsubscribe(self)
 
 Dying -> Dying !!
 end
