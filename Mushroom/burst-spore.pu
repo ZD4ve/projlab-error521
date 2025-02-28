@@ -1,0 +1,34 @@
+@startuml
+participant ":Mushroom" as shroom
+participant "location:Tecton" as location
+participant "target:Tecton" as target
+participant ":Spore" as spore
+
+-> shroom : burstSpore(target)
+activate shroom
+
+shroom -> location : distanceTo(target)
+activate location
+
+shroom <-- location : distance
+deactivate location
+
+opt distance <= range
+    create spore
+    shroom -> spore : new(fungus)
+    activate spore
+
+    shroom <-- spore
+    deactivate spore
+
+    shroom -> target : addSpore(spore)
+    activate target
+
+    shroom <-- target
+    deactivate target
+end
+
+<-- shroom : success
+deactivate shroom
+
+@enduml

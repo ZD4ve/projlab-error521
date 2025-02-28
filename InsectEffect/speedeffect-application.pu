@@ -1,0 +1,16 @@
+@startuml
+participant ":SpeedEffect" as effect
+participant "target:Insect" as target
+
+-> effect : applyTo(target)
+activate effect
+
+effect -> target : setSpeed(getSpeed()*multiplier)
+activate target
+
+effect <-- target
+deactivate target
+
+<-- effect
+deactivate effect
+@enduml

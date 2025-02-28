@@ -1,0 +1,16 @@
+@startuml
+participant ":ParalysingEffect" as effect
+participant "target:Insect" as target
+
+-> effect : remove()
+activate effect
+
+effect -> target : setAntiChewCount(getAntiChewCount() - 1)
+activate target
+
+effect <-- target
+deactivate target
+
+<-- effect
+deactivate effect
+@enduml

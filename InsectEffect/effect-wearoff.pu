@@ -1,19 +1,13 @@
 @startuml
 
 participant ":InsectEffect" as effect
-participant "target:Insect" as target
 
 -> effect : tick()
 activate effect
 
-opt remainingTime == 0
+opt timeLeft == 0
 
-    ' TODO use getters and setter here instead
-    effect -> target : removeEffect()
-    activate target
-
-    effect <-- target
-    deactivate target
+    effect -> effect : remove()
 end
 
 <-- effect

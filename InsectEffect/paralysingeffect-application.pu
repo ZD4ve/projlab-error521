@@ -1,0 +1,16 @@
+@startuml
+participant ":ParalysingEffect" as effect
+participant "target:Insect" as target
+
+-> effect : applyTo(target)
+activate effect
+
+effect -> target : setIsParalysed(true)
+activate target
+
+effect <-- target
+deactivate
+
+<-- effect
+deactivate effect
+@enduml

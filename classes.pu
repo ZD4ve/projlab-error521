@@ -10,6 +10,9 @@ together {
 together {
     class Insect
     abstract InsectEffect
+    class SpeedEffect
+    class ParalysingEffect
+    class AntiChewEffect
 }
 
 IActive : tick(dT)
@@ -29,25 +32,38 @@ Tecton : growMycelium(Fungus, Tecton)
 Tecton : isNeighbor(Tecton)
 Tecton : removeInsect(Insect)
 Tecton : addInsect(Insect)
+Tecton : distanceTo(Tecton)
+Tecton : addSpore(Spore)
 
 Mushroom : burstSpore(Tecton)
+Mushroom : range
 
 Mycelium o-- Fungus
 Mycelium : destroy()
 
-Insect *--o "*" InsectEffect : activeEffects
+Insect "insect" *--o "*" InsectEffect : activeEffects
 Insect "*" -- Tecton : location
 Insect : cooldown
+Insect: speed
+Insect : antiChewCount
+Insect : isParalysed
 Insect : score
 Insect : eatSpore()
 Insect : moveTo(Tecton)
 Insect : chewMycelium(Mycelium)
 
-Spore o-- Fungus
+Spore o-- Fungus : fungus
 Spore : getEffect()
 
-InsectEffect <-- Spore
-InsectEffect : applyTo(Insect)
+InsectEffect : timeLeft
+InsectEffect : {abstract} applyTo(Insect)
+InsectEffect : {abstract} remove()
+
+InsectEffect <|-- SpeedEffect
+SpeedEffect : multiplier
+
+InsectEffect <|-- ParalysingEffect
+InsectEffect <|-- AntiChewEffect
 
 Fungus -- Mushroom
 @enduml
