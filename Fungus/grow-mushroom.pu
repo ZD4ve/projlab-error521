@@ -1,0 +1,31 @@
+@startuml
+
+participant ":Fungus" as fungus
+participant "target:Tecton" as target
+participant ":Spore" as spore
+participant ":Mycelium" as mycelium
+
+-> fungus : growMushroom(target)
+activate fungus
+fungus -> target: growMushroom(species)
+
+activate target
+
+target -> spore : getSpecies()
+activate spore
+target <-- spore : species
+deactivate spore
+
+target -> mycelium : getSpecies()
+activate mycelium
+target <-- mycelium : species
+deactivate mycelium
+
+fungus <-- target : mushroom
+
+<-- fungus : success
+
+deactivate target
+deactivate fungus
+
+@enduml

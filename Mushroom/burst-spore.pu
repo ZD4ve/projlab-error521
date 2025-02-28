@@ -7,13 +7,14 @@ participant ":Spore" as spore
 -> shroom : burstSpore(target)
 activate shroom
 
-shroom -> location : distanceTo(target)
-activate location
+opt Ready
+    shroom -> location : distanceTo(target)
+    activate location
 
-shroom <-- location : distance
-deactivate location
+    shroom <-- location : distance
+    deactivate location
 
-opt distance <= range
+    opt distance <= range
     create spore
     shroom -> spore : new(fungus)
     activate spore
@@ -26,9 +27,17 @@ opt distance <= range
 
     shroom <-- target
     deactivate target
+
+    opt sporeCount == 0
+        ref over shroom
+            mushroom-death
+        end ref 
+    end
 end
 
+'we sure about this? - what if it dies before??
 <-- shroom : success
+
 deactivate shroom
 
 @enduml

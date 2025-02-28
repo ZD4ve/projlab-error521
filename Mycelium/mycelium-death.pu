@@ -1,0 +1,26 @@
+@startuml
+
+participant ":Mycelium" as mycelium
+participant "location:Tecton" as location
+participant ":Fungus" as fungus
+
+-> mycelium: die()
+activate mycelium
+
+mycelium -> location : removeMycelium(myc)
+activate location
+mycelium <-- location 
+deactivate location
+
+
+mycelium -> fungus : removeMycelium(myc)
+activate fungus
+ref over fungus
+    check_connevitity 
+end ref
+mycelium <-- fungus 
+deactivate fungus
+
+destroy mycelium
+
+@enduml
