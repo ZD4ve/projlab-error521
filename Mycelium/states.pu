@@ -1,0 +1,11 @@
+@startuml MyceliumStates
+skinparam linetype ortho
+
+[*] --> Growing : growMycelium()???
+Growing --> Normal : tick(dT)???
+
+Normal --> [*] : forceDestroy()
+Growing --> [*] : forceDestroy()
+
+
+@enduml

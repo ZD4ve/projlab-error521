@@ -1,0 +1,11 @@
+@startuml MushroomStates
+'skinparam linetype ortho
+
+[*] --> Growing : growMushroom()???
+Growing --> Ready : tick(dT)???
+Ready --> SporeBursting : burstSpore()???
+SporeBursting --> Recharging
+Recharging --> Ready : tick(dT)???
+SporeBursting --> [*] : outOfSpores()???
+
+@enduml

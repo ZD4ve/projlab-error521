@@ -1,0 +1,21 @@
+@startuml InsectStates
+skinparam linetype ortho
+
+
+' TODO: Az effekteknek nem állapotként kellene szerepelniük
+state Alive {
+    [*] --> Idle
+    Idle --> Active : action()
+    Active --> Idle : cooldown == 0
+    ||
+    [*] --> CanWalk
+    CanWalk --> Cripled
+    Cripled --> CanWalk
+    ||
+    [*] --> CanChew
+    CanChew --> Toothless
+    Toothless --> CanChew
+}
+[*] --> Alive
+
+@enduml
