@@ -44,7 +44,7 @@ Mycelium : destroy()
 Insect "insect" *--o "*" InsectEffect : activeEffects
 Insect "*" -- Tecton : location
 Insect : cooldown
-Insect: speed
+Insect : speed
 Insect : antiChewCount
 Insect : isParalysed
 Insect : score
