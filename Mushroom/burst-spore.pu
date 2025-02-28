@@ -15,23 +15,24 @@ opt Ready
     deactivate location
 
     opt distance <= range
-    create spore
-    shroom -> spore : new(fungus)
-    activate spore
+        create spore
+        shroom -> spore : new(fungus)
+        activate spore
 
-    shroom <-- spore
-    deactivate spore
+        shroom <-- spore
+        deactivate spore
 
-    shroom -> target : addSpore(spore)
-    activate target
+        shroom -> target : addSpore(spore)
+        activate target
 
-    shroom <-- target
-    deactivate target
+        shroom <-- target
+        deactivate target
 
-    opt sporeCount == 0
-        ref over shroom
-            mushroom-death
-        end ref 
+        opt sporeCount == 0
+            ref over shroom
+                mushroom-death
+            end ref 
+        end
     end
 end
 
