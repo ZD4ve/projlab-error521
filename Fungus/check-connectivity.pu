@@ -1,0 +1,25 @@
+@startuml check_connectivity
+
+participant ":Fungus" as fungus
+participant ":Myceilum" as mycelium
+participant ":Mushroom" as mushroom
+
+fungus -> fungus : checkConnectivity()
+activate fungus
+
+fungus -> mushroom : getLocation()
+activate mushroom
+fungus <-- mushroom : location
+deactivate mushroom
+
+fungus -> mycelium : getEnds()
+activate mycelium
+fungus <-- mycelium : ends
+deactivate mycelium
+
+fungus -> mycelium : die()
+destroy mycelium
+
+deactivate fungus
+
+@enduml
