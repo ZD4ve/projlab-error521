@@ -29,7 +29,7 @@ Tecton *-- "*" Spore
 Tecton "1" *--o "0..1" Mushroom
 Tecton : growMushroom(Fungus)
 Tecton : growMycelium(Fungus, Tecton)
-Tecton : isNeighbor(Tecton)
+Tecton : hasMyceliumTo(Tecton)
 Tecton : removeInsect(Insect)
 Tecton : addInsect(Insect)
 Tecton : distanceTo(Tecton)

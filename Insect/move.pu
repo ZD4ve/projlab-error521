@@ -10,13 +10,13 @@ activate insect
 
 opt cooldown == 0
 
-    insect -> location : isNeighbor(target)
+    insect -> location : hasMyceliumTo(target)
     activate location
 
-    insect <-- location : neighbor
+    insect <-- location : moveValid
     deactivate location
 
-    opt neighbor
+    opt moveValid
 
         insect -> location : removeInsect(self)
         activate location
@@ -30,7 +30,6 @@ opt cooldown == 0
         insect <-- target
         deactivate target
     end
-
 end
 
 <-- insect
