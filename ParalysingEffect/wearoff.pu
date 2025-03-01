@@ -11,6 +11,14 @@ activate target
 effect <-- target
 deactivate target
 
+effect -> target : removeEffect(self)
+activate target
+
+effect <-- target
+deactivate target
+
 <-- effect
 deactivate effect
+destroy effect
+
 @enduml

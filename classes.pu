@@ -51,6 +51,7 @@ Insect : score
 Insect : eatSpore()
 Insect : moveTo(Tecton)
 Insect : chewMycelium(Mycelium)
+Insect : removeEffect(InsectEffect)
 
 Spore o-- Fungus : fungus
 Spore : getEffect()
