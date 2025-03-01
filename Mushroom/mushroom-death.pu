@@ -1,4 +1,4 @@
-@startuml
+@startuml mushroom_death
 
 participant ":Mushroom" as mushroom
 participant "location:Tecton" as location

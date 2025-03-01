@@ -1,4 +1,4 @@
-@startuml
+@startuml grow_mushroom
 
 participant ":Fungus" as fungus
 participant "target:Tecton" as target

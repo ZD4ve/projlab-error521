@@ -1,4 +1,4 @@
-@startuml
+@startuml mycelium_death
 
 participant ":Mycelium" as mycelium
 participant "location:Tecton" as location
