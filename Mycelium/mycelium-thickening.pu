@@ -1,0 +1,16 @@
+@startuml
+
+participant "Mycelium" as mycelium
+participant "Fungus" as fungus
+
+-> mycelium : tick()
+activate mycelium
+
+opt Growing && cooldown == 0
+    mycelium -> fungus : myceliumGrowthComplete()
+    activate fungus
+    mycelium <-- fungus
+    deactivate fungus
+end
+
+@enduml

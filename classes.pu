@@ -14,6 +14,11 @@ together {
     class ParalysingEffect
     class AntiChewEffect
 }
+together{
+    class NoMushroomTecton
+    class SingleMyceliumTecton
+    class MyceliumAbsorbingTecton
+}
 
 IActive : tick(dT)
 
@@ -30,6 +35,8 @@ Tecton "1" *--o "0..1" Mushroom
 Tecton : growMushroom(Fungus)
 Tecton : growMycelium(Fungus, Tecton)
 Tecton : hasMyceliumTo(Tecton)
+Tecton : hasMushroomFrom(Fungus)
+Tecton : canGetMycelium()
 Tecton : removeInsect(Insect)
 Tecton : addInsect(Insect)
 Tecton : distanceTo(Tecton)
@@ -40,6 +47,7 @@ Mushroom : range
 
 Mycelium o-- Fungus
 Mycelium : destroy()
+Mycelium : create()
 
 Insect "insect" *--o "*" InsectEffect : activeEffects
 Insect "*" -- Tecton : location
@@ -56,6 +64,8 @@ Insect : removeEffect(InsectEffect)
 Spore o-- Fungus : fungus
 Spore : getEffect()
 
+Fungus : canGrowMycelium()
+
 InsectEffect : timeLeft
 InsectEffect : {abstract} applyTo(Insect)
 InsectEffect : {abstract} remove()
@@ -65,6 +75,10 @@ SpeedEffect : multiplier
 
 InsectEffect <|-- ParalysingEffect
 InsectEffect <|-- AntiChewEffect
+
+Tecton <|-- NoMushroomTecton
+Tecton <|-- SingleMyceliumTecton
+Tecton <|-- MyceliumAbsorbingTecton
 
 Fungus -- Mushroom
 @enduml

@@ -1,0 +1,58 @@
+@startuml
+participant Tecton as Dying
+' valszeg ez looppal kellene
+participant "allNeighbors:Tecton[]" as allNeighbors
+participant "insectsOnMe:Insect[]" as Insects
+participant "Mushroom" as Mushroom
+participant "myceliumsOnMe" as target
+
+-> Dying : tick()
+activate Dying
+opt Tearing
+
+Dying -> allNeighbors : removeNeighbor(self)
+activate allNeighbors
+Dying <-- allNeighbors
+deactivate allNeighbors
+
+create Tecton as New1
+Dying -> New1 : newMe()
+Dying -> New1 : fillWithStuff(...)
+activate New1
+Dying <-- New1
+deactivate New1
+
+create Tecton as New2
+Dying -> New2 : newMe()
+Dying -> New2 : fillWithStuff(...)
+activate New2
+Dying <-- New2
+deactivate New2
+
+' set location on moved objects ...
+Dying -> Insects : setLocation(tecton)
+activate Insects
+Dying <-- Insects
+deactivate Insects
+
+Dying -> Mushroom : setLocation(tecton)
+activate Mushroom
+Dying <-- Mushroom
+deactivate Mushroom
+
+Dying -> target : destroy()
+    activate target
+
+ref over target
+    check-connectivity
+end ref
+
+Dying <-- target
+destroy target
+
+' unsubscribe from tick
+<- Dying : unsubscribe(self)
+destroy Dying
+end
+
+@enduml

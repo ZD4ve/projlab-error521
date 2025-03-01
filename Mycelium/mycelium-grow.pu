@@ -1,0 +1,51 @@
+@startuml mycelium_grow
+
+participant "source:Tecton" as source
+participant "target:Tecton" as target
+participant "fungus:Fungus" as fungus
+participant ":Mycelium" as mycelium
+
+-> source : growMycelium(fungus, target)
+activate source
+
+source -> target : distanceTo(source)
+activate target
+source <-- target : distance
+deactivate target
+opt distance == 1
+'TODO MIAFASZ'
+    source -> target : hasMushroomFrom(fungus)
+    activate target
+    source <-- target : hasMushroom
+    deactivate target
+    source -> target : hasMyceliumTo(target)
+    activate target
+    source <-- target : hasMycelium
+    deactivate target
+
+    opt hasMycelium || hasMushroom
+        source -> target : canGetMycelium()
+        activate target
+        source <-- target : canGet
+        deactivate target
+
+        opt canGet
+            source -> fungus : canGrowMycelium()
+            activate fungus
+            source <-- fungus : canGrow
+            deactivate fungus
+            opt canGrow
+                create mycelium
+                source -> mycelium
+                activate mycelium
+                source <-- mycelium
+                deactivate mycelium
+            end
+        end
+    end
+end
+<-- source : success
+deactivate source
+
+
+@enduml
