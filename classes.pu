@@ -6,6 +6,9 @@ interface IActive {
 'NEM E KELL RETURN TÍPUS'
 
 'Dávid: kikommentelt fv-ek getter-setterek, elhagyhatjuk őket innen?
+'takeSpore->eatspore diagram
+'ha kell remove akkor removemushroom
+
 'LÁTHATÓSÁG kell?
 class Tecton {
     growMushroom(Fungus)
