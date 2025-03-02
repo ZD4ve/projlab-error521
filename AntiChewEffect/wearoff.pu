@@ -11,10 +11,6 @@ effect -> target : setAntiChewCount(getAntiChewCount() - 1)
 activate target
 return
 
-effect -> target : removeEffect(self)
-activate target
-return
-
 return
 
 @enduml

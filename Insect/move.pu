@@ -1,7 +1,7 @@
 @startuml Insect/move
 hide footbox
 
-participant ":Insect" as insect
+participant "insect:Insect" as insect
 participant "location:Tecton" as location
 participant "target:Tecton" as target
 
@@ -19,11 +19,11 @@ opt Idle && CanMove
 
     opt moveValid
 
-        insect -> location : removeInsect(self)
+        insect -> location : removeInsect(insect)
         activate location
         return
         
-        insect -> target : addInsect(self)
+        insect -> target : addInsect(insect)
         activate target
         return
     end

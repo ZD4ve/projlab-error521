@@ -1,7 +1,7 @@
 @startuml Insect/eat-spore
 hide footbox
 
-participant ":Insect" as insect
+participant "insect:Insect" as insect
 participant "location:Tecton" as location
 participant "sporeTaken:Spore" as sporeTaken
 participant "effect:InsectEffect" as effect
@@ -18,18 +18,20 @@ opt Idle && CanMove
         insect -> sporeTaken : getEffect()
         activate sporeTaken
 
-        opt
-            create effect
+        ref over sporeTaken
+            effect-creation
+        end ref
+        /'    create effect
             sporeTaken -> effect : new()
             activate effect
             return
-        end
+        end'/
 
         return effect
         destroy sporeTaken
 
         opt effect exists
-            insect -> effect : applyTo(self)
+            insect -> effect : applyTo(insect)
             activate effect
             return
         end

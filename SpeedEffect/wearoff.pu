@@ -11,10 +11,6 @@ effect -> target : setSpeed(getSpeed() / multiplier)
 activate target
 return
 
-effect -> target : removeEffect(self)
-activate target
-return
-
 return
 
 @enduml

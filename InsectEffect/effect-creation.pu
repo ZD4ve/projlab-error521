@@ -1,0 +1,33 @@
+@startuml
+hide footbox
+
+participant ":InsectEffect" as effect
+participant ":AntiChewEffect" as anticheweffect
+participant ":ParalysingEffect" as paralysingeffect
+participant ":SpeedEffect" as speedeffect
+
+-> effect : createEffect()
+activate effect
+
+alt random == 1
+    create anticheweffect
+    effect -> anticheweffect : new()
+    activate anticheweffect
+    return effect
+else random == 2
+    create paralysingeffect
+    effect -> paralysingeffect : new()
+    activate paralysingeffect
+    return effect
+else random == 3
+    create speedeffect
+    effect -> speedeffect : new()
+    activate speedeffect
+    return effect
+else random > 3
+    effect -> effect : effect = null
+end
+
+return effect
+
+@enduml

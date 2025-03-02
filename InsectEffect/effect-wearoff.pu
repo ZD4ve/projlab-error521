@@ -1,8 +1,8 @@
 @startuml InsectEffect/effect-wearoff
 hide footbox
 
-participant ":InsectEffect" as effect
-
+participant "effect:InsectEffect" as effect
+participant "insect:Insect" as insect
 
 'TODO abstract osztály de nem abstract metódus?
 ' kin hívjuk meg a remove()-ot?
@@ -17,6 +17,11 @@ opt timeLeft == 0
     ref over effect
         wearoff
     end ref
+    return
+
+    effect -> insect : removeEffect(effect)
+    activate insect
+
     return
 end
 
