@@ -48,17 +48,18 @@ IActive ()- Mycelium
 IActive ()- Insect
 IActive ()- InsectEffect
 
-Tecton o-- "*" Tecton
-Tecton "2" o-- "*" Mycelium
-Tecton *-- "*" Spore
-Tecton "1" o-- "0..1" Mushroom
+Tecton o-- "*" Tecton : neighbors
+Tecton "ends" o-- "mycelia" Mycelium
+Tecton o-- "spores" Spore
+Tecton "mushroom" o-- "location" Mushroom
 
-Mycelium --* Fungus
+Mycelium "mycelia" --* "species" Fungus
 
-Insect "insect" *-- "*" InsectEffect
-Insect "*" --o Tecton
+Insect "effects" *-- "insect" InsectEffect
+Insect "insects" --o "location" Tecton
 
-Spore --> Fungus
+Fungus "species" *-- "mushrooms" Mushroom
 
-Fungus *-- Mushroom
+Spore --* "species" Fungus
+
 @enduml
