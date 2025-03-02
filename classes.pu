@@ -2,40 +2,22 @@
 interface IActive {
     tick(dT)
 }
-'Addneighbor, remove, fill belement többet hogy jelölünk
-'NEM E KELL RETURN TÍPUS'
-
-'Panni: nagyon sok konstruktor még hiányzik!!!
-
-'Dávid: kikommentelt fv-ek getter-setterek, elhagyhatjuk őket?
-'takeSpore->eatspore diagram
-'ha kell remove akkor removemushroom
-'Panni: szerintem a ezek főleg nem getter/setterek, hanem addok, removeok, azok szerintem kellenek
-
-'LÁTHATÓSÁG kell?
-'Panni: szerintem nem, mert a követelményekben szerint amúgy is csak publikus metódusok szerepelhetnek
-
-/' A követelményekből:
-    Attribútumok és metódusok is kellenek, típussal, paraméterrel együtt. Itt még csak publikus metódusok szerepelhetnek! 
-    Látsszanak a metódus-felüldefiniálások is (a felüldefiniált metódusok a leszármazott osztályban legyenek láthatók,
-    a nem felüldefiniáltak a leszármazottban elhagyhatók)
-'/
 class Tecton {
     growMushroom(Fungus)
     growMycelium(Fungus, Tecton)
-    hasMyceliumTo(Tecton)
-    canGrowMyceliumFrom(Fungus)
-    ' removeInsect(Insect)
-    ' addInsect(Insect)
-    ' addNeighbor(Tecton)
-    ' removeNeighbor(Tecton)
-    fillWithStuff(Spore[], Mushroom, Instect[], Tecton[])
-    distanceTo(Tecton)
-    ' addSpore(Spore)
-    newMe()
+    hasMyceliumTo(Tecton) : boolean
+    canGrowMyceliumFrom(Fungus) : boolean
+    removeInsect(Insect)
+    addInsect(Insect)
+    addNeighbor(Tecton)
+    removeNeighbor(Tecton)
+    fillWithStuff(Spore[], Mushroom, Insect[], Tecton[])
+    distanceTo(Tecton) : int
+    addSpore(Spore)
+    newMe() : Tecton
 }
 class Fungus {
-    canGrowMycelium()
+    canGrowMycelium() : boolean
     myceliumGrowthComplete()
     growMushroom(Tecton)
     growMycelium(Tecton, Tecton)
@@ -48,18 +30,12 @@ class Mushroom {
     range
     cooldown
     Mushroom(Fungus, Tecton)
-    getLocation()
-    ' setLocation(Tecton)
     burstSpore(Tecton)
     die()
 }
 class Spore {
     getEffect()
 }
-
-'Panni: ide nem írom ki a getter-settereket, elegek szntem az attribútumok
-' +ha van removeEffect() akkor applyEffect() nincs? vagy azt a setIsParalysed() és a hasonlóak helyettesítik?
-' +azt viszont nem tudom h az asszociációk setterei (pl setLocation) kellenek-e
 class Insect {
     cooldown
     speed
@@ -70,13 +46,12 @@ class Insect {
     moveTo(Tecton)
     chewMycelium(Mycelium)
     removeEffect(InsectEffect)
-    setLocation(Tecton)
 }
 abstract InsectEffect {
     timeLeft
     {abstract} applyTo(Insect)
     {abstract} remove()
-    {static} createEffect()
+    {static} createEffect() : InsectEffect
 }
 
 IActive ()- Tecton
@@ -91,12 +66,9 @@ Tecton o-- "spores" Spore
 Tecton "location" o-- "mushroom" Mushroom
 
 Mycelium "mycelia" --* "species" Fungus
-
 Insect "activeEffects" *-- "insect" InsectEffect
 Insect "insects" --o "location" Tecton
-
 Fungus "species" *-- "mushrooms" Mushroom
-
 Spore --* "species" Fungus
 
 @enduml
