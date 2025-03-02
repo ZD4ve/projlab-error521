@@ -55,7 +55,9 @@ class Mushroom {
     burstSpore(Tecton)
     die()
 }
-class Spore
+class Spore {
+    getEffect()
+}
 
 'Panni: ide nem írom ki a getter-settereket, elegek szntem az attribútumok
 ' +ha van removeEffect() akkor applyEffect() nincs? vagy azt a setIsParalysed() és a hasonlóak helyettesítik?
