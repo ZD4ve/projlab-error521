@@ -41,7 +41,7 @@ Dying -> Mushroom : setLocation(t1 or t2)
 activate Mushroom
 return
 
-Dying -> target : destroy()
+Dying -> target : die()
 activate target
 
 ref over target
