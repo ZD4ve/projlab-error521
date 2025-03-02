@@ -1,11 +1,11 @@
 @startuml MyceliumStates
 skinparam linetype ortho
 
-[*] --> Growing : growMycelium()???
-Growing --> Normal : tick(dT)???
+[*] --> Growing
+Growing --> Normal : cooldown == 0
 
-Normal --> [*] : forceDestroy()
-Growing --> [*] : forceDestroy()
+Normal --> [*] : die()
+Growing --> [*] : die()
 
 
 @enduml

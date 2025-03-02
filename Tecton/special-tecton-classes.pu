@@ -1,9 +1,18 @@
 @startuml Tecton/special-tecton-classes
 
 class Tecton
-class NoMushroomTecton
-class SingleMyceliumTecton
-class MyceliumAbsorbingTecton
+class NoMushroomTecton {
+    newMe()
+    growMushroom(Fungus)
+}
+class SingleMyceliumTecton {
+    newMe()
+    canGrowMyceliumFrom(Fungus)
+}
+class MyceliumAbsorbingTecton {
+    newMe()
+    tick(dT)
+}
 
 Tecton <|-- NoMushroomTecton
 Tecton <|-- SingleMyceliumTecton
