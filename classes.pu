@@ -21,8 +21,12 @@ class Mycelium {
     create()
 }
 class Mushroom {
-    burstSpore(Tecton)
     range
+    Mushroom(Fungus, Tecton)
+    getLocation()
+    setLocation(Tecton)
+    burstSpore(Tecton)
+    die()
 }
 class Spore
 class Insect {
@@ -51,7 +55,7 @@ IActive ()- InsectEffect
 Tecton o-- "*" Tecton : neighbors
 Tecton "ends" o-- "mycelia" Mycelium
 Tecton o-- "spores" Spore
-Tecton "mushroom" o-- "location" Mushroom
+Tecton "location" o-- "mushroom" Mushroom
 
 Mycelium "mycelia" --* "species" Fungus
 
