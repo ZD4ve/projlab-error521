@@ -5,7 +5,7 @@ collections "insects:Insect" as insects
 collections "neighbors:Tecton" as neighbors
 participant "mushroom:Mushroom" as mushroom
 
--> tecton : fillWithStuff(spore, mushroom, instects, neighbors)
+-> tecton : fillWithStuff(spore, mushroom, insects, neighbors)
 activate tecton
 tecton -> insects : setLocation(tecton)
 activate insects
