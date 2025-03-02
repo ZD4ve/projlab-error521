@@ -5,7 +5,6 @@ participant "mushroom:Mushroom" as mushroom
 participant "location:Tecton" as location
 participant ":Fungus" as fungus
 
-'TODO self to self?
 -> mushroom : die()
 activate mushroom
 

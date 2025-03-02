@@ -32,5 +32,4 @@ opt Ready
     end
 end
 
-'TODO we sure about this? - what if it dies before??
 return success
