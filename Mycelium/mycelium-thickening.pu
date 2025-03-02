@@ -9,6 +9,7 @@ activate mycelium
 
 opt Growing && cooldown == 0
     mycelium -> fungus : myceliumGrowthComplete()
+    'TODO milyen függvény kell'
     activate fungus
     return
 end

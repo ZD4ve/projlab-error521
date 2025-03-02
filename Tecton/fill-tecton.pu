@@ -1,0 +1,27 @@
+@startuml Tecton/fill-tecton
+
+participant "tecton:Tecton" as tecton
+collections "insects:Insect" as insects
+collections "neighbors:Tecton" as neighbors
+participant "mushroom:Mushroom" as mushroom
+
+-> tecton : fillWithStuff(spore, mushroom, insects, neighbors)
+activate tecton
+tecton -> insects : setLocation(tecton)
+activate insects
+return
+
+tecton -> mushroom : setLocation(tecton)
+activate mushroom
+return
+
+tecton -> neighbors : addNeighbor(tecton)
+activate neighbors
+return
+
+tecton -> tecton : addNeighbor(neighbors)
+activate tecton
+return
+
+return
+@enduml

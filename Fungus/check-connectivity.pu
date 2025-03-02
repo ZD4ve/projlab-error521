@@ -2,11 +2,9 @@
 hide footbox
 
 participant ":Fungus" as fungus
-collections ":Myceilum" as mycelium
-collections ":Mushroom" as mushroom
+collections "mycelia:Myceilum" as mycelium
+collections "mushrooms:Mushroom" as mushroom
 
-'TODO hmmm, im not sure about this
-' self to self?
 
 -> fungus : checkConnectivity()
 activate fungus

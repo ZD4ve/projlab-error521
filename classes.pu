@@ -2,6 +2,8 @@
 interface IActive {
     tick(dT)
 }
+'Addneighbor, remove, fill belement többet hogy jelölünk
+'NEM E KELL TÍPUS'
 class Tecton {
     growMushroom(Fungus)
     growMycelium(Fungus, Tecton)
@@ -10,6 +12,9 @@ class Tecton {
     canGetMycelium()
     removeInsect(Insect)
     addInsect(Insect)
+    addNeighbor(Tecton)
+    removeNeighbor(Tecton)
+    fillWithStuff(Spore, Mushroom, Instect, Neighbor)
     distanceTo(Tecton)
     addSpore(Spore)
 }
@@ -21,10 +26,19 @@ class Mycelium {
     create()
 }
 class Mushroom {
-    burstSpore(Tecton)
     range
+    Mushroom(Fungus, Tecton)
+    getLocation()
+    setLocation(Tecton)
+    burstSpore(Tecton)
+    die()
 }
 class Spore
+
+'Panni: ide nem írom ki a getter-settereket, elegek szntem az attribútumok
+' +ha van removeEffect() akkor applyEffect() nincs? vagy azt a setIsParalysed() és a hasonlóak helyettesítik?
+' +azt viszont nem tudom h az asszociációk setterei (pl setLocation) kellenek-e
+' +az antiChewCount az hogyhogy counter és nem boolean?
 class Insect {
     cooldown
     speed
@@ -35,6 +49,7 @@ class Insect {
     moveTo(Tecton)
     chewMycelium(Mycelium)
     removeEffect(InsectEffect)
+    setLocation(Tecton)
 }
 abstract InsectEffect {
     timeLeft
@@ -49,16 +64,17 @@ IActive ()- Insect
 IActive ()- InsectEffect
 
 Tecton o-- "*" Tecton : neighbors
-Tecton "2" -- "*" Mycelium
-Tecton *-- "*" Spore
-Tecton "1" *--o "0..1" Mushroom
+Tecton "ends" o-- "mycelia" Mycelium
+Tecton o-- "spores" Spore
+Tecton "location" o-- "mushroom" Mushroom
 
-Mycelium o-- Fungus
+Mycelium "mycelia" --* "species" Fungus
 
-Insect "insect" *--o "*" InsectEffect : activeEffects
-Insect "*" -- Tecton : location
+Insect "activeEffects" *-- "insect" InsectEffect
+Insect "insects" --o "location" Tecton
 
-Spore o-- Fungus : fungus
+Fungus "species" *-- "mushrooms" Mushroom
 
-Fungus -- Mushroom
+Spore --* "species" Fungus
+
 @enduml

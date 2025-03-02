@@ -1,44 +1,35 @@
 @startuml Tecton/tecton-break-seq
 hide footbox
 
-participant ":Tecton" as Dying
+participant "tecton:Tecton" as Dying
 collections "allNeighbors:Tecton" as allNeighbors
-collections "insectsOnMe:Insect" as Insects
-participant ":Mushroom" as Mushroom
 collections "myceliumsOnMe:Mycelium" as target
 
 -> Dying : tick(dT)
 activate Dying
-opt Tearing
+opt Breaking
 
-Dying -> allNeighbors : removeNeighbor(self)
+Dying -> allNeighbors : removeNeighbor(tecton)
 activate allNeighbors
 return
 
 create "t1:Tecton" as New1
 Dying -> New1 : newMe()
-Dying -> New1 : fillWithStuff(...)
+Dying -> New1 : fillWithStuff(spore, mushroom, insectsOnMe, subsetOfNeighbors)
 activate New1
-return
-Dying -> allNeighbors : addNeighbor(t1)
-activate allNeighbors
+ref over New1
+    fill-tecton
+end ref
 return
 
 create "t2:Tecton" as New2
+'Newme helyett mi'
 Dying -> New2 : newMe()
-Dying -> New2 : fillWithStuff(...)
+Dying -> New2 : fillWithStuff(spore, mushroom, insectsOnMe, subsetOfNeighbors)
 activate New2
-return
-Dying -> allNeighbors : addNeighbor(t2)
-activate allNeighbors
-return
-
-Dying -> Insects : setLocation(t1 or t2)
-activate Insects
-return
-
-Dying -> Mushroom : setLocation(t1 or t2)
-activate Mushroom
+ref over New2
+    fill-tecton
+end ref
 return
 
 Dying -> target : die()

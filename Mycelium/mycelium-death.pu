@@ -3,7 +3,7 @@ hide footbox
 
 participant "myc:Mycelium" as mycelium
 participant "location:Tecton" as location
-participant ":Fungus" as fungus
+participant "species:Fungus" as fungus
 
 -> mycelium: die()
 activate mycelium
