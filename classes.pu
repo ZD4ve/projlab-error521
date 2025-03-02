@@ -5,11 +5,21 @@ interface IActive {
 'Addneighbor, remove, fill belement többet hogy jelölünk
 'NEM E KELL RETURN TÍPUS'
 
+'Panni: nagyon sok konstruktor még hiányzik!!!
+
 'Dávid: kikommentelt fv-ek getter-setterek, elhagyhatjuk őket?
 'takeSpore->eatspore diagram
 'ha kell remove akkor removemushroom
+'Panni: szerintem a ezek főleg nem getter/setterek, hanem addok, removeok, azok szerintem kellenek
 
 'LÁTHATÓSÁG kell?
+'Panni: szerintem nem, mert a követelményekben szerint amúgy is csak publikus metódusok szerepelhetnek
+
+/' A követelményekből:
+    Attribútumok és metódusok is kellenek, típussal, paraméterrel együtt. Itt még csak publikus metódusok szerepelhetnek! 
+    Látsszanak a metódus-felüldefiniálások is (a felüldefiniált metódusok a leszármazott osztályban legyenek láthatók,
+    a nem felüldefiniáltak a leszármazottban elhagyhatók)
+'/
 class Tecton {
     growMushroom(Fungus)
     growMycelium(Fungus, Tecton)
@@ -29,8 +39,10 @@ class Fungus {
     myceliumGrowthComplete()
     growMushroom(Tecton)
 }
+'itt a create az micsoda?
 class Mycelium {
     cooldown
+    Mycelium(Fungus,Tecton,Tecton)
     die()
     create()
 }
