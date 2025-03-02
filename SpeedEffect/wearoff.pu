@@ -7,7 +7,11 @@ participant "insect:Insect" as target
 -> effect : remove()
 activate effect
 
-effect -> target : setSpeed(getSpeed() / multiplier)
+effect -> target : getSpeed()
+activate target
+return speed
+
+effect -> target : setSpeed(speed / multiplier)
 activate target
 return
 
