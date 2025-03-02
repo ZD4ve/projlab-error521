@@ -1,0 +1,22 @@
+@startuml Tecton/absorb-mycelium
+hide footbox
+
+participant "tecton:MyceliumAbsorbingTecton" as tecton
+collections "mycelia: Mycelium" as mycelia
+
+-> tecton : tick(dT)
+activate tecton
+opt cooldown == 0
+    tecton -> mycelia : die()
+    activate mycelia
+
+    ref over mycelia
+        mycelium-death
+    end ref
+
+    return
+    destroy mycelia
+end
+return
+
+@enduml
