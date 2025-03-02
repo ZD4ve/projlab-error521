@@ -32,4 +32,4 @@ opt Ready
     end
 end
 
-return success
+return

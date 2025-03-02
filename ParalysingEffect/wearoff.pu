@@ -7,10 +7,7 @@ participant "insect:Insect" as target
 -> effect : remove()
 activate effect
 
-
-'TODO itt gondolom valami másra volt gondolva nem a chewcountra
-'       pl setParalysed(false)?
-effect -> target : setAntiChewCount(getAntiChewCount() - 1)
+effect -> target : setParalysed(false)
 activate target
 return
 

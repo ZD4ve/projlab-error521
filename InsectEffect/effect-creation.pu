@@ -7,7 +7,6 @@ participant ":AntiChewEffect" as antichewEffect
 participant ":ParalysingEffect" as paralysingEffect
 participant ":SpeedEffect" as speedEffect
 
--> spore : getEffect()
 activate spore
 
 spore -> effect : createEffect()
@@ -29,10 +28,12 @@ else random == 3
     activate speedEffect
     return effect
 else random > 3
-' ez így biztos jó?
-    effect -> effect : effect = null
+    ' effect -> effect : effect = null
+    note over effect
+        effect is null here
+    end note
 end
 
 return effect
-return effect
+
 @enduml
