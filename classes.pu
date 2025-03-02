@@ -6,17 +6,17 @@ interface IActive {
 'NEM E KELL RETURN TÍPUS'
 
 'Dávid: kikommentelt fv-ek getter-setterek, elhagyhatjuk őket innen?
+'LÁTHATÓSÁG kell?
 class Tecton {
     growMushroom(Fungus)
     growMycelium(Fungus, Tecton)
     hasMyceliumTo(Tecton)
-    canGetMycelium()
-    canGrowMyceliumFrom(Tecton)
+    canGrowMyceliumFrom(Fungus)
     ' removeInsect(Insect)
     ' addInsect(Insect)
     ' addNeighbor(Tecton)
     ' removeNeighbor(Tecton)
-    fillWithStuff(Spore, Mushroom, Instect, Neighbor)
+    fillWithStuff(Spore[], Mushroom, Instect[], Tecton[])
     distanceTo(Tecton)
     ' addSpore(Spore)
     newMe()
