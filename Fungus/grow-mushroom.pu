@@ -3,8 +3,8 @@ hide footbox
 
 participant "species:Fungus" as fungus
 participant "target:Tecton" as target
-collections ":Spore" as spore
-collections ":Mycelium" as mycelium
+collections "spores:Spore" as spore
+collections "mycelia:Mycelium" as mycelium
 participant "mushroom:Mushroom" as mushroom
 
 -> fungus : growMushroom(target)
@@ -23,9 +23,9 @@ opt hasEnoughSpores
     return species
     opt hasMycelium
         create mushroom
-        target -> mushroom : new()
+        target -> mushroom : new(species, target)
         activate mushroom
-        return
+        return mushroom
     end
 end
 

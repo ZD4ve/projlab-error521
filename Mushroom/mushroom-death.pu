@@ -1,7 +1,7 @@
 @startuml Mushroom/mushroom-death
 hide footbox
 
-participant ":Mushroom" as mushroom
+participant "mushroom:Mushroom" as mushroom
 participant "location:Tecton" as location
 participant ":Fungus" as fungus
 
