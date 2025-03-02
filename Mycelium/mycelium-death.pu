@@ -1,11 +1,11 @@
 @startuml Mycelium/mycelium-death
 hide footbox
 
-participant ":Mycelium" as mycelium
+participant "myc:Mycelium" as mycelium
 participant "location:Tecton" as location
 participant ":Fungus" as fungus
 
--> mycelium: destroy()
+-> mycelium: die()
 activate mycelium
 
 mycelium -> location : removeMycelium(myc)

@@ -1,10 +1,10 @@
 @startuml Tecton/tecton-break-seq
 hide footbox
 
-participant Tecton as Dying
+participant ":Tecton" as Dying
 collections "allNeighbors:Tecton" as allNeighbors
 collections "insectsOnMe:Insect" as Insects
-participant "Mushroom" as Mushroom
+participant ":Mushroom" as Mushroom
 collections "myceliumsOnMe:Mycelium" as target
 
 -> Dying : tick(dT)
@@ -41,7 +41,7 @@ Dying -> Mushroom : setLocation(t1 or t2)
 activate Mushroom
 return
 
-Dying -> target : destroy()
+Dying -> target : die()
 activate target
 
 ref over target

@@ -3,14 +3,14 @@ hide footbox
 
 participant "source:Tecton" as source
 participant "target:Tecton" as target
-participant "fungus:Fungus" as fungus
+participant "species:Fungus" as species
 participant ":Mycelium" as mycelium
 
--> source : growMycelium(fungus, target)
+-> source : growMycelium(species, target)
 activate source
 
-source -> fungus : canGrowMycelium()
-activate fungus
+source -> species : canGrowMycelium()
+activate species
 return ready
 opt ready
     source -> target : distanceTo(source)
@@ -18,17 +18,17 @@ opt ready
     return distance
     opt distance == 1
     'TODO MIAFASZ'
-        source -> source : canGrowMyceliumFrom(fungus)
+        source -> source : canGrowMyceliumFrom(species)
         activate source
         return sourceCanGrow
-        source -> target : canGrowMyceliumFrom(fungus) 
+        source -> target : canGrowMyceliumFrom(species) 
         activate target
         return targetCanGrow
         ' ^check (gombatest or mycelium) and (mycelium species count < limit)
 
         opt sourceCanGrow && targetCanGrow
             create mycelium
-            source -> mycelium : new(fungus,source,target)
+            source -> mycelium : new(species,source,target)
             activate mycelium
             return
         end
