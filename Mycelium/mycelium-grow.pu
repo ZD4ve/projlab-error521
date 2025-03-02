@@ -18,12 +18,15 @@ opt ready
     return distance
     opt distance == 1
     'TODO MIAFASZ'
+        source -> source : canGrowMyceliumFrom(fungus)
+        activate source
+        return sourceCanGrow
         source -> target : canGrowMyceliumFrom(fungus) 
-        'check (gombatest or mycelium) and (mycelium species count < limit)
         activate target
-        return canGrow
+        return targetCanGrow
+        ' ^check (gombatest or mycelium) and (mycelium species count < limit)
 
-        opt canGrow
+        opt sourceCanGrow && targetCanGrow
             create mycelium
             source -> mycelium : new(fungus,source,target)
             activate mycelium
