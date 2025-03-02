@@ -7,6 +7,8 @@ participant "target:Insect" as target
 -> effect : remove()
 activate effect
 
+
+'TODO itt gondolom valami másra volt gondolva nem a chewcountra
 effect -> target : setAntiChewCount(getAntiChewCount() - 1)
 activate target
 return

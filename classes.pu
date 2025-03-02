@@ -29,6 +29,9 @@ class Mushroom {
     die()
 }
 class Spore
+
+'Panni: ide nem írom ki a getter-settereket, elegek szntem az attribútumok
+' +ha van removeEffect() akkor applyEffect() nincs? vagy azt a setIsParalysed() és a hasonlóak helyettesítik?
 class Insect {
     cooldown
     speed
@@ -39,6 +42,7 @@ class Insect {
     moveTo(Tecton)
     chewMycelium(Mycelium)
     removeEffect(InsectEffect)
+    setLocation(Tecton)
 }
 abstract InsectEffect {
     timeLeft
