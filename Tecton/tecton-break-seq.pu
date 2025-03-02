@@ -2,8 +2,8 @@
 hide footbox
 
 participant "tecton:Tecton" as Dying
-collections "allNeighbors:Tecton" as allNeighbors
-collections "myceliumsOnMe:Mycelium" as target
+collections "neighbors:Tecton" as allNeighbors
+collections "mycelia:Mycelium" as target
 
 -> Dying : tick(dT)
 activate Dying
