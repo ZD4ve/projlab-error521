@@ -1,7 +1,7 @@
 @startuml Fungus/grow-mushroom
 hide footbox
 
-participant ":Fungus" as fungus
+participant "species:Fungus" as fungus
 participant "target:Tecton" as target
 collections ":Spore" as spore
 collections ":Mycelium" as mycelium
@@ -17,22 +17,20 @@ target -> spore : getSpecies()
 activate spore
 return species
 
-target -> mycelium : getSpecies()
-activate mycelium
-return species
-
-opt 
-    create mushroom
-    target -> mushroom : new()
-    activate mushroom
-    return
+opt hasEnoughSpores
+    target -> mycelium : getSpecies()
+    activate mycelium
+    return species
+    opt hasMycelium
+        create mushroom
+        target -> mushroom : new()
+        activate mushroom
+        return
+    end
 end
 
-fungus <-- target: mushroom
-deactivate target
+return mushroom
 
-<-- fungus : success
-
-deactivate fungus
+return success
 
 @enduml

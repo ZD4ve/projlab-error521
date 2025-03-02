@@ -42,7 +42,6 @@ abstract InsectEffect {
     {abstract} remove()
 }
 
-
 IActive ()- Tecton
 IActive ()- Mushroom
 IActive ()- Mycelium
