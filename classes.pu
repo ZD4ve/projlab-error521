@@ -2,7 +2,6 @@
 interface IActive {
     tick(dT)
 }
-
 class Tecton {
     growMushroom(Fungus)
     growMycelium(Fungus, Tecton)
@@ -14,40 +13,35 @@ class Tecton {
     distanceTo(Tecton)
     addSpore(Spore)
 }
-
-together {
-    class Fungus {
-        canGrowMycelium()
-    }
-    class Mycelium {
-        destroy()
-        create()
-    }
-    class Mushroom {
-        burstSpore(Tecton)
-        range
-    }
-    class Spore
+class Fungus {
+    canGrowMycelium()
+}
+class Mycelium {
+    destroy()
+    create()
+}
+class Mushroom {
+    burstSpore(Tecton)
+    range
+}
+class Spore
+class Insect {
+    cooldown
+    speed
+    antiChewCount
+    isParalysed
+    score
+    eatSpore()
+    moveTo(Tecton)
+    chewMycelium(Mycelium)
+    removeEffect(InsectEffect)
+}
+abstract InsectEffect {
+    timeLeft
+    {abstract} applyTo(Insect)
+    {abstract} remove()
 }
 
-together {
-    class Insect {
-        cooldown
-        speed
-        antiChewCount
-        isParalysed
-        score
-        eatSpore()
-        moveTo(Tecton)
-        chewMycelium(Mycelium)
-        removeEffect(InsectEffect)
-    }
-    abstract InsectEffect {
-        timeLeft
-        {abstract} applyTo(Insect)
-        {abstract} remove()
-    }
-}
 
 IActive ()- Tecton
 IActive ()- Mushroom
