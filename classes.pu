@@ -2,6 +2,7 @@
 interface IActive {
     tick(dT)
 }
+'Addneighbor, remove, fill belement többet hogy jelölünk
 class Tecton {
     growMushroom(Fungus)
     growMycelium(Fungus, Tecton)
@@ -10,6 +11,9 @@ class Tecton {
     canGetMycelium()
     removeInsect(Insect)
     addInsect(Insect)
+    addNeighbor(Tecton)
+    removeNeighbor(Tecton)
+    fillWithStuff(Spore, Mushroom, Instect, Neighbor)
     distanceTo(Tecton)
     addSpore(Spore)
 }

@@ -23,6 +23,7 @@ end ref
 return
 
 create "t2:Tecton" as New2
+'Newme helyett mi'
 Dying -> New2 : newMe()
 Dying -> New2 : fillWithStuff(spore, mushroom, instectsOnMe, subsetOfNeighbors)
 activate New2
