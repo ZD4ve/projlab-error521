@@ -3,8 +3,6 @@ hide footbox
 
 participant "tecton:Tecton" as Dying
 collections "allNeighbors:Tecton" as allNeighbors
-collections "insectsOnMe:Insect" as Insects
-participant "mushroom:Mushroom" as Mushroom
 collections "myceliumsOnMe:Mycelium" as target
 
 -> Dying : tick(dT)
