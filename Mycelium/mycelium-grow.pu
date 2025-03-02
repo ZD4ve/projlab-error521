@@ -13,26 +13,18 @@ source -> species : canGrowMycelium()
 activate species
 return ready
 opt ready
-    source -> target : distanceTo(source)
+    source -> source : canGrowMyceliumFrom(species)
+    activate source
+    return sourceCanGrow
+    source -> target : canGrowMyceliumFrom(species) 
     activate target
-    return distance
-    'ehelyett nem lehetne csak megnézni h benne van a neighbour listájában a source-nak a target?  úgy  eggyel kevesebb opt lenne
-    opt distance == 1
-    'TODO MIAFASZ'
-        source -> source : canGrowMyceliumFrom(species)
-        activate source
-        return sourceCanGrow
-        source -> target : canGrowMyceliumFrom(species) 
-        activate target
-        return targetCanGrow
-        ' ^check (gombatest or mycelium) and (mycelium species count < limit)
-        ' szerintem itt nem kell egyéb check, az amúgy is belső működés
-        opt sourceCanGrow && targetCanGrow
-            create mycelium
-            source -> mycelium : new(species,source,target)
-            activate mycelium
-            return
-        end
+    return targetCanGrow
+    ' ^check in implementation: (gombatest or mycelium) and (mycelium species count < limit)
+    opt sourceCanGrow && targetCanGrow && target is in neighbors
+        create mycelium
+        source -> mycelium : new(species,source,target)
+        activate mycelium
+        return
     end
 end
 <-- source : success

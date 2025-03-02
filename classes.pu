@@ -39,12 +39,9 @@ class Fungus {
     myceliumGrowthComplete()
     growMushroom(Tecton)
 }
-'itt a create az micsoda?
 class Mycelium {
-    cooldown
     Mycelium(Fungus,Tecton,Tecton)
     die()
-    create()
 }
 class Mushroom {
     range
