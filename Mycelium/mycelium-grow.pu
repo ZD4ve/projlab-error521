@@ -1,34 +1,38 @@
 @startuml Mycelium/mycelium-grow
 hide footbox
 
+participant "species:Fungus" as species
 participant "source:Tecton" as source
 participant "target:Tecton" as target
-participant "species:Fungus" as species
-participant ":Mycelium" as mycelium
+participant "mycelium:Mycelium" as mycelium
 
--> source : growMycelium(species, target)
-activate source
+-> species : growMycelium(source, target)
+activate species
 
-source -> species : canGrowMycelium()
+species -> species : canGrowMycelium()
 activate species
 return ready
+
 opt ready
+species -> source : growMycelium(species, target)
+activate source
     source -> source : canGrowMyceliumFrom(species)
     activate source
     return sourceCanGrow
     source -> target : canGrowMyceliumFrom(species) 
+    ' ^check in implementation: (gombatest or mycelium) and (mycelium species count < limit)
     activate target
     return targetCanGrow
-    ' ^check in implementation: (gombatest or mycelium) and (mycelium species count < limit)
-    opt sourceCanGrow && targetCanGrow && target is in neighbors
+    opt sourceCanGrow && targetCanGrow && target is in source.neighbors
         create mycelium
         source -> mycelium : new(species,source,target)
         activate mycelium
-        return
+        return mycelium
     end
+return mycelium
 end
-<-- source : success
-deactivate source
+return
+
 
 
 @enduml

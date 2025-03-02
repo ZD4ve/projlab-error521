@@ -7,7 +7,7 @@ collections "mycelia:Mycelium" as target
 
 -> Dying : tick(dT)
 activate Dying
-opt Breaking
+opt when breaking
 
 Dying -> allNeighbors : removeNeighbor(tecton)
 activate allNeighbors
@@ -46,8 +46,7 @@ end ref
 return
 destroy target
 
-<-- Dying
-destroy Dying
 end
+return
 
 @enduml

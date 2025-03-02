@@ -4,20 +4,15 @@ hide footbox
 participant "effect:InsectEffect" as effect
 participant "insect:Insect" as insect
 
-'TODO abstract osztály de nem abstract metódus?
-' kin hívjuk meg a remove()-ot?
-
  -> effect : tick(dT)
 activate effect
 
 opt timeLeft == 0
 
-    effect -> effect : remove()
-    activate effect
+
     ref over effect
         wearoff
     end ref
-    return
 
     effect -> insect : removeEffect(effect)
     activate insect
@@ -25,7 +20,6 @@ opt timeLeft == 0
     return
 end
 
-<-- effect
-destroy effect
+return
 
 @enduml

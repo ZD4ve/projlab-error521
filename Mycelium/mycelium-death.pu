@@ -2,10 +2,9 @@
 hide footbox
 
 participant "myc:Mycelium" as mycelium
-participant "location:Tecton" as location
+collections "ends:Tecton" as location
 participant "species:Fungus" as fungus
 
--> mycelium: die()
 activate mycelium
 
 mycelium -> location : removeMycelium(myc)
@@ -20,7 +19,5 @@ ref over fungus
 end ref
 return
 
-<-- mycelium
-destroy mycelium
 
 @enduml

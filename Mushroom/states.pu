@@ -4,7 +4,7 @@
 [*] --> Growing
 Growing --> Ready : cooldown == 0
 Ready --> SporeBursting : burstSpore()
-SporeBursting --> Recharging : instantly
+SporeBursting --> Recharging : if not dying
 Recharging --> Ready : cooldown == 0
 SporeBursting --> [*] : die()
 

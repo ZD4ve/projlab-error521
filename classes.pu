@@ -38,6 +38,7 @@ class Fungus {
     canGrowMycelium()
     myceliumGrowthComplete()
     growMushroom(Tecton)
+    growMycelium(Tecton, Tecton)
 }
 class Mycelium {
     Mycelium(Fungus,Tecton,Tecton)
@@ -68,7 +69,7 @@ class Insect {
     eatSpore()
     moveTo(Tecton)
     chewMycelium(Mycelium)
-    ' removeEffect(InsectEffect)
+    removeEffect(InsectEffect)
     setLocation(Tecton)
 }
 abstract InsectEffect {

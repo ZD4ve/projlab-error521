@@ -4,13 +4,22 @@ abstract InsectEffect {
     timeLeft
     {abstract} applyTo(Insect)
     {abstract} remove()
+    {static} createEffect()
 }
 
 class SpeedEffect {
     multiplier
+    applyTo(Insect)
+    remove()
 }
-class ParalysingEffect
-class AntiChewEffect
+class ParalysingEffect{
+    applyTo(Insect)
+    remove()
+}
+class AntiChewEffect{
+    applyTo(Insect)
+    remove()
+}
 
 
 InsectEffect <|-- SpeedEffect
