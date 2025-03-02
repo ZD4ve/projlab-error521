@@ -3,30 +3,37 @@ interface IActive {
     tick(dT)
 }
 'Addneighbor, remove, fill belement többet hogy jelölünk
-'NEM E KELL TÍPUS'
+'NEM E KELL RETURN TÍPUS'
+
+'Dávid: kikommentelt fv-ek getter-setterek, elhagyhatjuk őket innen?
 class Tecton {
     growMushroom(Fungus)
     growMycelium(Fungus, Tecton)
     hasMyceliumTo(Tecton)
-    hasMushroomFrom(Fungus)
     canGetMycelium()
-    removeInsect(Insect)
-    addInsect(Insect)
-    addNeighbor(Tecton)
-    removeNeighbor(Tecton)
+    canGrowMyceliumFrom(Tecton)
+    ' removeInsect(Insect)
+    ' addInsect(Insect)
+    ' addNeighbor(Tecton)
+    ' removeNeighbor(Tecton)
     fillWithStuff(Spore, Mushroom, Instect, Neighbor)
     distanceTo(Tecton)
-    addSpore(Spore)
+    ' addSpore(Spore)
+    newMe()
 }
 class Fungus {
     canGrowMycelium()
+    myceliumGrowthComplete()
+    growMushroom(Tecton)
 }
 class Mycelium {
-    destroy()
+    cooldown
+    die()
     create()
 }
 class Mushroom {
     range
+    cooldown
     Mushroom(Fungus, Tecton)
     getLocation()
     setLocation(Tecton)
