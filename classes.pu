@@ -3,6 +3,8 @@ interface IActive {
     tick(dT)
 }
 'Addneighbor, remove, fill belement többet hogy jelölünk
+'takeSpore->eatspore diagram
+'ha kell remove akkor removemushroom
 'NEM E KELL TÍPUS'
 class Tecton {
     growMushroom(Fungus)
