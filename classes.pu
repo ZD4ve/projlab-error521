@@ -34,7 +34,7 @@ class Mushroom {
     die()
 }
 class Spore {
-    getEffect()
+    getEffect() : InsectEffect
 }
 class Insect {
     cooldown
