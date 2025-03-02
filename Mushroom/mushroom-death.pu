@@ -16,7 +16,7 @@ return
 mushroom -> fungus : removeMushroom(mushroom)
 activate fungus
 ref over fungus
-    check_connevitity 
+    check-connectivity 
 end ref
 return
 

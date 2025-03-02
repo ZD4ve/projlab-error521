@@ -2,7 +2,7 @@
 hide footbox
 
 participant ":SpeedEffect" as effect
-participant "target:Insect" as target
+participant "insect:Insect" as target
 
 -> effect : remove()
 activate effect

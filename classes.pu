@@ -5,7 +5,7 @@ interface IActive {
 'Addneighbor, remove, fill belement többet hogy jelölünk
 'NEM E KELL RETURN TÍPUS'
 
-'Dávid: kikommentelt fv-ek getter-setterek, elhagyhatjuk őket innen?
+'Dávid: kikommentelt fv-ek getter-setterek, elhagyhatjuk őket?
 'takeSpore->eatspore diagram
 'ha kell remove akkor removemushroom
 
@@ -39,7 +39,7 @@ class Mushroom {
     cooldown
     Mushroom(Fungus, Tecton)
     getLocation()
-    setLocation(Tecton)
+    ' setLocation(Tecton)
     burstSpore(Tecton)
     die()
 }
@@ -49,6 +49,7 @@ class Spore
 ' +ha van removeEffect() akkor applyEffect() nincs? vagy azt a setIsParalysed() és a hasonlóak helyettesítik?
 ' +azt viszont nem tudom h az asszociációk setterei (pl setLocation) kellenek-e
 ' +az antiChewCount az hogyhogy counter és nem boolean?
+' Mert ha több van rajta, akkor ha hamarabb lejáró levenné a régebben evett efektjét
 class Insect {
     cooldown
     speed
@@ -58,13 +59,14 @@ class Insect {
     eatSpore()
     moveTo(Tecton)
     chewMycelium(Mycelium)
-    removeEffect(InsectEffect)
+    ' removeEffect(InsectEffect)
     setLocation(Tecton)
 }
 abstract InsectEffect {
     timeLeft
     {abstract} applyTo(Insect)
     {abstract} remove()
+    {static} createEffect()
 }
 
 IActive ()- Tecton

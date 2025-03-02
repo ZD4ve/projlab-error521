@@ -5,8 +5,11 @@ participant ":Fungus" as fungus
 collections "mycelia:Myceilum" as mycelium
 collections "mushrooms:Mushroom" as mushroom
 
-
--> fungus : checkConnectivity()
+'Dávid:
+' hmm, a Fungusnak nincs ilyen függvénye
+'!! vagy kerüljön be az osztálydiagramba vagy ne legyen itt
+' VAGY mivel ez csak ref ként van, ezért nincs bejövő esemény csak beemeljük már élő lifelineba?
+'-> fungus : checkConnectivity()
 activate fungus
 
 fungus -> mushroom : getLocation()
@@ -17,12 +20,13 @@ fungus -> mycelium : getEnds()
 activate mycelium
 return ends
 
-
+' ezt opt-ba? mert nem mindegyikre hívja meg
+' opt feltétele vagy semmi, vagy valami szöveg pl. "disconnected from Mushrooms"
 fungus -> mycelium : die()
 activate mycelium
 return
 destroy mycelium
 
-return
+'return
 
 @enduml

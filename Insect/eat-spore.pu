@@ -21,11 +21,6 @@ opt Idle && CanMove
         ref over sporeTaken
             effect-creation
         end ref
-        /'    create effect
-            sporeTaken -> effect : new()
-            activate effect
-            return
-        end'/
 
         return effect
         destroy sporeTaken
