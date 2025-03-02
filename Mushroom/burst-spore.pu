@@ -33,6 +33,4 @@ opt Ready
 end
 
 'TODO we sure about this? - what if it dies before??
-<-- shroom : success
-
-deactivate shroom
+return success
