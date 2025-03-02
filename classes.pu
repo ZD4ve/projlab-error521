@@ -36,6 +36,8 @@ class Spore
 
 'Panni: ide nem írom ki a getter-settereket, elegek szntem az attribútumok
 ' +ha van removeEffect() akkor applyEffect() nincs? vagy azt a setIsParalysed() és a hasonlóak helyettesítik?
+' +azt viszont nem tudom h az asszociációk setterei (pl setLocation) kellenek-e
+' +az antiChewCount az hogyhogy counter és nem boolean?
 class Insect {
     cooldown
     speed
@@ -67,7 +69,7 @@ Tecton "location" o-- "mushroom" Mushroom
 
 Mycelium "mycelia" --* "species" Fungus
 
-Insect "effects" *-- "insect" InsectEffect
+Insect "activeEffects" *-- "insect" InsectEffect
 Insect "insects" --o "location" Tecton
 
 Fungus "species" *-- "mushrooms" Mushroom
