@@ -3,6 +3,7 @@ interface IActive {
     tick(dT)
 }
 'Addneighbor, remove, fill belement többet hogy jelölünk
+'NEM E KELL TÍPUS'
 class Tecton {
     growMushroom(Fungus)
     growMycelium(Fungus, Tecton)
