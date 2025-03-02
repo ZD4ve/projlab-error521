@@ -1,13 +1,23 @@
-@startuml
+@startuml InsectEffect/effect-wearoff
+hide footbox
 
 participant ":InsectEffect" as effect
 
--> effect : tick()
+
+'TODO abstract osztály de nem abstract metódus?
+' kin hívjuk meg a remove()-ot?
+
+ -> effect : tick(dT)
 activate effect
 
 opt timeLeft == 0
 
     effect -> effect : remove()
+    activate effect
+    ref over effect
+        wearoff
+    end ref
+    return
 end
 
 <-- effect

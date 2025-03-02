@@ -1,0 +1,12 @@
+@startuml Tecton/special-tecton-classes
+
+class Tecton
+class NoMushroomTecton
+class SingleMyceliumTecton
+class MyceliumAbsorbingTecton
+
+Tecton <|-- NoMushroomTecton
+Tecton <|-- SingleMyceliumTecton
+Tecton <|-- MyceliumAbsorbingTecton
+
+@enduml

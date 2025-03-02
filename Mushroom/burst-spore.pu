@@ -1,8 +1,10 @@
-@startuml burst_spore
+@startuml Mushroom/burst-spore
+hide footbox
+
 participant ":Mushroom" as shroom
 participant "location:Tecton" as location
 participant "target:Tecton" as target
-participant ":Spore" as spore
+participant "spore:Spore" as spore
 
 -> shroom : burstSpore(target)
 activate shroom
@@ -10,23 +12,17 @@ activate shroom
 opt Ready
     shroom -> location : distanceTo(target)
     activate location
-
-    shroom <-- location : distance
-    deactivate location
+    return distance
 
     opt distance <= range
         create spore
         shroom -> spore : new(fungus)
         activate spore
-
-        shroom <-- spore
-        deactivate spore
+        return
 
         shroom -> target : addSpore(spore)
         activate target
-
-        shroom <-- target
-        deactivate target
+        return
 
         opt sporeCount == 0
             ref over shroom
@@ -36,7 +32,7 @@ opt Ready
     end
 end
 
-'we sure about this? - what if it dies before??
+'TODO we sure about this? - what if it dies before??
 <-- shroom : success
 
 deactivate shroom

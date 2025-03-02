@@ -1,26 +1,26 @@
-@startuml mycelium_death
+@startuml Mycelium/mycelium-death
+hide footbox
 
 participant ":Mycelium" as mycelium
 participant "location:Tecton" as location
 participant ":Fungus" as fungus
 
--> mycelium: die()
+-> mycelium: destroy()
 activate mycelium
 
 mycelium -> location : removeMycelium(myc)
 activate location
-mycelium <-- location 
-deactivate location
+return
 
 
 mycelium -> fungus : removeMycelium(myc)
 activate fungus
 ref over fungus
-    check_connevitity 
+    check-connectivity
 end ref
-mycelium <-- fungus 
-deactivate fungus
+return
 
+<-- mycelium
 destroy mycelium
 
 @enduml

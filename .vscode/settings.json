@@ -2,5 +2,13 @@
     "files.autoSave": "afterDelay",
     "editor.formatOnSave": true,
     "editor.formatOnPaste": true,
-    "git.autofetch": true
+    "git.autofetch": true,
+    "cSpell.enabled": true,
+    "cSpell.words": [
+        "enduml",
+        "footbox",
+        "startuml",
+        "Tecton"
+    ],
+    "cSpell.language": "en,hu"
 }

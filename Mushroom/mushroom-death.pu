@@ -1,28 +1,26 @@
-@startuml mushroom_death
+@startuml Mushroom/mushroom-death
+hide footbox
 
 participant ":Mushroom" as mushroom
 participant "location:Tecton" as location
 participant ":Fungus" as fungus
 
-'self to self?
+'TODO self to self?
 -> mushroom : die()
 activate mushroom
 
 mushroom -> location : removeMushroom(mushroom)
 activate location
-mushroom <-- location 
-deactivate location
+return
 
 mushroom -> fungus : removeMushroom(mushroom)
 activate fungus
 ref over fungus
     check_connevitity 
 end ref
+return
 
-mushroom <-- fungus 
-
-deactivate fungus
-
+<-- mushroom
 destroy mushroom
 
 @enduml

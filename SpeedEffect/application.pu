@@ -1,4 +1,6 @@
-@startuml
+@startuml SpeedEffect/application
+hide footbox
+
 participant ":SpeedEffect" as effect
 participant "target:Insect" as target
 
@@ -7,9 +9,7 @@ activate effect
 
 effect -> target : setSpeed(getSpeed()*multiplier)
 activate target
-
-effect <-- target
-deactivate target
+return
 
 <-- effect
 deactivate effect

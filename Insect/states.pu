@@ -8,9 +8,9 @@ state Alive {
     Idle --> Active : action()
     Active --> Idle : cooldown == 0
     ||
-    [*] --> CanWalk
-    CanWalk --> Cripled
-    Cripled --> CanWalk
+    [*] --> CanMove
+    CanMove --> Cripled
+    Cripled --> CanMove
     ||
     [*] --> CanChew
     CanChew --> Toothless

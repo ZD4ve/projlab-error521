@@ -1,4 +1,5 @@
-@startuml mycelium_grow
+@startuml Mycelium/mycelium-grow
+hide footbox
 
 participant "source:Tecton" as source
 participant "target:Tecton" as target
@@ -8,39 +9,25 @@ participant ":Mycelium" as mycelium
 -> source : growMycelium(fungus, target)
 activate source
 
-source -> target : distanceTo(source)
-activate target
-source <-- target : distance
-deactivate target
-opt distance == 1
-'TODO MIAFASZ'
-    source -> target : hasMushroomFrom(fungus)
+source -> fungus : canGrowMycelium()
+activate fungus
+return ready
+opt ready
+    source -> target : distanceTo(source)
     activate target
-    source <-- target : hasMushroom
-    deactivate target
-    source -> target : hasMyceliumTo(target)
-    activate target
-    source <-- target : hasMycelium
-    deactivate target
-
-    opt hasMycelium || hasMushroom
-        source -> target : canGetMycelium()
+    return distance
+    opt distance == 1
+    'TODO MIAFASZ'
+        source -> target : canGrowMyceliumFrom(fungus) 
+        'check (gombatest or mycelium) and (mycelium species count < limit)
         activate target
-        source <-- target : canGet
-        deactivate target
+        return canGrow
 
-        opt canGet
-            source -> fungus : canGrowMycelium()
-            activate fungus
-            source <-- fungus : canGrow
-            deactivate fungus
-            opt canGrow
-                create mycelium
-                source -> mycelium
-                activate mycelium
-                source <-- mycelium
-                deactivate mycelium
-            end
+        opt canGrow
+            create mycelium
+            source -> mycelium : new(fungus,source,target)
+            activate mycelium
+            return
         end
     end
 end

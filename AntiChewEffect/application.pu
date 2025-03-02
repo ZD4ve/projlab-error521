@@ -1,4 +1,6 @@
-@startuml
+@startuml AntiChewEffect/application
+hide footbox
+
 participant ":AntiChewEffect" as effect
 participant "target:Insect" as target
 
@@ -7,9 +9,7 @@ activate effect
 
 effect -> target : setAntiChewCount(getAntiChewCount() + 1)
 activate target
-
-effect <-- target
-deactivate target
+return
 
 <-- effect
 deactivate effect

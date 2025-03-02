@@ -1,57 +1,57 @@
-@startuml
-participant Tecton as Dying
-' valszeg ez looppal kellene
-participant "allNeighbors:Tecton[]" as allNeighbors
-participant "insectsOnMe:Insect[]" as Insects
-participant "Mushroom" as Mushroom
-participant "myceliumsOnMe" as target
+@startuml Tecton/tecton-break-seq
+hide footbox
 
--> Dying : tick()
+participant Tecton as Dying
+collections "allNeighbors:Tecton" as allNeighbors
+collections "insectsOnMe:Insect" as Insects
+participant "Mushroom" as Mushroom
+collections "myceliumsOnMe:Mycelium" as target
+
+-> Dying : tick(dT)
 activate Dying
 opt Tearing
 
 Dying -> allNeighbors : removeNeighbor(self)
 activate allNeighbors
-Dying <-- allNeighbors
-deactivate allNeighbors
+return
 
-create Tecton as New1
+create "t1:Tecton" as New1
 Dying -> New1 : newMe()
 Dying -> New1 : fillWithStuff(...)
 activate New1
-Dying <-- New1
-deactivate New1
+return
+Dying -> allNeighbors : addNeighbor(t1)
+activate allNeighbors
+return
 
-create Tecton as New2
+create "t2:Tecton" as New2
 Dying -> New2 : newMe()
 Dying -> New2 : fillWithStuff(...)
 activate New2
-Dying <-- New2
-deactivate New2
+return
+Dying -> allNeighbors : addNeighbor(t2)
+activate allNeighbors
+return
 
-' set location on moved objects ...
-Dying -> Insects : setLocation(tecton)
+Dying -> Insects : setLocation(t1 or t2)
 activate Insects
-Dying <-- Insects
-deactivate Insects
+return
 
-Dying -> Mushroom : setLocation(tecton)
+Dying -> Mushroom : setLocation(t1 or t2)
 activate Mushroom
-Dying <-- Mushroom
-deactivate Mushroom
+return
 
 Dying -> target : destroy()
-    activate target
+activate target
 
 ref over target
-    check-connectivity
+    mycelium-death
 end ref
 
-Dying <-- target
+return
 destroy target
 
-' unsubscribe from tick
-<- Dying : unsubscribe(self)
+<-- Dying
 destroy Dying
 end
 

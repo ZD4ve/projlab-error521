@@ -1,4 +1,6 @@
-@startuml
+@startuml Insect/eat-spore
+hide footbox
+
 participant ":Insect" as insect
 participant "location:Tecton" as location
 participant "sporeTaken:Spore" as sporeTaken
@@ -7,28 +9,30 @@ participant "effect:InsectEffect" as effect
 -> insect : eatSpore()
 activate insect
 
-' állapotgép szerint átdolgozni
-opt cooldown == 0
+opt Idle && CanMove
     insect -> location : takeSpore()
     activate location
-
-    insect <-- location : sporeTaken
-    deactivate location
+    return sporeTaken
 
     opt sporeTaken exists
         insect -> sporeTaken : getEffect()
         activate sporeTaken
-        
-        ' TODO: effect létrehozás
 
-        insect <-- sporeTaken : effect
+        opt
+            create effect
+            sporeTaken -> effect : new()
+            activate effect
+            return
+        end
+
+        return effect
         destroy sporeTaken
 
-        insect -> effect : applyTo(self)
-        activate effect
-
-        insect <-- effect
-        deactivate effect
+        opt effect exists
+            insect -> effect : applyTo(self)
+            activate effect
+            return
+        end
     end
 end
 

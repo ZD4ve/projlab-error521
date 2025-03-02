@@ -1,4 +1,6 @@
-@startuml
+@startuml ParalysingEffect/application
+hide footbox
+
 participant ":ParalysingEffect" as effect
 participant "target:Insect" as target
 
@@ -7,9 +9,7 @@ activate effect
 
 effect -> target : setIsParalysed(true)
 activate target
-
-effect <-- target
-deactivate
+return
 
 <-- effect
 deactivate effect

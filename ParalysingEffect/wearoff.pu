@@ -1,4 +1,6 @@
-@startuml
+@startuml ParalysingEffect/wearoff
+hide footbox
+
 participant ":ParalysingEffect" as effect
 participant "target:Insect" as target
 
@@ -7,18 +9,12 @@ activate effect
 
 effect -> target : setAntiChewCount(getAntiChewCount() - 1)
 activate target
-
-effect <-- target
-deactivate target
+return
 
 effect -> target : removeEffect(self)
 activate target
+return
 
-effect <-- target
-deactivate target
-
-<-- effect
-deactivate effect
-destroy effect
+return
 
 @enduml

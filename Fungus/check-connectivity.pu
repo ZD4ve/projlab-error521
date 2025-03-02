@@ -1,25 +1,30 @@
-@startuml check_connectivity
+@startuml Fungus/check-connectivity
+hide footbox
 
 participant ":Fungus" as fungus
-participant ":Myceilum" as mycelium
-participant ":Mushroom" as mushroom
+collections ":Myceilum" as mycelium
+collections ":Mushroom" as mushroom
 
-fungus -> fungus : checkConnectivity()
+'TODO hmmm, im not sure about this
+' self to self?
+
+-> fungus : checkConnectivity()
 activate fungus
 
 fungus -> mushroom : getLocation()
 activate mushroom
-fungus <-- mushroom : location
-deactivate mushroom
+return location
 
 fungus -> mycelium : getEnds()
 activate mycelium
-fungus <-- mycelium : ends
-deactivate mycelium
+return ends
+
 
 fungus -> mycelium : die()
+activate mycelium
+return
 destroy mycelium
 
-deactivate fungus
+return
 
 @enduml

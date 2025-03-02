@@ -1,16 +1,19 @@
-@startuml
+@startuml Mycelium/mycelium-thickening
+hide footbox
 
-participant "Mycelium" as mycelium
-participant "Fungus" as fungus
+participant ":Mycelium" as mycelium
+participant ":Fungus" as fungus
 
--> mycelium : tick()
+-> mycelium : tick(dT)
 activate mycelium
 
 opt Growing && cooldown == 0
     mycelium -> fungus : myceliumGrowthComplete()
     activate fungus
-    mycelium <-- fungus
-    deactivate fungus
+    return
 end
+
+<-- mycelium
+deactivate mycelium
 
 @enduml

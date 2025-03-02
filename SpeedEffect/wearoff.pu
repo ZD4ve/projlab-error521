@@ -1,4 +1,6 @@
-@startuml
+@startuml SpeedEffect/wearoff
+hide footbox
+
 participant ":SpeedEffect" as effect
 participant "target:Insect" as target
 
@@ -7,18 +9,12 @@ activate effect
 
 effect -> target : setSpeed(getSpeed() / multiplier)
 activate target
-
-effect <-- target
-deactivate target
+return
 
 effect -> target : removeEffect(self)
 activate target
+return
 
-effect <-- target
-deactivate target
-
-<-- effect
-deactivate effect
-destroy effect
+return
 
 @enduml

@@ -1,4 +1,5 @@
-@startuml
+@startuml Insect/move
+hide footbox
 
 participant ":Insect" as insect
 participant "location:Tecton" as location
@@ -8,27 +9,23 @@ participant "target:Tecton" as target
 -> insect : moveTo(target)
 activate insect
 
-opt cooldown == 0
+opt Idle && CanMove
 
     insect -> location : hasMyceliumTo(target)
     activate location
 
-    insect <-- location : moveValid
+    return moveValid
     deactivate location
 
     opt moveValid
 
         insect -> location : removeInsect(self)
         activate location
-
-        insect <-- location
-        deactivate location
+        return
         
         insect -> target : addInsect(self)
         activate target
-
-        insect <-- target
-        deactivate target
+        return
     end
 end
 

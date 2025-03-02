@@ -1,26 +1,53 @@
 @startuml classes
-interface IActive
-class Tecton
-together {
-    class Fungus
-    class Mycelium
-    class Mushroom
-    class Spore
-}
-together {
-    class Insect
-    abstract InsectEffect
-    class SpeedEffect
-    class ParalysingEffect
-    class AntiChewEffect
-}
-together{
-    class NoMushroomTecton
-    class SingleMyceliumTecton
-    class MyceliumAbsorbingTecton
+interface IActive {
+    tick(dT)
 }
 
-IActive : tick(dT)
+class Tecton {
+    growMushroom(Fungus)
+    growMycelium(Fungus, Tecton)
+    hasMyceliumTo(Tecton)
+    hasMushroomFrom(Fungus)
+    canGetMycelium()
+    removeInsect(Insect)
+    addInsect(Insect)
+    distanceTo(Tecton)
+    addSpore(Spore)
+}
+
+together {
+    class Fungus {
+        canGrowMycelium()
+    }
+    class Mycelium {
+        destroy()
+        create()
+    }
+    class Mushroom {
+        burstSpore(Tecton)
+        range
+    }
+    class Spore
+}
+
+together {
+    class Insect {
+        cooldown
+        speed
+        antiChewCount
+        isParalysed
+        score
+        eatSpore()
+        moveTo(Tecton)
+        chewMycelium(Mycelium)
+        removeEffect(InsectEffect)
+    }
+    abstract InsectEffect {
+        timeLeft
+        {abstract} applyTo(Insect)
+        {abstract} remove()
+    }
+}
 
 IActive ()- Tecton
 IActive ()- Mushroom
@@ -32,53 +59,13 @@ Tecton o-- "*" Tecton : neighbors
 Tecton "2" -- "*" Mycelium
 Tecton *-- "*" Spore
 Tecton "1" *--o "0..1" Mushroom
-Tecton : growMushroom(Fungus)
-Tecton : growMycelium(Fungus, Tecton)
-Tecton : hasMyceliumTo(Tecton)
-Tecton : hasMushroomFrom(Fungus)
-Tecton : canGetMycelium()
-Tecton : removeInsect(Insect)
-Tecton : addInsect(Insect)
-Tecton : distanceTo(Tecton)
-Tecton : addSpore(Spore)
-
-Mushroom : burstSpore(Tecton)
-Mushroom : range
 
 Mycelium o-- Fungus
-Mycelium : destroy()
-Mycelium : create()
 
 Insect "insect" *--o "*" InsectEffect : activeEffects
 Insect "*" -- Tecton : location
-Insect : cooldown
-Insect : speed
-Insect : antiChewCount
-Insect : isParalysed
-Insect : score
-Insect : eatSpore()
-Insect : moveTo(Tecton)
-Insect : chewMycelium(Mycelium)
-Insect : removeEffect(InsectEffect)
 
 Spore o-- Fungus : fungus
-Spore : getEffect()
-
-Fungus : canGrowMycelium()
-
-InsectEffect : timeLeft
-InsectEffect : {abstract} applyTo(Insect)
-InsectEffect : {abstract} remove()
-
-InsectEffect <|-- SpeedEffect
-SpeedEffect : multiplier
-
-InsectEffect <|-- ParalysingEffect
-InsectEffect <|-- AntiChewEffect
-
-Tecton <|-- NoMushroomTecton
-Tecton <|-- SingleMyceliumTecton
-Tecton <|-- MyceliumAbsorbingTecton
 
 Fungus -- Mushroom
 @enduml
