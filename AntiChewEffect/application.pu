@@ -7,7 +7,11 @@ participant "target:Insect" as target
 -> effect : applyTo(target)
 activate effect
 
-effect -> target : setAntiChewCount(getAntiChewCount() + 1)
+effect -> target : getAntiChewCount()
+activate target
+return antiChewCount
+
+effect -> target : setAntiChewCount(antiChewCount + 1)
 activate target
 return
 
