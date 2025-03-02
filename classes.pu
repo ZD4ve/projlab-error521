@@ -49,17 +49,17 @@ IActive ()- Mycelium
 IActive ()- Insect
 IActive ()- InsectEffect
 
-Tecton o-- "*" Tecton : neighbors
-Tecton "2" -- "*" Mycelium
+Tecton o-- "*" Tecton
+Tecton "2" o-- "*" Mycelium
 Tecton *-- "*" Spore
-Tecton "1" *--o "0..1" Mushroom
+Tecton "1" o-- "0..1" Mushroom
 
-Mycelium o-- Fungus
+Mycelium --* Fungus
 
-Insect "insect" *--o "*" InsectEffect : activeEffects
-Insect "*" -- Tecton : location
+Insect "insect" *-- "*" InsectEffect
+Insect "*" --o Tecton
 
-Spore o-- Fungus : fungus
+Spore --> Fungus
 
-Fungus -- Mushroom
+Fungus *-- Mushroom
 @enduml
