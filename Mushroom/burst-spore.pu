@@ -16,7 +16,7 @@ opt Ready
 
     opt distance <= range
         create spore
-        shroom -> spore : new(fungus)
+        shroom -> spore : new(species)
         activate spore
         return
 
