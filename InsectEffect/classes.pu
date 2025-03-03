@@ -4,7 +4,7 @@ abstract InsectEffect {
     timeLeft
     {abstract} applyTo(Insect)
     {abstract} remove()
-    {static} createEffect()
+    {static} createEffect() : InsectEffect
 }
 
 class SpeedEffect {

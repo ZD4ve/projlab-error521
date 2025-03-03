@@ -2,16 +2,16 @@
 
 class Tecton
 class NoMushroomTecton {
-    newMe()
+    newMe() : NoMushroomTecton
     growMushroom(Fungus)
 }
 class SingleMyceliumTecton {
-    newMe()
-    canGrowMyceliumFrom(Fungus)
+    newMe() : SingleMyceliumTecton
+    canGrowMyceliumFrom(Fungus) : boolean
 }
 class MyceliumAbsorbingTecton {
     cooldown
-    newMe()
+    newMe() : MyceliumAbsorbingTecton
     tick(dT)
 }
 
