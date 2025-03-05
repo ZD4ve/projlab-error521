@@ -10,7 +10,7 @@ class SingleMyceliumTecton {
     canGrowMyceliumFrom(Fungus) : boolean
 }
 class MyceliumAbsorbingTecton {
-    cooldown
+    absorbtionTimer
     newMe() : MyceliumAbsorbingTecton
     tick(dT)
 }

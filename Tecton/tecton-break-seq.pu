@@ -19,9 +19,7 @@ activate New1
 return
 Dying -> New1 : fillWithStuff(subset of spores, mushroom or null, subset of insects, subset of neighbors)
 activate New1
-ref over New1
-    fill-tecton
-end ref
+
 return
 
 create "t2:Tecton" as New2
@@ -31,17 +29,11 @@ return
 
 Dying -> New2 : fillWithStuff(subset of spores, mushroom or null, subset of insects, subset of neighbors)
 activate New2
-ref over New2
-    fill-tecton
-end ref
+
 return
 
 Dying -> target : die()
 activate target
-
-ref over target
-    mycelium-death
-end ref
 
 return
 destroy target

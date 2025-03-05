@@ -5,7 +5,6 @@ participant "mushroom:Mushroom" as mushroom
 participant "location:Tecton" as location
 participant ":Fungus" as fungus
 
--> mushroom : die()
 activate mushroom
 
 mushroom -> location : removeMushroom(mushroom)
@@ -19,7 +18,7 @@ ref over fungus
 end ref
 return
 
-<-- mushroom
-destroy mushroom
+
+' destroy mushroom
 
 @enduml

@@ -1,13 +1,15 @@
 @startuml Fungus/grow-mushroom
 hide footbox
 
+actor Mycologist
 participant "species:Fungus" as fungus
 participant "target:Tecton" as target
 collections "spores:Spore" as spore
 collections "mycelia:Mycelium" as mycelium
 participant "mushroom:Mushroom" as mushroom
 
--> fungus : growMushroom(target)
+' TODO how does he know the target?
+Mycologist -> fungus : growMushroom(target)
 activate fungus
 
 fungus -> target: growMushroom(species)

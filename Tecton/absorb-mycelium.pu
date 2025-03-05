@@ -1,26 +1,26 @@
 @startuml Tecton/absorb-mycelium
 hide footbox
 
+actor Time
 participant "tecton:MyceliumAbsorbingTecton" as tecton
 collections "mycelia: Mycelium" as mycelia
 
 
--> tecton : tick(dT)
+Time -> tecton : tick(dT)
 activate tecton
-ref over tecton
-    tecton-break-seq
-end ref
-opt cooldown == 0
+
+opt absorbtionTimer == 0
     tecton -> mycelia : die()
     activate mycelia
-
-    ref over mycelia
-        mycelium-death
-    end ref
 
     return
     destroy mycelia
 end
+
+tecton -> tecton : super.tick(dT)
+activate tecton
+return
+
 return
 
 @enduml
