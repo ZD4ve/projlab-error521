@@ -1,0 +1,19 @@
+@startuml
+hide footbox
+
+actor Mycologist
+
+participant ":Fungus" as species
+collections "mycelia:Micelium" as mycelia
+
+Mycologist -> species : getTectonsWithMycelia()
+activate species
+
+species -> mycelia : getEnds()
+activate mycelia
+
+return tectons
+
+return tectons
+
+@enduml

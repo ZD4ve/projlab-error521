@@ -1,0 +1,19 @@
+@startuml
+hide footbox
+
+actor Entomologist
+
+participant ":Insect" as insect
+participant "location:Tecton" as location
+
+Entomologist -> insect : getPotencialChewTargets()
+activate insect
+
+insect -> location : getMycelia()
+activate location
+
+return mycelia
+
+return mycelia
+
+@enduml

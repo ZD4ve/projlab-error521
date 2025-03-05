@@ -1,0 +1,26 @@
+@startuml
+hide footbox
+
+actor Mycologist
+
+participant ":Mushroom" as mushroom
+participant "location:Tecton" as location
+collections "neighbors:Tecton" as neighbors
+
+Mycologist -> mushroom : getPotencialBurstTargets()
+activate mushroom
+
+mushroom -> location : getNeighbors()
+activate location
+
+opt range == 2
+    location -> neighbors : getNeighbors()
+    activate neighbors
+    return neighbors
+end
+
+return neighbors
+
+return neighbors
+
+@enduml
