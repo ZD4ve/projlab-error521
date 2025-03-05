@@ -31,10 +31,9 @@ class Mushroom {
     cooldown
     Mushroom(Fungus, Tecton)
     burstSpore(Tecton)
-    die()
 }
 class Spore {
-    getEffect()
+    getEffect() : InsectEffect
 }
 class Insect {
     cooldown
@@ -70,5 +69,9 @@ Insect "activeEffects *" -- "insect 1" InsectEffect
 Insect "insects *" -- "location 1" Tecton
 Fungus "species 1" -- "mushrooms *" Mushroom
 Spore "*" --> "species 1" Fungus
+
+Fungus ...> Tecton
+Spore ...> InsectEffect
+Insect ...> Mycelium
 
 @enduml
