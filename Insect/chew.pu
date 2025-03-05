@@ -17,6 +17,10 @@ opt CanChew && CanMove && Idle
         mycelium-death
     end ref
 
+    insect -> insect : setCooldown(num)
+    activate insect
+    return
+
     return
     destroy target
 end

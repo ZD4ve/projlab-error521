@@ -26,6 +26,10 @@ opt Idle && CanMove
         insect -> target : addInsect(insect)
         activate target
         return
+
+        insect -> insect : setCooldown(num)
+        activate insect
+        return
     end
 end
 

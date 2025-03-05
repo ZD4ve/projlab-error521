@@ -31,6 +31,10 @@ opt Idle && CanMove
             activate effect
             return
         end
+
+            insect -> insect : setCooldown(num)
+        activate insect
+        return
     end
 end
 
