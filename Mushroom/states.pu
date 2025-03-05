@@ -1,11 +1,15 @@
 @startuml MushroomStates
-'skinparam linetype ortho
+
+state Growing
+state Ready
+state Recharging
+state SporeBursting <<choice>>
 
 [*] --> Growing
-Growing --> Ready : cooldown == 0
-Ready --> SporeBursting : burstSpore()
-SporeBursting --> Recharging : if not dying
-Recharging --> Ready : cooldown == 0
-SporeBursting --> [*] : die()
+Growing --> Ready : tick(dT)\n[cooldown == 0]
+Ready --> SporeBursting : burstSpore(tecton)
+SporeBursting --> Recharging : [sporeCount != 0]
+Recharging --> Ready : tick(dT)\n[cooldown == 0]
+SporeBursting --> [*] : [sporeCount == 0]
 
 @enduml

@@ -5,6 +5,7 @@ participant "myc:Mycelium" as mycelium
 collections "ends:Tecton" as location
 participant "species:Fungus" as fungus
 
+-> mycelium : die()
 activate mycelium
 
 mycelium -> location : removeMycelium(myc)
@@ -19,5 +20,7 @@ ref over fungus
 end ref
 return
 
+return
+destroy mycelium
 
 @enduml

@@ -3,19 +3,18 @@ skinparam linetype ortho
 
 skinparam Padding 9
 
-' TODO: Az effekteknek nem állapotként kellene szerepelniük
 state Alive {
     [*] --> Idle
-    Idle --> Active : cooldown > 0
-    Active --> Idle : cooldown == 0
+    Idle --> Active : setCooldown(value)\n[value > 0]
+    Active --> Idle : tick(dT)\n[cooldown == 0]
     ||
     [*] --> CanMove
-    CanMove --> Paralysed : isParalysed
-    Paralysed --> CanMove : !isParalysed
+    CanMove --> Paralysed : setIsParalysed(true)
+    Paralysed --> CanMove : setIsParalysed(false)
     ||
     [*] --> CanChew
-    CanChew --> Toothless : antiChewCount > 0
-    Toothless --> CanChew : antiChewCount == 0
+    CanChew --> Toothless : setAntiChewCount(value)\n[value > 0]
+    Toothless --> CanChew : setAntiChewCount(0)
 }
 [*] --> Alive
 

@@ -1,12 +1,14 @@
 @startuml Mycelium/mycelium-grow
 hide footbox
 
+actor Mycologist
 participant "species:Fungus" as species
 participant "source:Tecton" as source
 participant "target:Tecton" as target
 participant "mycelium:Mycelium" as mycelium
 
--> species : growMycelium(source, target)
+' TODO source, target
+Mycologist -> species : growMycelium(source, target)
 activate species
 
 species -> species : canGrowMycelium()

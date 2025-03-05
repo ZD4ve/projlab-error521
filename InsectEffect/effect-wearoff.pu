@@ -1,18 +1,18 @@
 @startuml InsectEffect/effect-wearoff
 hide footbox
 
+actor Time
 participant "effect:InsectEffect" as effect
 participant "insect:Insect" as insect
 
- -> effect : tick(dT)
+Time -> effect : tick(dT)
 activate effect
 
 opt timeLeft == 0
 
-
-    ref over effect
-        wearoff
-    end ref
+    effect -> effect : remove()
+    activate effect
+    return
 
     effect -> insect : removeEffect(effect)
     activate insect
