@@ -2,7 +2,7 @@
 skinparam linetype ortho
 
 [*] --> Growing
-Growing --> Normal : cooldown == 0
+Growing --> Normal : tick(dT)\n[cooldown == 0]
 
 Normal --> [*] : die()
 Growing --> [*] : die()
