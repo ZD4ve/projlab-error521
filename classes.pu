@@ -31,7 +31,6 @@ class Mushroom {
     cooldown
     Mushroom(Fungus, Tecton)
     burstSpore(Tecton)
-    die()
 }
 class Spore {
     getEffect() : InsectEffect
@@ -70,5 +69,9 @@ Insect "activeEffects" *-- "insect" InsectEffect
 Insect "insects" --o "location" Tecton
 Fungus "species" *-- "mushrooms" Mushroom
 Spore --* "species" Fungus
+
+Fungus ...> Tecton
+Spore ...> InsectEffect
+Insect ...> Mycelium
 
 @enduml
