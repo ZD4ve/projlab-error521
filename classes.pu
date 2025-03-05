@@ -46,6 +46,7 @@ class Insect {
     moveTo(Tecton)
     chewMycelium(Mycelium)
     removeEffect(InsectEffect)
+    getMycelia()
 }
 abstract InsectEffect {
     timeLeft
