@@ -73,5 +73,7 @@ Spore "*" --> "species 1" Fungus
 Fungus ..> Tecton
 Spore ..> InsectEffect
 Insect ..> Mycelium
+Insect ..> Spore
+Mushroom ..> Spore
 
 @enduml
