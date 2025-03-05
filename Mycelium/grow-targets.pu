@@ -1,0 +1,17 @@
+@startuml MycologistGetMyceliaTargets
+hide footbox
+
+actor Mycologist
+collections "sources:Tecton" as sources
+collections "neighbors:Tecton" as neighbors
+
+Mycologist -> sources : getNeighbors()
+activate sources
+return neighbors
+
+note over Mycologist, neighbors: Mycologists know the Fungus they control
+Mycologist -> neighbors : canGrowMyceliumFrom(fungus)
+activate neighbors
+return canGrow
+
+@enduml

@@ -1,0 +1,24 @@
+@startuml EntomologistGetsPotentialMoveLocations
+hide footbox
+
+actor Entomologist
+participant ":Insect" as insect
+participant "location:Tecton" as location
+collections "mycelia:Mycelium" as mycelia
+
+Entomologist -> insect : getPotentialMoveTargets()
+activate insect
+
+insect -> location
+activate location
+
+location -> mycelia : getEnds()
+activate mycelia
+
+return ends
+
+note left: myceliaNeighbors = ends of mycelia
+return myceliaNeighbors
+
+return myceliaNeighbors
+@enduml

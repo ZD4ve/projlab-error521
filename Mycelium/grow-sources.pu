@@ -1,0 +1,25 @@
+@startuml MycologistGetsMyceliaSources
+hide footbox
+
+actor Mycologist
+participant ":Fungus" as fungus
+collections "mycelia:Mycelium" as mycelia
+collections "mushrooms:Mushroom" as mushrooms
+
+Mycologist -> fungus : getPotentialMyceliumSources()
+activate fungus
+
+fungus -> mycelia : getEnds()
+activate mycelia
+
+return ends
+
+fungus -> mushrooms : getLocation()
+activate mushrooms
+
+return location
+
+note left: sources = {ends of mycelia; locations of mushrooms }
+return sources
+
+@enduml
