@@ -60,7 +60,7 @@ IActive ()- Insect
 IActive ()- InsectEffect
 
 Tecton "*" -- "*" Tecton : neighbors
-Tecton "ends 2" o-- "mycelia *" Mycelium
+Tecton "ends 2" -- "mycelia *" Mycelium
 Tecton "1" --> "spores *" Spore
 Tecton "location 1" -- "mushroom 0..1" Mushroom
 
@@ -70,8 +70,8 @@ Insect "insects *" -- "location 1" Tecton
 Fungus "species 1" -- "mushrooms *" Mushroom
 Spore "*" --> "species 1" Fungus
 
-Fungus ...> Tecton
-Spore ...> InsectEffect
-Insect ...> Mycelium
+Fungus ..> Tecton
+Spore ..> InsectEffect
+Insect ..> Mycelium
 
 @enduml
