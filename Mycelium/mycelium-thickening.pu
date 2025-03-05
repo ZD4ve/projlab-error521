@@ -1,10 +1,11 @@
 @startuml Mycelium/mycelium-thickening
 hide footbox
 
+actor Time
 participant ":Mycelium" as mycelium
 participant ":Fungus" as fungus
 
--> mycelium : tick(dT)
+Time -> mycelium : tick(dT)
 activate mycelium
 
 opt Growing && cooldown == 0
@@ -13,7 +14,6 @@ opt Growing && cooldown == 0
     return
 end
 
-<-- mycelium
-deactivate mycelium
+return
 
 @enduml

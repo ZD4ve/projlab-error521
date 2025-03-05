@@ -1,10 +1,12 @@
 @startuml Insect/chew
 hide footbox
 
+actor Entomologist
 participant ":Insect" as insect
 participant "target:Mycelium" as target
 
--> insect : chewMycelium(target)
+' TODO target
+Entomologist -> insect : chewMycelium(target)
 activate insect
 
 opt CanChew && CanMove && Idle
@@ -19,7 +21,6 @@ opt CanChew && CanMove && Idle
     destroy target
 end
 
-<-- insect
-deactivate insect
+return
 
 @enduml

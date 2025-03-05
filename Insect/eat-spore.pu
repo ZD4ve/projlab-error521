@@ -1,12 +1,13 @@
 @startuml Insect/eat-spore
 hide footbox
 
+actor Entomologist
 participant "insect:Insect" as insect
 participant "location:Tecton" as location
 participant "sporeTaken:Spore" as sporeTaken
 participant "effect:InsectEffect" as effect
 
--> insect : eatSpore()
+Entomologist -> insect : eatSpore()
 activate insect
 
 opt Idle && CanMove
@@ -33,7 +34,6 @@ opt Idle && CanMove
     end
 end
 
-<-- insect
-deactivate insect
+return
 
 @enduml

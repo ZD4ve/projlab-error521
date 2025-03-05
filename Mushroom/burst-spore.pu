@@ -1,12 +1,14 @@
 @startuml Mushroom/burst-spore
 hide footbox
 
+actor Mycologist
 participant ":Mushroom" as shroom
 participant "location:Tecton" as location
 participant "target:Tecton" as target
 participant "spore:Spore" as spore
 
--> shroom : burstSpore(target)
+' TODO target
+Mycologist -> shroom : burstSpore(target)
 activate shroom
 
 opt Ready

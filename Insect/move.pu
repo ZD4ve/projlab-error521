@@ -1,12 +1,13 @@
 @startuml Insect/move
 hide footbox
 
+actor Entomologist
 participant "insect:Insect" as insect
 participant "location:Tecton" as location
 participant "target:Tecton" as target
 
-
--> insect : moveTo(target)
+' TODO target
+Entomologist -> insect : moveTo(target)
 activate insect
 
 opt Idle && CanMove
@@ -15,7 +16,6 @@ opt Idle && CanMove
     activate location
 
     return moveValid
-    deactivate location
 
     opt moveValid
 
@@ -29,7 +29,6 @@ opt Idle && CanMove
     end
 end
 
-<-- insect
-deactivate insect
+return
 
 @enduml
