@@ -16,10 +16,6 @@ activate location
 
 return closeNeighbors
 
-<<<<<<< HEAD
-' TODO RECURSION END PARAMETER?
-=======
->>>>>>> b6ecbbdb95e162dd6ef5494705d52a11ace6caf4
 opt range == 2
     mushroom -> neighbors : getNeighbors()
     activate neighbors
