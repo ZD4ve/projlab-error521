@@ -7,6 +7,7 @@ participant ":Mushroom" as mushroom
 participant "location:Tecton" as location
 collections "neighbors:Tecton" as neighbors
 
+' TODO DOES IT KNOW THE MUSHROOM?
 Mycologist -> mushroom : getPotencialBurstTargets()
 activate mushroom
 
@@ -14,7 +15,7 @@ mushroom -> location : getNeighbors()
 activate location
 
 
-' TODO RECURSION END PARAMETER???
+' TODO RECURSION END PARAMETER?
 opt range == 2
     location -> neighbors : getNeighbors()
     activate neighbors
