@@ -5,7 +5,7 @@ actor Mycologist
 
 participant ":Mushroom" as mushroom
 participant "location:Tecton" as location
-collections "neighbors:Tecton" as neighbors
+collections "closeNeighbors:Tecton" as neighbors
 
 Mycologist -> mushroom : getPotencialBurstTargets()
 activate mushroom
@@ -13,16 +13,15 @@ activate mushroom
 mushroom -> location : getNeighbors()
 activate location
 
+return closeNeighbors
 
-' TODO RECURSION END PARAMETER???
 opt range == 2
-    location -> neighbors : getNeighbors()
+    mushroom -> neighbors : getNeighbors()
     activate neighbors
-    return neighbors
+    return farNeighbors
 end
 
-return neighbors
-
+note over mushroom: neighbors = union of closeNeighbors and farNeighbors
 return neighbors
 
 @enduml
