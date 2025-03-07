@@ -1,10 +1,11 @@
-@startuml MycologistGetsMyceliaSources
+@startuml Mycelium/grow-sources-targets
 hide footbox
 
 actor Mycologist
 participant ":Fungus" as fungus
 collections "mycelia:Mycelium" as mycelia
 collections "mushrooms:Mushroom" as mushrooms
+collections "sources:Tecton" as sources
 
 Mycologist -> fungus : getPotentialMyceliumSources()
 activate fungus
@@ -19,7 +20,12 @@ activate mushrooms
 
 return location
 
-note left: sources = {ends of mycelia; locations of mushrooms }
+note over fungus: sources = union of ends and location(s)
 return sources
+
+
+Mycologist -> sources : getNeighbors()
+activate sources
+return targets
 
 @enduml

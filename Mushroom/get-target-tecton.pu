@@ -3,11 +3,17 @@ hide footbox
 
 actor Mycologist
 
-participant ":Mushroom" as mushroom
+participant ":Fungus" as fungus
+participant "chosen:Mushroom" as mushroom
 participant "location:Tecton" as location
 collections "closeNeighbors:Tecton" as neighbors
 
-' TODO DOES IT KNOW THE MUSHROOM?
+Mycologist -> fungus : getMushrooms()
+activate fungus
+return mushrooms
+
+note over Mycologist: choose a mushroom
+
 Mycologist -> mushroom : getPotencialBurstTargets()
 activate mushroom
 
