@@ -3,25 +3,26 @@ interface IActive {
     tick(dT)
 }
 class Tecton {
-    growMushroom(Fungus)
-    growMycelium(Fungus, Tecton)
+    addNeighbor(Tecton)
+    addInsect(Insect)
+    addSpore(Spore)
+    removeNeighbor(Tecton)
+    removeInsect(Insect)
+    fillWithStuff(Spore[], Mushroom, Insect[], Tecton[])
     hasMyceliumTo(Tecton) : boolean
     canGrowMyceliumFrom(Fungus) : boolean
-    removeInsect(Insect)
-    addInsect(Insect)
-    addNeighbor(Tecton)
-    removeNeighbor(Tecton)
-    fillWithStuff(Spore[], Mushroom, Insect[], Tecton[])
     distanceTo(Tecton) : int
-    addSpore(Spore)
     newMe() : Tecton
+    growMushroom(Fungus)
+    growMycelium(Fungus, Tecton)
 }
 class Fungus {
+    getPotentialMyceliumSources() : Tecton[]
+    getTectonsWithMycelia() : Tecton[]
     canGrowMycelium() : boolean
     myceliumGrowthComplete()
     growMushroom(Tecton)
     growMycelium(Tecton, Tecton)
-    getPotentialMyceliumSources()
 }
 class Mycelium {
     Mycelium(Fungus,Tecton,Tecton)
@@ -43,17 +44,17 @@ class Insect {
     isParalysed
     score
     eatSpore()
+    getPotentialMoveTargets() : Tecton[]
+    getPotencialChewTargets() : Mycelium[]
+    removeEffect(InsectEffect)
     moveTo(Tecton)
     chewMycelium(Mycelium)
-    removeEffect(InsectEffect)
-    getMycelia()
-    getPotentialMoveTargets()
 }
 abstract InsectEffect {
     timeLeft
+    {static} createEffect() : InsectEffect
     {abstract} applyTo(Insect)
     {abstract} remove()
-    {static} createEffect() : InsectEffect
 }
 
 IActive ()- Tecton
