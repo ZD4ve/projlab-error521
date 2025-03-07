@@ -6,7 +6,6 @@ participant "insect:Insect" as insect
 participant "location:Tecton" as location
 participant "target:Tecton" as target
 
-' TODO target
 Entomologist -> insect : moveTo(target)
 activate insect
 

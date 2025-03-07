@@ -8,7 +8,6 @@ collections "spores:Spore" as spore
 collections "mycelia:Mycelium" as mycelium
 participant "mushroom:Mushroom" as mushroom
 
-' TODO how does he know the target?
 Mycologist -> fungus : growMushroom(target)
 activate fungus
 

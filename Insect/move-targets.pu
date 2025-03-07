@@ -1,4 +1,4 @@
-@startuml EntomologistGetsPotentialMoveLocations
+@startuml Insect/move-targets
 hide footbox
 
 actor Entomologist

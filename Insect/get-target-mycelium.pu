@@ -1,4 +1,4 @@
-@startuml
+@startuml Insect/get-target-mycelium
 hide footbox
 
 actor Entomologist

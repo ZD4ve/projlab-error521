@@ -1,4 +1,4 @@
-@startuml
+@startuml Fungus/get-targets-for-fungus
 hide footbox
 
 actor Mycologist

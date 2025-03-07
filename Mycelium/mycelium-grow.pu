@@ -7,7 +7,6 @@ participant "source:Tecton" as source
 participant "target:Tecton" as target
 participant "mycelium:Mycelium" as mycelium
 
-' TODO source, target
 Mycologist -> species : growMycelium(source, target)
 activate species
 

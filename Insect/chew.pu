@@ -5,7 +5,6 @@ actor Entomologist
 participant ":Insect" as insect
 participant "target:Mycelium" as target
 
-' TODO target
 Entomologist -> insect : chewMycelium(target)
 activate insect
 

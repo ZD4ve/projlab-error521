@@ -7,7 +7,6 @@ participant "location:Tecton" as location
 participant "target:Tecton" as target
 participant "spore:Spore" as spore
 
-' TODO target
 Mycologist -> shroom : burstSpore(target)
 activate shroom
 

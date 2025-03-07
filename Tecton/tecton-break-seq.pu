@@ -1,11 +1,12 @@
 @startuml Tecton/tecton-break-seq
 hide footbox
 
+actor Time 
 participant "tecton:Tecton" as Dying
 collections "neighbors:Tecton" as allNeighbors
 collections "mycelia:Mycelium" as target
 
--> Dying : tick(dT)
+Time -> Dying : tick(dT)
 activate Dying
 opt when breaking
 

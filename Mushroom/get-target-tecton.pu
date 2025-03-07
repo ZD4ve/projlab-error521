@@ -1,4 +1,4 @@
-@startuml
+@startuml Mushroom/get-target-tecton
 hide footbox
 
 actor Mycologist
@@ -13,6 +13,8 @@ activate mushroom
 mushroom -> location : getNeighbors()
 activate location
 
+
+' TODO RECURSION END PARAMETER???
 opt range == 2
     location -> neighbors : getNeighbors()
     activate neighbors

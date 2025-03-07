@@ -9,6 +9,8 @@ Mycologist -> sources : getNeighbors()
 activate sources
 return neighbors
 
+
+'TODO I DONT THINK THIS IS NECESSARY
 note over Mycologist, neighbors: Mycologists know the Fungus they control
 Mycologist -> neighbors : canGrowMyceliumFrom(fungus)
 activate neighbors
