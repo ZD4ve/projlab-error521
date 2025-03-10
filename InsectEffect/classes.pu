@@ -2,9 +2,9 @@
 
 abstract InsectEffect {
     timeLeft
+    {static} createEffect() : InsectEffect
     {abstract} applyTo(Insect)
     {abstract} remove()
-    {static} createEffect() : InsectEffect
 }
 
 class SpeedEffect {
