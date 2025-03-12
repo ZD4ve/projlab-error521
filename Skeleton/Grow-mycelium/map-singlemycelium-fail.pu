@@ -1,0 +1,31 @@
+@startuml
+skinparam linestyle ortho
+title GrowMycelium-MapSingleMyceliumFail
+
+rectangle Skeleton
+
+rectangle "t1:Tecton" as t1
+rectangle "t2:SingleMyceliumTecton" as t2
+rectangle "t3:Tecton" as t3
+rectangle "s1:Fungus" as s1
+rectangle "s2:Fungus" as s2
+rectangle "m1:Mushroom" as m1
+rectangle "m2:Mushroom" as m2
+rectangle "my1:Mycelium" as my1
+
+Skeleton --> t1 : "1: new()"
+Skeleton --> t2 : "2: new()"
+Skeleton --> t3 : "3: new()"
+Skeleton --> t1 : "4: addNeighbor(t2)"
+Skeleton --> t2 : "5: addNeighbor(t1)"
+Skeleton --> t2 : "6: addNeighbor(t3)"
+Skeleton --> t3 : "7: addNeighbor(t2)"
+Skeleton --> s1 : "8: new()"
+Skeleton --> s2 : "9: new()"
+Skeleton --> m1 : "10: new(t1, s1)"
+m1 -> t1 : "10.1: setMushroom(m1)"
+Skeleton --> m2 : "11: new(t3, s2)"
+m2 -> t3 : "11.1: setMushroom(m2)"
+Skeleton --> my1 : "12: new(s2, t3, t2)"
+
+@enduml
