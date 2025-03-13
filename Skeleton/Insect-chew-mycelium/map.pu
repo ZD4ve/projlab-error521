@@ -1,9 +1,8 @@
 @startuml Insect-chew-mycelium/map 
-skinparam linestyle ortho
 left to right direction
 title InsectChewMycelium-Map
 
-rectangle Skeleton as S
+rectangle Skeleton as S 
 
 rectangle "s1:Fungus" as s1
 rectangle "m1:Mycelium" as m1

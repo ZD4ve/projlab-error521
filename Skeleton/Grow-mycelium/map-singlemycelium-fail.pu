@@ -1,5 +1,5 @@
 @startuml 
-'skinparam linestyle ortho
+'skinparam linetype ortho
 left to right direction
 title GrowMycelium-MapSingleMyceliumFail
 

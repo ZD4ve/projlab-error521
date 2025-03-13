@@ -1,4 +1,4 @@
-@startuml Insect-move/no-myelium
+@startuml Insect-move/no-mycelium
 hide footbox
 title INIT: InsectMove-Map
 

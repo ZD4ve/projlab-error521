@@ -1,5 +1,4 @@
 @startuml Insect-move/map 
-skinparam linestyle ortho
 left to right direction
 title InsectMove-Map
 
