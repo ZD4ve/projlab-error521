@@ -1,0 +1,53 @@
+@startuml temp
+hide footbox
+title INIT: InsectMove-Map
+
+actor Tester
+'TODO: Skeleton neve :Skeleton vagy csak Skeleton?
+participant ":Skeleton" as S
+participant "i1:Insect" as insect
+participant "t1:Tecton" as tecton
+
+Tester -> S : testCase12()
+activate S
+S -> insect : moveTo(t1)
+activate insect
+
+
+S <- insect : ask("Kérdés szövege")
+activate S
+note left
+    OPTION A
+end note
+return idle
+
+
+Tester <- insect : ask("Kérdés szövege")
+activate Tester
+note left
+    OPTION B
+end note
+return idle
+
+
+S <- insect : ask("Kérdés szövege")
+activate S
+Tester <- S : ask("Kérdés szövege")
+activate Tester
+note left
+    OPTION C
+end note
+return idle
+return idle
+
+opt idle
+
+    insect -> tecton : someFunction()
+    activate tecton
+    return
+end
+
+return
+return
+
+@enduml
