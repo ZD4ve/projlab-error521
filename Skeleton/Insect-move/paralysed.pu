@@ -1,7 +1,7 @@
 @startuml Insect-move/paralysed
 hide footbox
 
-title INIT: InsectMove-MapParalysed
+title INIT: InsectMove-Map
 
 actor Tester
 'TODO: Skeleton neve :Skeleton vagy csak Skeleton?
@@ -11,7 +11,7 @@ participant "i1:Insect" as insect
 'TODO: test case neve
 Tester -> Skeleton 
 activate Skeleton
-Skeleton -> insect : moveTo(target)
+Skeleton -> insect : moveTo(t2)
 activate insect
 return
 return

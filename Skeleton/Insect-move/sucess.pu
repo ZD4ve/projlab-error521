@@ -1,0 +1,45 @@
+@startuml Insect-move/sucess
+hide footbox
+title INIT: InsectMove-Map
+
+actor Tester
+'TODO: Skeleton neve :Skeleton vagy csak Skeleton?
+participant Skeleton
+participant "i1:Insect" as insect
+participant "t1:Tecton" as location
+participant "t2:Tecton" as target
+
+Tester -> Skeleton
+activate Skeleton
+Skeleton -> insect : moveTo(t2)
+activate insect
+
+Skeleton <- insect : ask("A rovarnak lejárt a várakozási ideje?")
+activate Skeleton
+return idle
+
+opt idle
+
+    insect -> location : hasMyceliumTo(t2)
+    activate location
+
+    'TODO: érték?
+    return moveValid = true
+
+    insect -> location : removeInsect(i1)
+    activate location
+    return 
+    
+    insect -> target : addInsect(i1)
+    activate target
+    return
+
+    insect -> insect : setCooldown(num)
+    activate insect
+    return
+end
+
+return
+return
+
+@enduml
