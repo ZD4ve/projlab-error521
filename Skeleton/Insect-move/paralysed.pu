@@ -6,7 +6,7 @@ title INIT: InsectMove-Map
 actor Tester
 'TODO: Skeleton neve :Skeleton vagy csak Skeleton?
 participant Skeleton
-participant "i1:Insect" as insect
+participant "i2:Insect" as insect
 
 'TODO: test case neve
 Tester -> Skeleton 

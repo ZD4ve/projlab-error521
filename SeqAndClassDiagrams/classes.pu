@@ -69,7 +69,7 @@ Tecton "1" --> "spores *" Spore
 Tecton "location 1" -- "mushroom 0..1" Mushroom
 
 Mycelium "mycelia *" -- "species 1" Fungus
-Insect "activeEffects *" -- "insect 1" InsectEffect
+Insect "insect *" -- "activeEffects 1" InsectEffect
 Insect "insects *" -- "location 1" Tecton
 Fungus "species 1" -- "mushrooms *" Mushroom
 Spore "*" --> "species 1" Fungus
