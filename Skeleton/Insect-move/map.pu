@@ -11,14 +11,12 @@ rectangle "t1:Tecton" as t1
 rectangle "t2:Tecton" as t2
 rectangle "t3:Tecton" as t3
 rectangle "i1:Insect" as i1
-together{
-    rectangle "i2:Insect" as i2
-    rectangle "p:ParalysingEffect" as p
-}
+rectangle "i2:Insect" as i2
+rectangle "p:ParalysingEffect" as p
 
 Skeleton --> t1: 1: new()
-Skeleton -down-> t2: 2: new()
-Skeleton -up-> t3: 3: new()
+Skeleton --> t2: 2: new()
+Skeleton --> t3: 3: new()
 Skeleton --> t1: 4: addNeighbor(t2)
 Skeleton --> t2: 5: addNeighbor(t1)
 Skeleton --> t2: 6: addNeighbor(t3)
@@ -28,18 +26,16 @@ Skeleton --> i1: 8: new(t1)
 i1 --> t1 : 8.1: addInsect(i1)
 Skeleton --> i2: 9: new(t1)
 i2 --> t1 : 9.1: addInsect(i2)
-'TODO
-Skeleton --> i2: new()
-Skeleton --> i2: 10: addActiveEffect(p)
-Skeleton --> p : 11: applyTo(i2)
-p --> i2 : 11.1: setIsParalysed(true)
+Skeleton --> p: 10: new()
+Skeleton --> i2: 11: addActiveEffect(p)
+Skeleton --> p : 12: applyTo(i2)
+p --> i2 : 12.1: setIsParalysed(true)
 
-
-Skeleton -left-> s1: 10: new()
-Skeleton --> m1: 11: new(s1,t1,t2)
-m1 --> t1 : 11.1: addMycelium(m1)
-m1 --> t2 : 11.2: addMycelium(m1)
-Skeleton --> s1: 12. addMycelium(m1)
+Skeleton -left-> s1: 13: new()
+Skeleton --> m1: 14: new(s1,t1,t2)
+m1 --> t1 : 14.1: addMycelium(m1)
+m1 --> t2 : 14.2: addMycelium(m1)
+Skeleton --> s1: 15. addMycelium(m1)
 
 
 @enduml
