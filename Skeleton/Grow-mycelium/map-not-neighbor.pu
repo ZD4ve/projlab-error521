@@ -1,5 +1,6 @@
 @startuml
 skinparam linestyle ortho
+left to right direction
 title GrowMycelium-MapNotNeighbor
 
 rectangle Skeleton
