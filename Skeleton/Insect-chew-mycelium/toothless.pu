@@ -1,8 +1,6 @@
 @startuml Insect-chew-mycelium/toothless
 hide footbox
 title INIT: InsectChewMycelium-Map
-hide footbox
-title INIT: InsectChewMycelium-Map
 
 actor Tester
 'TODO: Skeleton neve :Skeleton vagy csak Skeleton?
