@@ -1,0 +1,20 @@
+@startuml Insect-move/map-paralysed 
+skinparam linestyle ortho
+left to right direction
+title InsectMove-MapParalysed
+
+rectangle Skeleton
+
+rectangle "t1:Tecton" as t1
+rectangle "t2:Tecton" as t2
+rectangle "i1:Insect" as i1
+
+Skeleton --> t1: 1: new()
+Skeleton --> t2: 2: new()
+Skeleton --> t1: 3: addNeighbor(t2)
+Skeleton --> t2: 4: addNeighbor(t1)
+Skeleton --> i1: 5: new(t1)
+i1 -> t1 : 5.1: addInsect(i1)
+
+
+@enduml
