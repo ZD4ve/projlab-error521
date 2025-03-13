@@ -31,12 +31,10 @@ opt idle
     m1 -> t2 : removeMycelium(m1)
     activate t2
     return
-
     m1 -> s1 : removeMycelium(m1)
     activate s1
-    ref over s1
-        check-connectivity
-    end ref
+    'ÜRES check-connectivity, mert nincs másk fonal és test
+    'TODO: legyen olyan teszt, ahoL van más fonal? ez külön teszteset? 
     return
 
     return

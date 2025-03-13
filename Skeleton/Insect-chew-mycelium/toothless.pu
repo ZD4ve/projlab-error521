@@ -1,0 +1,19 @@
+@startuml Insect-chew-mycelium/toothless
+hide footbox
+title INIT: InsectChewMycelium-Map
+hide footbox
+title INIT: InsectChewMycelium-Map
+
+actor Tester
+'TODO: Skeleton neve :Skeleton vagy csak Skeleton?
+participant Skeleton as S
+participant "i3:Insect" as i3
+
+
+Tester -> S
+activate S
+S -> i3 : chewMycelium(m1)
+activate i3
+return
+return
+@enduml
