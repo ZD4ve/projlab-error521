@@ -1,0 +1,53 @@
+@startuml Insect-chew-mycelium/sucess
+hide footbox
+title INIT: InsectChewMycelium-Map
+
+actor Tester
+'TODO: Skeleton neve :Skeleton vagy csak Skeleton?
+participant Skeleton as S
+participant "i1:Insect" as i1
+participant "m1:Mycelium" as m1
+participant "t1:Tecton" as t1
+participant "t2:Tecton" as t2
+participant "s1:Fungus" as s1
+
+
+Tester -> S
+activate S
+S -> i1 : chewMycelium(m1)
+activate i1
+
+S <- i1 : ask("A rovarnak lejárt a várakozási ideje?")
+activate S
+return idle
+
+opt idle
+    i1 -> m1 : die()
+    activate m1
+
+    m1 -> t1 : removeMycelium(m1)
+    activate t1
+    return
+    m1 -> t2 : removeMycelium(m1)
+    activate t2
+    return
+
+    m1 -> s1 : removeMycelium(m1)
+    activate s1
+    ref over s1
+        check-connectivity
+    end ref
+    return
+
+    return
+    destroy m1
+
+    i1 -> i1 : setCooldown(num)
+    activate i1
+    return
+
+end
+
+return
+return
+@enduml
