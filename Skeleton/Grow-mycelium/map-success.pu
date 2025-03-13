@@ -1,4 +1,4 @@
-@startuml
+@startuml Grow-mycelium/map-success
 skinparam linetype ortho
 left to right direction
 title GrowMycelium-MapSuccess

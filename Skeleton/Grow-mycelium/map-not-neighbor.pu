@@ -1,6 +1,6 @@
-@startuml
+@startuml Grow-mycelium/map-not-neighbor
 skinparam linetype ortho
-left to right direction
+'left to right direction
 title GrowMycelium-MapNotNeighbor
 
 rectangle Skeleton
@@ -14,6 +14,7 @@ Skeleton --> t1: 1: new()
 Skeleton --> t2: 2: new()
 Skeleton --> s1: 3: new()
 Skeleton --> m1: 4: new(ta, s1)
+'TODO ez így még nem lesz jó, nincs minden attr. beallitva
 
 
 @enduml
