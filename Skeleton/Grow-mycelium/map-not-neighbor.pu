@@ -10,10 +10,10 @@ rectangle "t2:Tecton" as t2
 rectangle "s1:Fungus" as s1
 rectangle "m1:Mushroom" as m1
 
-Skeleton --> t1: "1: new()"
-Skeleton --> t2: "2: new()"
-Skeleton --> s1 : "3: new()"
-Skeleton --> m1: "4: new(ta, s1)"
+Skeleton --> t1: 1: new()
+Skeleton --> t2: 2: new()
+Skeleton --> s1: 3: new()
+Skeleton --> m1: 4: new(ta, s1)
 
 
 @enduml
