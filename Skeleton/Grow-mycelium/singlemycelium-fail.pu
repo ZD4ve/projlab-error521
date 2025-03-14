@@ -40,6 +40,6 @@ opt ready
 
     return mycelium=null
 end
-return success=false
+return
 
 @enduml

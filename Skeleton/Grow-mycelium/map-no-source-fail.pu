@@ -1,7 +1,7 @@
 @startuml Grow-mycelium/map-success
 'skinparam linetype ortho
 left to right direction
-title GrowMycelium-MapSuccess
+title GrowMycelium-MapNoSourceFail
 
 rectangle Skeleton
 

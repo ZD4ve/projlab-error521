@@ -1,13 +1,12 @@
 @startuml grow-mycelium-success
 hide footbox
 
-title INIT: GrowMycelium-MapSuccess
+title INIT: GrowMycelium-MapNoSourceFail
 
 actor Tester
 participant Skeleton
 participant "s1:Fungus" as species
 participant "t1:Tecton" as source
-participant "t2:Tecton" as target
 
 Tester -> Skeleton
 activate Skeleton
