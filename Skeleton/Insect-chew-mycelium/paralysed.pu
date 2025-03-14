@@ -2,16 +2,12 @@
 hide footbox
 title INIT: InsectChewMycelium-Map
 
-actor Tester
-'TODO: Skeleton neve :Skeleton vagy csak Skeleton?
-participant Skeleton as S
+actor Tester as S
 participant "i2:Insect" as i2
 
 
-Tester -> S
-activate S
 S -> i2 : chewMycelium(m1)
 activate i2
-return
+note over i2 : insect is paralysed
 return
 @enduml

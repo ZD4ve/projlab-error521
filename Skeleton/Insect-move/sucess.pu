@@ -2,20 +2,16 @@
 hide footbox
 title INIT: InsectMove-Map
 
-actor Tester
-'TODO: Skeleton neve :Skeleton vagy csak Skeleton?
-participant Skeleton
+actor Tester as S
 participant "i1:Insect" as insect
 participant "t1:Tecton" as location
 participant "t2:Tecton" as target
 
-Tester -> Skeleton
-activate Skeleton
-Skeleton -> insect : moveTo(t2)
+S -> insect : moveTo(t2)
 activate insect
 
-Skeleton <- insect : ask("A rovarnak lejárt a várakozási ideje?")
-activate Skeleton
+S <- insect : ask("A rovarnak lejárt a várakozási ideje?")
+activate S
 return idle
 
 opt idle
@@ -40,6 +36,4 @@ opt idle
 end
 
 return
-return
-
 @enduml

@@ -2,32 +2,27 @@
 hide footbox
 title INIT: InsectMove-Map
 
-actor Tester
-'TODO: Skeleton neve :Skeleton vagy csak Skeleton?
-participant Skeleton
+actor Tester as S
 participant "i1:Insect" as insect
 participant "i1:Insect" as insect
 participant "t1:Tecton" as location
 
-Tester -> Skeleton
-activate Skeleton
-Skeleton -> insect : moveTo(t3)
+S -> insect : moveTo(t3)
 activate insect
 
-Skeleton <- insect : ask("A rovarnak lejárt a várakozási ideje?")
-activate Skeleton
+S <- insect : ask("A rovarnak lejárt a várakozási ideje?")
+activate S
 return idle
 
 opt idle
 
     insect -> location : hasMyceliumTo(t3)
     activate location
-
+    note over location : t3 is neighbor,\nbut no mycelium
     'TODO: érték?
     return moveValid = false
 end
 
-return
 return
 
 @enduml

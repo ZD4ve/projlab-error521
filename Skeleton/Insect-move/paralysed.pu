@@ -3,16 +3,11 @@ hide footbox
 
 title INIT: InsectMove-Map
 
-actor Tester
-'TODO: Skeleton neve :Skeleton vagy csak Skeleton?
-participant Skeleton
+actor Tester as S
 participant "i2:Insect" as insect
 
-'TODO: test case neve
-Tester -> Skeleton 
-activate Skeleton
-Skeleton -> insect : moveTo(t2)
+S -> insect : moveTo(t2)
 activate insect
-return
+note over insect : insect is paralysed
 return
 @enduml
