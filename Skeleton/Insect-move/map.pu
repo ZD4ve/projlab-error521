@@ -1,9 +1,10 @@
 @startuml Insect-move/map 
 left to right direction
 title InsectMove-Map
-
+skinparam linetype polyline
 rectangle Skeleton as S
 
+'TODO: Add Mushroom
 rectangle "s1:Fungus" as s1
 rectangle "m1:Mycelium" as m1
 rectangle "m2:Mushroom" as m2
