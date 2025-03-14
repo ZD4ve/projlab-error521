@@ -49,7 +49,7 @@ S --> s1: 16. addMycelium(m1)
 
 S --> m2: 17: new(s1, t1)
 S --> s1: 18: addMushroom(m2)
-S --> t1: 19: addMushroom(m2)
+S --> t1: 19: setMushroom(m2)
 
 
 @enduml
