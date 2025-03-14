@@ -6,6 +6,7 @@ rectangle Skeleton as S
 
 rectangle "s1:Fungus" as s1
 rectangle "m1:Mycelium" as m1
+rectangle "m2:Mushroom" as m2
 rectangle "t1:Tecton" as t1
 rectangle "t2:Tecton" as t2
 rectangle "i1:Insect" as i1
@@ -44,6 +45,10 @@ S --> m1: 15: new(s1,t1,t2)
 m1 --> t1 : 15.1: addMycelium(m1)
 m1 --> t2 : 15.2: addMycelium(m1)
 S --> s1: 16. addMycelium(m1)
+
+S --> m2: 17: new(s1, t1)
+S --> s1: 18: addMushroom(m2)
+S --> t1: 19: addMushroom(m2)
 
 
 @enduml
