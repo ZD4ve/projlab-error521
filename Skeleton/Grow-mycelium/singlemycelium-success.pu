@@ -53,22 +53,23 @@ opt ready
 
     return mycelium
 end
-return success=true
+return success=ready
 
-Skeleton -> mycelium : tick(1)
-activate mycelium
+opt success
+    Skeleton -> mycelium : tick(1)
+    activate mycelium
 
-Skeleton <- mycelium : ask("Megvastagodott a gombafonal?")
-activate Skeleton
-return thickened
+    Skeleton <- mycelium : ask("Megvastagodott a gombafonal?")
+    activate Skeleton
+    return thickened
 
-opt thickened 
-    mycelium -> species : myceliumGrowthComplete()
-    activate species
+    opt thickened 
+        mycelium -> species : myceliumGrowthComplete()
+        activate species
+        return
+    end
+
     return
 end
-
-return
-
 return
 @enduml
