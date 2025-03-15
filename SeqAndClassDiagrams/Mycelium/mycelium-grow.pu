@@ -25,7 +25,7 @@ activate source
     ' ^check in implementation: (gombatest or mycelium) and (mycelium species count < limit)
     activate target
     return targetCanGrow
-    opt (source has an alive mushroom or a mycelium belonging to species) && sourceCanGrow && targetCanGrow && mycelium doesn't exist yet && target is in source.neighbors
+    opt source has an alive mushroom or a mycelium belonging to species && sourceCanGrow && targetCanGrow && mycelium doesn't exist yet && target is in source.neighbors
         create mycelium
         source -> mycelium : new(species,source,target)
         activate mycelium

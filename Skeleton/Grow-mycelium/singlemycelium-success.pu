@@ -4,23 +4,19 @@ hide footbox
 title INIT: GrowMycelium-MapSingleMyceliumSuccess
 
 actor Tester
-participant Skeleton
 participant "s1:Fungus" as species
 participant "t1:Tecton" as source
 participant "t2:SingleMyceliumTecton" as target
 participant "mycelium:Mycelium" as mycelium
 
-Tester -> Skeleton
-activate Skeleton
-
-Skeleton -> species : growMycelium(t1, t2)
+Tester -> species : growMycelium(t1, t2)
 activate species
 
 species -> species : canGrowMycelium()
 activate species
 
-Skeleton <- species : ask("Tud még gombafonalat növeszteni a gombafaj?")
-activate Skeleton
+Tester <- species : ask("Tud még gombafonalat növeszteni a gombafaj?")
+activate Tester
 return ready
 
 return ready
@@ -56,11 +52,11 @@ end
 return success=ready
 
 opt success
-    Skeleton -> mycelium : tick(1)
+    Tester -> mycelium : tick(1)
     activate mycelium
 
-    Skeleton <- mycelium : ask("Megvastagodott a gombafonal?")
-    activate Skeleton
+    Tester <- mycelium : ask("Megvastagodott a gombafonal?")
+    activate Tester
     return thickened
 
     opt thickened 
@@ -71,5 +67,4 @@ opt success
 
     return
 end
-return
 @enduml

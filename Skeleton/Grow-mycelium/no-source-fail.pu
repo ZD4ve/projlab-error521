@@ -4,21 +4,17 @@ hide footbox
 title INIT: GrowMycelium-MapNoSourceFail
 
 actor Tester
-participant Skeleton
 participant "s1:Fungus" as species
 participant "t1:Tecton" as source
 
-Tester -> Skeleton
-activate Skeleton
-
-Skeleton -> species : growMycelium(t1, t2)
+Tester -> species : growMycelium(t1, t2)
 activate species
 
 species -> species : canGrowMycelium()
 activate species
 
-Skeleton <- species : ask("Tud még gombafonalat növeszteni a gombafaj?")
-activate Skeleton
+Tester <- species : ask("Tud még gombafonalat növeszteni a gombafaj?")
+activate Tester
 return ready
 
 return ready
@@ -35,6 +31,4 @@ opt ready
     return mycelium = null
 end
 return success=false
-
-return
 @enduml
