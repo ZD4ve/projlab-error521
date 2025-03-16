@@ -1,0 +1,51 @@
+@startuml absorb-mycelium-success
+hide footbox
+
+title INIT: AbsorbMycelium-MapSuccess
+
+actor Tester as S
+participant "t1:Tecton" as t1
+participant "t2:MyceliumAbsorbingTecton" as t2
+participant "s1:Fungus" as s1
+participant "m1:Mushroom" as m1
+participant "m2:Mycelium" as m2
+
+S -> t2 : tick(dT)
+activate t2
+
+opt absorbtionTimer == 0
+    t2 -> m2 : die()
+    activate m2
+
+    m2 -> t1 : removeMycelium(m2)
+    activate t1
+
+    return
+
+    m2 -> t2 : removeMycelium(m2)
+    activate t2
+
+    return
+
+    m2 -> s1 : removeMycelium(m2)
+    activate s1
+
+    s1 -> m1 : getLocation()
+    activate m1
+
+    return location = t1
+
+    note over s1 : no mycelium to check or remove
+
+    return
+    return
+    destroy m2
+end
+
+t2 -> t2 : super.tick(dT)
+activate t2
+return
+
+return
+
+@enduml

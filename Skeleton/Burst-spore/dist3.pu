@@ -1,0 +1,27 @@
+@startuml Burst-spore/dist4
+title INIT: BurstSpore-Map
+
+hide footbox
+
+actor Tester
+participant "m1:Mushroom" as m1
+participant "t1:Tecton" as t1
+
+Tester -> m1 : burstSpore(t4)
+activate m1
+
+m1 -> Tester:  ask("Készen áll m1 a spóra szórására?")
+activate Tester
+return Ready
+
+opt Ready
+    m1 -> t1 : distanceTo(t4)
+    ' Itt valahogy lemérjük a távolságot
+    activate t1
+    return 3
+
+    note over m1: t4 is not in range either way
+
+end
+
+return
