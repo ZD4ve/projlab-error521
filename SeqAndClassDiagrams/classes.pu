@@ -18,6 +18,7 @@ class Tecton {
     growMycelium(Fungus, Tecton)
 }
 class Fungus {
+    Fungus()
     getPotentialMyceliumSources() : Tecton[]
     getTectonsWithMycelia() : Tecton[]
     canGrowMycelium() : boolean

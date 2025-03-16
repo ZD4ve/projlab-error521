@@ -6,3 +6,4 @@ tecton-break: die és newMe sorrend felcserélése
 
 Spore(Fungus) konstruktor hozzáadva
 Tecton ctor added
+Fungus ctor added
