@@ -33,12 +33,9 @@ opt absorbtionTimer == 0
     s1 -> m1 : getLocation()
     activate m1
 
-    return location
+    return location = t1
 
-    s1 -> m2 : getEnds()
-    activate m2
-
-    return ends
+    note over s1 : no mycelium to check or remove
 
     return
     return
