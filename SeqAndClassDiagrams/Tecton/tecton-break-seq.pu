@@ -14,6 +14,13 @@ Dying -> allNeighbors : removeNeighbor(tecton)
 activate allNeighbors
 return
 
+
+Dying -> target : die()
+activate target
+
+return
+destroy target
+
 create "t1:Tecton" as New1
 Dying -> New1 : newMe()
 activate New1
@@ -32,13 +39,6 @@ Dying -> New2 : fillWithStuff(subset of spores, mushroom or null, subset of inse
 activate New2
 
 return
-
-Dying -> target : die()
-activate target
-
-return
-destroy target
-
 end
 return
 
