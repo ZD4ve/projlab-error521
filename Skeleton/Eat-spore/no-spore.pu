@@ -1,6 +1,6 @@
 @startuml Insect-chew-mycelium/no-spore
 hide footbox
-title INIT: Eat-spore-MapNoSpore
+title INIT: EatSpore-MapNoSpore
 
 actor Tester as S
 participant "i1:Insect" as i1
