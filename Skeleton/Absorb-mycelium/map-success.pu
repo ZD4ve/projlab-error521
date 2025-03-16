@@ -19,8 +19,8 @@ Skeleton --> m1: 6: new(t1, s1)
 Skeleton --> t1 : 7: setMushroom(m1)
 Skeleton --> s1: 8: addMushroom(m1)
 Skeleton --> m2: 9: new(s1, t1, t2)
-m2 -> t1 : 9.1: addMycelium(m2)
-m2 -> t2 : 9.2: addMycelium(m2)
+m2 --> t1 : 9.1: addMycelium(m2)
+m2 --> t2 : 9.2: addMycelium(m2)
 Skeleton --> t2: 10: addMycelium(m2)
 
 @enduml
