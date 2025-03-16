@@ -1,0 +1,13 @@
+@startuml
+hide footbox
+title INIT: Eat-spore-Map!CanMove
+
+actor Tester as S
+participant "i1:Insect" as i1
+
+S -> i1 : eatSpore()
+activate i1
+note over i1 : insect is paralysed
+return
+
+@enduml
