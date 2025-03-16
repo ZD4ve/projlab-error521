@@ -5,9 +5,9 @@ title InsectChewMycelium-Map
 
 rectangle Skeleton as S 
 
-rectangle "s1:Fungus" as s1
-rectangle "m1:Mycelium" as m1
-rectangle "m2:Mushroom" as m2
+rectangle "fu1:Fungus" as fu1
+rectangle "my1:Mycelium" as my1
+rectangle "mu1:Mushroom" as mu1
 rectangle "t1:Tecton" as t1
 rectangle "t2:Tecton" as t2
 rectangle "i1:Insect" as i1
@@ -41,15 +41,15 @@ c --> i3 : 13.2: setAntiChewCount(1)
 
 
 
-S -left-> s1: 14: new()
-S --> m1: 15: new(s1,t1,t2)
-m1 --> t1 : 15.1: addMycelium(m1)
-m1 --> t2 : 15.2: addMycelium(m1)
-S --> s1: 16. addMycelium(m1)
+S -left-> fu1: 14: new()
+S --> my1: 15: new(fu1,t1,t2)
+my1 --> t1 : 15.1: addMycelium(my1)
+my1 --> t2 : 15.2: addMycelium(my1)
+S --> fu1: 16. addMycelium(my1)
 
-S --> m2: 17: new(s1, t1)
-S --> s1: 18: addMushroom(m2)
-S --> t1: 19: setMushroom(m2)
+S --> mu1: 17: new(fu1, t1)
+S --> fu1: 18: addMushroom(mu1)
+S --> t1: 19: setMushroom(mu1)
 
 
 @enduml

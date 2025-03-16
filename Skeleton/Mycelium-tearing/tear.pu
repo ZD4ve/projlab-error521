@@ -1,0 +1,49 @@
+@startuml Mycelium-tearing/tear
+hide footbox
+
+title INIT: MyceliumTearing-Map
+
+actor Tester as S
+
+participant "t1:Tecton" as t1
+participant "my1:Mycelium" as my1
+participant "t2:Tecton" as t2
+participant "my2:Mycelium" as my2
+participant "t3:Tecton" as t3
+participant "fu1:Fungus" as fu1
+participant "mu1:Mushroom" as mu1
+
+S -> my1 : die()
+activate my1
+    my1 -> t1 : removeMycelium(my1)
+    activate t1
+    return
+    my1 -> t2 : removeMycelium(my1)
+    activate t2
+    return
+    my1 -> fu1 : removeMycelium(my1)
+    activate fu1
+        fu1 -> mu1 : getLocation()
+        activate mu1
+        return location = t1
+        fu1 -> my2 : getEnds()
+        activate my2
+        return ends = [t2,t3]
+        fu1 -> my2 : die()
+        activate my2
+            my2 -> t2 : removeMycelium(my2)
+            activate t2
+            return
+            my2 -> t3 : removeMycelium(my2)
+            activate t3
+            return
+            my2 -> fu1 : removeMycelium(my2)
+            activate fu1
+            note over fu1 : fu1 knows that connectivity-check is running\nand it doesn't have to start it again
+            return
+        return
+        destroy my2
+    return
+return
+destroy my1
+@enduml

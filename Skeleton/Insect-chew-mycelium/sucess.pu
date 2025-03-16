@@ -4,14 +4,14 @@ title INIT: InsectChewMycelium-Map
 
 actor Tester as S
 participant "i1:Insect" as i1
-participant "m1:Mycelium" as m1
+participant "my1:Mycelium" as my1
 participant "t1:Tecton" as t1
 participant "t2:Tecton" as t2
-participant "s1:Fungus" as s1
-participant "m2:Mushroom" as m2
+participant "fu1:Fungus" as fu1
+participant "mu1:Mushroom" as mu1
 
 
-S -> i1 : chewMycelium(m1)
+S -> i1 : chewMycelium(my1)
 activate i1
 
 S <- i1 : ask("A rovarnak lejárt a várakozási ideje?")
@@ -19,27 +19,27 @@ activate S
 return idle
 
 opt idle
-    i1 -> m1 : die()
-    activate m1
+    i1 -> my1 : die()
+    activate my1
 
-    m1 -> t1 : removeMycelium(m1)
+    my1 -> t1 : removeMycelium(my1)
     activate t1
     return
-    m1 -> t2 : removeMycelium(m1)
+    my1 -> t2 : removeMycelium(my1)
     activate t2
     return
-    m1 -> s1 : removeMycelium(m1)
-    activate s1
-    s1 -> m2 : getLocation()
-    activate m2
+    my1 -> fu1 : removeMycelium(my1)
+    activate fu1
+    fu1 -> mu1 : getLocation()
+    activate mu1
     return location = t1
-    note over s1 : no mycelium to check or remove 
+    note over fu1 : no mycelium to check or remove 
     'ÜRES check-connectivity, mert nincs másk fonal és test
     'TODO: legyen olyan teszt, ahoL van más fonal? ez külön teszteset? 
     return
 
     return
-    destroy m1
+    destroy my1
 
     i1 -> i1 : setCooldown(num)
     activate i1
