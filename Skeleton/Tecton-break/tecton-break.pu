@@ -1,7 +1,7 @@
 @startuml Tecton/tecton-break-seq
 hide footbox
 
-title INIT: Tecton-break-Tecton-break-Map
+title INIT: Tecton-Break-Map
 
 actor Tester
 participant "tecton:Tecton" as Dying
