@@ -1,7 +1,7 @@
 @startuml Tecton-break/map 
 left to right direction
 
-title Tecton-break-Map
+title Tecton-Break-Map
 
 rectangle Skeleton as S 
 
