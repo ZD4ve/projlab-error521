@@ -37,7 +37,7 @@ activate Dying
                 activate s1
                 s1 -> mushroom : getLocation()
                 activate mushroom
-                return location = Dying
+                return location = tecton
                 s1 -> mycelia2 : getEnds()
                 activate mycelia2
                 return ends = [tecton, neighbor2]
@@ -60,7 +60,7 @@ activate Dying
                 activate s1
                 s1 -> mushroom : getLocation()
                 activate mushroom
-                return location = Dying
+                return location = tecton
 
                 note over s1 : no mycelium to check or remove
                 return
