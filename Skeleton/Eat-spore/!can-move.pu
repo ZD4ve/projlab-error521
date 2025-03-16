@@ -1,6 +1,6 @@
 @startuml Insect-chew-mycelium/!can-move
 hide footbox
-title INIT: Eat-spore-Map!CanMove
+title INIT: EatSpore-Map!CanMove
 
 actor Tester as S
 participant "i1:Insect" as i1

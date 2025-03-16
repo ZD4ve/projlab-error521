@@ -13,6 +13,7 @@ rectangle "neighbor2:Tecton" as neighbor2
 rectangle "sp1:Spore" as sp1
 rectangle "sp2:Spore" as sp2
 rectangle "sp3:Spore" as sp3
+rectangle "mu1:Mushroom" as mu1
 
 S --> tecton: 1: new()
 S --> neighbor1: 2: new()
@@ -33,5 +34,9 @@ S --> sp3: 14: new(fu2)
 S --> tecton: 15: addSpore(sp1)
 S --> tecton: 16: addSpore(sp2)
 S --> tecton: 17: addSpore(sp3)
+
+S --> mu1: 18: new(fu1, neighbor1)
+S --> fu1: 19: addMushroom(mu1)
+S --> tecton: 20: setMushroom(mu1)
 
 @enduml
