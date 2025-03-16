@@ -46,7 +46,7 @@ opt Ready
         activate s1
         note over s1: Checking connectivity, but there \n are no mycelia or mushrooms
         return
-        destroy m1
+        'destroy m1
     end
 end
 
