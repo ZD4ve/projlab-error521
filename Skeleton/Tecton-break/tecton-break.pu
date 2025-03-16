@@ -1,7 +1,7 @@
 @startuml Tecton/tecton-break-seq
 hide footbox
 
-title Tecton-break
+title INIT: Tecton-break-Tecton-break-Map
 
 actor Tester
 participant "tecton:Tecton" as Dying
@@ -15,6 +15,7 @@ participant "s1:Fungus" as s1
 Tester -> Dying : tectonBreak(tecton)
 activate Dying
 
+    participant "m1:Mushroom" as mushroom
     Dying -> neighbor1 : removeNeighbor(tecton)
     activate neighbor1
     return
@@ -76,7 +77,6 @@ activate Dying
     activate New1
 
             participant "i1:Insect" as insect1
-            participant "m1:Mushroom" as mushroom
 
             New1 -> insect1 : setLocation(t1)
             activate insect1
