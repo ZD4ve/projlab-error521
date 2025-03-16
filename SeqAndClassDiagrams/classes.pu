@@ -47,6 +47,7 @@ class Insect {
     isParalysed
     score
     eatSpore()
+    Insect(Tecton)
     getPotentialMoveTargets() : Tecton[]
     getPotencialChewTargets() : Mycelium[]
     removeEffect(InsectEffect)
