@@ -1,6 +1,6 @@
 @startuml Insect-chew-mycelium/no-spore
 hide footbox
-title INIT: Eat-spore-MapNoSpore
+title INIT: EatSpore-MapNoSpore
 
 actor Tester as S
 participant "i1:Insect" as i1
@@ -15,7 +15,7 @@ activate t1
 
 return sporeTaken
 
-note over i1: Since sporeTaken does not exists, Insect cannot procede.
+note over i1: Since sporeTaken does not exists, Insect cannot proceed.
 
 return
 @enduml

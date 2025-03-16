@@ -3,6 +3,7 @@ interface IActive {
     tick(dT)
 }
 class Tecton {
+    Tecton()
     addNeighbor(Tecton)
     addInsect(Insect)
     addSpore(Spore)
@@ -17,6 +18,7 @@ class Tecton {
     growMycelium(Fungus, Tecton)
 }
 class Fungus {
+    Fungus()
     getPotentialMyceliumSources() : Tecton[]
     getTectonsWithMycelia() : Tecton[]
     canGrowMycelium() : boolean
@@ -45,6 +47,7 @@ class Insect {
     isParalysed
     score
     eatSpore()
+    Insect(Tecton)
     getPotentialMoveTargets() : Tecton[]
     getPotencialChewTargets() : Mycelium[]
     removeEffect(InsectEffect)

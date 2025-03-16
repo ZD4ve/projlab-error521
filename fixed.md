@@ -5,3 +5,6 @@ SingleMyceliumTecton: a dokumentációban helytelenül 1 db-ra volt limitálva 1
 tecton-break: die és newMe sorrend felcserélése
 
 Spore(Fungus) konstruktor hozzáadva
+Tecton ctor added
+Fungus ctor added
+Insect ctor added: sets tecton.insect too

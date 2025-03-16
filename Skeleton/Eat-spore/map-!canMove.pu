@@ -1,6 +1,6 @@
 @startuml Eat-spore/map-!canMove
 left to right direction
-title Eat-spore-Map!CanMove
+title EatSpore-Map!CanMove
 
 rectangle Skeleton as S 
 
