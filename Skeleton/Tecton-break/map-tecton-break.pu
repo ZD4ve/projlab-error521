@@ -46,7 +46,7 @@ S --> m1: 15: new(s1, tecton)
 S --> s1: 16: addMushroom(m1)
 S --> neighbor1: 17: setMushroom(m1)
 
-S --> s2: 18: new()
+S --> s2: 18: new(s1)
 S --> tecton: 19: addSpore(s2)
 
 @enduml
