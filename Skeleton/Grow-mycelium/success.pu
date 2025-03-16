@@ -8,6 +8,7 @@ participant "s1:Fungus" as species
 participant "t1:Tecton" as source
 participant "t2:Tecton" as target
 participant "mycelium:Mycelium" as mycelium
+participant "m1:Mushroom" as m1
 
 
 Tester -> species : growMycelium(t1, t2)
@@ -33,6 +34,11 @@ opt ready
         source -> target : canGrowMyceliumFrom(s1)
         activate target
         return targetCanGrow=true
+
+        source -> m1 : getSpecies()
+        activate m1
+        return mushroomSpecies
+        note over source: mushroomSpecies = s1
 
         create mycelium
         source -> mycelium : new(s1, t1, t2)

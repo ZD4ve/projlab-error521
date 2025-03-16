@@ -6,6 +6,8 @@ participant "species:Fungus" as species
 participant "source:Tecton" as source
 participant "target:Tecton" as target
 participant "mycelium:Mycelium" as mycelium
+participant "mushroom:Mushroom" as mushroom
+collections "mycelia:Mycelium" as mycelia
 
 Mycologist -> species : growMycelium(source, target)
 activate species
@@ -21,11 +23,22 @@ activate source
     activate source
     return sourceCanGrow
 
-    source -> target : canGrowMyceliumFrom(species) 
-    ' ^check in implementation: (gombatest or mycelium) and (mycelium species count < limit)
+    source -> target : canGrowMyceliumFrom(species)
     activate target
     return targetCanGrow
-    opt source has an alive mushroom or a mycelium belonging to species && sourceCanGrow && targetCanGrow && mycelium doesn't exist yet && target is in source.neighbors
+
+    source -> mushroom : getSpecies()
+    activate mushroom
+    return mushroomSpecies
+
+    opt mushroomSpecies != species
+        source -> mycelia : getSpecies()
+        activate mycelia
+        return species
+    end
+
+
+    opt source has an alive mushroom or a mycelium belonging to species && sourceCanGrow && targetCanGrow && target is in source.neighbors
         create mycelium
         source -> mycelium : new(species,source,target)
         activate mycelium

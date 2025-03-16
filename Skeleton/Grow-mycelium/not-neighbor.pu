@@ -34,6 +34,11 @@ opt ready
         activate target
         return targetCanGrow=true
 
+        source -> m1 : getSpecies()
+        activate m1
+        return mushroomSpecies
+        note over source: mushroomSpecies = s1
+        
         note over source: t1 and t2 aren't neighbors, we do nothing
 
     return mycelium = null

@@ -6,6 +6,7 @@ title INIT: GrowMycelium-MapNoSourceFail
 actor Tester
 participant "s1:Fungus" as species
 participant "t1:Tecton" as source
+participant "t2:Tecton" as target
 
 Tester -> species : growMycelium(t1, t2)
 activate species
@@ -27,7 +28,11 @@ opt ready
         activate source
         return sourceCanGrow=true
 
-        note over source: Source doesn't have Mycelium or Mushroom
+        source -> target : canGrowMyceliumFrom(s1)
+        activate target
+        return targetCanGrow=true
+
+        note over source: Source doesn't have Mycelia or Mushroom
     return mycelium = null
 end
 return success=false
