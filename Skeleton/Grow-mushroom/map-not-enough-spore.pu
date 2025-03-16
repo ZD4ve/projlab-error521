@@ -35,8 +35,8 @@ S --> tecton: 15: addSpore(sp1)
 S --> tecton: 16: addSpore(sp2)
 S --> tecton: 17: addSpore(sp3)
 
-S --> mu1: 22: new(fu1, neighbor1)
-S --> fu1: 23: addMushroom(mu1)
-S --> tecton: 24: setMushroom(mu1)
+S --> mu1: 18: new(fu1, neighbor1)
+S --> fu1: 19: addMushroom(mu1)
+S --> tecton: 20: setMushroom(mu1)
 
 @enduml
