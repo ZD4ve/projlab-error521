@@ -3,6 +3,7 @@ interface IActive {
     tick(dT)
 }
 class Tecton {
+    Tecton()
     addNeighbor(Tecton)
     addInsect(Insect)
     addSpore(Spore)
