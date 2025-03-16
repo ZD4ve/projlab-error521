@@ -1,0 +1,53 @@
+@startuml Burst-spore/dist1
+title INIT: BurstSpore-Map
+
+hide footbox
+
+actor Tester
+participant "m1:Mushroom" as m1
+participant "t1:Tecton" as t1
+participant "t2:Tecton" as t2
+participant "s1:Fungus" as s1
+participant "spore:Spore" as spore
+
+Tester -> m1 : burstSpore(t2)
+activate m1
+
+m1 -> Tester:  ask("Készen áll m1 a spóra szórására?")
+activate Tester
+return Ready
+
+opt Ready
+    m1 -> t1 : distanceTo(t2)
+    ' Itt valahogy lemérjük a távolságot
+    activate t1
+    return 1
+
+    note over m1: t2 is in range either way
+
+    create spore
+    m1 -> spore : new(s1)
+    activate spore
+    return
+
+    m1 -> t2 : addSpore(spore)
+    activate t2
+    return
+
+    m1 -> Tester:  ask("Tud még spórát szórni a gomba?")
+    activate Tester
+    return alive
+
+    opt not alive
+        m1 -> t1 : removeMushroom(m1)
+        activate t1
+        return
+        m1 -> s1 : removeMushroom(m1)
+        activate s1
+        note over s1: Checking connectivity, but there \n are no mycelia or mushrooms
+        return
+        destroy m1
+    end
+end
+
+return
