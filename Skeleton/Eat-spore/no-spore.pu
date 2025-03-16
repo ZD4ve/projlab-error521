@@ -15,7 +15,7 @@ activate t1
 
 return sporeTaken
 
-note over i1: Since sporeTaken does not exists, i1 will not procede.
+note over i1: Since sporeTaken does not exists, Insect cannot procede.
 
 return
 @enduml
