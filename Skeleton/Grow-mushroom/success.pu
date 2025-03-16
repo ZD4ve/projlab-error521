@@ -1,0 +1,51 @@
+@startuml Grow-mushroom/success
+hide footbox
+
+title INIT: GrowMushroom-MapSuccess
+
+actor Tester
+participant "fu1:Fungus" as fungus
+participant "target: Tecton" as target
+participant "sp1:Spore" as spore1
+participant "sp2:Spore" as spore2
+participant "sp3:Spore" as spore3
+participant "my1:Mycelium" as mycelia1
+participant "my2:Mycelium" as mycelia2
+participant "mu1:Mushroom" as mushroom
+
+Tester -> fungus : growMushroom(target)
+activate fungus
+
+fungus -> target: growMushroom(fu1)
+activate target
+
+    target -> spore1 : getSpecies()
+    activate spore1
+    return species = fu1
+
+    target -> spore2 : getSpecies()
+    activate spore2
+    return species = fu1
+
+    target -> spore3 : getSpecies()
+    activate spore3
+    return species = fu1
+
+    target -> mycelia1 : getSpecies()
+    activate mycelia1
+    return species = fu2
+
+    target -> mycelia2 : getSpecies()
+    activate mycelia2
+    return species = fu1
+    
+    create mushroom
+    target -> mushroom : new(fu1, target)
+    activate mushroom
+    return mu1
+
+return mu1
+
+return
+
+@enduml

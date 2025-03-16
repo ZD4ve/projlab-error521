@@ -1,6 +1,6 @@
 @startuml Insect-chew-mycelium/map 
 left to right direction
-skinparam linetype polyline
+
 title InsectChewMycelium-Map
 
 rectangle Skeleton as S 

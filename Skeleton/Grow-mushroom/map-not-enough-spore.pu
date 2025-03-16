@@ -1,0 +1,37 @@
+@startuml Grow-mushroom/map-not-enough-spore
+left to right direction
+
+title GrowMushroom-MapNotEnoughSpore
+
+rectangle Skeleton as S 
+
+rectangle "fu1:Fungus" as fu1
+rectangle "fu2:Fungus" as fu2
+rectangle "target:Tecton" as tecton
+rectangle "neighbor1:Tecton" as neighbor1
+rectangle "neighbor2:Tecton" as neighbor2
+rectangle "sp1:Spore" as sp1
+rectangle "sp2:Spore" as sp2
+rectangle "sp3:Spore" as sp3
+
+S --> tecton: 1: new()
+S --> neighbor1: 2: new()
+S --> neighbor2: 3: new()
+S --> tecton: 4: addNeighbor(neighbor2)
+S --> tecton: 5: addNeighbor(neighbor1)
+S --> neighbor1: 6: addNeighbor(tecton)
+S --> neighbor1: 7: addNeighbor(neighbor2)
+S --> neighbor2: 8: addNeighbor(tecton)
+S --> neighbor2: 9: addNeighbor(neighbor1)
+
+S -left-> fu1: 10: new()
+S -left-> fu2: 11: new()
+
+S --> sp1: 12: new(fu1)
+S --> sp2: 13: new(fu1)
+S --> sp3: 14: new(fu2)
+S --> tecton: 15: addSpore(sp1)
+S --> tecton: 16: addSpore(sp2)
+S --> tecton: 17: addSpore(sp3)
+
+@enduml

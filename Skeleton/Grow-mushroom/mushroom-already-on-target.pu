@@ -1,0 +1,22 @@
+@startuml Grow-mushroom/already-on-target
+hide footbox
+
+title INIT: GrowMushroom-MapAlreadyOnTarget
+
+actor Tester
+participant "fu1:Fungus" as fungus
+participant "target: Tecton" as target
+
+Tester -> fungus : growMushroom(target)
+activate fungus
+
+fungus -> target: growMushroom(fu1)
+activate target
+
+note over target : mushroom already on target
+
+return mushroom = null
+
+return
+
+@enduml

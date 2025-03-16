@@ -1,0 +1,20 @@
+@startuml Grow-mushroom/no-mushroom-tecton
+hide footbox
+
+title INIT: GrowMushroom-MapNoMushroom
+
+actor Tester
+participant "fu1:Fungus" as fungus
+participant "target: NoMushroomTecton" as target
+
+Tester -> fungus : growMushroom(target)
+activate fungus
+
+fungus -> target: growMushroom(fu1)
+activate target
+
+return mushroom = null
+
+return
+
+@enduml
