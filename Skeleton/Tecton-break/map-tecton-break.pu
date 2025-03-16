@@ -14,6 +14,7 @@ rectangle "neighbor1:Tecton" as neighbor1
 rectangle "neighbor2:Tecton" as neighbor2
 rectangle "i1:Insect" as i1
 rectangle "i2:Insect" as i2
+rectangle "s2:Spore" as s2
 
 S --> tecton: 1: new()
 S --> neighbor1: 2: new()
@@ -43,7 +44,9 @@ S --> s1: 14. addMycelium(mycelia2)
 
 S --> m1: 15: new(s1, tecton)
 S --> s1: 16: addMushroom(m1)
-S --> neighbor1: 17: setMushroom(mycelia1)
+S --> neighbor1: 17: setMushroom(m1)
 
+S --> s2: 18: new()
+S --> tecton: 19: addSpore(s2)
 
 @enduml
