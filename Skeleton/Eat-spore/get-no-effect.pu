@@ -1,0 +1,38 @@
+@startuml Eat-spore/get-no-effect
+hide footbox
+
+title INIT: EatSpore-MapSuccess
+
+actor Tester as S
+
+participant "fu1:Fungus" as fu1
+participant "i1:Insect" as i1
+participant "t1:Tecton" as t1
+participant "sp1:Spore" as sp1
+
+S -> i1 : eatSpore()
+activate i1
+
+S <- i1 : ask("A rovarnak lejárt a várakozási ideje?")
+activate S
+return idle
+
+opt idle
+    i1 -> t1 : takeSpore()
+    activate t1
+
+    return sp1
+
+    opt sp1 exists
+        i1 -> sp1 : getEffect()
+        activate sp1
+
+        note over sp1 : No effect was created
+
+        return
+    end
+end
+
+return
+
+@enduml

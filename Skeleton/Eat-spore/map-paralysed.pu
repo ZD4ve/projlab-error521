@@ -1,6 +1,6 @@
-@startuml Eat-spore/map-!canMove
+@startuml Eat-spore/map-paralysed
 left to right direction
-title EatSpore-Map!CanMove
+title EatSpore-MapParalysed
 
 rectangle Skeleton as S 
 

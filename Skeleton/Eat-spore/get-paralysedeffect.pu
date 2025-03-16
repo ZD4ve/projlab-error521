@@ -1,0 +1,75 @@
+@startuml Eat-spore/get-get-paralysedeffect
+hide footbox
+
+title INIT: EatSpore-MapSuccess
+
+actor Tester as S
+
+participant "fu1:Fungus" as fu1
+participant "i1:Insect" as i1
+participant "t1:Tecton" as t1
+participant "sp1:Spore" as sp1
+participant "c:ParalysedEffect" as c
+participant "e:InsectEffect" as e
+
+S -> i1 : eatSpore()
+activate i1
+
+S <- i1 : ask("A rovarnak lejárt a várakozási ideje?")
+activate S
+return idle
+
+opt idle
+    i1 -> t1 : takeSpore()
+    activate t1
+
+    return sp1
+
+    opt sp1 exists
+        i1 -> sp1 : getEffect()
+        note over e : static function call
+        activate sp1
+
+        sp1 -> e : createEffect()
+        activate e
+
+        create c
+        e -> c : new()
+        activate c
+
+        return c
+
+        return c
+        return c
+        destroy sp1
+
+        opt c exists
+            i1 -> c : applyTo(i1)
+            activate c
+            c -> t1 : setIsParalysed(true)
+            activate t1
+            return
+
+            return
+        end
+        i1 -> S : ask("A rovarnak lejárt a várakozási ideje?")
+        activate S
+        return over
+
+        opt over
+            i1 -> c : remove()
+            activate c
+
+            c -> t1 : setIsParalysed(false)
+            activate t1
+            return
+
+            return    
+        end
+
+    end
+end
+
+return
+
+@enduml

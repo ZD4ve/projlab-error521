@@ -46,8 +46,8 @@ class Insect {
     antiChewCount
     isParalysed
     score
-    eatSpore()
     Insect(Tecton)
+    eatSpore()
     getPotentialMoveTargets() : Tecton[]
     getPotencialChewTargets() : Mycelium[]
     removeEffect(InsectEffect)

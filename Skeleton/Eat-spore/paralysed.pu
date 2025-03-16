@@ -1,6 +1,6 @@
-@startuml Insect-chew-mycelium/!can-move
+@startuml Insect-chew-mycelium/paralysed
 hide footbox
-title INIT: EatSpore-Map!CanMove
+title INIT: EatSpore-MapParalysed
 
 actor Tester as S
 participant "i1:Insect" as i1
