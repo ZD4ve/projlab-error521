@@ -1,0 +1,21 @@
+@startuml Insect-chew-mycelium/no-spore
+hide footbox
+title INIT: Eat-spore-MapNoSpore
+
+actor Tester as S
+participant "i1:Insect" as i1
+participant "t1:Tecton" as t1
+
+S -> i1 : eatSpore()
+activate i1
+
+note over i1: Insect is not under any effect.
+i1 -> t1 : takeSpore()
+activate t1
+
+return sporeTaken
+
+note over i1: Since sporeTaken does not exists, i1 will not procede.
+
+return
+@enduml

@@ -1,0 +1,25 @@
+@startuml Eat-spore/map-no-spore
+left to right direction
+title Eat-spore-MapNoSpore
+
+rectangle Skeleton as S 
+
+rectangle "fu1:Fungus" as fu1
+rectangle "mu1:Mushroom" as mu1
+rectangle "t1:Tecton" as t1
+rectangle "t2:Tecton" as t2
+rectangle "i1:Insect" as i1
+
+S --> t1: 1: new()
+S --> t2: 2: new()
+S --> t1: 3: addNeighbor(t2)
+S --> t2: 4: addNeighbor(t1)
+
+S --> i1 : 5: new(t1)
+i1 --> t2 : 5.1: addInsect(i1)
+
+S --> mu1: 17: new(fu1, t1)
+S --> fu1: 18: addMushroom(mu1)
+S --> t1: 19: setMushroom(mu1)
+
+@enduml
