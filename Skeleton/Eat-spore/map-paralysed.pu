@@ -12,7 +12,7 @@ rectangle "p1:ParalysingEffect" as p1
 S --> t1: 1: new()
 
 S --> i1 : 2: new(t1)
-i1 --> t2 : 2.1: addInsect(i1)
+i1 --> t1 : 2.1: addInsect(i1)
 
 S --> fu1: 3: new()
 
