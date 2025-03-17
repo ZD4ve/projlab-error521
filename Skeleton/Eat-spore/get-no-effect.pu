@@ -23,14 +23,12 @@ opt idle
 
     return sp1
 
-    opt sp1 exists
-        i1 -> sp1 : getEffect()
-        activate sp1
+    i1 -> sp1 : getEffect()
+    activate sp1
 
-        note over sp1 : No effect was created
+    note over sp1 : No effect was created
 
-        return
-    end
+    return
 end
 
 return

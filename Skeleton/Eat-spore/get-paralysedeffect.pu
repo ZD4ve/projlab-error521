@@ -25,48 +25,44 @@ opt idle
 
     return sp1
 
-    opt sp1 exists
-        i1 -> sp1 : getEffect()
-        note over e : static function call
-        activate sp1
+    i1 -> sp1 : getEffect()
+    note over e : static function call
+    activate sp1
 
-        sp1 -> e : createEffect()
-        activate e
+    sp1 -> e : createEffect()
+    activate e
 
-        create c
-        e -> c : new()
+    create c
+    e -> c : new()
+    activate c
+
+    return c
+
+    return c
+    return c
+    destroy sp1
+
+    i1 -> c : applyTo(i1)
+    activate c
+    c -> t1 : setIsParalysed(true)
+    activate t1
+    return
+
+    return
+    
+    i1 -> S : ask("A rovarnak lejárt a várakozási ideje?")
+    activate S
+    return over
+
+    opt over
+        i1 -> c : remove()
         activate c
 
-        return c
+        c -> t1 : setIsParalysed(false)
+        activate t1
+        return
 
-        return c
-        return c
-        destroy sp1
-
-        opt c exists
-            i1 -> c : applyTo(i1)
-            activate c
-            c -> t1 : setIsParalysed(true)
-            activate t1
-            return
-
-            return
-        end
-        i1 -> S : ask("A rovarnak lejárt a várakozási ideje?")
-        activate S
-        return over
-
-        opt over
-            i1 -> c : remove()
-            activate c
-
-            c -> t1 : setIsParalysed(false)
-            activate t1
-            return
-
-            return    
-        end
-
+        return    
     end
 end
 
