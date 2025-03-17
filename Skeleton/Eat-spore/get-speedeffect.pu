@@ -25,57 +25,53 @@ opt idle
 
     return sp1
 
-    opt sp1 exists
-        i1 -> sp1 : getEffect()
-        note over e : static function call
-        activate sp1
+    i1 -> sp1 : getEffect()
+    note over e : static function call
+    activate sp1
 
-        sp1 -> e : createEffect()
-        
-        activate e
-        
-        create c
-        e -> c : new()
+    sp1 -> e : createEffect()
+    
+    activate e
+    
+    create c
+    e -> c : new()
+    activate c
+
+    return c
+
+    return c
+    return c
+    destroy sp1
+
+    i1 -> c : applyTo(i1)
+    activate c
+    c -> t1 : getSpeed()
+    activate t1
+    return 10
+
+    c -> t1 : setSpeed(10*0.65)
+    activate t1
+    return
+
+    return
+    
+    i1 -> S : ask("A rovarnak lejárt a várakozási ideje?")
+    activate S
+    return over
+
+    opt over
+        i1 -> c : remove()
         activate c
 
-        return c
+        c -> t1 : getSpeed()
+        activate t1
+        return 6.5
 
-        return c
-        return c
-        destroy sp1
+        c -> t1 : setSpeed(6.5/0.65)
+        activate t1
+        return
 
-        opt c exists
-            i1 -> c : applyTo(i1)
-            activate c
-            c -> t1 : getSpeed()
-            activate t1
-            return 10
-
-            c -> t1 : setSpeed(10*0.65)
-            activate t1
-            return
-
-            return
-        end
-        i1 -> S : ask("A rovarnak lejárt a várakozási ideje?")
-        activate S
-        return over
-
-        opt over
-            i1 -> c : remove()
-            activate c
-
-            c -> t1 : getSpeed()
-            activate t1
-            return 6.5
-
-            c -> t1 : setSpeed(6.5/0.65)
-            activate t1
-            return
-
-            return    
-        end
-
+        return    
     end
 end
 
