@@ -68,7 +68,7 @@ activate Dying
             destroy mycelia2
 
 
-
+newpage
     create "t1:Tecton" as New1
     Dying -> New1 : newMe()
     activate New1

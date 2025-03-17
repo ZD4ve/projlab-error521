@@ -31,7 +31,7 @@ S --> i2: 11: addActiveEffect(p)
 S --> p : 12: applyTo(i2)
 p --> i2 : 12.1: setIsParalysed(true)
 
-S -left-> fu1: 13: new()
+S --> fu1: 13: new()
 S --> my1: 14: new(fu1,t1,t2)
 my1 --> t1 : 14.1: addMycelium(my1)
 my1 --> t2 : 14.2: addMycelium(my1)
