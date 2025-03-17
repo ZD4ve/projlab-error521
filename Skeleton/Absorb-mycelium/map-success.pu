@@ -1,6 +1,6 @@
 @startuml Absorb-mycelium/map-success
 left to right direction
-title Absorb-mycelium-MapSuccess
+title AbsorbMycelium-MapSuccess
 
 rectangle Skeleton
 
