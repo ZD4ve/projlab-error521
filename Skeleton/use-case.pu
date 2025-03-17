@@ -1,0 +1,65 @@
+@startuml use-case
+left to right direction
+actor Tester as Te1
+actor Tester as Te2
+together{
+usecase "BurstSpore-Dist1" as T1
+usecase "BurstSpore-Dist2" as T2
+usecase "BurstSpore-Dist3" as T3
+usecase "GrowMycelium-Success" as T4
+usecase "GrowMycelium-SingleSuccess" as T5
+usecase "GrowMycelium-SingleFail" as T6
+usecase "GrowMycelium-NotNeighbor" as T7
+usecase "GrowMycelium-NoSource" as T8
+usecase "InsectChewMycelium-Success" as T9
+usecase "InsectChewMycelium-Paralysed" as T10
+usecase "InsectChewMycelium-Toothless" as T11
+usecase "InsectMove-Success" as T12
+usecase "InsectMove-Paralysed" as T13
+}
+together{
+usecase "InsectMove-NoMycelium" as T14
+usecase "MyceliumTearing-Tear" as T15
+usecase "EatSpore-GetAntiChewEffect" as T16
+usecase "EatSpore-GetNoEffect" as T17
+usecase "EatSpore-GetParalysedEffect" as T18
+usecase "EatSpore-GetSpeedEffect" as T19
+usecase "EatSpore-NoSpore" as T20
+usecase "EatSpore-Paralysed" as T21
+usecase "GrowMushroom-AlreadyOnTarget" as T22
+usecase "GrowMushroom-NoMycelia" as T23
+usecase "GrowMushroom-NoMushroom" as T24
+usecase "GrowMushroom-NotEnoughSpore" as T25
+usecase "GrowMushroom-Success" as T26
+usecase "Tecton-Break" as T27
+}
+
+Te1 --> T1
+Te1 --> T2
+Te1 --> T3
+Te1 --> T4
+Te1 --> T5
+Te1 --> T6
+Te1 --> T7
+Te1 --> T8
+Te1 --> T9
+Te1 --> T10
+Te1 --> T11
+Te1 --> T12
+Te1 --> T13
+Te2 --> T14
+Te2 --> T15
+Te2 --> T16
+Te2 --> T17
+Te2 --> T18
+Te2 --> T19
+Te2 --> T20
+Te2 --> T21
+Te2 --> T22
+Te2 --> T23
+Te2 --> T24
+Te2 --> T25
+Te2 --> T26
+Te2 --> T27
+
+@enduml
