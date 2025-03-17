@@ -10,5 +10,6 @@ rectangle "i1:Insect" as i1
 S --> t1: 1: new()
 
 S --> i1 : 2: new(t1)
+i1 --> t1 : 2.1: addInsect(i1)
 
 @enduml
