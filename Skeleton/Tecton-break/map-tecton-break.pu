@@ -29,7 +29,7 @@ i1 --> tecton : 8.1: addInsect(i1)
 S --> i2 : 9: new(tecton)
 i2 --> tecton : 9.1: addInsect(i2)
 
-S -left-> s1: 10: new()
+S --> s1: 10: new()
 
 S --> mycelia1: 11: new(s1,tecton,neighbor1)
 mycelia1 --> tecton: 11.1: addMycelium(mycelia1)

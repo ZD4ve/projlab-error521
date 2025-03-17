@@ -41,7 +41,7 @@ c --> i3 : 13.2: setAntiChewCount(1)
 
 
 
-S -left-> fu1: 14: new()
+S --> fu1: 14: new()
 S --> my1: 15: new(fu1,t1,t2)
 my1 --> t1 : 15.1: addMycelium(my1)
 my1 --> t2 : 15.2: addMycelium(my1)
