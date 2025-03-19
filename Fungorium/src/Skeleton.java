@@ -18,7 +18,11 @@ public class Skeleton {
     static List<Runnable> useCases = new ArrayList<>();
     static Map<Runnable, String> useCaseNames = new HashMap<>();
 
-    public static String getObjName(Object obj) {
+    public static void addObject(Object obj, String name) {
+        objNames.put(obj, name);
+    }
+
+    static String getObjName(Object obj) {
         if (obj == null) {
             return "null";
         } else if (objNames.containsKey(obj)) {
@@ -31,9 +35,9 @@ public class Skeleton {
             // TODO: illetve ekkor hogy döntjük el, hogy kell e új név (pl Mushroom) vagy
             // TODO: maradhat a toString (pl. Int)
 
-            // Válasz: Szerintem akkor is legyen neki saját neve, mivel a toString belerakja
-            // a pointert és az nem szép. Publikussá is tettem a getObjName metódust, hogy a
-            // minden osztályból is elérhető legyen.
+            // Válasz: Szerintem akkor is legyen neki saját neve ha futás közben jön létre,
+            // mivel a toString belerakja a pointert és az nem szép. Csináltam is egy
+            // publikus felvevő függvényt amit majd a tesztekben lehet használni.
         }
     }
 
@@ -91,6 +95,9 @@ public class Skeleton {
         objNames.put(t, "t");
         // start sequence
         printCall(t, "test", List.of(1, 2, t));
+        printCall(t, "inner", List.of());
+        boolean a = ask("Should I return true?");
+        printReturn(a);
         printReturn(null);
     }
 
@@ -101,7 +108,31 @@ public class Skeleton {
             Tecton t1 = (Tecton) getObjByName("t1");
             m1.burstSpore(t1);
             // TODO: Kérdés: itt hogy akarjuk? A visszakasztolás elég csúnya, de más ötletem
-            // nincs mivel a hashmap mindenképp egy Objectet tárol
+            // nincs mivel a hashmap mindenképp egy Object-et tárol
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Hibásan lett beállítva a teszt!");
+        }
+    }
+
+    static void burstSporeDist2() {
+        burstSporeMap();
+        try {
+            Mushroom m1 = (Mushroom) getObjByName("m1");
+            Tecton t2 = (Tecton) getObjByName("t2");
+            m1.burstSpore(t2);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Hibásan lett beállítva a teszt!");
+        }
+    }
+
+    static void burstSporeDist3() {
+        burstSporeMap();
+        try {
+            Mushroom m1 = (Mushroom) getObjByName("m1");
+            Tecton t3 = (Tecton) getObjByName("t3");
+            m1.burstSpore(t3);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Hibásan lett beállítva a teszt!");
@@ -113,7 +144,6 @@ public class Skeleton {
 
     public static void printCall(Object obj, String fName, List<Object> params) {
         if (printOn) {
-            tabulation++;
             String paramStr = "";
             if (!params.isEmpty()) {
                 paramStr = params.get(0).toString();
@@ -122,19 +152,21 @@ public class Skeleton {
                 }
             }
             System.out.println("  ".repeat(tabulation) + getObjName(obj) + "." + fName + "(" + paramStr + ")");
+            tabulation++;
         }
     }
 
-    // ha a függvénynél nincs visszatérési érték, akkor a ret legyen üres string
-    public static void printReturn(Object ret) {
+    // ha a függvény void visszatérésű, akkor a returnValue legyen üres string
+    public static void printReturn(Object returnValue) {
         if (printOn) {
-            System.out.println("  ".repeat(tabulation) + "return " + getObjName(ret));
             tabulation--;
+            System.out.println("  ".repeat(tabulation) + "return " + getObjName(returnValue));
         }
     }
 
     public static boolean ask(String question) {
         System.out.println(question + " (Y/n)");
+        System.out.print(">");
         String answer = System.console().readLine();
         return !answer.equals("n");
     }
@@ -154,14 +186,16 @@ public class Skeleton {
                 if (choice >= 0 && choice < useCases.size()) {
                     return choice;
                 }
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException e) { // NOSONAR: szándékosan üres a kezelés, a ciklus újraindul
             }
         }
     }
 
     public static void main(String[] args) {
         addUseCase(Skeleton::iAmAUseCase, "demoUseCase");
-        addUseCase(Skeleton::burstSporeDist1, "burst spore to dist 1");
+        addUseCase(Skeleton::burstSporeDist1, "Spóraszórás 1 távolságra");
+        addUseCase(Skeleton::burstSporeDist2, "Spóraszórás 2 távolságra");
+        addUseCase(Skeleton::burstSporeDist3, "Spóraszórás 3 távolságra");
         while (true) {
             int choice = useCaseChooser();
             useCases.get(choice).run();
