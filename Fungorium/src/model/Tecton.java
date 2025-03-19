@@ -91,7 +91,7 @@ public class Tecton implements IActive {
 
     @Override
     public void tick(double dT) {
-        // TODO: logic to detemine if tecton is breaking
+        // TODO: logic to determine if tecton is breaking
         boolean breaking = false;
         if (breaking) {
             

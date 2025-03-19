@@ -4,7 +4,7 @@
     "editor.formatOnPaste": true,
     "git.autofetch": true,
     "cSpell.enabled": true,
-    "cSpell.language": "en,hu",
+    "cSpell.language": "en",
     "java.project.sourcePaths": [
         "src"
     ],
@@ -15,4 +15,12 @@
     "files.exclude": {
         "bin": true
     },
+    "cSpell.words": [
+        "cooldown",
+        "NOSONAR",
+        "paralysed",
+        "paralysing",
+        "tecton",
+        "tectons"
+    ],
 }
