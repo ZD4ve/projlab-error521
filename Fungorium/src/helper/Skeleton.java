@@ -115,6 +115,12 @@ public class Skeleton {
             m1.burstSpore(t1);
             // TODO: Kérdés: itt hogy akarjuk? A visszakasztolás elég csúnya, de más ötletem
             // nincs mivel a hashmap mindenképp egy Object-et tárol
+
+            // Vélemény: Ez elég gányolásnak néz ki
+            // Szerintem possible solution:
+            // Minden Map egy class, és az ahhoz tartozó use-case-ek
+            // a classban függények, így elérik a privát változókat, amik a cuccok a mapon.
+            // Vagy minden static, és van egy init map, vagy ctor-ban építünk fel mindent.
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Hibásan lett beállítva a teszt!");
