@@ -20,8 +20,28 @@ public class Skeleton {
     static List<Runnable> useCases = new ArrayList<>();
     static Map<Runnable, String> useCaseNames = new HashMap<>();
 
+    // Segédfüggvények
+    // --------------------------------------------------------------------------------
+
+    static void addUseCase(Runnable f, String name) {
+        useCases.add(f);
+        useCaseNames.put(f, name);
+    }
+
     public static void addObject(Object obj, String name) {
         objNames.put(obj, name);
+    }
+
+    static String listToString(List<?> l) {
+        if (l == null || l.isEmpty()) {
+            return "[]";
+        }
+        String s = "[" + getObjName(l.get(0));
+        for (int i = 1; i < l.size(); i++) {
+            s += ", " + getObjName(l.get(i)); // NOSONAR: nem kell StringBuilder
+        }
+        s += "]";
+        return s;
     }
 
     static String getObjName(Object obj) {
@@ -29,6 +49,8 @@ public class Skeleton {
             return "null";
         } else if (objNames.containsKey(obj)) {
             return objNames.get(obj);
+        } else if (obj instanceof List) {
+            return listToString((List<?>) obj);
         } else {
             return obj.toString();
             // TODO: Kérdés, de igazából maradhat így is:
@@ -50,11 +72,6 @@ public class Skeleton {
             }
         }
         return null;
-    }
-
-    static void addUseCase(Runnable f, String name) {
-        useCases.add(f);
-        useCaseNames.put(f, name);
     }
 
     // Térképek létrehozása
@@ -96,7 +113,7 @@ public class Skeleton {
         Object t = new Tecton();
         objNames.put(t, "t");
         // start sequence
-        printCall(t, List.of(1, 2, t));
+        printCall(t, List.of(1, 2, t, List.of(t, 45)));
         printCall(t, List.of());
         boolean a = ask("Should I return true?");
         printReturn(a);
@@ -148,7 +165,6 @@ public class Skeleton {
         if (printOn) {
             String paramStr = "";
             if (params != null && !params.isEmpty()) {
-                // TODO: ez itt biztos így akart lenni?
                 paramStr = params.get(0).toString();
                 for (int i = 1; i < params.size(); i++) {
                     paramStr += ", " + getObjName(params.get(i)); // NOSONAR: nem kell StringBuilder
@@ -169,11 +185,6 @@ public class Skeleton {
         printCall(obj, null);
     }
 
-    public static void printCall(Object obj) {
-        printCall(obj, null);
-    }
-
-    // ha a függvény void visszatérésű, akkor a returnValue legyen üres string
     public static void printReturn(Object returnValue) {
         if (printOn) {
             tabulation--;

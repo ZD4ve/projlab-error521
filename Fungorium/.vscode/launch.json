@@ -5,6 +5,13 @@
             "type": "java",
             "name": "Skeleton",
             "request": "launch",
+            "mainClass": "helper.Skeleton",
+            "projectName": "Fungorium_6a035827"
+        },
+        {
+            "type": "java",
+            "name": "Skeleton",
+            "request": "launch",
             "mainClass": "Skeleton"
         },
         {
