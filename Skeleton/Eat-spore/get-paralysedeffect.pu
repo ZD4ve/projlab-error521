@@ -5,7 +5,6 @@ title INIT: EatSpore-MapSuccess
 
 actor Tester as S
 
-participant "fu1:Fungus" as fu1
 participant "i1:Insect" as i1
 participant "t1:Tecton" as t1
 participant "sp1:Spore" as sp1
@@ -44,28 +43,37 @@ opt idle
 
     i1 -> c : applyTo(i1)
     activate c
-    c -> t1 : setIsParalysed(true)
-    activate t1
+    c -> i1 : setIsParalysed(true)
+    activate i1
+    return
+
     return
 
     return
     
-    i1 -> S : ask("A rovarnak lejárt a várakozási ideje?")
+    S -> S : ask("A rovarnak lejárt a várakozási ideje?")
     activate S
     return over
 
     opt over
-        i1 -> c : remove()
+        S -> c : tick(more then enough time)
         activate c
 
-        c -> t1 : setIsParalysed(false)
-        activate t1
+        c -> c : remove()
+        activate c
+
+        c -> i1 : setIsParalysed(false)
+        activate i1
+        return
+
+        return
+
+        c -> i1 : removeEffect(c)
+        activate i1
         return
 
         return    
     end
 end
-
-return
 
 @enduml
