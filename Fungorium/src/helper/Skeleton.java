@@ -1,3 +1,5 @@
+package helper;
+
 import model.*;
 
 import java.util.HashMap;
@@ -49,25 +51,36 @@ public class Skeleton {
         Object t = new Tecton();
         objNames.put(t, "t");
         // start sequence
-        printCall(t, "test", List.of(1, 2, t));
+        printCall(t, List.of(1, 2, t));
         printReturn(null);
     }
 
     // Be és kimeneti függvények
     // --------------------------------------------------------------------------------
 
-    public static void printCall(Object obj, String fName, List<Object> params) {
+    public static void printCall(Object obj, List<Object> params) {
         if (printOn) {
             tabulation++;
             String paramStr = "";
-            if (!params.isEmpty()) {
+            if (params != null && !params.isEmpty()) {
+                // TODO: ez itt biztos így akart lenni?
                 paramStr = params.get(0).toString();
                 for (int i = 1; i < params.size(); i++) {
                     paramStr += ", " + getObjName(params.get(i)); // NOSONAR: nem kell StringBuilder
                 }
             }
+            var frame = StackWalker.getInstance().walk(s -> s.skip(1).findFirst());
+            String fName = frame.isPresent() ? frame.get().getMethodName() : "func";
+            if (fName.equals("printCall")) {
+                var frame2 = StackWalker.getInstance().walk(s -> s.skip(2).findFirst());
+                fName = frame2.isPresent() ? frame2.get().getMethodName() : "func";
+            }
             System.out.println("  ".repeat(tabulation) + getObjName(obj) + "." + fName + "(" + paramStr + ")");
         }
+    }
+
+    public static void printCall(Object obj) {
+        printCall(obj, null);
     }
 
     // ha a függvénynél nincs visszatérési érték, akkor a ret legyen üres string
@@ -76,6 +89,10 @@ public class Skeleton {
             System.out.println("  ".repeat(tabulation) + "return " + getObjName(ret));
             tabulation--;
         }
+    }
+
+    public static void printReturn() {
+        printReturn(" ");
     }
 
     public static boolean ask(String question) {

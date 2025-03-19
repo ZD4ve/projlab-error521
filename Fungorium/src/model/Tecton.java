@@ -18,25 +18,41 @@ public class Tecton implements IActive {
         insects = new ArrayList<>();
     }
 
+    // GETTERS-SETTERS--------------------------------------------------------------
+
     public void addNeighbor(Tecton tecton) {
         neighbors.addLast(tecton);
     }
 
-    public void addInsect(Insect insect) {
-        insects.add(insect);
-    }
-
-    public void addSpore(Spore spore) {
-        spores.add(spore);
+    public List<Tecton> getNeighbors() {
+        return neighbors;
     }
 
     public void removeNeighbor(Tecton tecton) {
         neighbors.remove(tecton);
     }
 
+    public List<Mycelium> getMycelia() {
+        return mycelia;
+    }
+
+    public void addInsect(Insect insect) {
+        insects.add(insect);
+    }
+
     public void removeInsect(Insect insect) {
         insects.remove(insect);
     }
+
+    public void addSpore(Spore spore) {
+        spores.add(spore);
+    }
+
+    public Spore takeSpore() {
+        return spores.isEmpty() ? null : spores.remove(0);
+    }
+
+    // -----------------------------------------------------------------------------
 
     public void fillWithStuff(List<Spore> spores, Mushroom mushroom, List<Insect> insects, List<Tecton> neighbors) {
         this.spores.addAll(spores);
@@ -75,7 +91,8 @@ public class Tecton implements IActive {
 
     private boolean myceliumExists(Fungus fungus, Tecton t1, Tecton t2) {
         for (Mycelium m : mycelia) {
-            if (m.getSpecies() == fungus && (Arrays.equals(m.getEnds(), new Tecton[] {t1, t2})||Arrays.equals(m.getEnds(), new Tecton[] {t2, t1}))) {
+            if (m.getSpecies() == fungus && (Arrays.equals(m.getEnds(), new Tecton[] { t1, t2 })
+                    || Arrays.equals(m.getEnds(), new Tecton[] { t2, t1 }))) {
                 return true;
             }
         }
@@ -94,7 +111,7 @@ public class Tecton implements IActive {
         // TODO: logic to determine if tecton is breaking
         boolean breaking = false;
         if (breaking) {
-            
+
         }
     }
 }
