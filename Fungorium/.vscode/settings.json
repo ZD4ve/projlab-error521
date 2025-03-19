@@ -4,7 +4,7 @@
     "editor.formatOnPaste": true,
     "git.autofetch": true,
     "cSpell.enabled": true,
-    "cSpell.language": "en",
+    "cSpell.language": "en,hu",
     "java.project.sourcePaths": [
         "src"
     ],
