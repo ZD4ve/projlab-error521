@@ -62,6 +62,10 @@ public class Skeleton {
             // Válasz: Szerintem akkor is legyen neki saját neve ha futás közben jön létre,
             // mivel a toString belerakja a pointert és az nem szép. Csináltam is egy
             // publikus felvevő függvényt amit majd a tesztekben lehet használni.
+
+            // Kérdés: És azt ki hívja? Pl a tecton ctor-ban nem lehet, és az
+            // implementációkban sem tudom a "szép nevét", ebben a file-ban pedig nem látod
+            // mikor és ki jön létre.
         }
     }
 
@@ -128,6 +132,12 @@ public class Skeleton {
             m1.burstSpore(t1);
             // TODO: Kérdés: itt hogy akarjuk? A visszakasztolás elég csúnya, de más ötletem
             // nincs mivel a hashmap mindenképp egy Object-et tárol
+
+            // Vélemény: Ez elég gányolásnak néz ki
+            // Szerintem possible solution:
+            // Minden Map egy class, és az ahhoz tartozó use-case-ek
+            // a classban függények, így elérik a privát változókat, amik a cuccok a mapon.
+            // Vagy minden static, és van egy init map, vagy ctor-ban építünk fel mindent.
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Hibásan lett beállítva a teszt!");
