@@ -25,6 +25,11 @@ public class Skeleton {
             return objNames.get(obj);
         } else {
             return obj.toString();
+            // TODO: Kérdés, de igazából maradhat így is:
+            // TODO: ha egy új példányt hozunk létre (pl. törés), akkor hozzunk létre egy új
+            // TODO: sorszámozott nevet, pl Effect1 vagy maradjon a toString
+            // TODO: illetve ekkor hogy döntjük el, hogy kell e új név (pl Mushroom) vagy
+            // TODO: maradhat a toString (pl. Int)
         }
     }
 
