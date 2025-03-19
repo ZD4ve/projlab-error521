@@ -4,11 +4,19 @@ public class SingleMyceliumTecton extends Tecton {
 
     @Override
     public SingleMyceliumTecton newMe() {
-        return null;
+        return new SingleMyceliumTecton();
     }
 
     @Override
     public boolean canGrowMyceliumFrom(Fungus fungus) {
-        return false;
+        for (Mycelium m : mycelia) {
+            if (m.getSpecies() != fungus) {
+                return false;
+            }
+        }
+        if (mushroom == null || mushroom.getSpecies() != fungus) {
+            return false;
+        }
+        return true;
     }
 }

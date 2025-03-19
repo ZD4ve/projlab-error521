@@ -17,4 +17,8 @@ public class Mushroom implements IActive {
     @Override
     public void tick(double dT) {
     }
+
+    public Fungus getSpecies() {
+        return species;
+    }
 }

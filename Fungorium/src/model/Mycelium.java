@@ -12,6 +12,14 @@ public class Mycelium implements IActive {
     public void die() {
     }
 
+    public Tecton[] getEnds() {
+        return ends;
+    }
+
+    public Fungus getSpecies() {
+        return species;
+    }
+
     @Override
     public void tick(double dT) {
     }
