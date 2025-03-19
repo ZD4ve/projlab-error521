@@ -5,10 +5,10 @@ import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
 
-@java.lang.SuppressWarnings("java:S106") // allows the free use of System IO commands
+@java.lang.SuppressWarnings("java:S106") // használható büntetlenül a System IO
 public class Skeleton {
     private Skeleton() {
-    } // Skeleton should not be instantiated
+    } // Skeleton ne legyen példányosítható
 
     static int tabulation = 0;
     static boolean printOn = true;
@@ -33,10 +33,10 @@ public class Skeleton {
         useCaseNames.put(f, name);
     }
 
-    // Map creations
+    // Térképek létrehozása
     // --------------------------------------------------------------------------------
 
-    // Use cases
+    // Use case-ek
     // --------------------------------------------------------------------------------
 
     static void iAmAUseCase() {
@@ -48,7 +48,7 @@ public class Skeleton {
         printReturn(null);
     }
 
-    // Input-output functions
+    // Be és kimeneti függvények
     // --------------------------------------------------------------------------------
 
     public static void printCall(Object obj, String fName, List<Object> params) {
@@ -58,13 +58,14 @@ public class Skeleton {
             if (!params.isEmpty()) {
                 paramStr = params.get(0).toString();
                 for (int i = 1; i < params.size(); i++) {
-                    paramStr += ", " + getObjName(params.get(i)); // NOSONAR: no need for StringBuilder
+                    paramStr += ", " + getObjName(params.get(i)); // NOSONAR: nem kell StringBuilder
                 }
             }
             System.out.println("  ".repeat(tabulation) + getObjName(obj) + "." + fName + "(" + paramStr + ")");
         }
     }
 
+    // ha a függvénynél nincs visszatérési érték, akkor a ret legyen üres string
     public static void printReturn(Object ret) {
         if (printOn) {
             System.out.println("  ".repeat(tabulation) + "return " + getObjName(ret));
