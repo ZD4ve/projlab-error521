@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import helper.Skeleton;
+
 public class Tecton implements IActive {
     private List<Tecton> neighbors;
     protected List<Mycelium> mycelia;
