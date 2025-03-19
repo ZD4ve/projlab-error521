@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Skeleton",
+            "request": "launch",
+            "mainClass": "Skeleton",
+            "projectName": "Fungorium_6a035827"
+        },
+        {
+            "type": "java",
             "name": "App",
             "request": "launch",
             "mainClass": "App",
