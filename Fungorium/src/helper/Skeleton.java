@@ -40,6 +40,10 @@ public class Skeleton {
             // Válasz: Szerintem akkor is legyen neki saját neve ha futás közben jön létre,
             // mivel a toString belerakja a pointert és az nem szép. Csináltam is egy
             // publikus felvevő függvényt amit majd a tesztekben lehet használni.
+
+            // Kérdés: És azt ki hívja? Pl a tecton ctor-ban nem lehet, és az
+            // implementációkban sem tudom a "szép nevét", ebben a file-ban pedig nem látod
+            // mikor és ki jön létre.
         }
     }
 
