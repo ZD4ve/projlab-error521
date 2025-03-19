@@ -24,7 +24,7 @@ public class Insect implements IActive {
         return null;
     }
 
-    public Mycelium[] getPotencialChewTargets() {
+    public Mycelium[] getPotentialChewTargets() {
         return null;
     }
 
