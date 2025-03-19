@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
 
-@java.lang.SuppressWarnings("java:S106") // allows the use of System IO commands
+@java.lang.SuppressWarnings("java:S106") // allows the free use of System IO commands
 public class Skeleton {
     private Skeleton() {
     } // Skeleton should not be instantiated
@@ -14,11 +14,14 @@ public class Skeleton {
     static boolean printOn = true;
 
     static Map<Object, String> objNames = new HashMap<>();
+
     static List<Runnable> useCases = new ArrayList<>();
     static Map<Runnable, String> useCaseNames = new HashMap<>();
 
     static String getObjName(Object obj) {
-        if (objNames.containsKey(obj)) {
+        if (obj == null) {
+            return "null";
+        } else if (objNames.containsKey(obj)) {
             return objNames.get(obj);
         } else {
             return obj.toString();
@@ -30,12 +33,49 @@ public class Skeleton {
         useCaseNames.put(f, name);
     }
 
+    // Map creations
+    // --------------------------------------------------------------------------------
+
     // Use cases
     // --------------------------------------------------------------------------------
 
     static void iAmAUseCase() {
         // create map
+        Object t = new Tecton();
+        objNames.put(t, "t");
         // start sequence
+        printCall(t, "test", List.of(1, 2, t));
+        printReturn(null);
+    }
+
+    // Input-output functions
+    // --------------------------------------------------------------------------------
+
+    public static void printCall(Object obj, String fName, List<Object> params) {
+        if (printOn) {
+            tabulation++;
+            String paramStr = "";
+            if (!params.isEmpty()) {
+                paramStr = params.get(0).toString();
+                for (int i = 1; i < params.size(); i++) {
+                    paramStr += ", " + getObjName(params.get(i)); // NOSONAR: no need for StringBuilder
+                }
+            }
+            System.out.println("  ".repeat(tabulation) + getObjName(obj) + "." + fName + "(" + paramStr + ")");
+        }
+    }
+
+    public static void printReturn(Object ret) {
+        if (printOn) {
+            System.out.println("  ".repeat(tabulation) + "return " + getObjName(ret));
+            tabulation--;
+        }
+    }
+
+    public static boolean ask(String question) {
+        System.out.println(question + " (Y/n)");
+        String answer = System.console().readLine();
+        return !answer.equals("n");
     }
 
     static int useCaseChooser() {
@@ -56,36 +96,6 @@ public class Skeleton {
             } catch (NumberFormatException e) {
             }
         }
-    }
-
-    // Input - output functions
-    // --------------------------------------------------------------------------------
-
-    public static void printCall(Object obj, String fName, List<Object> params) {
-        if (printOn) {
-            tabulation++;
-            String paramStr = "";
-            if (!params.isEmpty()) {
-                paramStr = params.get(0).toString();
-                for (int i = 1; i < params.size(); i++) {
-                    paramStr += paramStr + ", " + getObjName(params.get(i)); // NOSONAR
-                }
-            }
-            System.out.println("  ".repeat(tabulation) + getObjName(obj) + "." + fName + "(" + paramStr + ")");
-        }
-    }
-
-    public static void printReturn(Object obj, String fName, Object ret) {
-        if (printOn) {
-            System.out.println("  ".repeat(tabulation) + getObjName(obj) + "." + fName + " " + getObjName(ret));
-            tabulation--;
-        }
-    }
-
-    public static boolean ask(String question) {
-        System.out.println(question + " (Y/n)");
-        String answer = System.console().readLine();
-        return !answer.equals("n");
     }
 
     public static void main(String[] args) {
