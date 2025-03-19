@@ -18,7 +18,7 @@ public class Skeleton {
     static List<Runnable> useCases = new ArrayList<>();
     static Map<Runnable, String> useCaseNames = new HashMap<>();
 
-    static String getObjName(Object obj) {
+    public static String getObjName(Object obj) {
         if (obj == null) {
             return "null";
         } else if (objNames.containsKey(obj)) {
@@ -30,7 +30,20 @@ public class Skeleton {
             // TODO: sorszámozott nevet, pl Effect1 vagy maradjon a toString
             // TODO: illetve ekkor hogy döntjük el, hogy kell e új név (pl Mushroom) vagy
             // TODO: maradhat a toString (pl. Int)
+
+            // Válasz: Szerintem akkor is legyen neki saját neve, mivel a toString belerakja
+            // a pointert és az nem szép. Publikussá is tettem a getObjName metódust, hogy a
+            // minden osztályból is elérhető legyen.
         }
+    }
+
+    static Object getObjByName(String name) {
+        for (Map.Entry<Object, String> entry : objNames.entrySet()) {
+            if (entry.getValue().equals(name)) {
+                return entry.getKey();
+            }
+        }
+        return null;
     }
 
     static void addUseCase(Runnable f, String name) {
@@ -40,6 +53,34 @@ public class Skeleton {
 
     // Térképek létrehozása
     // --------------------------------------------------------------------------------
+
+    static void burstSporeMap() {
+        printOn = false;
+        objNames.clear();
+
+        Tecton t1 = new Tecton();
+        objNames.put(t1, "t1");
+        Tecton t2 = new Tecton();
+        objNames.put(t2, "t2");
+        Tecton t3 = new Tecton();
+        objNames.put(t3, "t3");
+        Tecton t4 = new Tecton();
+        objNames.put(t4, "t4");
+
+        t1.addNeighbor(t2);
+        t2.addNeighbor(t1);
+        t2.addNeighbor(t3);
+        t3.addNeighbor(t2);
+        t3.addNeighbor(t4);
+        t4.addNeighbor(t3);
+
+        Fungus s1 = new Fungus();
+        objNames.put(s1, "s1");
+        Mushroom m1 = new Mushroom(s1, t1);
+        objNames.put(m1, "m1");
+
+        printOn = true;
+    }
 
     // Use case-ek
     // --------------------------------------------------------------------------------
@@ -51,6 +92,20 @@ public class Skeleton {
         // start sequence
         printCall(t, "test", List.of(1, 2, t));
         printReturn(null);
+    }
+
+    static void burstSporeDist1() {
+        burstSporeMap();
+        try {
+            Mushroom m1 = (Mushroom) getObjByName("m1");
+            Tecton t1 = (Tecton) getObjByName("t1");
+            m1.burstSpore(t1);
+            // TODO: Kérdés: itt hogy akarjuk? A visszakasztolás elég csúnya, de más ötletem
+            // nincs mivel a hashmap mindenképp egy Objectet tárol
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Hibásan lett beállítva a teszt!");
+        }
     }
 
     // Be és kimeneti függvények
@@ -106,6 +161,7 @@ public class Skeleton {
 
     public static void main(String[] args) {
         addUseCase(Skeleton::iAmAUseCase, "demoUseCase");
+        addUseCase(Skeleton::burstSporeDist1, "burst spore to dist 1");
         while (true) {
             int choice = useCaseChooser();
             useCases.get(choice).run();
