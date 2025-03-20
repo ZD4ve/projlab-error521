@@ -1,7 +1,5 @@
 package helper;
 
-import model.*;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
@@ -107,7 +105,7 @@ public class Skeleton {
         if (printOn) {
             String paramStr = "";
             if (params != null && !params.isEmpty()) {
-                paramStr = params.get(0).toString();
+                paramStr = getObjName(params.get(0));
                 for (int i = 1; i < params.size(); i++) {
                     paramStr += ", " + getObjName(params.get(i)); // NOSONAR: nem kell StringBuilder
                 }
@@ -154,7 +152,7 @@ public class Skeleton {
             try {
                 String inp = System.console().readLine();
                 if (inp.equals("exit")) {
-                    System.exit(0);
+                    return -1;
                 }
                 int choice = Integer.parseInt(inp) - 1;
                 if (choice >= 0 && choice < useCases.size()) {
@@ -166,21 +164,11 @@ public class Skeleton {
     }
 
     public static void main(String[] args) {
-        // TODO: Itt szerintem a doksiban szereplő use-case neveket használjuk! (David)
-        addUseCase(UseCases::iAmAUseCase, "demoUseCase");
-        addUseCase(UseCases::burstSporeDist1, "Spóraszórás 1 távolságra");
-        addUseCase(UseCases::burstSporeDist2, "Spóraszórás 2 távolságra");
-        addUseCase(UseCases::burstSporeDist3, "Spóraszórás 3 távolságra");
-
-        addUseCase(UseCases::growMyceliumNoSourceFail, "Gombafonal növesztés gombatest és gombafonal nélkül");
-        addUseCase(UseCases::growMyceliumNotNeighbor, "Gombafonal növesztés nem szomszédos tektonok között");
-        addUseCase(UseCases::growMyceliumSingleMyceliumFail,
-                "Gombafonal növesztés SingleMyceliumTecton-ra, ami már foglalt");
-        addUseCase(UseCases::growMyceliumSingleMyceliumSuccess, "Gombafonal növesztés SingleMyceliumTecton-ra");
-        addUseCase(UseCases::growMyceliumSuccess, "Gombafonal növesztés optimális körülmények között");
-
+        UseCases.init();
         while (true) {
             int choice = useCaseChooser();
+            if (choice == -1)
+                break;
             useCases.get(choice).run();
         }
     }

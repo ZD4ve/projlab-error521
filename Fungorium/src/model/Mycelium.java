@@ -7,6 +7,8 @@ public class Mycelium implements IActive {
     public Mycelium(Fungus fungus, Tecton end1, Tecton end2) {
         this.species = fungus;
         this.ends = new Tecton[] { end1, end2 };
+        end1.addMycelium(this);
+        end2.addMycelium(this);
     }
 
     public void die() {

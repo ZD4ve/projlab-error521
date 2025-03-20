@@ -8,6 +8,17 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+/**
+ * Felelőssége a saját szomszédainak, valamint a rajta található további
+ * objektumok nyilvántartása. Felelőssége a gombatestek, gombafonalak
+ * növesztéséhez szükséges ellenőrzések elvégzése, valamint ezek halálakor azon
+ * objektumok törlése. Felelőssége a rovarokkal való kapcsolatának
+ * karbantartása, azok hozzáadása, valamint törlése, spóra hozzáadásának
+ * kezelése, spóra átadása az azt megevő rovarnak. Felelőssége a tekton
+ * törésének kezdeményezése és kezelése, ezalatt a rajta található objektumok
+ * elosztása, valamint saját tulajdonságainak lemásolása a keletkező új
+ * tektonokra.
+ */
 public class Tecton implements IActive {
     private List<Tecton> neighbors;
     protected List<Mycelium> mycelia;
@@ -25,21 +36,42 @@ public class Tecton implements IActive {
 
     // GETTERS-SETTERS--------------------------------------------------------------
 
+    /**
+     * Hozzáad egy szomszédot a tektonhoz
+     * 
+     * @param tecton az új szomszéd
+     */
     public void addNeighbor(Tecton tecton) {
         Skeleton.printCall(this, List.of(tecton));
         neighbors.addLast(tecton);
         Skeleton.printReturn();
     }
 
+    /**
+     * Lekéri a tekton szomszédait
+     * 
+     * @return a szomszédok egy listában
+     */
     public List<Tecton> getNeighbors() {
         Skeleton.printCall(this);
         Skeleton.printReturn(neighbors);
         return neighbors;
     }
 
+    /**
+     * Eltávolítja a tekton egy szomszédját
+     * 
+     * @param tecton az eltávolítandó tekton
+     */
     public void removeNeighbor(Tecton tecton) {
         Skeleton.printCall(this, List.of(tecton));
         neighbors.remove(tecton);
+        Skeleton.printReturn();
+    }
+
+    public void addMycelium(Mycelium mycelium) {
+        Skeleton.printCall(this, List.of(mycelium));
+        mycelia.add(mycelium);
         Skeleton.printReturn();
     }
 
@@ -72,6 +104,12 @@ public class Tecton implements IActive {
         var ret = spores.isEmpty() ? null : spores.removeLast();
         Skeleton.printReturn(ret);
         return ret;
+    }
+
+    public void setMushroom(Mushroom mushroom) {
+        Skeleton.printCall(this, List.of(mushroom));
+        this.mushroom = mushroom;
+        Skeleton.printReturn();
     }
 
     // -----------------------------------------------------------------------------
@@ -146,7 +184,7 @@ public class Tecton implements IActive {
         Skeleton.printCall(this);
         if (mushroom == null) {
             mushroom = new Mushroom(fungus, this);
-            Skeleton.printReturn(mushroom);
+            Skeleton.printReturn(null);
             return mushroom;
         }
         Skeleton.printReturn(null);
@@ -170,10 +208,10 @@ public class Tecton implements IActive {
         Skeleton.printCall(this, List.of(fungus, target));
         if (canGrowMyceliumFrom(fungus) && target.canGrowMyceliumFrom(fungus)
                 && !myceliumExists(fungus, this, target)) {
-                    Mycelium mycelium = new Mycelium(fungus, this, target);
-                    Skeleton.addObject(mycelium, "my1");
-                    Skeleton.printReturn(mycelium);
-                    return mycelium;
+            Mycelium mycelium = new Mycelium(fungus, this, target);
+            Skeleton.addObject(mycelium, "my1");
+            Skeleton.printReturn(mycelium);
+            return mycelium;
         }
         Skeleton.printReturn(null);
         return null;
