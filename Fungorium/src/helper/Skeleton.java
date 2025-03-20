@@ -86,6 +86,8 @@ public class Skeleton {
              * semmiből sem hozunk létre).
              */
 
+            // ^ Igaz, tetszik, jó lesz! (David)
+
         }
     }
 
@@ -169,7 +171,8 @@ public class Skeleton {
             // kommentben indítunk egy szavazást :P)
             // Szavazz a szebb jővőért és kódért:
             // Pro: Panni,
-            // Contra: Márton
+            // Contra: Márton, David
+            // comment: David: Legyen a köztes megoldás amit a Discord-on írtam
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Hibásan lett beállítva a teszt!");

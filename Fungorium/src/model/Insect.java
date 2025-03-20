@@ -5,6 +5,7 @@ import helper.Skeleton;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: ASK hívások
 public class Insect implements IActive {
     private double cooldown;
     private double speed = 1;
@@ -14,7 +15,7 @@ public class Insect implements IActive {
     private Tecton location;
     private List<InsectEffect> activeEffects;
 
-    private static final double actionDuration = 10;
+    private static final double ACTION_DURATION = 1;
 
     public Insect(Tecton location) {
         Skeleton.printCall(this, List.of(location));
@@ -23,35 +24,15 @@ public class Insect implements IActive {
         Skeleton.printReturn(this);
     }
 
+    // #region GETTERS-SETTERS
+
     private void setCooldown(double cooldown) {
         Skeleton.printCall(this, List.of(cooldown));
         this.cooldown = cooldown;
         Skeleton.printReturn();
     }
 
-    public void eatSpore() {
-        Skeleton.printCall(this);
-        if (isParalysed || cooldown > 0) {
-            Skeleton.printReturn();
-            return;
-        }
-        Spore sporeTaken = location.takeSpore();
-        if (sporeTaken == null) {
-            Skeleton.printReturn();
-            return;
-        }
-        InsectEffect effect = sporeTaken.getEffect();
-        if (effect == null) {
-            Skeleton.printReturn();
-            return;
-        }
-        effect.applyTo(this);
-        setCooldown(actionDuration);
-        score++;
-        Skeleton.printReturn();
-    }
-
-    // TODO: nem követi seq diagramot, mert az szar XD
+    // nem követi seq diagramot, mert az szar XD
     public List<Tecton> getPotentialMoveTargets() {
         Skeleton.printCall(this);
         var ret = location.getNeighbors().stream().filter(t -> location.hasMyceliumTo(t)).toList();
@@ -72,17 +53,42 @@ public class Insect implements IActive {
         Skeleton.printReturn();
     }
 
+    public int getScore() {
+        Skeleton.printCall(this);
+        Skeleton.printReturn(score);
+        return score;
+    }
+
+    // #endregion
+
+    // #region FUNCTIONS
+
+    public void eatSpore() {
+        Skeleton.printCall(this);
+        if (!isParalysed && cooldown <= 0) {
+            Spore sporeTaken = location.takeSpore();
+            if (sporeTaken != null) {
+                score++;
+                InsectEffect effect = sporeTaken.getEffect();
+                if (effect != null) {
+                    effect.applyTo(this);
+                }
+                setCooldown(ACTION_DURATION);
+            }
+        }
+        Skeleton.printReturn();
+    }
+
     public void moveTo(Tecton target) {
         Skeleton.printCall(this, List.of(target));
-        if (isParalysed || cooldown > 0) {
-            Skeleton.printReturn();
-            return;
-        }
-        if (location.hasMyceliumTo(target)) {
-            location.removeInsect(this);
-            location = target;
-            location.addInsect(this);
-            setCooldown(actionDuration);
+        if (!isParalysed && cooldown <= 0) {
+            boolean moveValid = location.hasMyceliumTo(target);
+            if (moveValid) {
+                location.removeInsect(this);
+                location = target;
+                location.addInsect(this);
+                setCooldown(ACTION_DURATION);
+            }
         }
         Skeleton.printReturn();
     }
@@ -95,7 +101,7 @@ public class Insect implements IActive {
         }
         // TODO: check mycelium valid-e, seq-en nem szerepel
         mycelium.die();
-        setCooldown(actionDuration);
+        setCooldown(ACTION_DURATION);
         Skeleton.printReturn();
     }
 
@@ -106,4 +112,5 @@ public class Insect implements IActive {
             cooldown -= dT * speed;
         Skeleton.printReturn();
     }
+    // #endregion
 }
