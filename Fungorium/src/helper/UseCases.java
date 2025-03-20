@@ -28,9 +28,16 @@ public class UseCases {
         addUseCase(UseCases::growMyceliumSingleMyceliumSuccess, "Gombafonal növesztés SingleMyceliumTecton-ra");
         addUseCase(UseCases::growMyceliumSuccess, "Gombafonal növesztés optimális körülmények között");
 
+        // InsectMove
         addUseCase(UseCases::insectMoveSuccess, "InsectMove-Success");
         addUseCase(UseCases::insectMoveParalysed, "InsectMove-Paralysed");
         addUseCase(UseCases::insectMoveNoMycelium, "InsectMove-NoMycelium");
+
+        // InsectChewMycelium
+        addUseCase(UseCases::insectChewMyceliumSuccess, "InsectChewMycelium-Success");
+        addUseCase(UseCases::insectChewMyceliumParalysed, "InsectChewMycelium-Paralysed");
+        addUseCase(UseCases::insectChewMyceliumToothless, "InsectChewMycelium-Toothless");
+
     }
 
     // Térképek
@@ -343,6 +350,87 @@ public class UseCases {
             Insect i1 = (Insect) getObjByName("i2");
             Tecton t3 = (Tecton) getObjByName("t3");
             i1.moveTo(t3);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Hibásan lett beállítva a teszt!");
+        }
+    }
+
+    // #endregion
+
+    // #region InsectChewMycelium
+    static void insectChewMyceliumMap() {
+        printOn = false;
+        objNames.clear();
+
+        Tecton t1 = new Tecton();
+        objNames.put(t1, "t1");
+        Tecton t2 = new Tecton();
+        objNames.put(t2, "t2");
+        t1.addNeighbor(t2);
+        t2.addNeighbor(t1);
+
+        Insect i1 = new Insect(t1);
+        objNames.put(i1, "i1");
+        Insect i2 = new Insect(t1);
+        objNames.put(i2, "i2");
+        Insect i3 = new Insect(t1);
+        objNames.put(i3, "i3");
+
+        ParalysingEffect p = new ParalysingEffect();
+        objNames.put(p, "p");
+        i2.addEffect(p);
+        p.applyTo(i2);
+
+        AntiChewEffect c = new AntiChewEffect();
+        objNames.put(c, "c");
+        i3.addEffect(c);
+        c.applyTo(i3);
+
+        Fungus fu1 = new Fungus();
+        objNames.put(fu1, "fu1");
+        Mycelium my1 = new Mycelium(fu1, t1, t2);
+        objNames.put(my1, "my1");
+        fu1.addMycelium(my1);
+
+        Mushroom mu1 = new Mushroom(fu1, t1);
+        objNames.put(mu1, "mu1");
+        fu1.addMushroom(mu1);
+        t1.setMushroom(mu1);
+
+        printOn = true;
+    }
+
+    static void insectChewMyceliumSuccess() {
+        insectChewMyceliumMap();
+        try {
+            Insect i1 = (Insect) getObjByName("i1");
+            Mycelium my1 = (Mycelium) getObjByName("my1");
+            i1.chewMycelium(my1);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Hibásan lett beállítva a teszt!");
+        }
+    }
+
+    static void insectChewMyceliumParalysed() {
+        insectChewMyceliumMap();
+        try {
+            Insect i2 = (Insect) getObjByName("i2");
+            Mycelium my1 = (Mycelium) getObjByName("my1");
+            i2.chewMycelium(my1);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Hibásan lett beállítva a teszt!");
+        }
+    }
+
+    static void insectChewMyceliumToothless() {
+        insectChewMyceliumMap();
+        try {
+            Insect i3 = (Insect) getObjByName("i3");
+            Mycelium my1 = (Mycelium) getObjByName("my1");
+            i3.chewMycelium(my1);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Hibásan lett beállítva a teszt!");
