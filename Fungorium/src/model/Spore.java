@@ -10,4 +10,8 @@ public class Spore {
     public InsectEffect getEffect() {
         return null;
     }
+
+    public Fungus getSpecies() {
+        return species;
+    }
 }
