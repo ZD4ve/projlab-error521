@@ -1,13 +1,12 @@
 package model;
 
+import helper.Skeleton;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-
-import helper.Skeleton;
 
 public class Tecton implements IActive {
     private List<Tecton> neighbors;
@@ -164,13 +163,17 @@ public class Tecton implements IActive {
         return false;
     }
 
-    public void growMycelium(Fungus fungus, Tecton target) {
+    public Mycelium growMycelium(Fungus fungus, Tecton target) {
         Skeleton.printCall(this, List.of(fungus, target));
         if (canGrowMyceliumFrom(fungus) && target.canGrowMyceliumFrom(fungus)
                 && !myceliumExists(fungus, this, target)) {
-            Skeleton.addObject(new Mycelium(fungus, this, target), "my1");
+                    Mycelium mycelium = new Mycelium(fungus, this, target);
+                    Skeleton.addObject(mycelium, "my1");
+                    Skeleton.printReturn(mycelium);
+                    return mycelium;
         }
         Skeleton.printReturn();
+        return null;
     }
 
     private void tectonBreak() {
