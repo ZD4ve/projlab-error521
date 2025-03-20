@@ -1,5 +1,7 @@
 package model;
 
+import static helper.Skeleton.ask;
+
 import java.util.List;
 
 import helper.Skeleton;
@@ -19,9 +21,13 @@ public class MyceliumAbsorbingTecton extends Tecton {
     public void tick(double dT) {
         Skeleton.printCall(this, List.of(dT));
         absorptionTimer = Math.max(absorptionTimer - dT, 0);
-        if (absorptionTimer == 0) {
-            // TODO: absorb
+        if (ask("Felszívódjanak a gombafonalak a tektonról?") || true || absorptionTimer == 0) {
+            for (Mycelium mycelium : mycelia) {
+                mycelium.die();
+            }
+            mycelia.clear();
         }
+        super.tick(dT);
         Skeleton.printReturn();
     }
 }

@@ -38,7 +38,8 @@ public class Fungus {
         Skeleton.printReturn();
     }
 
-    // PUBLIC MEMBER FUNCTIONS--------------------------------------------------------------
+    // PUBLIC MEMBER
+    // FUNCTIONS--------------------------------------------------------------
 
     public List<Tecton> getPotentialMyceliumSources() {
         Skeleton.printCall(this);
@@ -58,7 +59,8 @@ public class Fungus {
         }
 
         Skeleton.printReturn(potentialSources);
-        return (List<Tecton>)potentialSources;
+
+        return (List<Tecton>) potentialSources;
     }
 
     public List<Tecton> getTectonsWithMycelia() {
@@ -73,12 +75,14 @@ public class Fungus {
         }
 
         Skeleton.printReturn(potentialSources);
-        return (List<Tecton>)potentialSources;
+        return (List<Tecton>) potentialSources;
     }
 
     public boolean canGrowMycelium() {
         Skeleton.printCall(this);
-        boolean canGrow = growingMycelia < mushrooms.size();
+        // TODO: restore
+        // boolean canGrow = growingMycelia < mushrooms.size();
+        boolean canGrow = Skeleton.ask("Tud még gombafonalat növeszteni a gombafaj?");
 
         Skeleton.printReturn(canGrow);
         return canGrow;
