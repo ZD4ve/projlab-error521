@@ -16,11 +16,29 @@ public class Fungus {
         growingMycelia = 0;
     }
 
+    // GETTERS-SETTERS--------------------------------------------------------------
+
     public void addMushroom(Mushroom mushroom) {
         Skeleton.printCall(this, List.of(mushroom));
         mushrooms.add(mushroom);
         Skeleton.printReturn();
     }
+
+    public void addMycelium(Mycelium mycelium) {
+        Skeleton.printCall(this, List.of(mycelium));
+        mycelia.add(mycelium);
+        Skeleton.printReturn();
+    }
+
+    public void removeMushroom(Mushroom mushroom) {
+        Skeleton.printCall(this, List.of(mushroom));
+        Tecton location = mushroom.getLocation();
+        // under const
+        mushrooms.remove(mushroom);
+        Skeleton.printReturn();
+    }
+
+    // PUBLIC MEMBER FUNCTIONS--------------------------------------------------------------
 
     public List<Tecton> getPotentialMyceliumSources() {
         Skeleton.printCall(this);
