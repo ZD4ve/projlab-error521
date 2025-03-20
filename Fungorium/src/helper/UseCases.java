@@ -16,11 +16,12 @@ public class UseCases {
         // (@Tamás ezt majd te csináld meg a végén)
 
         // TODO: Itt szerintem a doksiban szereplő use-case neveket használjuk! (David)
-        addUseCase(UseCases::iAmAUseCase, "demoUseCase");
+        // BurstSpore
         addUseCase(UseCases::burstSporeDist1, "Spóraszórás 1 távolságra");
         addUseCase(UseCases::burstSporeDist2, "Spóraszórás 2 távolságra");
         addUseCase(UseCases::burstSporeDist3, "Spóraszórás 3 távolságra");
 
+        // GrowMycelium
         addUseCase(UseCases::growMyceliumNoSourceFail, "Gombafonal növesztés gombatest és gombafonal nélkül");
         addUseCase(UseCases::growMyceliumNotNeighbor, "Gombafonal növesztés nem szomszédos tektonok között");
         addUseCase(UseCases::growMyceliumSingleMyceliumFail,
@@ -38,10 +39,12 @@ public class UseCases {
         addUseCase(UseCases::insectChewMyceliumParalysed, "InsectChewMycelium-Paralysed");
         addUseCase(UseCases::insectChewMyceliumToothless, "InsectChewMycelium-Toothless");
 
+        // MyceliumTearing
+        addUseCase(UseCases::myceliumTearingTear, "MyceliumTearing-Tear");
+
     }
 
-    // Térképek
-    // --------------------------------------------------------------------------------
+    // #region BurstSpore
 
     static void burstSporeMap() {
         printOn = false;
@@ -70,23 +73,6 @@ public class UseCases {
 
         printOn = true;
     }
-
-    // Use case-ek
-    // --------------------------------------------------------------------------------
-
-    static void iAmAUseCase() {
-        // create map
-        Object t = new Tecton();
-        objNames.put(t, "t");
-        // start sequence
-        printCall(t, List.of(1, 2, t, List.of(t, 45)));
-        printCall(t, List.of());
-        boolean a = ask("Should I return true?");
-        printReturn(a);
-        printReturn(null);
-    }
-
-    // #region BurstSpore
 
     static void burstSporeDist1() {
         burstSporeMap();
@@ -436,6 +422,53 @@ public class UseCases {
             System.out.println("Hibásan lett beállítva a teszt!");
         }
     }
+    // #endregion
 
+    // #region MyceliumTearing
+    static void myceliumTearingMap() {
+        printOn = false;
+        objNames.clear();
+
+        Tecton t1 = new Tecton();
+        objNames.put(t1, "t1");
+        Tecton t2 = new Tecton();
+        objNames.put(t2, "t2");
+        Tecton t3 = new Tecton();
+        objNames.put(t3, "t3");
+
+        t1.addNeighbor(t2);
+        t2.addNeighbor(t1);
+        t2.addNeighbor(t3);
+        t3.addNeighbor(t2);
+
+        Fungus fu1 = new Fungus();
+        objNames.put(fu1, "fu1");
+
+        Mushroom mu1 = new Mushroom(fu1, t1);
+        objNames.put(mu1, "mu1");
+        fu1.addMushroom(mu1);
+        t1.setMushroom(mu1);
+
+        Mycelium my1 = new Mycelium(fu1, t1, t2);
+        objNames.put(my1, "my1");
+        fu1.addMycelium(my1);
+
+        Mycelium my2 = new Mycelium(fu1, t2, t3);
+        objNames.put(my2, "my2");
+        fu1.addMycelium(my2);
+
+        printOn = true;
+    }
+
+    static void myceliumTearingTear() {
+        myceliumTearingMap();
+        try {
+            Mycelium my1 = (Mycelium) getObjByName("my1");
+            my1.die();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Hibásan lett beállítva a teszt!");
+        }
+    }
     // #endregion
 }
