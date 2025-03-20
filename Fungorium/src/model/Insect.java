@@ -47,6 +47,12 @@ public class Insect implements IActive {
         return ret;
     }
 
+    public void addEffect(InsectEffect effect) {
+        Skeleton.printCall(this, List.of(effect));
+        activeEffects.add(effect);
+        Skeleton.printReturn();
+    }
+
     public void removeEffect(InsectEffect effect) {
         Skeleton.printCall(this, List.of(effect));
         activeEffects.remove(effect);
