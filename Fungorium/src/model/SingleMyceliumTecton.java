@@ -1,10 +1,15 @@
 package model;
 
+import helper.Skeleton;
+
 public class SingleMyceliumTecton extends Tecton {
 
     @Override
     public SingleMyceliumTecton newMe() {
-        return new SingleMyceliumTecton();
+        Skeleton.printCall(this);
+        var ret = new SingleMyceliumTecton();
+        Skeleton.printReturn(ret);
+        return ret;
     }
 
     @Override

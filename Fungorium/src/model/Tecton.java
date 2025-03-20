@@ -152,7 +152,7 @@ public class Tecton implements IActive {
         Skeleton.printCall(this);
         if (mushroom == null) {
             mushroom = new Mushroom(fungus, this);
-            Skeleton.printReturn(mushroom);
+            Skeleton.printReturn(null);
             return mushroom;
         }
         Skeleton.printReturn(null);
