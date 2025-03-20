@@ -1,8 +1,8 @@
 package model;
 
 public class Mycelium implements IActive {
-    private Fungus species;
-    private Tecton[] ends;
+    private final Fungus species;
+    private final Tecton[] ends;
 
     public Mycelium(Fungus fungus, Tecton end1, Tecton end2) {
         this.species = fungus;
@@ -22,5 +22,6 @@ public class Mycelium implements IActive {
 
     @Override
     public void tick(double dT) {
+        
     }
 }
