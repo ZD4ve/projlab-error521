@@ -4,11 +4,38 @@ import helper.Skeleton;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Stack;
 
 public class Fungus {
     private final List<Mushroom> mushrooms;
     private final List<Mycelium> mycelia;
     private int growingMycelia;
+
+    // TODO: éllista felépítése a mycelia osztályból
+    private void checkConnectivity() {
+        List<Tecton> mushroomTectons = new ArrayList<>(mushrooms.stream().map(x -> x.getLocation()).toList());
+        HashSet<Tecton> visited = new HashSet<>();
+        Stack<Tecton> stack = new Stack<>();
+
+        for (Tecton tecton : mushroomTectons) {
+            stack.add(tecton);
+            while (!stack.empty()) {
+                Tecton active = stack.peek();
+                boolean notFound = true;
+
+                visited.add(active);
+                for (Tecton neighbor : active.getNeighbors()) {
+                    if (!visited.contains(neighbor)) {
+                        stack.add(neighbor);
+                        notFound = false;
+                        break;
+                    }
+                }
+                if (notFound)
+                    stack.pop();
+            }
+        }
+    }
 
     public Fungus() {
         mushrooms = new ArrayList<>();
@@ -24,22 +51,22 @@ public class Fungus {
         Skeleton.printReturn();
     }
 
+    public void removeMushroom(Mushroom mushroom) {
+        Skeleton.printCall(this, List.of(mushroom));
+        Tecton location = mushroom.getLocation();
+        
+
+        mushrooms.remove(mushroom);
+        Skeleton.printReturn();
+    }
+
     public void addMycelium(Mycelium mycelium) {
         Skeleton.printCall(this, List.of(mycelium));
         mycelia.add(mycelium);
         Skeleton.printReturn();
     }
 
-    public void removeMushroom(Mushroom mushroom) {
-        Skeleton.printCall(this, List.of(mushroom));
-        Tecton location = mushroom.getLocation();
-        // under const
-        mushrooms.remove(mushroom);
-        Skeleton.printReturn();
-    }
-
-    // PUBLIC MEMBER
-    // FUNCTIONS--------------------------------------------------------------
+    // PUBLIC MEMBER FUNCTIONS--------------------------------------------------------------
 
     public List<Tecton> getPotentialMyceliumSources() {
         Skeleton.printCall(this);
@@ -59,8 +86,7 @@ public class Fungus {
         }
 
         Skeleton.printReturn(potentialSources);
-
-        return (List<Tecton>) potentialSources;
+        return new ArrayList<>(potentialSources);
     }
 
     public List<Tecton> getTectonsWithMycelia() {
@@ -75,7 +101,7 @@ public class Fungus {
         }
 
         Skeleton.printReturn(potentialSources);
-        return (List<Tecton>) potentialSources;
+        return new ArrayList<>(potentialSources);
     }
 
     public boolean canGrowMycelium() {

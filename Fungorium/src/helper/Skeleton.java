@@ -1,7 +1,5 @@
 package helper;
 
-import model.*;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
@@ -154,7 +152,7 @@ public class Skeleton {
             try {
                 String inp = System.console().readLine();
                 if (inp.equals("exit")) {
-                    System.exit(0);
+                    return -1;
                 }
                 int choice = Integer.parseInt(inp) - 1;
                 if (choice >= 0 && choice < useCases.size()) {
@@ -169,6 +167,8 @@ public class Skeleton {
         UseCases.init();
         while (true) {
             int choice = useCaseChooser();
+            if (choice == -1)
+                break;
             useCases.get(choice).run();
         }
     }

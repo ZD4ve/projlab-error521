@@ -74,6 +74,16 @@ public class Tecton implements IActive {
     }
 
     /**
+     * Hozzáad a tektonhoz egy gombafonalat.
+     * @param mycelium a hozzáadandó gombafonal.
+     */
+    public void addMycelium(Mycelium mycelium) {
+        Skeleton.printCall(this, List.of(mycelium));
+        mycelia.add(mycelium);
+        Skeleton.printReturn();
+    }
+
+    /**
      * Lekéri a tektonhoz csatlakozó gombafonalakat.
      * 
      * @return a gombafonalak egy listában.
