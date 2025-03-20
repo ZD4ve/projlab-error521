@@ -142,12 +142,15 @@ public class Tecton implements IActive {
         return nt;
     }
 
-    public void growMushroom(Fungus fungus) {
+    public Mushroom growMushroom(Fungus fungus) {
         Skeleton.printCall(this);
         if (mushroom == null) {
             mushroom = new Mushroom(fungus, this);
+            Skeleton.printReturn(mushroom);
+            return mushroom;
         }
-        Skeleton.printReturn();
+        Skeleton.printReturn(null);
+        return null;
     }
 
     private boolean myceliumExists(Fungus fungus, Tecton t1, Tecton t2) {
@@ -172,7 +175,7 @@ public class Tecton implements IActive {
                     Skeleton.printReturn(mycelium);
                     return mycelium;
         }
-        Skeleton.printReturn();
+        Skeleton.printReturn(null);
         return null;
     }
 

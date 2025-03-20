@@ -1,5 +1,6 @@
 package model;
 
+import helper.Skeleton;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -16,6 +17,7 @@ public class Fungus {
     }
 
     public List<Tecton> getPotentialMyceliumSources() {
+        Skeleton.printCall(this);
         HashSet<Tecton> potentialSources = new HashSet<>();
         
         for (Mycelium mycelium : mycelia) {
@@ -30,11 +32,13 @@ public class Fungus {
 
             potentialSources.add(location);
         }
-
+        
+        Skeleton.printReturn(potentialSources);
         return (List<Tecton>)potentialSources;
     }
 
     public List<Tecton> getTectonsWithMycelia() {
+        Skeleton.printCall(this);
         HashSet<Tecton> potentialSources = new HashSet<>();
         
         for (Mycelium mycelium : mycelia) {
@@ -44,21 +48,34 @@ public class Fungus {
             potentialSources.add(ends[1]);
         }
 
+        Skeleton.printReturn(potentialSources);
         return (List<Tecton>)potentialSources;
     }
 
     public boolean canGrowMycelium() {
-        return growingMycelia < mushrooms.size();
+        Skeleton.printCall(this);
+        boolean canGrow = growingMycelia < mushrooms.size();
+
+        Skeleton.printReturn(canGrow);
+        return canGrow;
     }
 
     public void myceliumGrowthComplete() {
+        Skeleton.printCall(this);
         growingMycelia--;
+        Skeleton.printReturn();
     }
 
     public void growMushroom(Tecton tecton) {
+        Skeleton.printCall(this, List.of(tecton));
+        Mushroom mushroom = tecton.growMushroom(this);
+
+        Skeleton.printReturn();
+        mushrooms.add(mushroom);
     }
 
     public void growMycelium(Tecton source, Tecton target) {
+        Skeleton.printCall(this, List.of(source, target));
         boolean ready = canGrowMycelium();
 
         if (ready) {
@@ -69,5 +86,7 @@ public class Fungus {
                 growingMycelia++;
             }
         }
+
+        Skeleton.printReturn();
     }
 }
