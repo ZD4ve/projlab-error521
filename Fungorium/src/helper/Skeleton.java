@@ -200,6 +200,130 @@ public class Skeleton {
         }
     }
 
+    // #region GrowMycelium
+    static void growMyceliumNoSourceFail() {
+
+        try {
+            printOn = false;
+            var t1 = new Tecton();
+            addObject(t1, "t1");
+            var t2 = new Tecton();
+            addObject(t2, "t2");
+            var s1 = new Fungus();
+            addObject(s1, "s1");
+            printOn = true;
+            s1.growMycelium(t1, t2);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Hibásan lett beállítva a teszt!");
+        }
+
+    }
+
+    static void growMyceliumNotNeighbor() {
+        try {
+            printOn = false;
+            var t1 = new Tecton();
+            addObject(t1, "t1");
+
+            var t2 = new Tecton();
+            addObject(t2, "t2");
+
+            var s1 = new Fungus();
+            addObject(s1, "s1");
+
+            addObject(new Mushroom(s1, t1), "m1");
+
+            printOn = true;
+            s1.growMycelium(t1, t2);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Hibásan lett beállítva a teszt!");
+        }
+    }
+
+    static void growMyceliumSingleMyceliumFail() {
+        try {
+            printOn = false;
+            var t1 = new Tecton();
+            addObject(t1, "t1");
+
+            var t2 = new SingleMyceliumTecton();
+            addObject(t2, "t2");
+
+            var t3 = new Tecton();
+            addObject(t3, "t3");
+
+            t1.addNeighbor(t2);
+            t2.addNeighbor(t1);
+            t2.addNeighbor(t3);
+            t3.addNeighbor(t2);
+
+            var s1 = new Fungus();
+            addObject(s1, "s1");
+            var s2 = new Fungus();
+            addObject(s2, "s2");
+
+            addObject(new Mushroom(s1, t1), "m1");
+            addObject(new Mushroom(s2, t3), "m2");
+
+            addObject(new Mycelium(s2, t3, t2), "my1");
+            printOn = true;
+            s1.growMycelium(t1, t2);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Hibásan lett beállítva a teszt!");
+        }
+    }
+
+    static void growMyceliumSingleMyceliumSuccess() {
+        try {
+            printOn = false;
+            var t1 = new Tecton();
+            addObject(t1, "t1");
+
+            var t2 = new SingleMyceliumTecton();
+            addObject(t2, "t2");
+
+            var s1 = new Fungus();
+            addObject(s1, "s1");
+
+            addObject(new Mushroom(s1, t1), "m1");
+            printOn = true;
+            s1.growMycelium(t1, t2);
+            var my1 = (Mycelium) getObjByName("my1");
+            my1.tick(1); // NOSONAR let it be thrown
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Hibásan lett beállítva a teszt!");
+        }
+    }
+
+    static void growMyceliumSuccess() {
+        try {
+            printOn = false;
+            var t1 = new Tecton();
+            addObject(t1, "t1");
+
+            var t2 = new Tecton();
+            addObject(t2, "t2");
+
+            var s1 = new Fungus();
+            addObject(s1, "s1");
+
+            addObject(new Mushroom(s1, t1), "m1");
+            printOn = true;
+            s1.growMycelium(t1, t2);
+            var my1 = (Mycelium) getObjByName("my1");
+            my1.tick(1); // NOSONAR let it be thrown
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Hibásan lett beállítva a teszt!");
+        }
+    }
+    // #endregion
+
     // Be és kimeneti függvények
     // --------------------------------------------------------------------------------
 
@@ -270,6 +394,14 @@ public class Skeleton {
         addUseCase(Skeleton::burstSporeDist1, "Spóraszórás 1 távolságra");
         addUseCase(Skeleton::burstSporeDist2, "Spóraszórás 2 távolságra");
         addUseCase(Skeleton::burstSporeDist3, "Spóraszórás 3 távolságra");
+
+        addUseCase(Skeleton::growMyceliumNoSourceFail, "Gombafonal növesztés gombatest és gombafonal nélkül");
+        addUseCase(Skeleton::growMyceliumNotNeighbor, "Gombafonal növesztés nem szomszédos tektonok között");
+        addUseCase(Skeleton::growMyceliumSingleMyceliumFail,
+                "Gombafonal növesztés SingleMyceliumTecton-ra, ami már foglalt");
+        addUseCase(Skeleton::growMyceliumSingleMyceliumSuccess, "Gombafonal növesztés SingleMyceliumTecton-ra");
+        addUseCase(Skeleton::growMyceliumSuccess, "Gombafonal növesztés optimális körülmények között");
+
         while (true) {
             int choice = useCaseChooser();
             useCases.get(choice).run();
