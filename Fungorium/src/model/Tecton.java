@@ -7,6 +7,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import helper.Skeleton;
+
 public class Tecton implements IActive {
     private List<Tecton> neighbors;
     protected List<Mycelium> mycelia;
@@ -22,25 +24,41 @@ public class Tecton implements IActive {
         mushroom = null;
     }
 
+    // GETTERS-SETTERS--------------------------------------------------------------
+
     public void addNeighbor(Tecton tecton) {
         neighbors.addLast(tecton);
     }
 
-    public void addInsect(Insect insect) {
-        insects.add(insect);
-    }
-
-    public void addSpore(Spore spore) {
-        spores.add(spore);
+    public List<Tecton> getNeighbors() {
+        return neighbors;
     }
 
     public void removeNeighbor(Tecton tecton) {
         neighbors.remove(tecton);
     }
 
+    public List<Mycelium> getMycelia() {
+        return mycelia;
+    }
+
+    public void addInsect(Insect insect) {
+        insects.add(insect);
+    }
+
     public void removeInsect(Insect insect) {
         insects.remove(insect);
     }
+
+    public void addSpore(Spore spore) {
+        spores.add(spore);
+    }
+
+    public Spore takeSpore() {
+        return spores.isEmpty() ? null : spores.remove(0);
+    }
+
+    // -----------------------------------------------------------------------------
 
     public void fillWithStuff(List<Spore> spores, Mushroom mushroom, List<Insect> insects, List<Tecton> neighbors) {
         this.spores.addAll(spores);
@@ -142,7 +160,7 @@ public class Tecton implements IActive {
 
     @Override
     public void tick(double dT) {
-        // TODO: logic to detemine if tecton is breaking
+        // TODO: logic to determine if tecton is breaking
         boolean breaking = false;
         if (breaking) {
             tectonBreak();

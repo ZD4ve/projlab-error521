@@ -15,4 +15,12 @@
     "files.exclude": {
         "bin": true
     },
+    "cSpell.words": [
+        "cooldown",
+        "NOSONAR",
+        "paralysed",
+        "paralysing",
+        "tecton",
+        "tectons"
+    ],
 }

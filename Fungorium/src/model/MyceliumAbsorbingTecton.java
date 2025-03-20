@@ -1,7 +1,7 @@
 package model;
 
 public class MyceliumAbsorbingTecton extends Tecton {
-    private double absorbtionTimer;
+    private double absorptionTimer;
 
     @Override
     public MyceliumAbsorbingTecton newMe() {
@@ -10,8 +10,8 @@ public class MyceliumAbsorbingTecton extends Tecton {
 
     @Override
     public void tick(double dT) {
-        absorbtionTimer = Math.max(absorbtionTimer - dT, 0);
-        if (absorbtionTimer == 0) {
+        absorptionTimer = Math.max(absorptionTimer - dT, 0);
+        if (absorptionTimer == 0) {
             // TODO: absorb
         }
     }

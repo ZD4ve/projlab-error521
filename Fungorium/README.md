@@ -26,3 +26,4 @@ RUN.bat is only for deployment.
 - SonarQube
 - ErrorLens
 - Code Spell Checker
+- Hungarian - Code Spell Checker

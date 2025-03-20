@@ -3,10 +3,22 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Skeleton",
+            "request": "launch",
+            "mainClass": "helper.Skeleton",
+            "projectName": "Fungorium_6a035827"
+        },
+        {
+            "type": "java",
+            "name": "Skeleton",
+            "request": "launch",
+            "mainClass": "Skeleton"
+        },
+        {
+            "type": "java",
             "name": "App",
             "request": "launch",
-            "mainClass": "App",
-            "projectName": "Fungorium_dd34463f"
+            "mainClass": "App"
         },
         {
             "type": "java",
