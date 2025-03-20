@@ -1,10 +1,14 @@
 package helper;
 
+import static helper.Skeleton.*;
+
 import java.util.List;
 
 import model.Fungus;
+import model.Insect;
 import model.Mushroom;
 import model.Mycelium;
+import model.ParalysingEffect;
 import model.SingleMyceliumTecton;
 import model.Tecton;
 
@@ -17,17 +21,17 @@ public class UseCases {
     // --------------------------------------------------------------------------------
 
     static void burstSporeMap() {
-        Skeleton.printOn = false;
-        Skeleton.objNames.clear();
+        printOn = false;
+        objNames.clear();
 
         Tecton t1 = new Tecton();
-        Skeleton.objNames.put(t1, "t1");
+        objNames.put(t1, "t1");
         Tecton t2 = new Tecton();
-        Skeleton.objNames.put(t2, "t2");
+        objNames.put(t2, "t2");
         Tecton t3 = new Tecton();
-        Skeleton.objNames.put(t3, "t3");
+        objNames.put(t3, "t3");
         Tecton t4 = new Tecton();
-        Skeleton.objNames.put(t4, "t4");
+        objNames.put(t4, "t4");
 
         t1.addNeighbor(t2);
         t2.addNeighbor(t1);
@@ -37,11 +41,11 @@ public class UseCases {
         t4.addNeighbor(t3);
 
         Fungus s1 = new Fungus();
-        Skeleton.objNames.put(s1, "s1");
+        objNames.put(s1, "s1");
         Mushroom m1 = new Mushroom(s1, t1);
-        Skeleton.objNames.put(m1, "m1");
+        objNames.put(m1, "m1");
 
-        Skeleton.printOn = true;
+        printOn = true;
     }
 
     // Use case-ek
@@ -50,13 +54,13 @@ public class UseCases {
     static void iAmAUseCase() {
         // create map
         Object t = new Tecton();
-        Skeleton.objNames.put(t, "t");
+        objNames.put(t, "t");
         // start sequence
-        Skeleton.printCall(t, List.of(1, 2, t, List.of(t, 45)));
-        Skeleton.printCall(t, List.of());
-        boolean a = Skeleton.ask("Should I return true?");
-        Skeleton.printReturn(a);
-        Skeleton.printReturn(null);
+        printCall(t, List.of(1, 2, t, List.of(t, 45)));
+        printCall(t, List.of());
+        boolean a = ask("Should I return true?");
+        printReturn(a);
+        printReturn(null);
     }
 
     // #region BurstSpore
@@ -64,8 +68,8 @@ public class UseCases {
     static void burstSporeDist1() {
         burstSporeMap();
         try {
-            Mushroom m1 = (Mushroom) Skeleton.getObjByName("m1");
-            Tecton t1 = (Tecton) Skeleton.getObjByName("t1");
+            Mushroom m1 = (Mushroom) getObjByName("m1");
+            Tecton t1 = (Tecton) getObjByName("t1");
             m1.burstSpore(t1);
             // TODO: Kérdés: itt hogy akarjuk? A visszakasztolás elég csúnya, de más ötletem
             // nincs mivel a hashmap mindenképp egy Object-et tárol
@@ -97,8 +101,8 @@ public class UseCases {
     static void burstSporeDist2() {
         burstSporeMap();
         try {
-            Mushroom m1 = (Mushroom) Skeleton.getObjByName("m1");
-            Tecton t2 = (Tecton) Skeleton.getObjByName("t2");
+            Mushroom m1 = (Mushroom) getObjByName("m1");
+            Tecton t2 = (Tecton) getObjByName("t2");
             m1.burstSpore(t2);
         } catch (Exception e) {
             e.printStackTrace();
@@ -109,8 +113,8 @@ public class UseCases {
     static void burstSporeDist3() {
         burstSporeMap();
         try {
-            Mushroom m1 = (Mushroom) Skeleton.getObjByName("m1");
-            Tecton t3 = (Tecton) Skeleton.getObjByName("t3");
+            Mushroom m1 = (Mushroom) getObjByName("m1");
+            Tecton t3 = (Tecton) getObjByName("t3");
             m1.burstSpore(t3);
         } catch (Exception e) {
             e.printStackTrace();
@@ -124,14 +128,14 @@ public class UseCases {
     static void growMyceliumNoSourceFail() {
 
         try {
-            Skeleton.printOn = false;
+            printOn = false;
             var t1 = new Tecton();
-            Skeleton.addObject(t1, "t1");
+            addObject(t1, "t1");
             var t2 = new Tecton();
-            Skeleton.addObject(t2, "t2");
+            addObject(t2, "t2");
             var s1 = new Fungus();
-            Skeleton.addObject(s1, "s1");
-            Skeleton.printOn = true;
+            addObject(s1, "s1");
+            printOn = true;
             s1.growMycelium(t1, t2);
         } catch (Exception e) {
             e.printStackTrace();
@@ -142,15 +146,15 @@ public class UseCases {
 
     static void growMyceliumNotNeighbor() {
         try {
-            Skeleton.printOn = false;
+            printOn = false;
             var t1 = new Tecton();
-            Skeleton.addObject(t1, "t1");
+            addObject(t1, "t1");
 
             var t2 = new Tecton();
-            Skeleton.addObject(t2, "t2");
+            addObject(t2, "t2");
 
             var s1 = new Fungus();
-            Skeleton.addObject(s1, "s1");
+            addObject(s1, "s1");
 
             var m1 = new Mushroom(s1, t1);
             Skeleton.addObject(m1, "m1");
@@ -165,15 +169,15 @@ public class UseCases {
 
     static void growMyceliumSingleMyceliumFail() {
         try {
-            Skeleton.printOn = false;
+            printOn = false;
             var t1 = new Tecton();
-            Skeleton.addObject(t1, "t1");
+            addObject(t1, "t1");
 
             var t2 = new SingleMyceliumTecton();
-            Skeleton.addObject(t2, "t2");
+            addObject(t2, "t2");
 
             var t3 = new Tecton();
-            Skeleton.addObject(t3, "t3");
+            addObject(t3, "t3");
 
             t1.addNeighbor(t2);
             t2.addNeighbor(t1);
@@ -181,15 +185,15 @@ public class UseCases {
             t3.addNeighbor(t2);
 
             var s1 = new Fungus();
-            Skeleton.addObject(s1, "s1");
+            addObject(s1, "s1");
             var s2 = new Fungus();
-            Skeleton.addObject(s2, "s2");
+            addObject(s2, "s2");
 
-            Skeleton.addObject(new Mushroom(s1, t1), "m1");
-            Skeleton.addObject(new Mushroom(s2, t3), "m2");
+            addObject(new Mushroom(s1, t1), "m1");
+            addObject(new Mushroom(s2, t3), "m2");
 
-            Skeleton.addObject(new Mycelium(s2, t3, t2), "my1");
-            Skeleton.printOn = true;
+            addObject(new Mycelium(s2, t3, t2), "my1");
+            printOn = true;
             s1.growMycelium(t1, t2);
 
         } catch (Exception e) {
@@ -200,20 +204,20 @@ public class UseCases {
 
     static void growMyceliumSingleMyceliumSuccess() {
         try {
-            Skeleton.printOn = false;
+            printOn = false;
             var t1 = new Tecton();
-            Skeleton.addObject(t1, "t1");
+            addObject(t1, "t1");
 
             var t2 = new SingleMyceliumTecton();
-            Skeleton.addObject(t2, "t2");
+            addObject(t2, "t2");
 
             var s1 = new Fungus();
-            Skeleton.addObject(s1, "s1");
+            addObject(s1, "s1");
 
-            Skeleton.addObject(new Mushroom(s1, t1), "m1");
-            Skeleton.printOn = true;
+            addObject(new Mushroom(s1, t1), "m1");
+            printOn = true;
             s1.growMycelium(t1, t2);
-            var my1 = (Mycelium) Skeleton.getObjByName("my1");
+            var my1 = (Mycelium) getObjByName("my1");
             my1.tick(1); // NOSONAR let it be thrown
         } catch (Exception e) {
             e.printStackTrace();
@@ -223,25 +227,66 @@ public class UseCases {
 
     static void growMyceliumSuccess() {
         try {
-            Skeleton.printOn = false;
+            printOn = false;
             var t1 = new Tecton();
-            Skeleton.addObject(t1, "t1");
+            addObject(t1, "t1");
 
             var t2 = new Tecton();
-            Skeleton.addObject(t2, "t2");
+            addObject(t2, "t2");
 
             var s1 = new Fungus();
-            Skeleton.addObject(s1, "s1");
+            addObject(s1, "s1");
 
-            Skeleton.addObject(new Mushroom(s1, t1), "m1");
-            Skeleton.printOn = true;
+            addObject(new Mushroom(s1, t1), "m1");
+            printOn = true;
             s1.growMycelium(t1, t2);
-            var my1 = (Mycelium) Skeleton.getObjByName("my1");
+            var my1 = (Mycelium) getObjByName("my1");
             my1.tick(1); // NOSONAR let it be thrown
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Hibásan lett beállítva a teszt!");
         }
     }
+    // #endregion
+
+    // #region InsectMove
+    static void insectMoveMap() {
+        printOn = false;
+        objNames.clear();
+
+        Tecton t1 = new Tecton();
+        objNames.put(t1, "t1");
+        Tecton t2 = new Tecton();
+        objNames.put(t2, "t2");
+        Tecton t3 = new Tecton();
+        objNames.put(t3, "t3");
+        t1.addNeighbor(t2);
+        t2.addNeighbor(t1);
+        t1.addNeighbor(t3);
+        t3.addNeighbor(t1);
+
+        Insect i1 = new Insect(t1);
+        objNames.put(i1, "i1");
+        Insect i2 = new Insect(t1);
+        objNames.put(i2, "i2");
+        ParalysingEffect p = new ParalysingEffect();
+        objNames.put(p, "p");
+        i2.addEffect(p);
+        p.applyTo(i2);
+
+        Fungus fu1 = new Fungus();
+        objNames.put(fu1, "fu1");
+        Mycelium my1 = new Mycelium(fu1, t1, t2);
+        objNames.put(my1, "my1");
+        fu1.addMycelium(my1);
+
+        Mushroom mu1 = new Mushroom(fu1, t1);
+        objNames.put(mu1, "mu1");
+        fu1.addMushroom(mu1);
+        t1.setMushroom(mu1);
+
+        printOn = true;
+    }
+
     // #endregion
 }

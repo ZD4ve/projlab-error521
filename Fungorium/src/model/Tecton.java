@@ -74,6 +74,12 @@ public class Tecton implements IActive {
         return ret;
     }
 
+    public void setMushroom(Mushroom mushroom) {
+        Skeleton.printCall(this, List.of(mushroom));
+        this.mushroom = mushroom;
+        Skeleton.printReturn();
+    }
+
     // -----------------------------------------------------------------------------
 
     public void fillWithStuff(List<Spore> spores, Mushroom mushroom, List<Insect> insects, List<Tecton> neighbors) {
