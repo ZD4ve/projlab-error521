@@ -5,6 +5,7 @@ import helper.Skeleton;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: ASK hívások
 public class Insect implements IActive {
     private double cooldown;
     private double speed = 1;
