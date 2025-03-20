@@ -152,8 +152,9 @@ public class UseCases {
             var s1 = new Fungus();
             Skeleton.addObject(s1, "s1");
 
-            Skeleton.addObject(new Mushroom(s1, t1), "m1");
-
+            var m1 = new Mushroom(s1, t1);
+            Skeleton.addObject(m1, "m1");
+            
             Skeleton.printOn = true;
             s1.growMycelium(t1, t2);
         } catch (Exception e) {

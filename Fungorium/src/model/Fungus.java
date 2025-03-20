@@ -19,7 +19,7 @@ public class Fungus {
     public List<Tecton> getPotentialMyceliumSources() {
         Skeleton.printCall(this);
         HashSet<Tecton> potentialSources = new HashSet<>();
-        
+
         for (Mycelium mycelium : mycelia) {
             Tecton[] ends = mycelium.getEnds();
 
@@ -40,7 +40,7 @@ public class Fungus {
     public List<Tecton> getTectonsWithMycelia() {
         Skeleton.printCall(this);
         HashSet<Tecton> potentialSources = new HashSet<>();
-        
+
         for (Mycelium mycelium : mycelia) {
             Tecton[] ends = mycelium.getEnds();
 
