@@ -158,7 +158,8 @@ public class UseCases {
 
             var m1 = new Mushroom(s1, t1);
             Skeleton.addObject(m1, "m1");
-            
+            s1.addMushroom(m1);
+
             Skeleton.printOn = true;
             s1.growMycelium(t1, t2);
         } catch (Exception e) {
@@ -189,8 +190,12 @@ public class UseCases {
             var s2 = new Fungus();
             addObject(s2, "s2");
 
-            addObject(new Mushroom(s1, t1), "m1");
-            addObject(new Mushroom(s2, t3), "m2");
+            var m1 = new Mushroom(s1, t1);
+            addObject(m1, "m1");
+            s1.addMushroom(m1);
+            var m2 = new Mushroom(s2, t3);
+            addObject(m2, "m2");
+            s2.addMushroom(m2);
 
             addObject(new Mycelium(s2, t3, t2), "my1");
             printOn = true;
@@ -214,7 +219,9 @@ public class UseCases {
             var s1 = new Fungus();
             addObject(s1, "s1");
 
-            addObject(new Mushroom(s1, t1), "m1");
+            var m1 = new Mushroom(s1, t1);
+            addObject(m1, "m1");
+            s1.addMushroom(m1);
             printOn = true;
             s1.growMycelium(t1, t2);
             var my1 = (Mycelium) getObjByName("my1");
@@ -237,7 +244,9 @@ public class UseCases {
             var s1 = new Fungus();
             addObject(s1, "s1");
 
-            addObject(new Mushroom(s1, t1), "m1");
+            var m1 = new Mushroom(s1, t1);
+            addObject(m1, "m1");
+            s1.addMushroom(m1);
             printOn = true;
             s1.growMycelium(t1, t2);
             var my1 = (Mycelium) getObjByName("my1");
