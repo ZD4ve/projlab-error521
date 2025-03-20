@@ -166,19 +166,7 @@ public class Skeleton {
     }
 
     public static void main(String[] args) {
-        // TODO: Itt szerintem a doksiban szereplő use-case neveket használjuk! (David)
-        addUseCase(UseCases::iAmAUseCase, "demoUseCase");
-        addUseCase(UseCases::burstSporeDist1, "Spóraszórás 1 távolságra");
-        addUseCase(UseCases::burstSporeDist2, "Spóraszórás 2 távolságra");
-        addUseCase(UseCases::burstSporeDist3, "Spóraszórás 3 távolságra");
-
-        addUseCase(UseCases::growMyceliumNoSourceFail, "Gombafonal növesztés gombatest és gombafonal nélkül");
-        addUseCase(UseCases::growMyceliumNotNeighbor, "Gombafonal növesztés nem szomszédos tektonok között");
-        addUseCase(UseCases::growMyceliumSingleMyceliumFail,
-                "Gombafonal növesztés SingleMyceliumTecton-ra, ami már foglalt");
-        addUseCase(UseCases::growMyceliumSingleMyceliumSuccess, "Gombafonal növesztés SingleMyceliumTecton-ra");
-        addUseCase(UseCases::growMyceliumSuccess, "Gombafonal növesztés optimális körülmények között");
-
+        UseCases.init();
         while (true) {
             int choice = useCaseChooser();
             useCases.get(choice).run();

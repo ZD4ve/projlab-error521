@@ -17,6 +17,28 @@ public class UseCases {
     private UseCases() {
     } // Skeleton ne legyen példányosítható
 
+    public static void init() {
+        // TODO: Doksiban szereplő sorrendben legyenek!
+        // (@Tamás ezt majd te csináld meg a végén)
+
+        // TODO: Itt szerintem a doksiban szereplő use-case neveket használjuk! (David)
+        addUseCase(UseCases::iAmAUseCase, "demoUseCase");
+        addUseCase(UseCases::burstSporeDist1, "Spóraszórás 1 távolságra");
+        addUseCase(UseCases::burstSporeDist2, "Spóraszórás 2 távolságra");
+        addUseCase(UseCases::burstSporeDist3, "Spóraszórás 3 távolságra");
+
+        addUseCase(UseCases::growMyceliumNoSourceFail, "Gombafonal növesztés gombatest és gombafonal nélkül");
+        addUseCase(UseCases::growMyceliumNotNeighbor, "Gombafonal növesztés nem szomszédos tektonok között");
+        addUseCase(UseCases::growMyceliumSingleMyceliumFail,
+                "Gombafonal növesztés SingleMyceliumTecton-ra, ami már foglalt");
+        addUseCase(UseCases::growMyceliumSingleMyceliumSuccess, "Gombafonal növesztés SingleMyceliumTecton-ra");
+        addUseCase(UseCases::growMyceliumSuccess, "Gombafonal növesztés optimális körülmények között");
+
+        addUseCase(UseCases::insectMoveSuccess, "InsectMove-Success");
+        addUseCase(UseCases::insectMoveParalysed, "InsectMove-Paralysed");
+        addUseCase(UseCases::insectMoveNoMycelium, "InsectMove-NoMycelium");
+    }
+
     // Térképek
     // --------------------------------------------------------------------------------
 
@@ -295,6 +317,42 @@ public class UseCases {
         t1.setMushroom(mu1);
 
         printOn = true;
+    }
+
+    static void insectMoveSuccess() {
+        insectMoveMap();
+        try {
+            Insect i1 = (Insect) getObjByName("i1");
+            Tecton t2 = (Tecton) getObjByName("t2");
+            i1.moveTo(t2);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Hibásan lett beállítva a teszt!");
+        }
+    }
+
+    static void insectMoveParalysed() {
+        insectMoveMap();
+        try {
+            Insect i2 = (Insect) getObjByName("i2");
+            Tecton t2 = (Tecton) getObjByName("t2");
+            i2.moveTo(t2);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Hibásan lett beállítva a teszt!");
+        }
+    }
+
+    static void insectMoveNoMycelium() {
+        insectMoveMap();
+        try {
+            Insect i1 = (Insect) getObjByName("i2");
+            Tecton t3 = (Tecton) getObjByName("t3");
+            i1.moveTo(t3);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Hibásan lett beállítva a teszt!");
+        }
     }
 
     // #endregion
