@@ -171,7 +171,7 @@ public class Skeleton {
             // kommentben indítunk egy szavazást :P)
             // Szavazz a szebb jővőért és kódért:
             // Pro: Panni,
-            // Contra: David
+            // Contra: Márton, David
             // comment: David: Legyen a köztes megoldás amit a Discord-on írtam
         } catch (Exception e) {
             e.printStackTrace();
