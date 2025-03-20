@@ -169,7 +169,7 @@ public class Skeleton {
             // kommentben indítunk egy szavazást :P)
             // Szavazz a szebb jővőért és kódért:
             // Pro: Panni,
-            // Contra:
+            // Contra: Márton
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Hibásan lett beállítva a teszt!");
