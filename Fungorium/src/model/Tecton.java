@@ -74,6 +74,12 @@ public class Tecton implements IActive {
         return ret;
     }
 
+    public void setMushroom(Mushroom mushroom) {
+        Skeleton.printCall(this, List.of(mushroom));
+        this.mushroom = mushroom;
+        Skeleton.printReturn();
+    }
+
     // -----------------------------------------------------------------------------
 
     public void fillWithStuff(List<Spore> spores, Mushroom mushroom, List<Insect> insects, List<Tecton> neighbors) {
@@ -170,10 +176,10 @@ public class Tecton implements IActive {
         Skeleton.printCall(this, List.of(fungus, target));
         if (canGrowMyceliumFrom(fungus) && target.canGrowMyceliumFrom(fungus)
                 && !myceliumExists(fungus, this, target)) {
-                    Mycelium mycelium = new Mycelium(fungus, this, target);
-                    Skeleton.addObject(mycelium, "my1");
-                    Skeleton.printReturn(mycelium);
-                    return mycelium;
+            Mycelium mycelium = new Mycelium(fungus, this, target);
+            Skeleton.addObject(mycelium, "my1");
+            Skeleton.printReturn(mycelium);
+            return mycelium;
         }
         Skeleton.printReturn(null);
         return null;
