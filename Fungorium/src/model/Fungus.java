@@ -1,46 +1,86 @@
 package model;
 
 import helper.Skeleton;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Stack;
 
 public class Fungus {
-    private final List<Mushroom> mushrooms;
-    private final List<Mycelium> mycelia;
-    private int growingMycelia;
+    private final List<Mushroom> mushrooms = new ArrayList<>();
+    private final List<Mycelium> mycelia = new ArrayList<>();
+    private int growingMycelia = 0;
 
-    // TODO: éllista felépítése a mycelia osztályból
+    private boolean checkConnectivityRunning = false;
+
     private void checkConnectivity() {
-        List<Tecton> mushroomTectons = new ArrayList<>(mushrooms.stream().map(x -> x.getLocation()).toList());
-        HashSet<Tecton> visited = new HashSet<>();
-        Stack<Tecton> stack = new Stack<>();
+        if (checkConnectivityRunning)
+            return;
+        checkConnectivityRunning = true;
 
-        for (Tecton tecton : mushroomTectons) {
+        HashMap<Tecton, ArrayList<Tecton>> adjacencyList = new HashMap<>();
+        HashMap<Mycelium, Tecton[]> myceliaEnds = new HashMap<>();
+        HashSet<Tecton> tectons = new HashSet<>(mushrooms.stream().map(x -> x.getLocation()).toList());
+
+        for (Mycelium mycelium : mycelia) {
+            var ends = mycelium.getEnds();
+
+            myceliaEnds.put(mycelium, ends);
+            if (!adjacencyList.containsKey(ends[0]))
+                adjacencyList.put(ends[0], new ArrayList<>());
+            if (!adjacencyList.containsKey(ends[1]))
+                adjacencyList.put(ends[1], new ArrayList<>());
+
+            adjacencyList.get(ends[0]).add(ends[1]);
+            adjacencyList.get(ends[1]).add(ends[0]);
+        }
+
+        HashSet<Tecton> forest = new HashSet<>();
+        var tectonIt = tectons.iterator();
+        
+        while (!tectonIt.hasNext()) {
+            Tecton tecton = tectonIt.next();
+
+            if (!adjacencyList.containsKey(tecton))
+                continue;
+            
+            HashSet<Tecton> visited = new HashSet<>();
+            Deque<Tecton> stack = new ArrayDeque<>();
+
             stack.add(tecton);
-            while (!stack.empty()) {
+            while (!stack.isEmpty()) {
                 Tecton active = stack.peek();
                 boolean notFound = true;
 
-                visited.add(active);
-                for (Tecton neighbor : active.getNeighbors()) {
+                for (Tecton neighbor : adjacencyList.get(active)) {
                     if (!visited.contains(neighbor)) {
-                        stack.add(neighbor);
+                        visited.add(active);
                         notFound = false;
+                        stack.push(active);
+
                         break;
                     }
                 }
                 if (notFound)
                     stack.pop();
             }
-        }
-    }
 
-    public Fungus() {
-        mushrooms = new ArrayList<>();
-        mycelia = new ArrayList<>();
-        growingMycelia = 0;
+            forest.addAll(visited);
+        }
+
+        var myceliumIt = mycelia.iterator();
+
+        while (!myceliumIt.hasNext()) {
+            var mycelium = myceliumIt.next();
+            var ends = myceliaEnds.get(mycelium);
+
+            if (!forest.contains(ends[0]) && !forest.contains(ends[1]))
+                mycelium.die();
+        }
+
+        checkConnectivityRunning = false;
     }
 
     // GETTERS-SETTERS--------------------------------------------------------------
@@ -63,6 +103,13 @@ public class Fungus {
     public void addMycelium(Mycelium mycelium) {
         Skeleton.printCall(this, List.of(mycelium));
         mycelia.add(mycelium);
+        Skeleton.printReturn();
+    }
+
+    public void removeMycelium(Mycelium mycelium) {
+        Skeleton.printCall(this, List.of(mycelium));
+        mycelia.remove(mycelium);
+        checkConnectivity();
         Skeleton.printReturn();
     }
 
