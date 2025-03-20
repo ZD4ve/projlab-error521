@@ -16,6 +16,12 @@ public class Fungus {
         growingMycelia = 0;
     }
 
+    public void addMushroom(Mushroom mushroom) {
+        Skeleton.printCall(this, List.of(mushroom));
+        mushrooms.add(mushroom);
+        Skeleton.printReturn();
+    }
+
     public List<Tecton> getPotentialMyceliumSources() {
         Skeleton.printCall(this);
         HashSet<Tecton> potentialSources = new HashSet<>();
@@ -32,7 +38,7 @@ public class Fungus {
 
             potentialSources.add(location);
         }
-        
+
         Skeleton.printReturn(potentialSources);
         return (List<Tecton>)potentialSources;
     }
