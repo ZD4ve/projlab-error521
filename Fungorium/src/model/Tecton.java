@@ -69,6 +69,12 @@ public class Tecton implements IActive {
         Skeleton.printReturn();
     }
 
+    public void addMycelium(Mycelium mycelium) {
+        Skeleton.printCall(this, List.of(mycelium));
+        mycelia.add(mycelium);
+        Skeleton.printReturn();
+    }
+
     public List<Mycelium> getMycelia() {
         Skeleton.printCall(this);
         Skeleton.printReturn(mycelia);
