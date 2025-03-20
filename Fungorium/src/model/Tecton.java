@@ -8,6 +8,17 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+/**
+ * Felelőssége a saját szomszédainak, valamint a rajta található további
+ * objektumok nyilvántartása. Felelőssége a gombatestek, gombafonalak
+ * növesztéséhez szükséges ellenőrzések elvégzése, valamint ezek halálakor azon
+ * objektumok törlése. Felelőssége a rovarokkal való kapcsolatának
+ * karbantartása, azok hozzáadása, valamint törlése, spóra hozzáadásának
+ * kezelése, spóra átadása az azt megevő rovarnak. Felelőssége a tekton
+ * törésének kezdeményezése és kezelése, ezalatt a rajta található objektumok
+ * elosztása, valamint saját tulajdonságainak lemásolása a keletkező új
+ * tektonokra.
+ */
 public class Tecton implements IActive {
     private List<Tecton> neighbors;
     protected List<Mycelium> mycelia;
@@ -25,18 +36,33 @@ public class Tecton implements IActive {
 
     // GETTERS-SETTERS--------------------------------------------------------------
 
+    /**
+     * Hozzáad egy szomszédot a tektonhoz
+     * 
+     * @param tecton az új szomszéd
+     */
     public void addNeighbor(Tecton tecton) {
         Skeleton.printCall(this, List.of(tecton));
         neighbors.addLast(tecton);
         Skeleton.printReturn();
     }
 
+    /**
+     * Lekéri a tekton szomszédait
+     * 
+     * @return a szomszédok egy listában
+     */
     public List<Tecton> getNeighbors() {
         Skeleton.printCall(this);
         Skeleton.printReturn(neighbors);
         return neighbors;
     }
 
+    /**
+     * Eltávolítja a tekton egy szomszédját
+     * 
+     * @param tecton az eltávolítandó tekton
+     */
     public void removeNeighbor(Tecton tecton) {
         Skeleton.printCall(this, List.of(tecton));
         neighbors.remove(tecton);
