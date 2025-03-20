@@ -107,7 +107,7 @@ public class Skeleton {
         if (printOn) {
             String paramStr = "";
             if (params != null && !params.isEmpty()) {
-                paramStr = params.get(0).toString();
+                paramStr = getObjName(params.get(0));
                 for (int i = 1; i < params.size(); i++) {
                     paramStr += ", " + getObjName(params.get(i)); // NOSONAR: nem kell StringBuilder
                 }
