@@ -21,4 +21,8 @@ public class Mushroom implements IActive {
     public Fungus getSpecies() {
         return species;
     }
+
+    public Tecton getLocation() {
+        return location;
+    }
 }
