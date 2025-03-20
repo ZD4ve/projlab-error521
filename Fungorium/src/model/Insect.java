@@ -23,6 +23,8 @@ public class Insect implements IActive {
         Skeleton.printReturn(this);
     }
 
+    // #region GETTERS-SETTERS
+
     private void setCooldown(double cooldown) {
         Skeleton.printCall(this, List.of(cooldown));
         this.cooldown = cooldown;
@@ -55,6 +57,10 @@ public class Insect implements IActive {
         Skeleton.printReturn(score);
         return score;
     }
+
+    // #endregion
+
+    // #region FUNCTIONS
 
     public void eatSpore() {
         Skeleton.printCall(this);
@@ -105,4 +111,5 @@ public class Insect implements IActive {
             cooldown -= dT * speed;
         Skeleton.printReturn();
     }
+    // #endregion
 }
