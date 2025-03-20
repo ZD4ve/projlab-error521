@@ -4,13 +4,7 @@ import static helper.Skeleton.*;
 
 import java.util.List;
 
-import model.Fungus;
-import model.Insect;
-import model.Mushroom;
-import model.Mycelium;
-import model.ParalysingEffect;
-import model.SingleMyceliumTecton;
-import model.Tecton;
+import model.*;
 
 @java.lang.SuppressWarnings("java:S106") // használható büntetlenül a System IO
 public class UseCases {
@@ -180,7 +174,7 @@ public class UseCases {
 
             var m1 = new Mushroom(s1, t1);
             Skeleton.addObject(m1, "m1");
-            
+
             Skeleton.printOn = true;
             s1.growMycelium(t1, t2);
         } catch (Exception e) {
