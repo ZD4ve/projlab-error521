@@ -15,6 +15,7 @@ public class UseCases {
         // TODO: Doksiban szereplő sorrendben legyenek!
         // (@Tamás ezt majd te csináld meg a végén)
 
+        addUseCase(UseCases::demoUseCase, "tester");
         // TODO: Itt szerintem a doksiban szereplő use-case neveket használjuk! (David)
         // BurstSpore
         addUseCase(UseCases::burstSporeDist1, "Spóraszórás 1 távolságra");
@@ -46,6 +47,15 @@ public class UseCases {
         addUseCase(UseCases::eatSporeNoSpore, "EatSpore-NoSpore");
         addUseCase(UseCases::eatSporeParalysed, "EatSpore-Paralysed");
 
+    }
+
+    // ezt majd a végén kiszedjük, teszeléshez pls hadd maradjon
+    static void demoUseCase() {
+        Tecton t = new Tecton();
+        addObject(t, "t");
+        printCall(t);
+
+        Skeleton.printTrace();
     }
 
     // #region BurstSpore
@@ -83,6 +93,7 @@ public class UseCases {
         Mushroom m1 = (Mushroom) getObjByName("m1");
         Tecton t1 = (Tecton) getObjByName("t1");
         m1.burstSpore(t1);
+        Skeleton.printTrace();
     }
 
     static void burstSporeDist2() {
@@ -90,6 +101,7 @@ public class UseCases {
         Mushroom m1 = (Mushroom) getObjByName("m1");
         Tecton t2 = (Tecton) getObjByName("t2");
         m1.burstSpore(t2);
+        Skeleton.printTrace();
     }
 
     static void burstSporeDist3() {
@@ -97,6 +109,7 @@ public class UseCases {
         Mushroom m1 = (Mushroom) getObjByName("m1");
         Tecton t3 = (Tecton) getObjByName("t3");
         m1.burstSpore(t3);
+        Skeleton.printTrace();
     }
 
     // #endregion
@@ -112,6 +125,7 @@ public class UseCases {
         addObject(s1, "s1");
         printOn = true;
         s1.growMycelium(t1, t2);
+        Skeleton.printTrace();
     }
 
     static void growMyceliumNotNeighbor() {
@@ -131,6 +145,7 @@ public class UseCases {
 
         Skeleton.printOn = true;
         s1.growMycelium(t1, t2);
+        Skeleton.printTrace();
     }
 
     static void growMyceliumSingleMyceliumFail() {
@@ -164,6 +179,7 @@ public class UseCases {
         addObject(new Mycelium(s2, t3, t2), "my1");
         printOn = true;
         s1.growMycelium(t1, t2);
+        Skeleton.printTrace();
     }
 
     static void growMyceliumSingleMyceliumSuccess() {
@@ -187,7 +203,8 @@ public class UseCases {
         printOn = true;
         s1.growMycelium(t1, t2);
         var my1 = (Mycelium) getObjByName("my1");
-        my1.tick(1); // NOSONAR let it be thrown
+        my1.tick(1);
+        Skeleton.printTrace();
     }
 
     static void growMyceliumSuccess() {
@@ -210,7 +227,9 @@ public class UseCases {
         printOn = true;
         s1.growMycelium(t1, t2);
         var my1 = (Mycelium) getObjByName("my1");
-        my1.tick(1); // NOSONAR let it be thrown
+        my1.tick(1);
+
+        Skeleton.printTrace();
     }
     // #endregion
 
@@ -258,6 +277,8 @@ public class UseCases {
         Insect i1 = (Insect) getObjByName("i1");
         Tecton t2 = (Tecton) getObjByName("t2");
         i1.moveTo(t2);
+
+        Skeleton.printTrace();
     }
 
     static void insectMoveParalysed() {
@@ -265,6 +286,8 @@ public class UseCases {
         Insect i2 = (Insect) getObjByName("i2");
         Tecton t2 = (Tecton) getObjByName("t2");
         i2.moveTo(t2);
+
+        Skeleton.printTrace();
     }
 
     static void insectMoveNoMycelium() {
@@ -272,6 +295,8 @@ public class UseCases {
         Insect i1 = (Insect) getObjByName("i2");
         Tecton t3 = (Tecton) getObjByName("t3");
         i1.moveTo(t3);
+
+        Skeleton.printTrace();
     }
 
     // #endregion
@@ -325,6 +350,7 @@ public class UseCases {
         Mycelium my1 = (Mycelium) getObjByName("my1");
         i1.chewMycelium(my1);
 
+        Skeleton.printTrace();
     }
 
     static void insectChewMyceliumParalysed() {
@@ -332,6 +358,8 @@ public class UseCases {
         Insect i2 = (Insect) getObjByName("i2");
         Mycelium my1 = (Mycelium) getObjByName("my1");
         i2.chewMycelium(my1);
+
+        Skeleton.printTrace();
     }
 
     static void insectChewMyceliumToothless() {
@@ -339,6 +367,8 @@ public class UseCases {
         Insect i3 = (Insect) getObjByName("i3");
         Mycelium my1 = (Mycelium) getObjByName("my1");
         i3.chewMycelium(my1);
+
+        Skeleton.printTrace();
     }
     // #endregion
 
@@ -382,6 +412,8 @@ public class UseCases {
         myceliumTearingMap();
         Mycelium my1 = (Mycelium) getObjByName("my1");
         my1.die();
+
+        Skeleton.printTrace();
     }
     // #endregion
 
@@ -450,12 +482,16 @@ public class UseCases {
         eatSporeMapParalysed();
         Insect i1 = (Insect) getObjByName("i1");
         i1.eatSpore();
+
+        Skeleton.printTrace();
     }
 
     static void eatSporeNoSpore() {
         eatSporeMapNoSpore();
         Insect i1 = (Insect) getObjByName("i1");
         i1.eatSpore();
+
+        Skeleton.printTrace();
     }
 
     static void eatSporeSuccess() {
@@ -467,6 +503,8 @@ public class UseCases {
 
             eff.tick(1);
         }
+
+        Skeleton.printTrace();
     }
 
 }

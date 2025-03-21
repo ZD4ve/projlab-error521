@@ -13,6 +13,7 @@ public class Skeleton {
 
     static int tabulation = 0;
     static boolean printOn = true;
+    static List<TraceItem> trace = new ArrayList<>();
 
     static Map<Object, String> objNames = new HashMap<>();
 
@@ -52,6 +53,8 @@ public class Skeleton {
             return listToString(list);
         } else if (obj instanceof Object[] arr) {
             return listToString(Arrays.asList(arr));
+        } else if (obj instanceof Class<?> cls) {
+            return cls.getSimpleName();
         } else {
             return obj.toString();
         }
@@ -71,23 +74,16 @@ public class Skeleton {
 
     public static void printCall(Object obj, List<Object> params) {
         if (printOn) {
-            String paramStr = "";
-            if (params != null && !params.isEmpty()) {
-                paramStr = getObjName(params.get(0));
-                for (int i = 1; i < params.size(); i++) {
-                    paramStr += ", " + getObjName(params.get(i)); // NOSONAR: nem kell StringBuilder
-                }
-            }
             var frame = StackWalker.getInstance().walk(s -> s.skip(1).findFirst());
             String fName = frame.isPresent() ? frame.get().getMethodName() : "func";
-            if (fName.equals("printCall")) {
+            if (fName.equals("printCall")) { // fujj
                 var frame2 = StackWalker.getInstance().walk(s -> s.skip(2).findFirst());
                 fName = frame2.isPresent() ? frame2.get().getMethodName() : "func";
             }
             if (fName.equals("<init>")) {
                 fName = "new";
             }
-            System.out.println("  ".repeat(tabulation) + "call " + getObjName(obj) + "." + fName + "(" + paramStr + ")");
+            trace.add(new CallTrace(tabulation, obj, fName, params));
             tabulation++;
         }
     }
@@ -99,7 +95,7 @@ public class Skeleton {
     public static void printReturn(Object returnValue) {
         if (printOn) {
             tabulation--;
-            System.out.println("  ".repeat(tabulation) + "return " + getObjName(returnValue));
+            trace.add(new ReturnTrace(tabulation, returnValue));
         }
     }
 
@@ -112,6 +108,13 @@ public class Skeleton {
         System.out.print(">");
         String answer = System.console().readLine();
         return !answer.equals("n");
+    }
+
+    public static void printTrace() {
+        for (TraceItem item : trace) {
+            item.print();
+        }
+        trace = new ArrayList<>();
     }
 
     static int useCaseChooser() {
