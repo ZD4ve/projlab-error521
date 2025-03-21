@@ -2,8 +2,6 @@ package helper;
 
 import static helper.Skeleton.*;
 
-import java.util.List;
-
 import model.*;
 
 @java.lang.SuppressWarnings("java:S106") // használható büntetlenül a System IO

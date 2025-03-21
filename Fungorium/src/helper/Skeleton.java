@@ -109,6 +109,7 @@ public class Skeleton {
     }
 
     static int useCaseChooser() {
+        System.out.println();
         for (int i = 0; i < useCases.size(); i++) {
             System.out.println(i + 1 + ": " + useCaseNames.get(useCases.get(i)));
         }
@@ -116,6 +117,7 @@ public class Skeleton {
             System.out.print(">");
             try {
                 String inp = System.console().readLine();
+                System.out.println();
                 if (inp.equals("exit")) {
                     return -1;
                 }

@@ -94,13 +94,18 @@ public class Insect implements IActive {
         return score;
     }
 
+    private boolean ready() {
+        return Skeleton.ask("A rovarnak lejárt a várakozási ideje?");
+        // return cooldown <= 0;
+    }
+
     // #endregion
 
     // #region FUNCTIONS
 
     public void eatSpore() {
         Skeleton.printCall(this);
-        if (!isParalysed && cooldown <= 0) {
+        if (!isParalysed && ready()) {
             Spore sporeTaken = location.takeSpore();
             if (sporeTaken != null) {
                 score++;
@@ -116,7 +121,7 @@ public class Insect implements IActive {
 
     public void moveTo(Tecton target) {
         Skeleton.printCall(this, List.of(target));
-        if (!isParalysed && cooldown <= 0) {
+        if (!isParalysed && ready()) {
             boolean moveValid = location.hasMyceliumTo(target);
             if (moveValid) {
                 location.removeInsect(this);
@@ -130,7 +135,7 @@ public class Insect implements IActive {
 
     public void chewMycelium(Mycelium mycelium) {
         Skeleton.printCall(this, List.of(mycelium));
-        if (isParalysed || antiChewCount > 0 || cooldown > 0) {
+        if (isParalysed || antiChewCount > 0 || !ready()) {
             Skeleton.printReturn();
             return;
         }
