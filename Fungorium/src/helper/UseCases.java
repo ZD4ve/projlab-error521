@@ -2,6 +2,8 @@ package helper;
 
 import static helper.Skeleton.*;
 
+import java.util.List;
+
 import model.*;
 
 @java.lang.SuppressWarnings("java:S106") // használható büntetlenül a System IO
@@ -22,8 +24,7 @@ public class UseCases {
         // GrowMycelium
         addUseCase(UseCases::growMyceliumNoSourceFail, "Gombafonal növesztés gombatest és gombafonal nélkül");
         addUseCase(UseCases::growMyceliumNotNeighbor, "Gombafonal növesztés nem szomszédos tektonok között");
-        addUseCase(UseCases::growMyceliumSingleMyceliumFail,
-                "Gombafonal növesztés SingleMyceliumTecton-ra, ami már foglalt");
+        addUseCase(UseCases::growMyceliumSingleMyceliumFail, "Gombafonal növesztés SingleMyceliumTecton-ra, ami már foglalt");
         addUseCase(UseCases::growMyceliumSingleMyceliumSuccess, "Gombafonal növesztés SingleMyceliumTecton-ra");
         addUseCase(UseCases::growMyceliumSuccess, "Gombafonal növesztés optimális körülmények között");
 

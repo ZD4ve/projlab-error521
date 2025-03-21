@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 @java.lang.SuppressWarnings("java:S106") // használható büntetlenül a System IO
 public class Skeleton {
@@ -47,8 +48,10 @@ public class Skeleton {
             return "null";
         } else if (objNames.containsKey(obj)) {
             return objNames.get(obj);
-        } else if (obj instanceof List) {
-            return listToString((List<?>) obj);
+        } else if (obj instanceof List<?> list) {
+            return listToString(list);
+        } else if (obj instanceof Object[] arr) {
+            return listToString(Arrays.asList(arr));
         } else {
             return obj.toString();
         }
@@ -81,7 +84,10 @@ public class Skeleton {
                 var frame2 = StackWalker.getInstance().walk(s -> s.skip(2).findFirst());
                 fName = frame2.isPresent() ? frame2.get().getMethodName() : "func";
             }
-            System.out.println("  ".repeat(tabulation) + getObjName(obj) + "." + fName + "(" + paramStr + ")");
+            if (fName.equals("<init>")) {
+                fName = "new";
+            }
+            System.out.println("  ".repeat(tabulation) + "call " + getObjName(obj) + "." + fName + "(" + paramStr + ")");
             tabulation++;
         }
     }
