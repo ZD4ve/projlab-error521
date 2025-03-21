@@ -5,6 +5,11 @@ import helper.Skeleton;
 
 public class ParalysingEffect extends InsectEffect {
 
+    public ParalysingEffect() {
+        Skeleton.printCall(this.getClass());
+        Skeleton.printReturn(this);
+    }
+
     @Override
     public void applyTo(Insect insect) {
         Skeleton.printCall(this, List.of(insect));

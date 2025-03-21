@@ -18,7 +18,7 @@ public class Insect implements IActive {
     private static final double ACTION_DURATION = 1;
 
     public Insect(Tecton location) {
-        Skeleton.printCall(this, List.of(location));
+        Skeleton.printCall(this.getClass(), List.of(location));
         this.location = location;
         Skeleton.printReturn(this);
     }

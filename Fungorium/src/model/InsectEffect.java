@@ -9,18 +9,18 @@ public abstract class InsectEffect implements IActive {
 
     public static InsectEffect createEffect() {
         Skeleton.printCall("InsectEffect");
-        InsectEffect new_effect = null;
+        InsectEffect newEffect = null;
 
         if (Skeleton.ask("Paralysing effektet hozzak létre?"))
-            new_effect = new ParalysingEffect();
+            newEffect = new ParalysingEffect();
         else if (Skeleton.ask("Speed effektet hozzak létre?"))
-            new_effect = new SpeedEffect();
+            newEffect = new SpeedEffect();
         else if (Skeleton.ask("AntiChew effektet hozzak létre?"))
-            new_effect = new AntiChewEffect();
+            newEffect = new AntiChewEffect();
 
-        Skeleton.addObject(new_effect, "eff");
-        Skeleton.printReturn(new_effect);
-        return new_effect;
+        Skeleton.addObject(newEffect, "eff");
+        Skeleton.printReturn(newEffect);
+        return newEffect;
     }
 
     public abstract void applyTo(Insect insect);

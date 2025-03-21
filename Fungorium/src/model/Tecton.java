@@ -1,6 +1,10 @@
 package model;
 
 import helper.Skeleton;
+
+import static helper.Skeleton.printCall;
+import static helper.Skeleton.printReturn;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -31,11 +35,13 @@ public class Tecton implements IActive {
      *
      */
     public Tecton() {
+        printCall(this.getClass());
         neighbors = new ArrayList<>();
         mycelia = new ArrayList<>();
         spores = new ArrayList<>();
         insects = new ArrayList<>();
         mushroom = null;
+        printReturn(this);
     }
 
     // GETTERS-SETTERS--------------------------------------------------------------
@@ -75,6 +81,7 @@ public class Tecton implements IActive {
 
     /**
      * Hozzáad a tektonhoz egy gombafonalat.
+     * 
      * @param mycelium a hozzáadandó gombafonal.
      */
     public void addMycelium(Mycelium mycelium) {
@@ -251,6 +258,7 @@ public class Tecton implements IActive {
     public Tecton newMe() {
         Skeleton.printCall(this);
         var nt = new Tecton();
+        Skeleton.addObject(nt, "tec");
         Skeleton.printReturn(nt);
         return nt;
     }
@@ -296,6 +304,7 @@ public class Tecton implements IActive {
 
     /**
      * Gombafonalat növeszt a megadott cél tektonra, ha lehetséges.
+     * 
      * @param fungus a gombafonalhoz tartozó faj.
      * @param target a cél tekton.
      * @return a keletkezett gombafonal vagy null.
