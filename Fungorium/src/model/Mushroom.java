@@ -1,5 +1,10 @@
 package model;
 
+import static helper.Skeleton.printCall;
+import static helper.Skeleton.printReturn;
+
+import java.util.List;
+
 public class Mushroom implements IActive {
     private int range;
     private double cooldown;
@@ -7,9 +12,11 @@ public class Mushroom implements IActive {
     private Tecton location;
 
     public Mushroom(Fungus fungus, Tecton location) {
+        printCall(this.getClass(), List.of(fungus, location));
         this.species = fungus;
         this.location = location;
         location.setMushroom(this);
+        printReturn(this);
     }
 
     public void burstSpore(Tecton target) {

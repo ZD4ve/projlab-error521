@@ -10,15 +10,16 @@ public class Mycelium implements IActive {
 
     // TODO: ez még nincs kész, csak beletrollkodtam (by: David)
     // Én is (by: Márton)
+    // Most már én is (by: Panni)
     public Mycelium(Fungus fungus, Tecton end1, Tecton end2) {
         Skeleton.addObject(this, "my1");
-        Skeleton.printCall(this, List.of(fungus, end1, end2));
+        Skeleton.printCall(this.getClass(), List.of(fungus, end1, end2));
         this.species = fungus;
         this.ends = new Tecton[] { end1, end2 };
 
         end1.addMycelium(this);
         end2.addMycelium(this);
-        Skeleton.printReturn();
+        Skeleton.printReturn(this);
     }
 
     public void die() {
