@@ -450,4 +450,100 @@ public class UseCases {
         }
     }
     // #endregion
+
+    // #region EatSpore
+
+    static void eatSporeMapParalysed() {
+        printOn = false;
+        objNames.clear();
+
+        Tecton t1 = new Tecton();
+        objNames.put(t1, "t1");
+
+        Insect i1 = new Insect(t1);
+        objNames.put(i1, "i1");
+
+        Fungus fu1 = new Fungus();
+        objNames.put(fu1, "fu1");
+
+        ParalysingEffect p1 = new ParalysingEffect();
+        objNames.put(p1, "p1");
+
+        i1.addEffect(p1);
+        p1.applyTo(i1);
+
+        printOn = true;
+    }
+
+    static void eatSporeMapNoSpore() {
+        printOn = false;
+        objNames.clear();
+
+        Tecton t1 = new Tecton();
+        objNames.put(t1, "t1");
+
+        Insect i1 = new Insect(t1);
+        objNames.put(i1, "i1");
+
+        Fungus fu1 = new Fungus();
+        objNames.put(fu1, "fu1");
+
+        printOn = true;
+    }
+
+    static void eatSporeMapSuccess() {
+        printOn = false;
+        objNames.clear();
+
+        Fungus fu1 = new Fungus();
+        objNames.put(fu1, "fu1");
+
+        Tecton t1 = new Tecton();
+        objNames.put(t1, "t1");
+
+        Spore sp1 = new Spore(fu1);
+        objNames.put(sp1, "sp1");
+
+        t1.addSpore(sp1);
+
+        Insect i1 = new Insect(t1);
+        objNames.put(i1, "i1");
+
+        printOn = true;
+    }
+
+    static void eatSporeParalysed() {
+        eatSporeMapParalysed();
+        try {
+            Insect i1 = (Insect) getObjByName("i1");
+            i1.eatSpore();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Hibásan lett beállítva a teszt!");
+        }
+    }
+
+    static void eatSporeNoSpore() {
+        eatSporeMapNoSpore();
+        try {
+            Insect i1 = (Insect) getObjByName("i1");
+            i1.eatSpore();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Hibásan lett beállítva a teszt!");
+        }
+    }
+
+    static void eatSporeSuccess() {
+        eatSporeMapSuccess();
+        try {
+            Insect i1 = (Insect) getObjByName("i1");
+            i1.eatSpore();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Hibásan lett beállítva a teszt!");
+        }
+    }
+
+    // #endregion
 }

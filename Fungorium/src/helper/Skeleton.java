@@ -89,13 +89,13 @@ public class Skeleton {
         }
     }
 
-    static Object getObjByName(String name) {
+    static Object getObjByName(String name) throws IllegalArgumentException {
         for (Map.Entry<Object, String> entry : objNames.entrySet()) {
             if (entry.getValue().equals(name)) {
                 return entry.getKey();
             }
         }
-        return null;
+        throw new IllegalArgumentException("No object with name: " + name);
     }
 
     // Be és kimeneti függvények
