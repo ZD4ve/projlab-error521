@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+
 import helper.Skeleton;
 
 public class SingleMyceliumTecton extends Tecton {
@@ -20,14 +22,18 @@ public class SingleMyceliumTecton extends Tecton {
 
     @Override
     public boolean canGrowMyceliumFrom(Fungus fungus) {
+        Skeleton.printCall(this, List.of(fungus));
         for (Mycelium m : mycelia) {
             if (m.getSpecies() != fungus) {
+                Skeleton.printReturn(false);
                 return false;
             }
         }
-        if (mushroom == null || mushroom.getSpecies() != fungus) {
+        if (mushroom != null && mushroom.getSpecies() != fungus) {
+            Skeleton.printReturn(false);
             return false;
         }
+        Skeleton.printReturn(true);
         return true;
     }
 }

@@ -93,10 +93,8 @@ public class Fungus {
 
     public void removeMushroom(Mushroom mushroom) {
         Skeleton.printCall(this, List.of(mushroom));
-        Tecton location = mushroom.getLocation();
-        
-
         mushrooms.remove(mushroom);
+        checkConnectivity();
         Skeleton.printReturn();
     }
 

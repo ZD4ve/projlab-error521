@@ -142,7 +142,11 @@ public class Skeleton {
             int choice = useCaseChooser();
             if (choice == -1)
                 break;
-            useCases.get(choice).run();
+            try {
+                useCases.get(choice).run();
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+            }
         }
     }
 }
