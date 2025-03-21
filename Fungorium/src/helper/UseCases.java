@@ -42,6 +42,11 @@ public class UseCases {
         // MyceliumTearing
         addUseCase(UseCases::myceliumTearingTear, "MyceliumTearing-Tear");
 
+        // EatSpore
+        addUseCase(UseCases::eatSporeSuccess, "EatSpore-Success");
+        addUseCase(UseCases::eatSporeNoSpore, "EatSpore-NoSpore");
+        addUseCase(UseCases::eatSporeParalysed, "EatSpore-Paralysed");
+
     }
 
     // #region BurstSpore

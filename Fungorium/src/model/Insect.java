@@ -13,14 +13,13 @@ public class Insect implements IActive {
     private boolean isParalysed;
     private int score;
     private Tecton location;
-    private List<InsectEffect> activeEffects;
+    private final List<InsectEffect> activeEffects = new ArrayList<>();
 
     private static final double ACTION_DURATION = 1;
 
     public Insect(Tecton location) {
         Skeleton.printCall(this, List.of(location));
         this.location = location;
-        this.activeEffects = new ArrayList<>();
         Skeleton.printReturn(this);
     }
 
@@ -33,23 +32,33 @@ public class Insect implements IActive {
     }
 
     public int getAntiChewCount() {
+        Skeleton.printCall(this);
+        Skeleton.printReturn(antiChewCount);
         return antiChewCount;
     }
 
     public void setAntiChewCount(int antiChewCount) {
+        Skeleton.printCall(this, List.of(antiChewCount));
         this.antiChewCount = antiChewCount;
+        Skeleton.printReturn();
     }
 
     public void setIsParalysed(boolean isParalysed) {
+        Skeleton.printCall(this, List.of(isParalysed));
         this.isParalysed = isParalysed;
+        Skeleton.printReturn();
     }
 
     public double getSpeed() {
+        Skeleton.printCall(this);
+        Skeleton.printReturn(speed);
         return speed;
     }
 
     public void setSpeed(double speed) {
+        Skeleton.printCall(this, List.of(speed));
         this.speed = speed;
+        Skeleton.printReturn();
     }
 
     // nem követi seq diagramot, mert az szar XD

@@ -51,41 +51,6 @@ public class Skeleton {
             return listToString((List<?>) obj);
         } else {
             return obj.toString();
-            // TODO: Kérdés, de igazából maradhat így is:
-            // TODO: ha egy új példányt hozunk létre (pl. törés), akkor hozzunk létre egy új
-            // TODO: sorszámozott nevet, pl Effect1 vagy maradjon a toString
-            // TODO: illetve ekkor hogy döntjük el, hogy kell e új név (pl Mushroom) vagy
-            // TODO: maradhat a toString (pl. Int)
-
-            // Válasz: Szerintem akkor is legyen neki saját neve ha futás közben jön létre,
-            // mivel a toString belerakja a pointert és az nem szép. Csináltam is egy
-            // publikus felvevő függvényt amit majd a tesztekben lehet használni.
-
-            // Kérdés: És azt ki hívja? Pl a tecton ctor-ban nem lehet, és az
-            // implementációkban sem tudom a "szép nevét", ebben a file-ban pedig nem látod
-            // mikor és ki jön létre.
-
-            /*
-             * Válasz: Lehet h én csak nem látom át annyira a kódot, de nem lehet csak
-             * ennyit csinálni (tekontörés példájánal maradva), hogy így adjuk hozzá, a
-             * tekontörést kezelő fgven belül:
-             * if (breaking) {
-             * .....
-             * Tecton newTectonA = new Tecton(); // az első törött tekton
-             * Tecton newTectonB = new Tecton(); // a második törött tekton
-             * Skeleton.addObject(newTectonA, "newTectonA"); // a nevek hozzáadása
-             * Skeleton.addObject(newTectonB, "newTectonB");
-             * ...
-             * }
-             * Lényeg ami lényeg, hogy nem kell tudni a "szép nevét", mert a kommunikációs
-             * diagramon az nincs rajta - tehát te nevezheted el úgy ahogy akarod. Akár azt
-             * is mondhatjuk, hogy minden újonnan létrehozott objektumot new[Classnév] néven
-             * nevezünk el. (Pláne úgy, hogy szerintem egy szekcencián belül egynél többet
-             * semmiből sem hozunk létre).
-             */
-
-            // ^ Igaz, tetszik, jó lesz! (David)
-
         }
     }
 
