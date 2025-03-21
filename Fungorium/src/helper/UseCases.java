@@ -539,11 +539,15 @@ public class UseCases {
         try {
             Insect i1 = (Insect) getObjByName("i1");
             i1.eatSpore();
+            if (ask("A rovarnak lejárt a várakozási ideje?")) {
+                InsectEffect eff = (InsectEffect) getObjByName("eff");
+
+                eff.tick(1);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Hibásan lett beállítva a teszt!");
         }
     }
 
-    // #endregion
 }

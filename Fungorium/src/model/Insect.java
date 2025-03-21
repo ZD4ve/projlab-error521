@@ -32,6 +32,26 @@ public class Insect implements IActive {
         Skeleton.printReturn();
     }
 
+    public int getAntiChewCount() {
+        return antiChewCount;
+    }
+
+    public void setAntiChewCount(int antiChewCount) {
+        this.antiChewCount = antiChewCount;
+    }
+
+    public void setIsParalysed(boolean isParalysed) {
+        this.isParalysed = isParalysed;
+    }
+
+    public double getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
+
     // nem követi seq diagramot, mert az szar XD
     public List<Tecton> getPotentialMoveTargets() {
         Skeleton.printCall(this);
