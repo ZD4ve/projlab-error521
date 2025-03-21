@@ -9,6 +9,7 @@ public class Mushroom implements IActive {
     public Mushroom(Fungus fungus, Tecton location) {
         this.species = fungus;
         this.location = location;
+        location.setMushroom(this);
     }
 
     public void burstSpore(Tecton target) {

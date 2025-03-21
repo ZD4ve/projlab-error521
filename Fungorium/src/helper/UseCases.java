@@ -208,12 +208,16 @@ public class UseCases {
             var t2 = new SingleMyceliumTecton();
             addObject(t2, "t2");
 
+            t1.addNeighbor(t2);
+            t2.addNeighbor(t1);
+
             var s1 = new Fungus();
             addObject(s1, "s1");
 
             var m1 = new Mushroom(s1, t1);
             addObject(m1, "m1");
             s1.addMushroom(m1);
+
             printOn = true;
             s1.growMycelium(t1, t2);
             var my1 = (Mycelium) getObjByName("my1");
@@ -232,6 +236,9 @@ public class UseCases {
 
             var t2 = new Tecton();
             addObject(t2, "t2");
+
+            t1.addNeighbor(t2);
+            t2.addNeighbor(t1);
 
             var s1 = new Fungus();
             addObject(s1, "s1");

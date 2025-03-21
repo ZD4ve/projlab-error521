@@ -312,9 +312,12 @@ public class Tecton implements IActive {
     public Mycelium growMycelium(Fungus fungus, Tecton target) {
         Skeleton.printCall(this, List.of(fungus, target));
         if (canGrowMyceliumFrom(fungus) && target.canGrowMyceliumFrom(fungus)
-                && !myceliumExists(fungus, this, target)) {
+                && neighbors.contains(target)
+                && !myceliumExists(fungus, this, target)
+                && ((mushroom != null && mushroom.getSpecies() == fungus)
+                        || (neighbors.stream().anyMatch(x -> myceliumExists(fungus, this, x))))) {
             Mycelium mycelium = new Mycelium(fungus, this, target);
-            Skeleton.addObject(mycelium, "my1");
+            
             Skeleton.printReturn(mycelium);
             return mycelium;
         }
@@ -335,13 +338,13 @@ public class Tecton implements IActive {
         Skeleton.addObject(t1, "t1");
         Skeleton.addObject(t2, "t2");
 
-        var t1Neighbors = neighbors.subList(0, neighbors.size() / 2);
+        var t1Neighbors = new ArrayList<>(neighbors.subList(0, neighbors.size() / 2));
         t1Neighbors.add(t2);
         t1.fillWithStuff(spores.subList(0, spores.size() / 2),
                 mushroom, insects.subList(0, insects.size() / 2),
                 t1Neighbors);
 
-        var t2Neighbors = neighbors.subList(neighbors.size() / 2, neighbors.size() - 1);
+        var t2Neighbors = new ArrayList<>(neighbors.subList(neighbors.size() / 2, neighbors.size() - 1));
         t2Neighbors.add(t1);
         t2.fillWithStuff(spores.subList(spores.size() / 2, spores.size() - 1), null,
                 insects.subList(insects.size() / 2, insects.size() - 1),

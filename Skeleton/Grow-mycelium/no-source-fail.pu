@@ -22,7 +22,7 @@ return ready
 
 opt ready
 
-    species -> source : growMycelium(t1, t2)
+    species -> source : growMycelium(s1, t2)
     activate source
         source -> source : canGrowMyceliumFrom(s1)
         activate source

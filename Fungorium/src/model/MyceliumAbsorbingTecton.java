@@ -28,7 +28,7 @@ public class MyceliumAbsorbingTecton extends Tecton {
     public void tick(double dT) {
         Skeleton.printCall(this, List.of(dT));
         absorptionTimer = Math.max(absorptionTimer - dT, 0);
-        if (ask("Felszívódjanak a gombafonalak a tektonról?") || true || absorptionTimer == 0) {
+        if (ask("Felszívódjanak a gombafonalak a tektonról?") && (true || absorptionTimer == 0)) {
             for (Mycelium mycelium : mycelia) {
                 mycelium.die();
             }
