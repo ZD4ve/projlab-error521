@@ -9,7 +9,7 @@ import model.*;
 @java.lang.SuppressWarnings("java:S106") // használható büntetlenül a System IO
 public class UseCases {
     private UseCases() {
-    } // Skeleton ne legyen példányosítható
+    } // UseCases ne legyen példányosítható
 
     public static void init() {
         // TODO: Doksiban szereplő sorrendben legyenek!
@@ -80,180 +80,137 @@ public class UseCases {
 
     static void burstSporeDist1() {
         burstSporeMap();
-        try {
-            Mushroom m1 = (Mushroom) getObjByName("m1");
-            Tecton t1 = (Tecton) getObjByName("t1");
-            m1.burstSpore(t1);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Hibásan lett beállítva a teszt!");
-        }
+        Mushroom m1 = (Mushroom) getObjByName("m1");
+        Tecton t1 = (Tecton) getObjByName("t1");
+        m1.burstSpore(t1);
     }
 
     static void burstSporeDist2() {
         burstSporeMap();
-        try {
-            Mushroom m1 = (Mushroom) getObjByName("m1");
-            Tecton t2 = (Tecton) getObjByName("t2");
-            m1.burstSpore(t2);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Hibásan lett beállítva a teszt!");
-        }
+        Mushroom m1 = (Mushroom) getObjByName("m1");
+        Tecton t2 = (Tecton) getObjByName("t2");
+        m1.burstSpore(t2);
     }
 
     static void burstSporeDist3() {
         burstSporeMap();
-        try {
-            Mushroom m1 = (Mushroom) getObjByName("m1");
-            Tecton t3 = (Tecton) getObjByName("t3");
-            m1.burstSpore(t3);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Hibásan lett beállítva a teszt!");
-        }
+        Mushroom m1 = (Mushroom) getObjByName("m1");
+        Tecton t3 = (Tecton) getObjByName("t3");
+        m1.burstSpore(t3);
     }
 
     // #endregion
 
     // #region GrowMycelium
     static void growMyceliumNoSourceFail() {
-
-        try {
-            printOn = false;
-            var t1 = new Tecton();
-            addObject(t1, "t1");
-            var t2 = new Tecton();
-            addObject(t2, "t2");
-            var s1 = new Fungus();
-            addObject(s1, "s1");
-            printOn = true;
-            s1.growMycelium(t1, t2);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Hibásan lett beállítva a teszt!");
-        }
-
+        printOn = false;
+        var t1 = new Tecton();
+        addObject(t1, "t1");
+        var t2 = new Tecton();
+        addObject(t2, "t2");
+        var s1 = new Fungus();
+        addObject(s1, "s1");
+        printOn = true;
+        s1.growMycelium(t1, t2);
     }
 
     static void growMyceliumNotNeighbor() {
-        try {
-            printOn = false;
-            var t1 = new Tecton();
-            addObject(t1, "t1");
+        printOn = false;
+        var t1 = new Tecton();
+        addObject(t1, "t1");
 
-            var t2 = new Tecton();
-            addObject(t2, "t2");
+        var t2 = new Tecton();
+        addObject(t2, "t2");
 
-            var s1 = new Fungus();
-            addObject(s1, "s1");
+        var s1 = new Fungus();
+        addObject(s1, "s1");
 
-            var m1 = new Mushroom(s1, t1);
-            Skeleton.addObject(m1, "m1");
-            s1.addMushroom(m1);
+        var m1 = new Mushroom(s1, t1);
+        Skeleton.addObject(m1, "m1");
+        s1.addMushroom(m1);
 
-            Skeleton.printOn = true;
-            s1.growMycelium(t1, t2);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Hibásan lett beállítva a teszt!");
-        }
+        Skeleton.printOn = true;
+        s1.growMycelium(t1, t2);
     }
 
     static void growMyceliumSingleMyceliumFail() {
-        try {
-            printOn = false;
-            var t1 = new Tecton();
-            addObject(t1, "t1");
+        printOn = false;
+        var t1 = new Tecton();
+        addObject(t1, "t1");
 
-            var t2 = new SingleMyceliumTecton();
-            addObject(t2, "t2");
+        var t2 = new SingleMyceliumTecton();
+        addObject(t2, "t2");
 
-            var t3 = new Tecton();
-            addObject(t3, "t3");
+        var t3 = new Tecton();
+        addObject(t3, "t3");
 
-            t1.addNeighbor(t2);
-            t2.addNeighbor(t1);
-            t2.addNeighbor(t3);
-            t3.addNeighbor(t2);
+        t1.addNeighbor(t2);
+        t2.addNeighbor(t1);
+        t2.addNeighbor(t3);
+        t3.addNeighbor(t2);
 
-            var s1 = new Fungus();
-            addObject(s1, "s1");
-            var s2 = new Fungus();
-            addObject(s2, "s2");
+        var s1 = new Fungus();
+        addObject(s1, "s1");
+        var s2 = new Fungus();
+        addObject(s2, "s2");
 
-            var m1 = new Mushroom(s1, t1);
-            addObject(m1, "m1");
-            s1.addMushroom(m1);
-            var m2 = new Mushroom(s2, t3);
-            addObject(m2, "m2");
-            s2.addMushroom(m2);
+        var m1 = new Mushroom(s1, t1);
+        addObject(m1, "m1");
+        s1.addMushroom(m1);
+        var m2 = new Mushroom(s2, t3);
+        addObject(m2, "m2");
+        s2.addMushroom(m2);
 
-            addObject(new Mycelium(s2, t3, t2), "my1");
-            printOn = true;
-            s1.growMycelium(t1, t2);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Hibásan lett beállítva a teszt!");
-        }
+        addObject(new Mycelium(s2, t3, t2), "my1");
+        printOn = true;
+        s1.growMycelium(t1, t2);
     }
 
     static void growMyceliumSingleMyceliumSuccess() {
-        try {
-            printOn = false;
-            var t1 = new Tecton();
-            addObject(t1, "t1");
+        printOn = false;
+        var t1 = new Tecton();
+        addObject(t1, "t1");
 
-            var t2 = new SingleMyceliumTecton();
-            addObject(t2, "t2");
+        var t2 = new SingleMyceliumTecton();
+        addObject(t2, "t2");
 
-            t1.addNeighbor(t2);
-            t2.addNeighbor(t1);
+        t1.addNeighbor(t2);
+        t2.addNeighbor(t1);
 
-            var s1 = new Fungus();
-            addObject(s1, "s1");
+        var s1 = new Fungus();
+        addObject(s1, "s1");
 
-            var m1 = new Mushroom(s1, t1);
-            addObject(m1, "m1");
-            s1.addMushroom(m1);
+        var m1 = new Mushroom(s1, t1);
+        addObject(m1, "m1");
+        s1.addMushroom(m1);
 
-            printOn = true;
-            s1.growMycelium(t1, t2);
-            var my1 = (Mycelium) getObjByName("my1");
-            my1.tick(1); // NOSONAR let it be thrown
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Hibásan lett beállítva a teszt!");
-        }
+        printOn = true;
+        s1.growMycelium(t1, t2);
+        var my1 = (Mycelium) getObjByName("my1");
+        my1.tick(1); // NOSONAR let it be thrown
     }
 
     static void growMyceliumSuccess() {
-        try {
-            printOn = false;
-            var t1 = new Tecton();
-            addObject(t1, "t1");
+        printOn = false;
+        var t1 = new Tecton();
+        addObject(t1, "t1");
 
-            var t2 = new Tecton();
-            addObject(t2, "t2");
+        var t2 = new Tecton();
+        addObject(t2, "t2");
 
-            t1.addNeighbor(t2);
-            t2.addNeighbor(t1);
+        t1.addNeighbor(t2);
+        t2.addNeighbor(t1);
 
-            var s1 = new Fungus();
-            addObject(s1, "s1");
+        var s1 = new Fungus();
+        addObject(s1, "s1");
 
-            var m1 = new Mushroom(s1, t1);
-            addObject(m1, "m1");
-            s1.addMushroom(m1);
-            printOn = true;
-            s1.growMycelium(t1, t2);
-            var my1 = (Mycelium) getObjByName("my1");
-            my1.tick(1); // NOSONAR let it be thrown
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Hibásan lett beállítva a teszt!");
-        }
+        var m1 = new Mushroom(s1, t1);
+        addObject(m1, "m1");
+        s1.addMushroom(m1);
+        printOn = true;
+        s1.growMycelium(t1, t2);
+        var my1 = (Mycelium) getObjByName("my1");
+        my1.tick(1); // NOSONAR let it be thrown
     }
     // #endregion
 
@@ -298,38 +255,23 @@ public class UseCases {
 
     static void insectMoveSuccess() {
         insectMoveMap();
-        try {
-            Insect i1 = (Insect) getObjByName("i1");
-            Tecton t2 = (Tecton) getObjByName("t2");
-            i1.moveTo(t2);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Hibásan lett beállítva a teszt!");
-        }
+        Insect i1 = (Insect) getObjByName("i1");
+        Tecton t2 = (Tecton) getObjByName("t2");
+        i1.moveTo(t2);
     }
 
     static void insectMoveParalysed() {
         insectMoveMap();
-        try {
-            Insect i2 = (Insect) getObjByName("i2");
-            Tecton t2 = (Tecton) getObjByName("t2");
-            i2.moveTo(t2);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Hibásan lett beállítva a teszt!");
-        }
+        Insect i2 = (Insect) getObjByName("i2");
+        Tecton t2 = (Tecton) getObjByName("t2");
+        i2.moveTo(t2);
     }
 
     static void insectMoveNoMycelium() {
         insectMoveMap();
-        try {
-            Insect i1 = (Insect) getObjByName("i2");
-            Tecton t3 = (Tecton) getObjByName("t3");
-            i1.moveTo(t3);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Hibásan lett beállítva a teszt!");
-        }
+        Insect i1 = (Insect) getObjByName("i2");
+        Tecton t3 = (Tecton) getObjByName("t3");
+        i1.moveTo(t3);
     }
 
     // #endregion
@@ -379,38 +321,24 @@ public class UseCases {
 
     static void insectChewMyceliumSuccess() {
         insectChewMyceliumMap();
-        try {
-            Insect i1 = (Insect) getObjByName("i1");
-            Mycelium my1 = (Mycelium) getObjByName("my1");
-            i1.chewMycelium(my1);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Hibásan lett beállítva a teszt!");
-        }
+        Insect i1 = (Insect) getObjByName("i1");
+        Mycelium my1 = (Mycelium) getObjByName("my1");
+        i1.chewMycelium(my1);
+
     }
 
     static void insectChewMyceliumParalysed() {
         insectChewMyceliumMap();
-        try {
-            Insect i2 = (Insect) getObjByName("i2");
-            Mycelium my1 = (Mycelium) getObjByName("my1");
-            i2.chewMycelium(my1);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Hibásan lett beállítva a teszt!");
-        }
+        Insect i2 = (Insect) getObjByName("i2");
+        Mycelium my1 = (Mycelium) getObjByName("my1");
+        i2.chewMycelium(my1);
     }
 
     static void insectChewMyceliumToothless() {
         insectChewMyceliumMap();
-        try {
-            Insect i3 = (Insect) getObjByName("i3");
-            Mycelium my1 = (Mycelium) getObjByName("my1");
-            i3.chewMycelium(my1);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Hibásan lett beállítva a teszt!");
-        }
+        Insect i3 = (Insect) getObjByName("i3");
+        Mycelium my1 = (Mycelium) getObjByName("my1");
+        i3.chewMycelium(my1);
     }
     // #endregion
 
@@ -452,13 +380,8 @@ public class UseCases {
 
     static void myceliumTearingTear() {
         myceliumTearingMap();
-        try {
-            Mycelium my1 = (Mycelium) getObjByName("my1");
-            my1.die();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Hibásan lett beállítva a teszt!");
-        }
+        Mycelium my1 = (Mycelium) getObjByName("my1");
+        my1.die();
     }
     // #endregion
 
@@ -525,39 +448,24 @@ public class UseCases {
 
     static void eatSporeParalysed() {
         eatSporeMapParalysed();
-        try {
-            Insect i1 = (Insect) getObjByName("i1");
-            i1.eatSpore();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Hibásan lett beállítva a teszt!");
-        }
+        Insect i1 = (Insect) getObjByName("i1");
+        i1.eatSpore();
     }
 
     static void eatSporeNoSpore() {
         eatSporeMapNoSpore();
-        try {
-            Insect i1 = (Insect) getObjByName("i1");
-            i1.eatSpore();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Hibásan lett beállítva a teszt!");
-        }
+        Insect i1 = (Insect) getObjByName("i1");
+        i1.eatSpore();
     }
 
     static void eatSporeSuccess() {
         eatSporeMapSuccess();
-        try {
-            Insect i1 = (Insect) getObjByName("i1");
-            i1.eatSpore();
-            if (ask("A rovarnak lejárt a várakozási ideje?")) {
-                InsectEffect eff = (InsectEffect) getObjByName("eff");
+        Insect i1 = (Insect) getObjByName("i1");
+        i1.eatSpore();
+        if (ask("A rovarnak lejárt a várakozási ideje?")) {
+            InsectEffect eff = (InsectEffect) getObjByName("eff");
 
-                eff.tick(1);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Hibásan lett beállítva a teszt!");
+            eff.tick(1);
         }
     }
 
