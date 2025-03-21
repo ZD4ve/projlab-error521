@@ -6,10 +6,16 @@ import helper.Skeleton;
 
 public class NoMushroomTecton extends Tecton {
 
+    public NoMushroomTecton() {
+        Skeleton.printCall(this.getClass());
+        Skeleton.printReturn(this);
+    }
+
     @Override
     public NoMushroomTecton newMe() {
         Skeleton.printCall(this);
         var ret = new NoMushroomTecton();
+        Skeleton.addObject(ret, "tecNoMush");
         Skeleton.printReturn(ret);
         return ret;
     }

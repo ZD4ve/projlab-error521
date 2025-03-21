@@ -9,10 +9,17 @@ import helper.Skeleton;
 public class MyceliumAbsorbingTecton extends Tecton {
     private double absorptionTimer;
 
+    public MyceliumAbsorbingTecton() {
+        Skeleton.printCall(this.getClass());
+        absorptionTimer = 1;
+        Skeleton.printReturn(this);
+    }
+
     @Override
     public MyceliumAbsorbingTecton newMe() {
         Skeleton.printCall(this);
         var ret = new MyceliumAbsorbingTecton();
+        Skeleton.addObject(ret, "tecMycAbs");
         Skeleton.printReturn(ret);
         return ret;
     }

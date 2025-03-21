@@ -24,8 +24,7 @@ public class UseCases {
         // GrowMycelium
         addUseCase(UseCases::growMyceliumNoSourceFail, "Gombafonal növesztés gombatest és gombafonal nélkül");
         addUseCase(UseCases::growMyceliumNotNeighbor, "Gombafonal növesztés nem szomszédos tektonok között");
-        addUseCase(UseCases::growMyceliumSingleMyceliumFail,
-                "Gombafonal növesztés SingleMyceliumTecton-ra, ami már foglalt");
+        addUseCase(UseCases::growMyceliumSingleMyceliumFail, "Gombafonal növesztés SingleMyceliumTecton-ra, ami már foglalt");
         addUseCase(UseCases::growMyceliumSingleMyceliumSuccess, "Gombafonal növesztés SingleMyceliumTecton-ra");
         addUseCase(UseCases::growMyceliumSuccess, "Gombafonal növesztés optimális körülmények között");
 
@@ -41,6 +40,11 @@ public class UseCases {
 
         // MyceliumTearing
         addUseCase(UseCases::myceliumTearingTear, "MyceliumTearing-Tear");
+
+        // EatSpore
+        addUseCase(UseCases::eatSporeSuccess, "EatSpore-Success");
+        addUseCase(UseCases::eatSporeNoSpore, "EatSpore-NoSpore");
+        addUseCase(UseCases::eatSporeParalysed, "EatSpore-Paralysed");
 
     }
 
@@ -80,27 +84,6 @@ public class UseCases {
             Mushroom m1 = (Mushroom) getObjByName("m1");
             Tecton t1 = (Tecton) getObjByName("t1");
             m1.burstSpore(t1);
-            // TODO: Kérdés: itt hogy akarjuk? A visszakasztolás elég csúnya, de más ötletem
-            // nincs mivel a hashmap mindenképp egy Object-et tárol
-
-            // Vélemény: Ez elég gányolásnak néz ki
-            // Szerintem possible solution:
-            // Minden Map egy class, és az ahhoz tartozó use-case-ek
-            // a classban függények, így elérik a privát változókat, amik a cuccok a mapon.
-            // Vagy minden static, és van egy init map, vagy ctor-ban építünk fel mindent.
-
-            // Re:Vélemény: Háát igen, az, de egyrészt a skeletonnak szerintem annyira nem
-            // kell szépenk lennie, másrészt pedig a skeletonnak kell tudnia az összes nevet
-            // hogy ki tudja szépen printelni őket - tehát egy map-be akkor is be kell majd
-            // pakolni mindet. Tehát gyakokorlatilag 100% lenne az overhead ezért a
-            // megoldásért. Nyilván én lennék a legboldogabb ha a szépérzékem így
-            // kielégülhetne, de eredetileg nem ezt beszéltük meg, ezért nem kezdtem el
-            // szépészkedni. Úgyhogy ez további megbeszélés tárgya kéne h legyen (vagy itt a
-            // kommentben indítunk egy szavazást :P)
-            // Szavazz a szebb jővőért és kódért:
-            // Pro: Panni,
-            // Contra: Márton, David
-            // comment: David: Legyen a köztes megoldás amit a Discord-on írtam
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Hibásan lett beállítva a teszt!");
@@ -471,4 +454,104 @@ public class UseCases {
         }
     }
     // #endregion
+
+    // #region EatSpore
+
+    static void eatSporeMapParalysed() {
+        printOn = false;
+        objNames.clear();
+
+        Tecton t1 = new Tecton();
+        objNames.put(t1, "t1");
+
+        Insect i1 = new Insect(t1);
+        objNames.put(i1, "i1");
+
+        Fungus fu1 = new Fungus();
+        objNames.put(fu1, "fu1");
+
+        ParalysingEffect p1 = new ParalysingEffect();
+        objNames.put(p1, "p1");
+
+        i1.addEffect(p1);
+        p1.applyTo(i1);
+
+        printOn = true;
+    }
+
+    static void eatSporeMapNoSpore() {
+        printOn = false;
+        objNames.clear();
+
+        Tecton t1 = new Tecton();
+        objNames.put(t1, "t1");
+
+        Insect i1 = new Insect(t1);
+        objNames.put(i1, "i1");
+
+        Fungus fu1 = new Fungus();
+        objNames.put(fu1, "fu1");
+
+        printOn = true;
+    }
+
+    static void eatSporeMapSuccess() {
+        printOn = false;
+        objNames.clear();
+
+        Fungus fu1 = new Fungus();
+        objNames.put(fu1, "fu1");
+
+        Tecton t1 = new Tecton();
+        objNames.put(t1, "t1");
+
+        Spore sp1 = new Spore(fu1);
+        objNames.put(sp1, "sp1");
+
+        t1.addSpore(sp1);
+
+        Insect i1 = new Insect(t1);
+        objNames.put(i1, "i1");
+
+        printOn = true;
+    }
+
+    static void eatSporeParalysed() {
+        eatSporeMapParalysed();
+        try {
+            Insect i1 = (Insect) getObjByName("i1");
+            i1.eatSpore();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Hibásan lett beállítva a teszt!");
+        }
+    }
+
+    static void eatSporeNoSpore() {
+        eatSporeMapNoSpore();
+        try {
+            Insect i1 = (Insect) getObjByName("i1");
+            i1.eatSpore();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Hibásan lett beállítva a teszt!");
+        }
+    }
+
+    static void eatSporeSuccess() {
+        eatSporeMapSuccess();
+        try {
+            Insect i1 = (Insect) getObjByName("i1");
+            i1.eatSpore();
+            if (ask("A rovarnak lejárt a várakozási ideje?")) {
+                InsectEffect eff = (InsectEffect) getObjByName("eff");
+
+                eff.tick(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Hibásan lett beállítva a teszt!");
+        }
+    }
+
 }

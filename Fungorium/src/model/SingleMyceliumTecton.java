@@ -4,10 +4,16 @@ import helper.Skeleton;
 
 public class SingleMyceliumTecton extends Tecton {
 
+    public SingleMyceliumTecton() {
+        Skeleton.printCall(this.getClass());
+        Skeleton.printReturn(this);
+    }
+
     @Override
     public SingleMyceliumTecton newMe() {
         Skeleton.printCall(this);
         var ret = new SingleMyceliumTecton();
+        Skeleton.addObject(ret, "tecSinMyc");
         Skeleton.printReturn(ret);
         return ret;
     }

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 @java.lang.SuppressWarnings("java:S106") // használható büntetlenül a System IO
 public class Skeleton {
@@ -47,55 +48,22 @@ public class Skeleton {
             return "null";
         } else if (objNames.containsKey(obj)) {
             return objNames.get(obj);
-        } else if (obj instanceof List) {
-            return listToString((List<?>) obj);
+        } else if (obj instanceof List<?> list) {
+            return listToString(list);
+        } else if (obj instanceof Object[] arr) {
+            return listToString(Arrays.asList(arr));
         } else {
             return obj.toString();
-            // TODO: Kérdés, de igazából maradhat így is:
-            // TODO: ha egy új példányt hozunk létre (pl. törés), akkor hozzunk létre egy új
-            // TODO: sorszámozott nevet, pl Effect1 vagy maradjon a toString
-            // TODO: illetve ekkor hogy döntjük el, hogy kell e új név (pl Mushroom) vagy
-            // TODO: maradhat a toString (pl. Int)
-
-            // Válasz: Szerintem akkor is legyen neki saját neve ha futás közben jön létre,
-            // mivel a toString belerakja a pointert és az nem szép. Csináltam is egy
-            // publikus felvevő függvényt amit majd a tesztekben lehet használni.
-
-            // Kérdés: És azt ki hívja? Pl a tecton ctor-ban nem lehet, és az
-            // implementációkban sem tudom a "szép nevét", ebben a file-ban pedig nem látod
-            // mikor és ki jön létre.
-
-            /*
-             * Válasz: Lehet h én csak nem látom át annyira a kódot, de nem lehet csak
-             * ennyit csinálni (tekontörés példájánal maradva), hogy így adjuk hozzá, a
-             * tekontörést kezelő fgven belül:
-             * if (breaking) {
-             * .....
-             * Tecton newTectonA = new Tecton(); // az első törött tekton
-             * Tecton newTectonB = new Tecton(); // a második törött tekton
-             * Skeleton.addObject(newTectonA, "newTectonA"); // a nevek hozzáadása
-             * Skeleton.addObject(newTectonB, "newTectonB");
-             * ...
-             * }
-             * Lényeg ami lényeg, hogy nem kell tudni a "szép nevét", mert a kommunikációs
-             * diagramon az nincs rajta - tehát te nevezheted el úgy ahogy akarod. Akár azt
-             * is mondhatjuk, hogy minden újonnan létrehozott objektumot new[Classnév] néven
-             * nevezünk el. (Pláne úgy, hogy szerintem egy szekcencián belül egynél többet
-             * semmiből sem hozunk létre).
-             */
-
-            // ^ Igaz, tetszik, jó lesz! (David)
-
         }
     }
 
-    static Object getObjByName(String name) {
+    static Object getObjByName(String name) throws IllegalArgumentException {
         for (Map.Entry<Object, String> entry : objNames.entrySet()) {
             if (entry.getValue().equals(name)) {
                 return entry.getKey();
             }
         }
-        return null;
+        throw new IllegalArgumentException("No object with name: " + name);
     }
 
     // Be és kimeneti függvények
@@ -116,7 +84,10 @@ public class Skeleton {
                 var frame2 = StackWalker.getInstance().walk(s -> s.skip(2).findFirst());
                 fName = frame2.isPresent() ? frame2.get().getMethodName() : "func";
             }
-            System.out.println("  ".repeat(tabulation) + getObjName(obj) + "." + fName + "(" + paramStr + ")");
+            if (fName.equals("<init>")) {
+                fName = "new";
+            }
+            System.out.println("  ".repeat(tabulation) + "call " + getObjName(obj) + "." + fName + "(" + paramStr + ")");
             tabulation++;
         }
     }
@@ -144,6 +115,7 @@ public class Skeleton {
     }
 
     static int useCaseChooser() {
+        System.out.println();
         for (int i = 0; i < useCases.size(); i++) {
             System.out.println(i + 1 + ": " + useCaseNames.get(useCases.get(i)));
         }
@@ -151,6 +123,7 @@ public class Skeleton {
             System.out.print(">");
             try {
                 String inp = System.console().readLine();
+                System.out.println();
                 if (inp.equals("exit")) {
                     return -1;
                 }

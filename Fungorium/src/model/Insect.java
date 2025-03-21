@@ -13,14 +13,13 @@ public class Insect implements IActive {
     private boolean isParalysed;
     private int score;
     private Tecton location;
-    private List<InsectEffect> activeEffects;
+    private final List<InsectEffect> activeEffects = new ArrayList<>();
 
     private static final double ACTION_DURATION = 1;
 
     public Insect(Tecton location) {
-        Skeleton.printCall(this, List.of(location));
+        Skeleton.printCall(this.getClass(), List.of(location));
         this.location = location;
-        this.activeEffects = new ArrayList<>();
         Skeleton.printReturn(this);
     }
 
@@ -29,6 +28,36 @@ public class Insect implements IActive {
     private void setCooldown(double cooldown) {
         Skeleton.printCall(this, List.of(cooldown));
         this.cooldown = cooldown;
+        Skeleton.printReturn();
+    }
+
+    public int getAntiChewCount() {
+        Skeleton.printCall(this);
+        Skeleton.printReturn(antiChewCount);
+        return antiChewCount;
+    }
+
+    public void setAntiChewCount(int antiChewCount) {
+        Skeleton.printCall(this, List.of(antiChewCount));
+        this.antiChewCount = antiChewCount;
+        Skeleton.printReturn();
+    }
+
+    public void setIsParalysed(boolean isParalysed) {
+        Skeleton.printCall(this, List.of(isParalysed));
+        this.isParalysed = isParalysed;
+        Skeleton.printReturn();
+    }
+
+    public double getSpeed() {
+        Skeleton.printCall(this);
+        Skeleton.printReturn(speed);
+        return speed;
+    }
+
+    public void setSpeed(double speed) {
+        Skeleton.printCall(this, List.of(speed));
+        this.speed = speed;
         Skeleton.printReturn();
     }
 
@@ -65,13 +94,18 @@ public class Insect implements IActive {
         return score;
     }
 
+    private boolean ready() {
+        return Skeleton.ask("A rovarnak lejárt a várakozási ideje?");
+        // return cooldown <= 0;
+    }
+
     // #endregion
 
     // #region FUNCTIONS
 
     public void eatSpore() {
         Skeleton.printCall(this);
-        if (!isParalysed && cooldown <= 0) {
+        if (!isParalysed && ready()) {
             Spore sporeTaken = location.takeSpore();
             if (sporeTaken != null) {
                 score++;
@@ -87,7 +121,7 @@ public class Insect implements IActive {
 
     public void moveTo(Tecton target) {
         Skeleton.printCall(this, List.of(target));
-        if (!isParalysed && cooldown <= 0) {
+        if (!isParalysed && ready()) {
             boolean moveValid = location.hasMyceliumTo(target);
             if (moveValid) {
                 location.removeInsect(this);
@@ -101,7 +135,7 @@ public class Insect implements IActive {
 
     public void chewMycelium(Mycelium mycelium) {
         Skeleton.printCall(this, List.of(mycelium));
-        if (isParalysed || antiChewCount > 0 || cooldown > 0) {
+        if (isParalysed || antiChewCount > 0 || !ready()) {
             Skeleton.printReturn();
             return;
         }
