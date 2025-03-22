@@ -43,31 +43,23 @@ public class Fungus {
         while (tectonIt.hasNext()) {
             Tecton tecton = tectonIt.next();
 
-            if (adjacencyList.containsKey(tecton))
+            if (!adjacencyList.containsKey(tecton))
                 continue;
 
-            HashSet<Tecton> visited = new HashSet<>();
             Deque<Tecton> stack = new ArrayDeque<>();
 
             stack.add(tecton);
             while (!stack.isEmpty()) {
-                Tecton active = stack.peek();
-                boolean notFound = true;
+                Tecton active = stack.pop();
 
                 for (Tecton neighbor : adjacencyList.get(active)) {
-                    if (!visited.contains(neighbor)) {
-                        visited.add(active);
-                        notFound = false;
-                        stack.push(active);
-
+                    if (!forest.contains(neighbor)) {
+                        forest.add(active);
+                        stack.push(neighbor);
                         break;
                     }
                 }
-                if (notFound)
-                    stack.pop();
             }
-
-            forest.addAll(visited);
         }
 
         ArrayList<Mycelium> toKill = new ArrayList<>();

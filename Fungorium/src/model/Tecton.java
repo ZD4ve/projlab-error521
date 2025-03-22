@@ -348,8 +348,8 @@ public class Tecton implements IActive {
         var t1 = newMe();
         var t2 = newMe();
 
-        Skeleton.addObject(t1, "t1");
-        Skeleton.addObject(t2, "t2");
+        Skeleton.addObject(t1, "tecBreak1");
+        Skeleton.addObject(t2, "tecBreak2");
 
         var t1Neighbors = new ArrayList<>(neighbors.subList(0, neighbors.size() / 2));
         t1Neighbors.add(t2);
