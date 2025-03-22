@@ -11,13 +11,7 @@ public class UseCases {
     public static void init() {
         // TODO: Doksiban szereplő sorrendben legyenek!
         // (@Tamás ezt majd te csináld meg a végén)
-<<<<<<< HEAD
-        // TODO: Itt szerintem a doksiban szereplő use-case neveket használjuk! (David)
-=======
 
-        addUseCase(UseCases::demoUseCase, "tester");
-        
->>>>>>> 931565d1dc1e48139b3275d9f629d414702e2984
         // BurstSpore
         addUseCase(UseCases::burstSporeDist1, "BurstSpore-Dist1");
         addUseCase(UseCases::burstSporeDist2, "BurstSpore-Dist2");
@@ -586,8 +580,7 @@ public class UseCases {
 
     // #region Grow-mushroom
 
-    static void mapAlreadyOnTarget()
-    {
+    static void mapAlreadyOnTarget() {
         printOn = false;
         objNames.clear();
 
@@ -645,8 +638,7 @@ public class UseCases {
         printOn = true;
     }
 
-    static void growMushroomAlreadyOnTarget()
-    {
+    static void growMushroomAlreadyOnTarget() {
         mapAlreadyOnTarget();
         Fungus fu1 = (Fungus) getObjByName("fu1");
         Tecton target = (Tecton) getObjByName("target");
@@ -655,8 +647,7 @@ public class UseCases {
         Skeleton.printTrace();
     }
 
-    static void mapNoMushroom()
-    {
+    static void mapNoMushroom() {
         printOn = false;
         objNames.clear();
 
@@ -713,8 +704,7 @@ public class UseCases {
         printOn = true;
     }
 
-    static void growMushroomNoMushroom()
-    {
+    static void growMushroomNoMushroom() {
         mapNoMushroom();
         Fungus fu1 = (Fungus) getObjByName("fu1");
         Tecton target = (Tecton) getObjByName("target");
@@ -723,8 +713,7 @@ public class UseCases {
         Skeleton.printTrace();
     }
 
-    static void mapNoMycelia()
-    {
+    static void mapNoMycelia() {
         printOn = false;
         objNames.clear();
 
@@ -782,8 +771,7 @@ public class UseCases {
         printOn = true;
     }
 
-    static void growMushroomNoMycelia()
-    {
+    static void growMushroomNoMycelia() {
         mapNoMycelia();
         Fungus fu1 = (Fungus) getObjByName("fu1");
         Tecton target = (Tecton) getObjByName("target");
@@ -792,8 +780,7 @@ public class UseCases {
         Skeleton.printTrace();
     }
 
-    static void mapNotEnoughSpore()
-    {
+    static void mapNotEnoughSpore() {
         printOn = false;
         objNames.clear();
 
@@ -842,8 +829,7 @@ public class UseCases {
         printOn = true;
     }
 
-    static void growMushroomNotEnoughSpore()
-    {
+    static void growMushroomNotEnoughSpore() {
         mapNotEnoughSpore();
         Fungus fu1 = (Fungus) getObjByName("fu1");
         Tecton target = (Tecton) getObjByName("target");
@@ -852,8 +838,7 @@ public class UseCases {
         Skeleton.printTrace();
     }
 
-    static void mapSuccess()
-    {
+    static void mapSuccess() {
         printOn = false;
         objNames.clear();
 
@@ -911,8 +896,7 @@ public class UseCases {
         printOn = true;
     }
 
-    static void growMushroomSuccess()
-    {
+    static void growMushroomSuccess() {
         mapSuccess();
         Fungus fu1 = (Fungus) getObjByName("fu1");
         Tecton target = (Tecton) getObjByName("target");
@@ -921,6 +905,6 @@ public class UseCases {
         Skeleton.printTrace();
     }
 
-    //#endregion
+    // #endregion
 
 }
