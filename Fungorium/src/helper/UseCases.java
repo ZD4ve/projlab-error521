@@ -15,16 +15,16 @@ public class UseCases {
         addUseCase(UseCases::demoUseCase, "tester");
         // TODO: Itt szerintem a doksiban szereplő use-case neveket használjuk! (David)
         // BurstSpore
-        addUseCase(UseCases::burstSporeDist1, "Spóraszórás 1 távolságra");
-        addUseCase(UseCases::burstSporeDist2, "Spóraszórás 2 távolságra");
-        addUseCase(UseCases::burstSporeDist3, "Spóraszórás 3 távolságra");
+        addUseCase(UseCases::burstSporeDist1, "BurstSpore-Dist1");
+        addUseCase(UseCases::burstSporeDist2, "BurstSpore-Dist2");
+        addUseCase(UseCases::burstSporeDist3, "BurstSpore-Dist3");
 
         // GrowMycelium
-        addUseCase(UseCases::growMyceliumNoSourceFail, "Gombafonal növesztés gombatest és gombafonal nélkül");
-        addUseCase(UseCases::growMyceliumNotNeighbor, "Gombafonal növesztés nem szomszédos tektonok között");
-        addUseCase(UseCases::growMyceliumSingleMyceliumFail, "Gombafonal növesztés SingleMyceliumTecton-ra, ami már foglalt");
-        addUseCase(UseCases::growMyceliumSingleMyceliumSuccess, "Gombafonal növesztés SingleMyceliumTecton-ra");
-        addUseCase(UseCases::growMyceliumSuccess, "Gombafonal növesztés optimális körülmények között");
+        addUseCase(UseCases::growMyceliumNoSourceFail, "GrowMycelium-NoSource");
+        addUseCase(UseCases::growMyceliumNotNeighbor, "GrowMycelium-NotNeighbor");
+        addUseCase(UseCases::growMyceliumSingleMyceliumFail, "GrowMycelium-SingleFail");
+        addUseCase(UseCases::growMyceliumSingleMyceliumSuccess, "GrowMycelium-SingleSuccess");
+        addUseCase(UseCases::growMyceliumSuccess, "GrowMycelium-Success");
 
         // InsectMove
         addUseCase(UseCases::insectMoveSuccess, "InsectMove-Success");
@@ -53,7 +53,6 @@ public class UseCases {
         addUseCase(UseCases::growMushroomNoMushroom, "GrowMushroom-NoMushroom");
         addUseCase(UseCases::growMushroomNotEnoughSpore, "GrowMushroom-NotEnoughSpore");
         addUseCase(UseCases::growMushroomSuccess, "GrowMushroom-Success");
-        
     }
 
     // ezt majd a végén kiszedjük, teszeléshez pls hadd maradjon
