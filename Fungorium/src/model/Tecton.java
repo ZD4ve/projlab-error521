@@ -1,10 +1,8 @@
 package model;
 
 import helper.Skeleton;
-
 import static helper.Skeleton.printCall;
 import static helper.Skeleton.printReturn;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -118,8 +116,19 @@ public class Tecton implements IActive {
      * @param insect az eltávolítandó rovar.
      */
     public void removeInsect(Insect insect) {
-        Skeleton.printCall(this);
+        Skeleton.printCall(this, List.of(insect));
         insects.remove(insect);
+        Skeleton.printReturn();
+    }
+
+    /**
+     * Eltávolítja a tektonról a paraméterként kapott rovart.
+     * 
+     * @param insect az eltávolítandó rovar.
+     */
+    public void removeMushroom() {
+        Skeleton.printCall(this);
+        mushroom = null;
         Skeleton.printReturn();
     }
 
