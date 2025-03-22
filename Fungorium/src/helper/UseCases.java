@@ -540,7 +540,7 @@ public class UseCases {
         tecton.addNeighbor(neighbor1);
         tecton.addNeighbor(neighbor2);
         neighbor1.addNeighbor(tecton);
-        neighbor1.addNeighbor(tecton);
+        neighbor2.addNeighbor(tecton);
 
         Insect i1 = new Insect(tecton);
         objNames.put(i1, "i1");
@@ -571,21 +571,137 @@ public class UseCases {
         objNames.put(s2, "s2");
 
         tecton.addSpore(s2);
-        
 
         printOn = true;
     }
 
     static void tectonBreak()
     {
-        
+        tectonBreakMap();
+
     }
 
     //#endregion
 
     //#region Grow-mushroom
 
+    static void MapAlreadyOnTarget()
+    {
+        printOn = false;
+        objNames.clear();
 
+        Tecton target = new Tecton();
+        objNames.put(target, "target");
+
+        Tecton neighbor1 = new Tecton();
+        objNames.put(neighbor1, "neighbor1");
+
+        Tecton neighbor2 = new Tecton();
+        objNames.put(neighbor2, "neighbor2");
+
+        target.addNeighbor(neighbor2);
+        target.addNeighbor(neighbor1);
+        neighbor1.addNeighbor(target);
+        neighbor1.addNeighbor(neighbor2);
+        neighbor2.addNeighbor(target);
+        neighbor2.addNeighbor(neighbor1);
+
+        Fungus fu1 = new Fungus();
+        objNames.put(fu1, "fu1");
+
+        Fungus fu2 = new Fungus();
+        objNames.put(fu2, "fu2");
+
+        Mycelium my1 = new Mycelium(fu1, target, neighbor1);
+        objNames.put(my1, "my1");
+
+        Mycelium my2 = new Mycelium(fu2, target, neighbor2);
+        objNames.put(my2, "my2");
+        
+        fu2.addMycelium(my1);
+        fu1.addMycelium(my2);
+
+        Spore sp1 = new Spore(fu1);
+        objNames.put(sp1, "sp1");
+
+        Spore sp2 = new Spore(fu1);
+        objNames.put(sp2, "sp2");
+
+        Spore sp3 = new Spore(fu1);
+        objNames.put(sp3, "sp3");
+
+        target.addSpore(sp1);
+        target.addSpore(sp2);
+        target.addSpore(sp3);
+
+        Mushroom mu1 = new Mushroom(fu1, target);
+        objNames.put(mu1, "mu1");
+
+        fu1.addMushroom(mu1);
+
+        target.setMushroom(mu1); //TODO: KOMM DIAGRAM itt lehet jó
+
+        printOn = true;
+    }
+
+    static void MapNoMushroom()
+    {
+        printOn = false;
+        objNames.clear();
+
+        Tecton target = new Tecton();
+        objNames.put(target, "target");
+
+        Tecton neighbor1 = new Tecton();
+        objNames.put(neighbor1, "neighbor1");
+
+        Tecton neighbor2 = new Tecton();
+        objNames.put(neighbor2, "neighbor2");
+
+        target.addNeighbor(neighbor2);
+        target.addNeighbor(neighbor1);
+        neighbor1.addNeighbor(target);
+        neighbor1.addNeighbor(neighbor2);
+        neighbor2.addNeighbor(target);
+        neighbor2.addNeighbor(neighbor1);
+
+        Fungus fu1 = new Fungus();
+        objNames.put(fu1, "fu1");
+
+        Fungus fu2 = new Fungus();
+        objNames.put(fu2, "fu2");
+
+        Mycelium my1 = new Mycelium(fu1, target, neighbor1);
+        objNames.put(my1, "my1");
+
+        Mycelium my2 = new Mycelium(fu2, target, neighbor2);
+        objNames.put(my2, "my2");
+        
+        fu2.addMycelium(my1);
+        fu1.addMycelium(my2);
+
+        Spore sp1 = new Spore(fu1);
+        objNames.put(sp1, "sp1");
+
+        Spore sp2 = new Spore(fu1);
+        objNames.put(sp2, "sp2");
+
+        Spore sp3 = new Spore(fu1);
+        objNames.put(sp3, "sp3");
+
+        target.addSpore(sp1);
+        target.addSpore(sp2);
+        target.addSpore(sp3);
+
+        Mushroom mu1 = new Mushroom(fu1, target);
+        objNames.put(mu1, "mu1");
+
+        fu1.addMushroom(mu1);
+
+        target.setMushroom(mu1); //TODO: KOMM DIAGRAM itt lehet jó
+
+        printOn = true;
+    }
 
     //#endregion
 
