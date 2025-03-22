@@ -5,7 +5,7 @@ import java.util.List;
 import helper.Skeleton;
 
 public class Spore {
-    private Fungus species;
+    private final Fungus species;
 
     public Spore(Fungus fungus) {
         Skeleton.printCall(this.getClass(), List.of(fungus));
@@ -18,7 +18,6 @@ public class Spore {
         InsectEffect effect = InsectEffect.createEffect();
         Skeleton.printReturn(effect);
         return effect;
-
     }
 
     public Fungus getSpecies() {
