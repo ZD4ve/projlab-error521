@@ -339,11 +339,11 @@ public class Tecton implements IActive {
     }
 
     public void tectonBreak() {
-        for (Tecton n : neighbors) {
-            n.removeNeighbor(this);
-        }
         while (!mycelia.isEmpty()) {
             mycelia.get(0).die();
+        }
+        for (Tecton n : neighbors) {
+            n.removeNeighbor(this);
         }
         var t1 = newMe();
         var t2 = newMe();
