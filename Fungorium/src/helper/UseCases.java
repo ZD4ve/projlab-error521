@@ -13,7 +13,7 @@ public class UseCases {
         // (@Tamás ezt majd te csináld meg a végén)
 
         addUseCase(UseCases::demoUseCase, "tester");
-        // TODO: Itt szerintem a doksiban szereplő use-case neveket használjuk! (David)
+        
         // BurstSpore
         addUseCase(UseCases::burstSporeDist1, "BurstSpore-Dist1");
         addUseCase(UseCases::burstSporeDist2, "BurstSpore-Dist2");
