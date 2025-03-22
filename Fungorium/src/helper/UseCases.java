@@ -693,12 +693,12 @@ public class UseCases {
         target.addSpore(sp2);
         target.addSpore(sp3);
 
-        Mushroom mu1 = new Mushroom(fu1, target);
+        Mushroom mu1 = new Mushroom(fu1, neighbor1);
         objNames.put(mu1, "mu1");
 
         fu1.addMushroom(mu1);
 
-        target.setMushroom(mu1); //TODO: KOMM DIAGRAM itt lehet jó
+        neighbor1.setMushroom(mu1); //TODO: KOMM DIAGRAM itt lehet jó
 
         printOn = true;
     }

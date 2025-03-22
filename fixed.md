@@ -1,3 +1,3 @@
 Grow-mycelium no-source-fail diagram
 
-Grow mushroom és Tecton-break diagramok setMushroom hívásai
+Grow-mushroom és Tecton-break diagramok setMushroom rossz tektonon
