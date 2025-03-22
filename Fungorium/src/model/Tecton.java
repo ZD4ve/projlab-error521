@@ -187,12 +187,13 @@ public class Tecton implements IActive {
      * @param neighbors a tekton szomszédai.
      */
     public void fillWithStuff(List<Spore> spores, Mushroom mushroom, List<Insect> insects, List<Tecton> neighbors) {
-        Skeleton.printCall(this, List.of(spores, mushroom, insects, neighbors));
+        Skeleton.printCall(this, Arrays.asList(spores, mushroom, insects, neighbors));
         this.spores.addAll(spores);
         this.mushroom = mushroom;
         this.insects.addAll(insects);
         this.neighbors.addAll(neighbors);
         Skeleton.printReturn();
+
     }
 
     /**
@@ -339,6 +340,7 @@ public class Tecton implements IActive {
     }
 
     public void tectonBreak() {
+        Skeleton.printCall(this);
         while (!mycelia.isEmpty()) {
             mycelia.get(0).die();
         }
@@ -358,6 +360,7 @@ public class Tecton implements IActive {
         var t2Neighbors = new ArrayList<>(neighbors.subList(neighbors.size() / 2, neighbors.size() - 1));
         t2Neighbors.add(t1);
         t2.fillWithStuff(spores.subList(spores.size() / 2, spores.size() - 1), null, insects.subList(insects.size() / 2, insects.size() - 1), t2Neighbors);
+        Skeleton.printReturn();
     }
 
     @Override
