@@ -1,6 +1,7 @@
 package model;
 
 import java.util.List;
+import java.util.Arrays;
 
 import helper.Skeleton;
 
@@ -22,7 +23,7 @@ public class NoMushroomTecton extends Tecton {
 
     @Override
     public Mushroom growMushroom(Fungus fungus) {
-        Skeleton.printCall(this, List.of(fungus));
+        Skeleton.printCall(this, Arrays.asList(fungus));
         Skeleton.printReturn(null);
         return null;
     }

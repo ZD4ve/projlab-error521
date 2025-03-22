@@ -2,6 +2,7 @@ package model;
 
 import java.util.List;
 import helper.Skeleton;
+import java.util.Arrays;
 
 public class ParalysingEffect extends InsectEffect {
 
@@ -12,7 +13,7 @@ public class ParalysingEffect extends InsectEffect {
 
     @Override
     public void applyTo(Insect insect) {
-        Skeleton.printCall(this, List.of(insect));
+        Skeleton.printCall(this, Arrays.asList(insect));
         insect.setIsParalysed(true);
         this.insect = insect;
         Skeleton.printReturn();

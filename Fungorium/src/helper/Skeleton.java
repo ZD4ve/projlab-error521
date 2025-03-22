@@ -151,6 +151,9 @@ public class Skeleton {
                 tabulation = 0;
             } catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());
+                for (StackTraceElement ste : e.getStackTrace()) {
+                    System.out.println(ste);
+                }
             }
         }
     }

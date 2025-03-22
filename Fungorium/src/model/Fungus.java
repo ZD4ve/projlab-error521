@@ -7,6 +7,7 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Arrays;
 
 public class Fungus {
     private final List<Mushroom> mushrooms = new ArrayList<>();
@@ -83,26 +84,26 @@ public class Fungus {
     // GETTERS-SETTERS--------------------------------------------------------------
 
     public void addMushroom(Mushroom mushroom) {
-        Skeleton.printCall(this, List.of(mushroom));
+        Skeleton.printCall(this, Arrays.asList(mushroom));
         mushrooms.add(mushroom);
         Skeleton.printReturn();
     }
 
     public void removeMushroom(Mushroom mushroom) {
-        Skeleton.printCall(this, List.of(mushroom));
+        Skeleton.printCall(this, Arrays.asList(mushroom));
         mushrooms.remove(mushroom);
         checkConnectivity();
         Skeleton.printReturn();
     }
 
     public void addMycelium(Mycelium mycelium) {
-        Skeleton.printCall(this, List.of(mycelium));
+        Skeleton.printCall(this, Arrays.asList(mycelium));
         mycelia.add(mycelium);
         Skeleton.printReturn();
     }
 
     public void removeMycelium(Mycelium mycelium) {
-        Skeleton.printCall(this, List.of(mycelium));
+        Skeleton.printCall(this, Arrays.asList(mycelium));
         mycelia.remove(mycelium);
         checkConnectivity();
         Skeleton.printReturn();
@@ -164,7 +165,7 @@ public class Fungus {
     }
 
     public void growMushroom(Tecton tecton) {
-        Skeleton.printCall(this, List.of(tecton));
+        Skeleton.printCall(this, Arrays.asList(tecton));
         Mushroom mushroom = tecton.growMushroom(this);
 
         Skeleton.printReturn();
@@ -172,7 +173,7 @@ public class Fungus {
     }
 
     public void growMycelium(Tecton source, Tecton target) {
-        Skeleton.printCall(this, List.of(source, target));
+        Skeleton.printCall(this, Arrays.asList(source, target));
         boolean ready = canGrowMycelium();
 
         if (ready) {
