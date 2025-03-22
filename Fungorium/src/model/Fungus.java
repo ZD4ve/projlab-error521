@@ -20,7 +20,7 @@ public class Fungus {
             return;
         checkConnectivityRunning = true;
 
-        HashMap<Tecton, ArrayList<Tecton>> adjacencyList = new HashMap<>();
+        HashMap<Tecton, HashSet<Tecton>> adjacencyList = new HashMap<>();
         HashMap<Mycelium, Tecton[]> myceliaEnds = new HashMap<>();
         HashSet<Tecton> tectons = new HashSet<>(mushrooms.stream().map(x -> x.getLocation()).toList());
 
@@ -29,9 +29,9 @@ public class Fungus {
 
             myceliaEnds.put(mycelium, ends);
             if (!adjacencyList.containsKey(ends[0]))
-                adjacencyList.put(ends[0], new ArrayList<>());
+                adjacencyList.put(ends[0], new HashSet<>());
             if (!adjacencyList.containsKey(ends[1]))
-                adjacencyList.put(ends[1], new ArrayList<>());
+                adjacencyList.put(ends[1], new HashSet<>());
 
             adjacencyList.get(ends[0]).add(ends[1]);
             adjacencyList.get(ends[1]).add(ends[0]);
@@ -43,7 +43,7 @@ public class Fungus {
         while (tectonIt.hasNext()) {
             Tecton tecton = tectonIt.next();
 
-            if (!adjacencyList.containsKey(tecton))
+            if (adjacencyList.containsKey(tecton))
                 continue;
 
             HashSet<Tecton> visited = new HashSet<>();
