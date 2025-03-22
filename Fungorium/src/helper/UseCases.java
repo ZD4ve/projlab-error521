@@ -11,18 +11,24 @@ public class UseCases {
     public static void init() {
         // TODO: Doksiban szereplő sorrendben legyenek!
         // (@Tamás ezt majd te csináld meg a végén)
+<<<<<<< HEAD
         // TODO: Itt szerintem a doksiban szereplő use-case neveket használjuk! (David)
+=======
+
+        addUseCase(UseCases::demoUseCase, "tester");
+        
+>>>>>>> 931565d1dc1e48139b3275d9f629d414702e2984
         // BurstSpore
-        addUseCase(UseCases::burstSporeDist1, "Spóraszórás 1 távolságra");
-        addUseCase(UseCases::burstSporeDist2, "Spóraszórás 2 távolságra");
-        addUseCase(UseCases::burstSporeDist3, "Spóraszórás 3 távolságra");
+        addUseCase(UseCases::burstSporeDist1, "BurstSpore-Dist1");
+        addUseCase(UseCases::burstSporeDist2, "BurstSpore-Dist2");
+        addUseCase(UseCases::burstSporeDist3, "BurstSpore-Dist3");
 
         // GrowMycelium
-        addUseCase(UseCases::growMyceliumNoSourceFail, "Gombafonal növesztés gombatest és gombafonal nélkül");
-        addUseCase(UseCases::growMyceliumNotNeighbor, "Gombafonal növesztés nem szomszédos tektonok között");
-        addUseCase(UseCases::growMyceliumSingleMyceliumFail, "Gombafonal növesztés SingleMyceliumTecton-ra, ami már foglalt");
-        addUseCase(UseCases::growMyceliumSingleMyceliumSuccess, "Gombafonal növesztés SingleMyceliumTecton-ra");
-        addUseCase(UseCases::growMyceliumSuccess, "Gombafonal növesztés optimális körülmények között");
+        addUseCase(UseCases::growMyceliumNoSourceFail, "GrowMycelium-NoSource");
+        addUseCase(UseCases::growMyceliumNotNeighbor, "GrowMycelium-NotNeighbor");
+        addUseCase(UseCases::growMyceliumSingleMyceliumFail, "GrowMycelium-SingleFail");
+        addUseCase(UseCases::growMyceliumSingleMyceliumSuccess, "GrowMycelium-SingleSuccess");
+        addUseCase(UseCases::growMyceliumSuccess, "GrowMycelium-Success");
 
         // InsectMove
         addUseCase(UseCases::insectMoveSuccess, "InsectMove-Success");
@@ -51,7 +57,6 @@ public class UseCases {
         addUseCase(UseCases::growMushroomNoMushroom, "GrowMushroom-NoMushroom");
         addUseCase(UseCases::growMushroomNotEnoughSpore, "GrowMushroom-NotEnoughSpore");
         addUseCase(UseCases::growMushroomSuccess, "GrowMushroom-Success");
-        
     }
 
     // #region BurstSpore
