@@ -47,60 +47,108 @@ public class Insect implements IActive {
 
     // #region GETTERS-SETTERS
 
+    /**
+     * Beállítja a rovar várakozási idejét.
+     * 
+     * @param cooldown a várakozási idő
+     */
     private void setCooldown(double cooldown) {
         Skeleton.printCall(this, List.of(cooldown));
         this.cooldown = cooldown;
         Skeleton.printReturn();
     }
 
+    /**
+     * A rovar sebesség modosító értékét adja vissza.
+     * 
+     * @return a sebesség modosító értéke
+     */
     public double getSpeed() {
         Skeleton.printCall(this);
         Skeleton.printReturn(speed);
         return speed;
     }
 
+    /**
+     * Beállítja a rovar sebesség modosító értékét.
+     * 
+     * @param speed a sebesség modosító értéke
+     */
     public void setSpeed(double speed) {
         Skeleton.printCall(this, List.of(speed));
         this.speed = speed;
         Skeleton.printReturn();
     }
 
+    /**
+     * Ha >0, akkor a rovar nem tud fonalat rágni.
+     * 
+     * @return hány darab fonalrágás tiltó hatás alatt van a rovar
+     */
     public int getAntiChewCount() {
         Skeleton.printCall(this);
         Skeleton.printReturn(antiChewCount);
         return antiChewCount;
     }
 
+    /**
+     * Beállítja a rovar fonalrágás tiltó hatásának számát.
+     * 
+     * @param antiChewCount fonalrágás tiltó hatások száma
+     */
     public void setAntiChewCount(int antiChewCount) {
         Skeleton.printCall(this, List.of(antiChewCount));
         this.antiChewCount = antiChewCount;
         Skeleton.printReturn();
     }
 
+    /**
+     * A rovar bénító hatás beállíása
+     */
     public void setIsParalysed(boolean isParalysed) {
         Skeleton.printCall(this, List.of(isParalysed));
         this.isParalysed = isParalysed;
         Skeleton.printReturn();
     }
 
+    /**
+     * Rovarhatás letárolása
+     * 
+     * @param effect az új hatás
+     */
     public void addEffect(InsectEffect effect) {
         Skeleton.printCall(this, List.of(effect));
         activeEffects.add(effect);
         Skeleton.printReturn();
     }
 
+    /**
+     * Rovarhatás eltávolítása
+     * 
+     * @param effect a lejárt hatás
+     */
     public void removeEffect(InsectEffect effect) {
         Skeleton.printCall(this, List.of(effect));
         activeEffects.remove(effect);
         Skeleton.printReturn();
     }
 
+    /**
+     * A rovarász pontszámának lekérdezése.
+     * 
+     * @return rovarász jelenlegi pontszáma
+     */
     public int getScore() {
         Skeleton.printCall(this);
         Skeleton.printReturn(score);
         return score;
     }
 
+    /**
+     * A rovar kész-e az akcióra.
+     * 
+     * @return lejárt-e a várakozási idő
+     */
     private boolean ready() {
         return Skeleton.ask("A rovarnak lejárt a várakozási ideje?");
         // return cooldown <= 0;
@@ -198,7 +246,6 @@ public class Insect implements IActive {
             Skeleton.printReturn(false);
             return false;
         }
-        // TODO: check mycelium valid-e, seq-en nem szerepel
         mycelium.die();
         setCooldown(ACTION_DURATION);
         Skeleton.printReturn(true);
