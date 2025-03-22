@@ -220,8 +220,8 @@ public class Tecton implements IActive {
      * 
      * @param fungus a szóban forgó gombafaj.
      * @return Igazat ad vissza, amennyiben a paraméterként kapott gombafajhoz lehet
-     *         újabb gombafonalat növeszteni és a tektonon található gombafonal
-     *         vagy gombatest a paraméterként kapott gombafajtól.
+     *         újabb gombafonalat növeszteni és a tektonon található gombafonal vagy
+     *         gombatest a paraméterként kapott gombafajtól.
      */
     public boolean canGrowMyceliumFrom(Fungus fungus) { // NOSONAR this param is needed in the specialized classes
         Skeleton.printCall(this, List.of(fungus));
@@ -243,7 +243,7 @@ public class Tecton implements IActive {
             return 0;
         }
         HashSet<Tecton> done = new HashSet<>();
-        Queue<Tecton> toVisit = new LinkedList<>();
+        Queue<Tecton> toVisit = new LinkedList<>(neighbors);
         done.add(this);
         int dst = 1;
         while (!toVisit.isEmpty()) {
@@ -311,8 +311,7 @@ public class Tecton implements IActive {
 
     private boolean myceliumExists(Fungus fungus, Tecton t1, Tecton t2) {
         for (Mycelium m : mycelia) {
-            if (m.getSpecies() == fungus && (Arrays.equals(m.getEnds(), new Tecton[] { t1, t2 })
-                    || Arrays.equals(m.getEnds(), new Tecton[] { t2, t1 }))) {
+            if (m.getSpecies() == fungus && (Arrays.equals(m.getEnds(), new Tecton[] { t1, t2 }) || Arrays.equals(m.getEnds(), new Tecton[] { t2, t1 }))) {
                 Skeleton.printReturn(true);
                 return true;
             }
@@ -329,13 +328,9 @@ public class Tecton implements IActive {
      */
     public Mycelium growMycelium(Fungus fungus, Tecton target) {
         Skeleton.printCall(this, List.of(fungus, target));
-        if (canGrowMyceliumFrom(fungus) && target.canGrowMyceliumFrom(fungus)
-                && neighbors.contains(target)
-                && !myceliumExists(fungus, this, target)
-                && ((mushroom != null && mushroom.getSpecies() == fungus)
-                        || (neighbors.stream().anyMatch(x -> myceliumExists(fungus, this, x))))) {
+        if (canGrowMyceliumFrom(fungus) && target.canGrowMyceliumFrom(fungus) && neighbors.contains(target) && !myceliumExists(fungus, this, target) && ((mushroom != null && mushroom.getSpecies() == fungus) || (neighbors.stream().anyMatch(x -> myceliumExists(fungus, this, x))))) {
             Mycelium mycelium = new Mycelium(fungus, this, target);
-            
+
             Skeleton.printReturn(mycelium);
             return mycelium;
         }
@@ -358,15 +353,11 @@ public class Tecton implements IActive {
 
         var t1Neighbors = new ArrayList<>(neighbors.subList(0, neighbors.size() / 2));
         t1Neighbors.add(t2);
-        t1.fillWithStuff(spores.subList(0, spores.size() / 2),
-                mushroom, insects.subList(0, insects.size() / 2),
-                t1Neighbors);
+        t1.fillWithStuff(spores.subList(0, spores.size() / 2), mushroom, insects.subList(0, insects.size() / 2), t1Neighbors);
 
         var t2Neighbors = new ArrayList<>(neighbors.subList(neighbors.size() / 2, neighbors.size() - 1));
         t2Neighbors.add(t1);
-        t2.fillWithStuff(spores.subList(spores.size() / 2, spores.size() - 1), null,
-                insects.subList(insects.size() / 2, insects.size() - 1),
-                t2Neighbors);
+        t2.fillWithStuff(spores.subList(spores.size() / 2, spores.size() - 1), null, insects.subList(insects.size() / 2, insects.size() - 1), t2Neighbors);
     }
 
     @Override
