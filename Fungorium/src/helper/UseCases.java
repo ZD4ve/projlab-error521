@@ -88,24 +88,24 @@ public class UseCases {
     static void burstSporeDist1() {
         burstSporeMap();
         Mushroom m1 = (Mushroom) getObjByName("m1");
-        Tecton t1 = (Tecton) getObjByName("t1");
-        m1.burstSpore(t1);
+        Tecton t2 = (Tecton) getObjByName("t2");
+        m1.burstSpore(t2);
         Skeleton.printTrace();
     }
 
     static void burstSporeDist2() {
         burstSporeMap();
         Mushroom m1 = (Mushroom) getObjByName("m1");
-        Tecton t2 = (Tecton) getObjByName("t2");
-        m1.burstSpore(t2);
+        Tecton t3 = (Tecton) getObjByName("t3");
+        m1.burstSpore(t3);
         Skeleton.printTrace();
     }
 
     static void burstSporeDist3() {
         burstSporeMap();
         Mushroom m1 = (Mushroom) getObjByName("m1");
-        Tecton t3 = (Tecton) getObjByName("t3");
-        m1.burstSpore(t3);
+        Tecton t4 = (Tecton) getObjByName("t4");
+        m1.burstSpore(t4);
         Skeleton.printTrace();
     }
 
