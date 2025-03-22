@@ -39,13 +39,13 @@ public class Fungus {
 
         HashSet<Tecton> forest = new HashSet<>();
         var tectonIt = tectons.iterator();
-        
-        while (!tectonIt.hasNext()) {
+
+        while (tectonIt.hasNext()) {
             Tecton tecton = tectonIt.next();
 
             if (!adjacencyList.containsKey(tecton))
                 continue;
-            
+
             HashSet<Tecton> visited = new HashSet<>();
             Deque<Tecton> stack = new ArrayDeque<>();
 
@@ -70,16 +70,15 @@ public class Fungus {
             forest.addAll(visited);
         }
 
-        var myceliumIt = mycelia.iterator();
-
-        while (!myceliumIt.hasNext()) {
-            var mycelium = myceliumIt.next();
-            var ends = myceliaEnds.get(mycelium);
-
+        ArrayList<Mycelium> toKill = new ArrayList<>();
+        for (Mycelium myc : mycelia) {
+            var ends = myceliaEnds.get(myc);
             if (!forest.contains(ends[0]) && !forest.contains(ends[1]))
-                mycelium.die();
+                toKill.add(myc);
         }
-
+        for (Mycelium myc : toKill) {
+            myc.die();
+        }
         checkConnectivityRunning = false;
     }
 
@@ -111,7 +110,8 @@ public class Fungus {
         Skeleton.printReturn();
     }
 
-    // PUBLIC MEMBER FUNCTIONS--------------------------------------------------------------
+    // PUBLIC MEMBER
+    // FUNCTIONS--------------------------------------------------------------
 
     public List<Tecton> getPotentialMyceliumSources() {
         Skeleton.printCall(this);
