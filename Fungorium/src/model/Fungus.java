@@ -49,16 +49,22 @@ public class Fungus {
             Deque<Tecton> stack = new ArrayDeque<>();
 
             stack.add(tecton);
+            forest.add(tecton);
             while (!stack.isEmpty()) {
-                Tecton active = stack.pop();
+                Tecton active = stack.peek();
+                boolean notFound = true;
 
                 for (Tecton neighbor : adjacencyList.get(active)) {
                     if (!forest.contains(neighbor)) {
-                        forest.add(active);
+                        forest.add(neighbor);
                         stack.push(neighbor);
+                        notFound = false;
+
                         break;
                     }
                 }
+                if (notFound)
+                    stack.pop();
             }
         }
 
