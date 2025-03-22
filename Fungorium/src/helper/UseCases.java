@@ -47,6 +47,13 @@ public class UseCases {
         // TectonBreak
         addUseCase(UseCases::tectonBreak, "Tecton-Break");
 
+        // GrowMushroom
+        addUseCase(UseCases::growMushroomAlreadyOnTarget, "GrowMushroom-AlreadyOnTarget");
+        addUseCase(UseCases::growMushroomNoMycelia, "GrowMushroom-NoMycelia");
+        addUseCase(UseCases::growMushroomNoMushroom, "GrowMushroom-NoMushroom");
+        addUseCase(UseCases::growMushroomNotEnoughSpore, "GrowMushroom-NotEnoughSpore");
+        addUseCase(UseCases::growMushroomSuccess, "GrowMushroom-Success");
+        
     }
 
     // ezt majd a végén kiszedjük, teszeléshez pls hadd maradjon
@@ -585,7 +592,8 @@ public class UseCases {
 
     // #region Grow-mushroom
 
-    static void MapAlreadyOnTarget() {
+    static void mapAlreadyOnTarget()
+    {
         printOn = false;
         objNames.clear();
 
@@ -643,7 +651,18 @@ public class UseCases {
         printOn = true;
     }
 
-    static void MapNoMushroom() {
+    static void growMushroomAlreadyOnTarget()
+    {
+        mapAlreadyOnTarget();
+        Fungus fu1 = (Fungus) getObjByName("fu1");
+        Tecton target = (Tecton) getObjByName("target");
+        fu1.growMushroom(target);
+
+        Skeleton.printTrace();
+    }
+
+    static void mapNoMushroom()
+    {
         printOn = false;
         objNames.clear();
 
@@ -700,7 +719,18 @@ public class UseCases {
         printOn = true;
     }
 
-    static void MapNoMycelia() {
+    static void growMushroomNoMushroom()
+    {
+        mapNoMushroom();
+        Fungus fu1 = (Fungus) getObjByName("fu1");
+        Tecton target = (Tecton) getObjByName("target");
+        fu1.growMushroom(target);
+
+        Skeleton.printTrace();
+    }
+
+    static void mapNoMycelia()
+    {
         printOn = false;
         objNames.clear();
 
@@ -758,7 +788,18 @@ public class UseCases {
         printOn = true;
     }
 
-    static void MapNotEnoughSpore() {
+    static void growMushroomNoMycelia()
+    {
+        mapNoMycelia();
+        Fungus fu1 = (Fungus) getObjByName("fu1");
+        Tecton target = (Tecton) getObjByName("target");
+        fu1.growMushroom(target);
+
+        Skeleton.printTrace();
+    }
+
+    static void mapNotEnoughSpore()
+    {
         printOn = false;
         objNames.clear();
 
@@ -807,7 +848,18 @@ public class UseCases {
         printOn = true;
     }
 
-    static void MapSuccess() {
+    static void growMushroomNotEnoughSpore()
+    {
+        mapNotEnoughSpore();
+        Fungus fu1 = (Fungus) getObjByName("fu1");
+        Tecton target = (Tecton) getObjByName("target");
+        fu1.growMushroom(target);
+
+        Skeleton.printTrace();
+    }
+
+    static void mapSuccess()
+    {
         printOn = false;
         objNames.clear();
 
@@ -865,6 +917,16 @@ public class UseCases {
         printOn = true;
     }
 
-    // #endregion
+    static void growMushroomSuccess()
+    {
+        mapSuccess();
+        Fungus fu1 = (Fungus) getObjByName("fu1");
+        Tecton target = (Tecton) getObjByName("target");
+        fu1.growMushroom(target);
+
+        Skeleton.printTrace();
+    }
+
+    //#endregion
 
 }
