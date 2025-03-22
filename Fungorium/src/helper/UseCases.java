@@ -85,6 +85,10 @@ public class UseCases {
         printOn = true;
     }
 
+    /**
+     * Gombafonalat felszívó tekton felszívja a rajta található gombafonalat.
+     * Aktorok: Tester
+     */
     static void burstSporeDist1() {
         burstSporeMap();
         Mushroom m1 = (Mushroom) getObjByName("m1");
@@ -93,6 +97,10 @@ public class UseCases {
         Skeleton.printTrace();
     }
 
+    /**
+     * Egy gombatest egy tőle 2 távolságra lévő tektonra kíván spórát szórni.
+     * Aktorok: Tester
+     */
     static void burstSporeDist2() {
         burstSporeMap();
         Mushroom m1 = (Mushroom) getObjByName("m1");
@@ -101,6 +109,10 @@ public class UseCases {
         Skeleton.printTrace();
     }
 
+    /**
+     * Egy gombatest egy tőle 3 távolságra lévő tektonra kíván spórát szórni.
+     * Aktorok: Tester
+     */
     static void burstSporeDist3() {
         burstSporeMap();
         Mushroom m1 = (Mushroom) getObjByName("m1");
