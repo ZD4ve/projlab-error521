@@ -25,4 +25,5 @@
         "tectons"
     ],
     "java.format.settings.url": ".vscode/java-formatter.xml",
+    "java.completion.guessMethodArguments": "off"
 }
