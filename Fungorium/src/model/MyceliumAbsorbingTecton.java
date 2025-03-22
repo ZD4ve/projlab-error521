@@ -7,11 +7,12 @@ import java.util.List;
 import helper.Skeleton;
 
 public class MyceliumAbsorbingTecton extends Tecton {
-    private double absorptionTimer;
+    private double timeUntilAbsorbtion;
 
     public MyceliumAbsorbingTecton() {
         Skeleton.printCall(this.getClass());
-        absorptionTimer = 1;
+        // TODO: use actual time
+        timeUntilAbsorbtion = 1;
         Skeleton.printReturn(this);
     }
 
@@ -27,12 +28,13 @@ public class MyceliumAbsorbingTecton extends Tecton {
     @Override
     public void tick(double dT) {
         Skeleton.printCall(this, List.of(dT));
-        absorptionTimer = Math.max(absorptionTimer - dT, 0);
-        if (ask("Felszívódjanak a gombafonalak a tektonról?") && (true || absorptionTimer == 0)) {
+        timeUntilAbsorbtion = Math.max(timeUntilAbsorbtion - dT, 0);
+        if (ask("Felszívódjanak a gombafonalak a tektonról?") && (true || timeUntilAbsorbtion == 0)) {
             for (Mycelium mycelium : mycelia) {
                 mycelium.die();
             }
             mycelia.clear();
+            // TODO: reset timer
         }
         super.tick(dT);
         Skeleton.printReturn();
