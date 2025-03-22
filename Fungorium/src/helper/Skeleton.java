@@ -104,6 +104,7 @@ public class Skeleton {
     }
 
     public static boolean ask(String question) {
+        printTrace();
         System.out.println(question + " (Y/n)");
         System.out.print(">");
         String answer = System.console().readLine();
