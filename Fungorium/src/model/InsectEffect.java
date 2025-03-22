@@ -2,6 +2,7 @@ package model;
 
 import java.util.List;
 import helper.Skeleton;
+import java.util.Arrays;
 
 public abstract class InsectEffect implements IActive {
     protected double timeLeft = 0.5;
@@ -29,7 +30,7 @@ public abstract class InsectEffect implements IActive {
 
     @Override
     public void tick(double dT) {
-        Skeleton.printCall(this, List.of(dT));
+        Skeleton.printCall(this, Arrays.asList(dT));
         timeLeft -= dT;
         if (timeLeft <= 0) {
             remove();

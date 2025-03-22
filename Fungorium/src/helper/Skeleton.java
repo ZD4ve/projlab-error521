@@ -150,6 +150,9 @@ public class Skeleton {
                 useCases.get(choice).run();
             } catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());
+                for (StackTraceElement ste : e.getStackTrace()) {
+                    System.out.println(ste);
+                }
             }
         }
     }

@@ -4,6 +4,7 @@ import helper.Skeleton;
 import static helper.Skeleton.printCall;
 import static helper.Skeleton.printReturn;
 import java.util.List;
+import java.util.Arrays;
 
 public class Mushroom implements IActive {
     private int range;
@@ -12,7 +13,7 @@ public class Mushroom implements IActive {
     private Tecton location;
 
     public Mushroom(Fungus fungus, Tecton location) {
-        printCall(this.getClass(), List.of(fungus, location));
+        printCall(this.getClass(), Arrays.asList(fungus, location));
         this.species = fungus;
         this.location = location;
         location.setMushroom(this);
@@ -20,7 +21,7 @@ public class Mushroom implements IActive {
     }
 
     public void burstSpore(Tecton target) {
-        Skeleton.printCall(this, List.of(target));
+        Skeleton.printCall(this, Arrays.asList(target));
         boolean isReady = Skeleton.ask("Készen áll m1 a spóra szórására?");
         int distance = location.distanceTo(target);
 

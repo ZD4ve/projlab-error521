@@ -3,6 +3,7 @@ package model;
 import static helper.Skeleton.ask;
 
 import java.util.List;
+import java.util.Arrays;
 
 import helper.Skeleton;
 
@@ -27,7 +28,7 @@ public class MyceliumAbsorbingTecton extends Tecton {
 
     @Override
     public void tick(double dT) {
-        Skeleton.printCall(this, List.of(dT));
+        Skeleton.printCall(this, Arrays.asList(dT));
         timeUntilAbsorbtion = Math.max(timeUntilAbsorbtion - dT, 0);
         if (ask("Felszívódjanak a gombafonalak a tektonról?") && (true || timeUntilAbsorbtion == 0)) {
             for (Mycelium mycelium : mycelia) {

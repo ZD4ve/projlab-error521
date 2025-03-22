@@ -2,6 +2,7 @@ package model;
 
 import java.util.List;
 import helper.Skeleton;
+import java.util.Arrays;
 
 public class AntiChewEffect extends InsectEffect {
 
@@ -12,7 +13,7 @@ public class AntiChewEffect extends InsectEffect {
 
     @Override
     public void applyTo(Insect insect) {
-        Skeleton.printCall(this, List.of(insect));
+        Skeleton.printCall(this, Arrays.asList(insect));
         int antiChewCount = insect.getAntiChewCount();
         insect.setAntiChewCount(antiChewCount + 1);
         this.insect = insect;

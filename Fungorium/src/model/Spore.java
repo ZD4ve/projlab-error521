@@ -1,6 +1,7 @@
 package model;
 
 import java.util.List;
+import java.util.Arrays;
 
 import helper.Skeleton;
 
@@ -8,7 +9,7 @@ public class Spore {
     private final Fungus species;
 
     public Spore(Fungus fungus) {
-        Skeleton.printCall(this.getClass(), List.of(fungus));
+        Skeleton.printCall(this.getClass(), Arrays.asList(fungus));
         this.species = fungus;
         Skeleton.printReturn(this);
     }

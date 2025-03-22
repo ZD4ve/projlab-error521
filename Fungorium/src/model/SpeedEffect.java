@@ -2,6 +2,7 @@ package model;
 
 import java.util.List;
 import helper.Skeleton;
+import java.util.Arrays;
 
 public class SpeedEffect extends InsectEffect {
     private double multiplier;
@@ -14,7 +15,7 @@ public class SpeedEffect extends InsectEffect {
 
     @Override
     public void applyTo(Insect insect) {
-        Skeleton.printCall(this, List.of(insect));
+        Skeleton.printCall(this, Arrays.asList(insect));
         double speed = insect.getSpeed();
         insect.setSpeed(speed * multiplier);
         this.insect = insect;

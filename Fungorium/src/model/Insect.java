@@ -4,6 +4,7 @@ import helper.Skeleton;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 /**
  * <h3>Rovar</h3>
@@ -39,7 +40,7 @@ public class Insect implements IActive {
      * @param location a rovar kezdeti helye
      */
     public Insect(Tecton location) {
-        Skeleton.printCall(this.getClass(), List.of(location));
+        Skeleton.printCall(this.getClass(), Arrays.asList(location));
         this.location = location;
         location.addInsect(this);
         Skeleton.printReturn(this);
@@ -53,7 +54,7 @@ public class Insect implements IActive {
      * @param cooldown a várakozási idő
      */
     private void setCooldown(double cooldown) {
-        Skeleton.printCall(this, List.of(cooldown));
+        Skeleton.printCall(this, Arrays.asList(cooldown));
         this.cooldown = cooldown;
         Skeleton.printReturn();
     }
@@ -75,7 +76,7 @@ public class Insect implements IActive {
      * @param speed a sebesség modosító értéke
      */
     public void setSpeed(double speed) {
-        Skeleton.printCall(this, List.of(speed));
+        Skeleton.printCall(this, Arrays.asList(speed));
         this.speed = speed;
         Skeleton.printReturn();
     }
@@ -97,7 +98,7 @@ public class Insect implements IActive {
      * @param antiChewCount fonalrágás tiltó hatások száma
      */
     public void setAntiChewCount(int antiChewCount) {
-        Skeleton.printCall(this, List.of(antiChewCount));
+        Skeleton.printCall(this, Arrays.asList(antiChewCount));
         this.antiChewCount = antiChewCount;
         Skeleton.printReturn();
     }
@@ -106,7 +107,7 @@ public class Insect implements IActive {
      * A rovar bénító hatás beállíása
      */
     public void setIsParalysed(boolean isParalysed) {
-        Skeleton.printCall(this, List.of(isParalysed));
+        Skeleton.printCall(this, Arrays.asList(isParalysed));
         this.isParalysed = isParalysed;
         Skeleton.printReturn();
     }
@@ -117,7 +118,7 @@ public class Insect implements IActive {
      * @param effect az új hatás
      */
     public void addEffect(InsectEffect effect) {
-        Skeleton.printCall(this, List.of(effect));
+        Skeleton.printCall(this, Arrays.asList(effect));
         activeEffects.add(effect);
         Skeleton.printReturn();
     }
@@ -128,7 +129,7 @@ public class Insect implements IActive {
      * @param effect a lejárt hatás
      */
     public void removeEffect(InsectEffect effect) {
-        Skeleton.printCall(this, List.of(effect));
+        Skeleton.printCall(this, Arrays.asList(effect));
         activeEffects.remove(effect);
         Skeleton.printReturn();
     }
@@ -217,7 +218,7 @@ public class Insect implements IActive {
      * @return sikeresség
      */
     public boolean moveTo(Tecton target) {
-        Skeleton.printCall(this, List.of(target));
+        Skeleton.printCall(this, Arrays.asList(target));
         boolean success = false;
         if (!isParalysed && ready()) {
             boolean moveValid = location.hasMyceliumTo(target);
@@ -241,7 +242,7 @@ public class Insect implements IActive {
      * @return sikeresség
      */
     public boolean chewMycelium(Mycelium mycelium) {
-        Skeleton.printCall(this, List.of(mycelium));
+        Skeleton.printCall(this, Arrays.asList(mycelium));
         if (isParalysed || antiChewCount > 0 || !ready()) {
             Skeleton.printReturn(false);
             return false;
@@ -254,7 +255,7 @@ public class Insect implements IActive {
 
     @Override
     public void tick(double dT) {
-        Skeleton.printCall(this, List.of(dT));
+        Skeleton.printCall(this, Arrays.asList(dT));
         if (cooldown > 0)
             cooldown -= dT * speed;
         Skeleton.printReturn();
