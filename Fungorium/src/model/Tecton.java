@@ -122,13 +122,22 @@ public class Tecton implements IActive {
     }
 
     /**
-     * Eltávolítja a tektonról a paraméterként kapott rovart.
-     * 
-     * @param insect az eltávolítandó rovar.
+     * Eltávolítja a tektonról a gombatestet.
      */
     public void removeMushroom() {
         Skeleton.printCall(this);
         mushroom = null;
+        Skeleton.printReturn();
+    }
+
+    /**
+     * Eltávolítja a tektonról a paraméterként kapott gombafonalat.
+     * 
+     * @param myc az eltávolítandó gombafonal.
+     */
+    public void removeMycelium(Mycelium myc) {
+        Skeleton.printCall(this, List.of(myc));
+        mycelia.remove(myc);
         Skeleton.printReturn();
     }
 

@@ -1,8 +1,9 @@
 package model;
 
-import java.util.List;
-
 import helper.Skeleton;
+import static helper.Skeleton.printCall;
+import static helper.Skeleton.printReturn;
+import java.util.List;
 
 public class Mycelium implements IActive {
     private final Fungus species;
@@ -12,7 +13,6 @@ public class Mycelium implements IActive {
     // Én is (by: Márton)
     // Most már én is (by: Panni)
     public Mycelium(Fungus fungus, Tecton end1, Tecton end2) {
-        Skeleton.addObject(this, "my1");
         Skeleton.printCall(this.getClass(), List.of(fungus, end1, end2));
         this.species = fungus;
         this.ends = new Tecton[] { end1, end2 };
@@ -23,6 +23,12 @@ public class Mycelium implements IActive {
     }
 
     public void die() {
+        printCall(this);
+        for (Tecton tecton : ends) {
+            tecton.removeMycelium(this);
+        }
+        species.removeMycelium(this);
+        printReturn();
     }
 
     public Tecton[] getEnds() {
@@ -35,6 +41,9 @@ public class Mycelium implements IActive {
 
     @Override
     public void tick(double dT) {
-
+        printCall(this, List.of(dT));
+        boolean thickened = Skeleton.ask("Megvastagodott a gombafonal?");
+        if(thickened) species.myceliumGrowthComplete();
+        printReturn();
     }
 }
