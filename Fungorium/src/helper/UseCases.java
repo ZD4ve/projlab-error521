@@ -526,12 +526,11 @@ public class UseCases {
         Skeleton.printTrace();
     }
 
-    //#endregion
+    // #endregion
 
-    //#region Tecton-break
+    // #region Tecton-break
 
-    static void tectonBreakMap()
-    {
+    static void tectonBreakMap() {
         printOn = false;
         objNames.clear();
 
@@ -563,7 +562,7 @@ public class UseCases {
 
         Mycelium mycelia2 = new Mycelium(s1, tecton, neighbor2);
         objNames.put(mycelia2, "mycelia2");
-        
+
         s1.addMycelium(mycelia1);
         s1.addMycelium(mycelia2);
 
@@ -572,7 +571,7 @@ public class UseCases {
 
         s1.addMushroom(m1);
 
-        tecton.setMushroom(m1); //TODO: KOMM DIAGRAM
+        tecton.setMushroom(m1); // TODO: KOMM DIAGRAM
 
         Spore s2 = new Spore(s1);
         objNames.put(s2, "s2");
@@ -582,15 +581,16 @@ public class UseCases {
         printOn = true;
     }
 
-    static void tectonBreak()
-    {
+    static void tectonBreak() {
         tectonBreakMap();
-
+        Tecton tecton = (Tecton) getObjByName("tecton");
+        tecton.tectonBreak();
+        Skeleton.printTrace();
     }
 
-    //#endregion
+    // #endregion
 
-    //#region Grow-mushroom
+    // #region Grow-mushroom
 
     static void mapAlreadyOnTarget()
     {
@@ -624,7 +624,7 @@ public class UseCases {
 
         Mycelium my2 = new Mycelium(fu2, target, neighbor2);
         objNames.put(my2, "my2");
-        
+
         fu2.addMycelium(my1);
         fu1.addMycelium(my2);
 
@@ -646,7 +646,7 @@ public class UseCases {
 
         fu1.addMushroom(mu1);
 
-        target.setMushroom(mu1); //TODO: KOMM DIAGRAM itt lehet jó
+        target.setMushroom(mu1); // TODO: KOMM DIAGRAM itt lehet jó
 
         printOn = true;
     }
@@ -693,7 +693,7 @@ public class UseCases {
 
         Mycelium my2 = new Mycelium(fu2, target, neighbor2);
         objNames.put(my2, "my2");
-        
+
         fu2.addMycelium(my1);
         fu1.addMycelium(my2);
 
@@ -715,7 +715,7 @@ public class UseCases {
 
         fu1.addMushroom(mu1);
 
-        neighbor1.setMushroom(mu1); //TODO: KOMM DIAGRAM
+        neighbor1.setMushroom(mu1); // TODO: KOMM DIAGRAM
         printOn = true;
     }
 
@@ -761,7 +761,7 @@ public class UseCases {
 
         Mycelium my2 = new Mycelium(fu2, target, neighbor2);
         objNames.put(my2, "my2");
-        
+
         fu2.addMycelium(my1);
         fu2.addMycelium(my2);
 
@@ -783,7 +783,7 @@ public class UseCases {
 
         fu1.addMushroom(mu1);
 
-        neighbor1.setMushroom(mu1); //TODO: KOMM DIAGRAM
+        neighbor1.setMushroom(mu1); // TODO: KOMM DIAGRAM
 
         printOn = true;
     }
@@ -843,7 +843,7 @@ public class UseCases {
 
         fu1.addMushroom(mu1);
 
-        neighbor1.setMushroom(mu1); //TODO: KOMM DIAGRAM
+        neighbor1.setMushroom(mu1); // TODO: KOMM DIAGRAM
 
         printOn = true;
     }
@@ -890,7 +890,7 @@ public class UseCases {
 
         Mycelium my2 = new Mycelium(fu2, target, neighbor2);
         objNames.put(my2, "my2");
-        
+
         fu2.addMycelium(my1);
         fu1.addMycelium(my2);
 
@@ -912,7 +912,8 @@ public class UseCases {
 
         fu1.addMushroom(mu1);
 
-        neighbor1.setMushroom(mu1); //TODO: KOMM DIAGRAM
+        neighbor1.setMushroom(mu1); // TODO: KOMM DIAGRAM
+
         printOn = true;
     }
 
