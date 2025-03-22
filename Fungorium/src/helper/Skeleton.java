@@ -148,6 +148,7 @@ public class Skeleton {
                 break;
             try {
                 useCases.get(choice).run();
+                tabulation = 0;
             } catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());
             }
