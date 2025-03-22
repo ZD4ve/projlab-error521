@@ -610,28 +610,95 @@ public class UseCases {
         objNames.put(fu1, "fu1");
 
         Fungus fu2 = new Fungus();
-        objNames.put(fu1, "fu2");
+        objNames.put(fu2, "fu2");
 
-        Mycelium mycelia1 = new Mycelium(fu1, target, neighbor1);
-        objNames.put(mycelia1, "mycelia1");
+        Mycelium my1 = new Mycelium(fu1, target, neighbor1);
+        objNames.put(my1, "my1");
 
-        Mycelium mycelia2 = new Mycelium(fu1, target, neighbor2);
-        objNames.put(mycelia2, "mycelia2");
+        Mycelium my2 = new Mycelium(fu2, target, neighbor2);
+        objNames.put(my2, "my2");
         
-        fu1.addMycelium(mycelia1);
-        fu1.addMycelium(mycelia2);
+        fu2.addMycelium(my1);
+        fu1.addMycelium(my2);
 
-        Mushroom m1 = new Mushroom(fu1, target);
-        objNames.put(m1, "m1");
+        Spore sp1 = new Spore(fu1);
+        objNames.put(sp1, "sp1");
 
-        fu1.addMushroom(m1);
+        Spore sp2 = new Spore(fu1);
+        objNames.put(sp2, "sp2");
 
-        tecton.setMushroom(m1); //TODO: KOMM DIAGRAM
+        Spore sp3 = new Spore(fu1);
+        objNames.put(sp3, "sp3");
 
-        Spore s2 = new Spore(fu1);
-        objNames.put(s2, "s2");
+        target.addSpore(sp1);
+        target.addSpore(sp2);
+        target.addSpore(sp3);
 
-        target.addSpore(s2);
+        Mushroom mu1 = new Mushroom(fu1, target);
+        objNames.put(mu1, "mu1");
+
+        fu1.addMushroom(mu1);
+
+        target.setMushroom(mu1); //TODO: KOMM DIAGRAM itt lehet jó
+
+        printOn = true;
+    }
+
+    static void MapNoMushroom()
+    {
+        printOn = false;
+        objNames.clear();
+
+        Tecton target = new Tecton();
+        objNames.put(target, "target");
+
+        Tecton neighbor1 = new Tecton();
+        objNames.put(neighbor1, "neighbor1");
+
+        Tecton neighbor2 = new Tecton();
+        objNames.put(neighbor2, "neighbor2");
+
+        target.addNeighbor(neighbor2);
+        target.addNeighbor(neighbor1);
+        neighbor1.addNeighbor(target);
+        neighbor1.addNeighbor(neighbor2);
+        neighbor2.addNeighbor(target);
+        neighbor2.addNeighbor(neighbor1);
+
+        Fungus fu1 = new Fungus();
+        objNames.put(fu1, "fu1");
+
+        Fungus fu2 = new Fungus();
+        objNames.put(fu2, "fu2");
+
+        Mycelium my1 = new Mycelium(fu1, target, neighbor1);
+        objNames.put(my1, "my1");
+
+        Mycelium my2 = new Mycelium(fu2, target, neighbor2);
+        objNames.put(my2, "my2");
+        
+        fu2.addMycelium(my1);
+        fu1.addMycelium(my2);
+
+        Spore sp1 = new Spore(fu1);
+        objNames.put(sp1, "sp1");
+
+        Spore sp2 = new Spore(fu1);
+        objNames.put(sp2, "sp2");
+
+        Spore sp3 = new Spore(fu1);
+        objNames.put(sp3, "sp3");
+
+        target.addSpore(sp1);
+        target.addSpore(sp2);
+        target.addSpore(sp3);
+
+        Mushroom mu1 = new Mushroom(fu1, target);
+        objNames.put(mu1, "mu1");
+
+        fu1.addMushroom(mu1);
+
+        target.setMushroom(mu1); //TODO: KOMM DIAGRAM itt lehet jó
 
         printOn = true;
     }
