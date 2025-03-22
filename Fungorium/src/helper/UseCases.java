@@ -44,6 +44,9 @@ public class UseCases {
         addUseCase(UseCases::eatSporeNoSpore, "EatSpore-NoSpore");
         addUseCase(UseCases::eatSporeParalysed, "EatSpore-Paralysed");
 
+        // TectonBreak
+        addUseCase(UseCases::tectonBreak, "Tecton-Break");
+
     }
 
     // ezt majd a végén kiszedjük, teszeléshez pls hadd maradjon
@@ -515,5 +518,75 @@ public class UseCases {
 
         Skeleton.printTrace();
     }
+
+    //#endregion
+
+    //#region Tecton-break
+
+    static void tectonBreakMap()
+    {
+        printOn = false;
+        objNames.clear();
+
+        Tecton tecton = new Tecton();
+        objNames.put(tecton, "tecton");
+
+        Tecton neighbor1 = new Tecton();
+        objNames.put(neighbor1, "neighbor1");
+
+        Tecton neighbor2 = new Tecton();
+        objNames.put(neighbor2, "neighbor2");
+
+        tecton.addNeighbor(neighbor1);
+        tecton.addNeighbor(neighbor2);
+        neighbor1.addNeighbor(tecton);
+        neighbor1.addNeighbor(tecton);
+
+        Insect i1 = new Insect(tecton);
+        objNames.put(i1, "i1");
+
+        Insect i2 = new Insect(tecton);
+        objNames.put(i2, "i2");
+
+        Fungus s1 = new Fungus();
+        objNames.put(s1, "s1");
+
+        Mycelium mycelia1 = new Mycelium(s1, tecton, neighbor1);
+        objNames.put(mycelia1, "mycelia1");
+
+        Mycelium mycelia2 = new Mycelium(s1, tecton, neighbor2);
+        objNames.put(mycelia2, "mycelia2");
+        
+        s1.addMycelium(mycelia1);
+        s1.addMycelium(mycelia2);
+
+        Mushroom m1 = new Mushroom(s1, tecton);
+        objNames.put(m1, "m1");
+
+        s1.addMushroom(m1);
+
+        tecton.setMushroom(m1); //TODO: KOMM DIAGRAM
+
+        Spore s2 = new Spore(s1);
+        objNames.put(s2, "s2");
+
+        tecton.addSpore(s2);
+        
+
+        printOn = true;
+    }
+
+    static void tectonBreak()
+    {
+        
+    }
+
+    //#endregion
+
+    //#region Grow-mushroom
+
+
+
+    //#endregion
 
 }
