@@ -11,9 +11,13 @@ public class UseCases {
     public static void init() {
         // TODO: Doksiban szereplő sorrendben legyenek!
         // (@Tamás ezt majd te csináld meg a végén)
+<<<<<<< HEAD
+        // TODO: Itt szerintem a doksiban szereplő use-case neveket használjuk! (David)
+=======
 
         addUseCase(UseCases::demoUseCase, "tester");
         
+>>>>>>> 931565d1dc1e48139b3275d9f629d414702e2984
         // BurstSpore
         addUseCase(UseCases::burstSporeDist1, "BurstSpore-Dist1");
         addUseCase(UseCases::burstSporeDist2, "BurstSpore-Dist2");
@@ -53,15 +57,6 @@ public class UseCases {
         addUseCase(UseCases::growMushroomNoMushroom, "GrowMushroom-NoMushroom");
         addUseCase(UseCases::growMushroomNotEnoughSpore, "GrowMushroom-NotEnoughSpore");
         addUseCase(UseCases::growMushroomSuccess, "GrowMushroom-Success");
-    }
-
-    // ezt majd a végén kiszedjük, teszeléshez pls hadd maradjon
-    static void demoUseCase() {
-        Tecton t = new Tecton();
-        addObject(t, "t");
-        printCall(t);
-
-        Skeleton.printTrace();
     }
 
     // #region BurstSpore
