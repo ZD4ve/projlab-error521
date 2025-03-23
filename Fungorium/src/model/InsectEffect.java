@@ -63,6 +63,7 @@ public abstract class InsectEffect implements IActive {
         timeLeft -= dT;
         if (timeLeft <= 0) {
             remove();
+            insect.removeEffect(this);
         }
         Skeleton.printReturn();
     }
