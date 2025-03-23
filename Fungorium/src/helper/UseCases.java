@@ -9,7 +9,7 @@ public class UseCases {
     } // UseCases ne legyen példányosítható
 
     public static void init() {
-        // TODO: AbsorbMycelium (@cromwell1028)
+        addUseCase(UseCases::absorbMyceliumSuccess, "AbsorbMycelium-Success");
 
         // BurstSpore
         addUseCase(UseCases::burstSporeDist1, "BurstSpore-Dist1");
@@ -22,7 +22,7 @@ public class UseCases {
         addUseCase(UseCases::growMyceliumSingleMyceliumFail, "GrowMycelium-SingleFail");
         addUseCase(UseCases::growMyceliumNotNeighbor, "GrowMycelium-NotNeighbor");
         addUseCase(UseCases::growMyceliumNoSourceFail, "GrowMycelium-NoSource");
-        
+
         // InsectChewMycelium
         addUseCase(UseCases::insectChewMyceliumSuccess, "InsectChewMycelium-Success");
         addUseCase(UseCases::insectChewMyceliumParalysed, "InsectChewMycelium-Paralysed");
@@ -51,6 +51,39 @@ public class UseCases {
         // TectonBreak
         addUseCase(UseCases::tectonBreak, "Tecton-Break");
     }
+
+    // #region AbsorbMycelium
+
+    static void absorbMyceliumSuccess() {
+        printOn = false;
+
+        var t1 = new Tecton();
+        addObject(t1, "t1");
+        var t2 = new MyceliumAbsorbingTecton();
+        addObject(t2, "t2");
+
+        t1.addNeighbor(t2);
+        t2.addNeighbor(t1);
+
+        var s1 = new Fungus();
+        addObject(s1, "s1");
+
+        var m1 = new Mushroom(s1, t1);
+        addObject(m1, "m1");
+
+        s1.addMushroom(m1);
+
+        var m2 = new Mycelium(s1, t1, t2);
+        addObject(m2, "m2");
+
+        printOn = true;
+
+        t2.tick(0.1);
+
+        printTrace();
+    }
+
+    // #endregion
 
     // #region BurstSpore
 
