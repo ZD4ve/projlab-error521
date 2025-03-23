@@ -225,14 +225,21 @@ public class Fungus {
     /**
      * A gombatest növesztését kezdeményezi a paraméterként kapott tektonra.
      * 
-     * @param tecton az új gombatest tektona
+     * @param tecton az új gombatest tektonja
+     * @return true ha a művelet sikeres, false egyébként
      */
-    public void growMushroom(Tecton tecton) {
+    public boolean growMushroom(Tecton tecton) {
         Skeleton.printCall(this, Arrays.asList(tecton));
         Mushroom mushroom = tecton.growMushroom(this);
 
-        Skeleton.printReturn();
+        if (mushroom == null) {
+            Skeleton.printReturn(false);
+            return false;
+        }
+
         mushrooms.add(mushroom);
+        Skeleton.printReturn(true);
+        return true;
     }
 
     /**
@@ -240,8 +247,9 @@ public class Fungus {
      * 
      * @param source a forrástekton
      * @param target a céltekton
+     * @return true ha a művelet sikeres, false egyébként
      */
-    public void growMycelium(Tecton source, Tecton target) {
+    public boolean growMycelium(Tecton source, Tecton target) {
         Skeleton.printCall(this, Arrays.asList(source, target));
         boolean ready = canGrowMycelium();
 
@@ -251,9 +259,14 @@ public class Fungus {
             if (mycelium != null) {
                 mycelia.add(mycelium);
                 growingMycelia++;
+                Skeleton.printReturn(true);
+                return true;
             }
+            Skeleton.printReturn(false);
+            return false;
         }
 
-        Skeleton.printReturn();
+        Skeleton.printReturn(false);
+        return false;
     }
 }
