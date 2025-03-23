@@ -17,3 +17,5 @@ eatSpore usecasek egyesültek
 eatSpore szekv. diagramok átdolgozva
 
 insectmove szekv. diagram hasMyceliumTo után getEnds
+
+singlemycelium-fail missing getSpicies call added

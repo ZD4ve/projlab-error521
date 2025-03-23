@@ -7,6 +7,7 @@ actor Tester
 participant "s1:Fungus" as species
 participant "t1:Tecton" as source
 participant "t2:SingleMyceliumTecton" as target
+participant "my1:Mycelium" as my1
 
 Tester -> species : growMycelium(t1, t2)
 activate species
@@ -30,6 +31,9 @@ opt ready
 
         source -> target : canGrowMyceliumFrom(s1)
         activate target
+        target -> my1 : getSpecies()
+        activate my1
+        return s2
         return targetCanGrow=false
 
         return mycelium=null
