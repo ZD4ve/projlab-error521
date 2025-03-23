@@ -9,9 +9,6 @@ public class UseCases {
     } // UseCases ne legyen példányosítható
 
     public static void init() {
-        // TODO: Doksiban szereplő sorrendben legyenek!
-        // (@Tamás ezt majd te csináld meg a végén)
-
         // TODO: AbsorbMycelium (@cromwell1028)
 
         // BurstSpore
