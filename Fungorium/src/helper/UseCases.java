@@ -978,10 +978,10 @@ public class UseCases {
         Fungus fu2 = new Fungus();
         objNames.put(fu2, "fu2");
 
-        Mycelium my1 = new Mycelium(fu1, target, neighbor1);
+        Mycelium my1 = new Mycelium(fu2, target, neighbor1);
         objNames.put(my1, "my1");
 
-        Mycelium my2 = new Mycelium(fu2, target, neighbor2);
+        Mycelium my2 = new Mycelium(fu1, target, neighbor2);
         objNames.put(my2, "my2");
 
         fu2.addMycelium(my1);
