@@ -265,7 +265,7 @@ public class UseCases {
         s1.addMushroom(m1);
         printOn = true;
         s1.growMycelium(t1, t2);
-        var my1 = (Mycelium) getObjByName("my1");
+        var my1 = (Mycelium) getObjByName("myc");
         my1.tick(1);
 
         Skeleton.printTrace();
@@ -856,7 +856,7 @@ public class UseCases {
 
         fu1.addMushroom(mu1);
 
-        neighbor1.setMushroom(mu1); 
+        neighbor1.setMushroom(mu1);
 
         printOn = true;
     }
