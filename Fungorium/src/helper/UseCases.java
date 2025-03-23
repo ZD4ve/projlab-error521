@@ -260,9 +260,12 @@ public class UseCases {
         s1.addMushroom(m1);
 
         printOn = true;
-        s1.growMycelium(t1, t2);
-        var my1 = (Mycelium) getObjByName("my1");
-        my1.tick(1);
+        boolean success = s1.growMycelium(t1, t2);
+        if (success) {
+            var myc = (Mycelium) getObjByName("myc");
+            myc.tick(1);
+        }
+
         Skeleton.printTrace();
     }
 
@@ -289,9 +292,11 @@ public class UseCases {
         addObject(m1, "m1");
         s1.addMushroom(m1);
         printOn = true;
-        s1.growMycelium(t1, t2);
-        var my1 = (Mycelium) getObjByName("myc");
-        my1.tick(1);
+        boolean success = s1.growMycelium(t1, t2);
+        if (success) {
+            var myc = (Mycelium) getObjByName("myc");
+            myc.tick(1);
+        }
 
         Skeleton.printTrace();
     }
