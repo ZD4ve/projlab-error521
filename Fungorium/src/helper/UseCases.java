@@ -610,10 +610,13 @@ public class UseCases {
         eatSporeMapSuccess();
         Insect i1 = (Insect) getObjByName("i1");
         i1.eatSpore();
-        if (ask("A rovarnak lejárt a várakozási ideje?")) {
+        try {
             InsectEffect eff = (InsectEffect) getObjByName("eff");
-
-            eff.tick(1);
+            if (ask("Lejárt a hatás?")) {
+                eff.tick(1);
+            }
+        } catch (IllegalArgumentException e) {
+            // Nincs effekt
         }
 
         Skeleton.printTrace();

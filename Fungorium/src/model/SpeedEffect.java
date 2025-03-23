@@ -19,7 +19,7 @@ public class SpeedEffect extends InsectEffect {
      */
     public SpeedEffect() {
         Skeleton.printCall(this.getClass());
-        this.multiplier = 1;
+        this.multiplier = 0.65;
         Skeleton.printReturn(this);
     }
 
@@ -39,7 +39,7 @@ public class SpeedEffect extends InsectEffect {
 
     /**
      * Visszaállítja a rovar sebességét.
-    */
+     */
     @Override
     public void remove() {
         Skeleton.printCall(this);

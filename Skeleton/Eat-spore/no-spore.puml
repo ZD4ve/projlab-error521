@@ -13,7 +13,7 @@ note over i1: Insect is not under any effect.
 i1 -> t1 : takeSpore()
 activate t1
 
-return sporeTaken
+return null
 
 note over i1: sporeTaken does not exists, insect cannot proceed.
 

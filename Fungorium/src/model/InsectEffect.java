@@ -6,8 +6,8 @@ import java.util.Arrays;
 /**
  * <h3>Rovar hatás</h3>
  * 
- * A hatását kifejti a rovarra, annak időbeli hosszát számon tartja,
- * valamint idő lejárta után negálja a saját hatását.
+ * A hatását kifejti a rovarra, annak időbeli hosszát számon tartja, valamint
+ * idő lejárta után negálja a saját hatását.
  */
 public abstract class InsectEffect implements IActive {
     /**
@@ -36,7 +36,8 @@ public abstract class InsectEffect implements IActive {
         else if (Skeleton.ask("AntiChew effektet hozzak létre?"))
             newEffect = new AntiChewEffect();
 
-        Skeleton.addObject(newEffect, "eff");
+        if (newEffect != null)
+            Skeleton.addObject(newEffect, "eff");
         Skeleton.printReturn(newEffect);
         return newEffect;
     }
@@ -62,6 +63,7 @@ public abstract class InsectEffect implements IActive {
         timeLeft -= dT;
         if (timeLeft <= 0) {
             remove();
+            insect.removeEffect(this);
         }
         Skeleton.printReturn();
     }

@@ -55,7 +55,7 @@ opt idle
 
     return
     
-    S -> S : ask("A rovarnak lejárt a várakozási ideje?")
+    S -> S : ask("Lejárt a hatás?")
     activate S
     return over
 

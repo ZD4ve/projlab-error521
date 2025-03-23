@@ -37,8 +37,8 @@ opt ready
         return targetCanGrow=false
 
         return mycelium=null
-
-    return mycelium=null
 end
+
+return mycelium=null
 
 @enduml
