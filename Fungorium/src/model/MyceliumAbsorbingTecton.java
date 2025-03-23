@@ -1,12 +1,12 @@
 package model;
 
+import helper.Skeleton;
 import static helper.Skeleton.ask;
-
 import java.util.Arrays;
 
-import helper.Skeleton;
-
 /**
+ * <h3>Gombafonal felszívó tekton</h3>
+ * 
  * Olyan speciális tekton, ami időnként felszívja a rajta található
  * gombafonalakat.
  */
