@@ -51,6 +51,9 @@ public abstract class InsectEffect implements IActive {
      */
     public abstract void remove();
 
+    /**
+     * Hívásakor csökkentjük a hatás hátralévő idejét.
+     */
     @Override
     public void tick(double dT) {
         Skeleton.printCall(this, Arrays.asList(dT));
