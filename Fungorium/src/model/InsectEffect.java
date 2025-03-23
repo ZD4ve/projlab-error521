@@ -24,7 +24,7 @@ public abstract class InsectEffect implements IActive {
      * @return a létrehozott effekt
      */
     public static InsectEffect createEffect() {
-        Skeleton.printCall("InsectEffect");
+        Skeleton.printCall(InsectEffect.class);
         InsectEffect newEffect = null;
 
         if (Skeleton.ask("Paralysing effektet hozzak létre?"))
