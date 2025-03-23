@@ -1,10 +1,11 @@
 package model;
 
+import helper.Skeleton;
 import java.util.Arrays;
 
-import helper.Skeleton;
-
 /**
+ * <h3>Egy gombafonalat engedő tekton</h3>
+ * 
  * Olyan speciális tekton, melyen csak csak egy gombafajnak lehet gombafonala.
  */
 public class SingleMyceliumTecton extends Tecton {
