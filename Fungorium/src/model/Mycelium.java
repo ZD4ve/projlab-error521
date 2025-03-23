@@ -3,7 +3,6 @@ package model;
 import helper.Skeleton;
 import static helper.Skeleton.printCall;
 import static helper.Skeleton.printReturn;
-import java.util.List;
 import java.util.Arrays;
 
 public class Mycelium implements IActive {
@@ -33,10 +32,14 @@ public class Mycelium implements IActive {
     }
 
     public Tecton[] getEnds() {
+        Skeleton.printCall(this);
+        Skeleton.printReturn(ends);
         return ends;
     }
 
     public Fungus getSpecies() {
+        Skeleton.printCall(this);
+        Skeleton.printReturn(species);
         return species;
     }
 
