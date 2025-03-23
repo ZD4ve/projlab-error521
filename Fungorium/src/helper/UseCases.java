@@ -54,6 +54,9 @@ public class UseCases {
 
     // #region AbsorbMycelium
 
+    /**
+     * Gombafonalat felszívó tekton felszívja a rajta található gombafonalat.
+     */
     static void absorbMyceliumSuccess() {
         printOn = false;
         objNames.clear();
@@ -152,12 +155,12 @@ public class UseCases {
     // #endregion
 
     // #region GrowMycelium
+
     /**
      * Egy normális tektonról egy másikra próbálunk gombafonalat növeszteni, de a
      * forrás nem tartalmaz alkalmas gombatestet vagy gombafonalat (konkrétan
      * semmilyet).
      */
-
     static void growMyceliumNoSourceFail() {
         printOn = false;
         objNames.clear();
@@ -662,6 +665,9 @@ public class UseCases {
         printOn = true;
     }
 
+    /**
+     * A tektontörés folyamatát végezzük el egy adott tektonon.
+     */
     static void tectonBreak() {
         tectonBreakMap();
         Tecton tecton = (Tecton) getObjByName("tecton");
@@ -672,7 +678,6 @@ public class UseCases {
     // #endregion
 
     // #region Grow-mushroom
-
     static void mapAlreadyOnTarget() {
         printOn = false;
         objNames.clear();
@@ -731,6 +736,10 @@ public class UseCases {
         printOn = true;
     }
 
+    /**
+     * Egy tektonra próbálunk gombatestet növeszteni úgy, hogy azon már van
+     * gombatest.
+     */
     static void growMushroomAlreadyOnTarget() {
         mapAlreadyOnTarget();
         Fungus fu1 = (Fungus) getObjByName("fu1");
@@ -797,6 +806,10 @@ public class UseCases {
         printOn = true;
     }
 
+    /**
+     * Egy olyan tektonra próbálunk gombatestet növeszteni, amelyen nem lehet
+     * gombatest.
+     */
     static void growMushroomNoMushroom() {
         mapNoMushroom();
         Fungus fu1 = (Fungus) getObjByName("fu1");
@@ -864,6 +877,10 @@ public class UseCases {
         printOn = true;
     }
 
+    /**
+     * Egy tektonra próbálunk növeszteni gombatestet úgy, hogy arra nem vezet
+     * megfelelő gombafonal.
+     */
     static void growMushroomNoMycelia() {
         mapNoMycelia();
         Fungus fu1 = (Fungus) getObjByName("fu1");
@@ -922,6 +939,10 @@ public class UseCases {
         printOn = true;
     }
 
+    /**
+     * Olyan tektonra próbálunk gombatestet növeszteni, amelyen nincs ehhez elegendő
+     * spóra.
+     */
     static void growMushroomNotEnoughSpore() {
         mapNotEnoughSpore();
         Fungus fu1 = (Fungus) getObjByName("fu1");
@@ -989,6 +1010,9 @@ public class UseCases {
         printOn = true;
     }
 
+    /**
+     * Egy olyan tektonra növesztünk gombatestet, amely minden feltételnek megfelel.
+     */
     static void growMushroomSuccess() {
         mapSuccess();
         Fungus fu1 = (Fungus) getObjByName("fu1");
