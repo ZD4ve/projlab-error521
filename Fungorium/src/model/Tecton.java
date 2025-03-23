@@ -344,7 +344,7 @@ public class Tecton implements IActive {
                         || (mycelia.stream().anyMatch(x -> x.getSpecies() == fungus)))
                 && neighbors.contains(target)) {
             Mycelium mycelium = new Mycelium(fungus, this, target);
-            Skeleton.addObject(mycelium, "myc");
+            Skeleton.addObject(mycelium, "mycelium");
             Skeleton.printReturn(mycelium);
             return mycelium;
         }
