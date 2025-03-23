@@ -194,6 +194,7 @@ public class UseCases {
         var m1 = new Mushroom(s1, t1);
         Skeleton.addObject(m1, "m1");
         s1.addMushroom(m1);
+        t1.setMushroom(m1);
 
         Skeleton.printOn = true;
         s1.growMycelium(t1, t2);
@@ -229,9 +230,11 @@ public class UseCases {
         var m1 = new Mushroom(s1, t1);
         addObject(m1, "m1");
         s1.addMushroom(m1);
+        t1.setMushroom(m1);
         var m2 = new Mushroom(s2, t3);
         addObject(m2, "m2");
         s2.addMushroom(m2);
+        t3.setMushroom(m2);
 
         addObject(new Mycelium(s2, t3, t2), "my1");
         printOn = true;
@@ -261,6 +264,7 @@ public class UseCases {
         var m1 = new Mushroom(s1, t1);
         addObject(m1, "m1");
         s1.addMushroom(m1);
+        t1.setMushroom(m1);
 
         printOn = true;
         boolean success = s1.growMycelium(t1, t2);
@@ -294,6 +298,8 @@ public class UseCases {
         var m1 = new Mushroom(s1, t1);
         addObject(m1, "m1");
         s1.addMushroom(m1);
+        t1.setMushroom(m1);
+
         printOn = true;
         boolean success = s1.growMycelium(t1, t2);
         if (success) {
