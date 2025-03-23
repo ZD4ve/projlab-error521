@@ -604,7 +604,7 @@ public class UseCases {
     static void tectonBreak() {
         tectonBreakMap();
         Tecton tecton = (Tecton) getObjByName("tecton");
-        tecton.tectonBreak();
+        tecton.tick(1); // dT >= 1-nél a törés garantált (jelenleg)
         Skeleton.printTrace();
     }
 
@@ -856,7 +856,7 @@ public class UseCases {
 
         fu1.addMushroom(mu1);
 
-        neighbor1.setMushroom(mu1); 
+        neighbor1.setMushroom(mu1);
 
         printOn = true;
     }

@@ -29,8 +29,7 @@ public class Tecton implements IActive {
     protected Mushroom mushroom;
 
     /**
-     * Inicializálja az új tektont.
-     *
+     * Létrehoz egy új példányt alapértelmezett beállításokkal.
      */
     public Tecton() {
         printCall(this.getClass());
@@ -221,8 +220,7 @@ public class Tecton implements IActive {
      * 
      * @param fungus a szóban forgó gombafaj.
      * @return Igazat ad vissza, amennyiben a paraméterként kapott gombafajhoz lehet
-     *         újabb gombafonalat növeszteni és a tektonon található gombafonal vagy
-     *         gombatest a paraméterként kapott gombafajtól.
+     *         újabb gombafonalat növeszteni a gombafajtól.
      */
     public boolean canGrowMyceliumFrom(Fungus fungus) { // NOSONAR this param is needed in the specialized classes
         Skeleton.printCall(this, List.of(fungus));
@@ -231,7 +229,7 @@ public class Tecton implements IActive {
     }
 
     /**
-     * Visszaadja, hogy a paraméterként kapott tekton mekkora távolságra van.
+     * Kiszámolja, hogy a paraméterként kapott tekton mekkora távolságra van.
      * 
      * @param tecton a távolság szempontból vizsgált tekton.
      * @return a távolság ugrásszámban, vagy {@link Integer.MAX_VALUE} ha nem
@@ -312,8 +310,7 @@ public class Tecton implements IActive {
 
     private boolean myceliumExists(Fungus fungus, Tecton t1, Tecton t2) {
         for (Mycelium m : mycelia) {
-            if (m.getSpecies() == fungus && (Arrays.equals(m.getEnds(), new Tecton[] { t1, t2 })
-                    || Arrays.equals(m.getEnds(), new Tecton[] { t2, t1 }))) {
+            if (m.getSpecies() == fungus && (Arrays.equals(m.getEnds(), new Tecton[] { t1, t2 }) || Arrays.equals(m.getEnds(), new Tecton[] { t2, t1 }))) {
                 Skeleton.printReturn(true);
                 return true;
             }
@@ -330,9 +327,7 @@ public class Tecton implements IActive {
      */
     public Mycelium growMycelium(Fungus fungus, Tecton target) {
         Skeleton.printCall(this, List.of(fungus, target));
-        if (canGrowMyceliumFrom(fungus) && target.canGrowMyceliumFrom(fungus) && neighbors.contains(target)
-                && !myceliumExists(fungus, this, target) && ((mushroom != null && mushroom.getSpecies() == fungus)
-                        || (neighbors.stream().anyMatch(x -> myceliumExists(fungus, this, x))))) {
+        if (canGrowMyceliumFrom(fungus) && target.canGrowMyceliumFrom(fungus) && neighbors.contains(target) && !myceliumExists(fungus, this, target) && ((mushroom != null && mushroom.getSpecies() == fungus) || (neighbors.stream().anyMatch(x -> myceliumExists(fungus, this, x))))) {
             Mycelium mycelium = new Mycelium(fungus, this, target);
 
             Skeleton.printReturn(mycelium);
@@ -342,7 +337,10 @@ public class Tecton implements IActive {
         return null;
     }
 
-    public void tectonBreak() {
+    /**
+     * Levezényli a tekton törési folyamatát.
+     */
+    private void tectonBreak() {
         Skeleton.printCall(this);
         while (!mycelia.isEmpty()) {
             mycelia.get(0).die();
@@ -358,16 +356,20 @@ public class Tecton implements IActive {
 
         var t1Neighbors = new ArrayList<>(neighbors.subList(0, neighbors.size() / 2));
         t1Neighbors.add(t2);
-        t1.fillWithStuff(spores.subList(0, spores.size() / 2), mushroom, insects.subList(0, insects.size() / 2),
-                t1Neighbors);
+        t1.fillWithStuff(spores.subList(0, spores.size() / 2), mushroom, insects.subList(0, insects.size() / 2), t1Neighbors);
 
         var t2Neighbors = new ArrayList<>(neighbors.subList(neighbors.size() / 2, Math.max(neighbors.size() - 1, 0)));
         t2Neighbors.add(t1);
-        t2.fillWithStuff(spores.subList(spores.size() / 2, Math.max(spores.size() - 1,
-                0)), null, insects.subList(insects.size() / 2, Math.max(insects.size() - 1, 0)), t2Neighbors);
+        t2.fillWithStuff(spores.subList(spores.size() / 2, Math.max(spores.size() - 1, 0)), null, insects.subList(insects.size() / 2, Math.max(insects.size() - 1, 0)), t2Neighbors);
         Skeleton.printReturn();
     }
 
+    /**
+     * <p>
+     * {@inheritDoc}
+     * </p>
+     * Időnként a tekton eltörik.
+     */
     @Override
     public void tick(double dT) {
         Skeleton.printCall(this, List.of(dT));

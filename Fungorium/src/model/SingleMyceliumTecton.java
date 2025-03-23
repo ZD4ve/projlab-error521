@@ -5,8 +5,13 @@ import java.util.Arrays;
 
 import helper.Skeleton;
 
+/**
+ * Olyan speciális tekton, melyen csak csak egy gombafajnak lehet gombafonala.
+ */
 public class SingleMyceliumTecton extends Tecton {
-
+    /**
+     * Létrehoz egy új példányt alapértelmezett beállításokkal.
+     */
     public SingleMyceliumTecton() {
         Skeleton.printCall(this.getClass());
         Skeleton.printReturn(this);
@@ -21,6 +26,13 @@ public class SingleMyceliumTecton extends Tecton {
         return ret;
     }
 
+    /**
+     * <p>
+     * {@inheritDoc}
+     * </p>
+     * Ez akkor teljesül, ha nincs másik fajnak gombateste vagy gombafonala a
+     * tektonon.
+     */
     @Override
     public boolean canGrowMyceliumFrom(Fungus fungus) {
         Skeleton.printCall(this, Arrays.asList(fungus));
