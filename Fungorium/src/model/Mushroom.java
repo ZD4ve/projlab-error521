@@ -24,14 +24,15 @@ public class Mushroom implements IActive {
         Skeleton.printCall(this, Arrays.asList(target));
         boolean isReady = Skeleton.ask("Készen áll m1 a spóra szórására?");
         int distance = location.distanceTo(target);
+        int tmpRange = 1; // attribútum helyett lokális változó (teszthez)
 
         if (isReady) {
             if (distance == 2) {
                 boolean isGrown = Skeleton.ask("Fejlett-e a gomba?");
                 if (isGrown)
-                    range = 2;
+                    tmpRange = 2;
             }
-            if (distance <= range) {
+            if (distance <= tmpRange) {
                 Spore spo = new Spore(species);
                 Skeleton.addObject(spo, "spo");
                 target.addSpore(spo);
