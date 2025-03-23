@@ -3,7 +3,6 @@ package model;
 import helper.Skeleton;
 import static helper.Skeleton.printCall;
 import static helper.Skeleton.printReturn;
-import java.util.List;
 import java.util.Arrays;
 
 public class Mushroom implements IActive {
@@ -52,10 +51,14 @@ public class Mushroom implements IActive {
     }
 
     public Fungus getSpecies() {
+        Skeleton.printCall(this);
+        Skeleton.printReturn(species);
         return species;
     }
 
     public Tecton getLocation() {
+        Skeleton.printCall(this);
+        Skeleton.printReturn(location);
         return location;
     }
 }
