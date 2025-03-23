@@ -632,7 +632,7 @@ public class UseCases {
 
         fu1.addMushroom(mu1);
 
-        target.setMushroom(mu1); // TODO: KOMM DIAGRAM itt lehet jó
+        target.setMushroom(mu1);
 
         printOn = true;
     }
@@ -699,7 +699,7 @@ public class UseCases {
 
         fu1.addMushroom(mu1);
 
-        neighbor1.setMushroom(mu1); // TODO: KOMM DIAGRAM
+        neighbor1.setMushroom(mu1);
         printOn = true;
     }
 
@@ -765,7 +765,7 @@ public class UseCases {
 
         fu1.addMushroom(mu1);
 
-        neighbor1.setMushroom(mu1); // TODO: KOMM DIAGRAM
+        neighbor1.setMushroom(mu1);
 
         printOn = true;
     }
@@ -823,7 +823,7 @@ public class UseCases {
 
         fu1.addMushroom(mu1);
 
-        neighbor1.setMushroom(mu1); // TODO: KOMM DIAGRAM
+        neighbor1.setMushroom(mu1); 
 
         printOn = true;
     }
@@ -890,7 +890,7 @@ public class UseCases {
 
         fu1.addMushroom(mu1);
 
-        neighbor1.setMushroom(mu1); // TODO: KOMM DIAGRAM
+        neighbor1.setMushroom(mu1);
 
         printOn = true;
     }
