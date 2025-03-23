@@ -333,8 +333,7 @@ public class Tecton implements IActive {
     private boolean myceliumExists(Fungus fungus, Tecton t1, Tecton t2) {
         printCall(this, Arrays.asList(fungus, t1, t2));
         for (Mycelium m : mycelia) {
-            if (m.getSpecies() == fungus && (Arrays.equals(m.getEnds(), new Tecton[] { t1, t2 })
-                    || Arrays.equals(m.getEnds(), new Tecton[] { t2, t1 }))) {
+            if (m.getSpecies() == fungus && (Arrays.equals(m.getEnds(), new Tecton[] { t1, t2 }) || Arrays.equals(m.getEnds(), new Tecton[] { t2, t1 }))) {
                 Skeleton.printReturn(true);
                 return true;
             }
@@ -352,9 +351,7 @@ public class Tecton implements IActive {
      */
     public Mycelium growMycelium(Fungus fungus, Tecton target) {
         Skeleton.printCall(this, Arrays.asList(fungus, target));
-        if (canGrowMyceliumFrom(fungus) && target.canGrowMyceliumFrom(fungus) && neighbors.contains(target)
-                && ((mushroom != null && mushroom.getSpecies() == fungus)
-                        || (mycelia.stream().anyMatch(x -> x.getSpecies() == fungus)))) {
+        if (canGrowMyceliumFrom(fungus) && target.canGrowMyceliumFrom(fungus) && neighbors.contains(target) && ((mushroom != null && mushroom.getSpecies() == fungus) || (mycelia.stream().anyMatch(x -> x.getSpecies() == fungus)))) {
             Mycelium mycelium = new Mycelium(fungus, this, target);
             Skeleton.addObject(mycelium, "myc");
             Skeleton.printReturn(mycelium);
@@ -383,13 +380,11 @@ public class Tecton implements IActive {
 
         var t1Neighbors = new ArrayList<>(neighbors.subList(0, neighbors.size() / 2));
         t1Neighbors.add(t2);
-        t1.fillWithStuff(spores.subList(0, spores.size() / 2), mushroom, insects.subList(0, insects.size() / 2),
-                t1Neighbors);
+        t1.fillWithStuff(spores.subList(0, spores.size() / 2), mushroom, insects.subList(0, insects.size() / 2), t1Neighbors);
 
         var t2Neighbors = new ArrayList<>(neighbors.subList(neighbors.size() / 2, Math.max(neighbors.size() - 1, 0)));
         t2Neighbors.add(t1);
-        t2.fillWithStuff(spores.subList(spores.size() / 2, Math.max(spores.size() - 1, 0)), null,
-                insects.subList(insects.size() / 2, Math.max(insects.size() - 1, 0)), t2Neighbors);
+        t2.fillWithStuff(spores.subList(spores.size() / 2, Math.max(spores.size() - 1, 0)), null, insects.subList(insects.size() / 2, Math.max(insects.size() - 1, 0)), t2Neighbors);
         Skeleton.printReturn();
     }
 
