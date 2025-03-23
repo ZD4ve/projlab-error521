@@ -4,8 +4,13 @@ import java.util.Arrays;
 
 import helper.Skeleton;
 
+/**
+ * Olyan speciális tekton, ami nem engedélyezi gombatest növesztését.
+ */
 public class NoMushroomTecton extends Tecton {
-
+    /**
+     * Létrehoz egy új példányt alapértelmezett beállításokkal.
+     */
     public NoMushroomTecton() {
         Skeleton.printCall(this.getClass());
         Skeleton.printReturn(this);
@@ -19,6 +24,16 @@ public class NoMushroomTecton extends Tecton {
         Skeleton.printReturn(ret);
         return ret;
     }
+
+    /**
+     * <p>
+     * {@inheritDoc}
+     * </p>
+     * Ezen a tektonon nem lehetséges gombatestet növeszteni, ezért mindig
+     * {@code null} a visszatérési érték.
+     * 
+     * @return {@code null}
+     */
 
     @Override
     public Mushroom growMushroom(Fungus fungus) {

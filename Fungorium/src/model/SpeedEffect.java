@@ -4,6 +4,8 @@ import helper.Skeleton;
 import java.util.Arrays;
 
 /**
+ * <h3>Sebesség változtató hatás</h3>
+ * 
  * Olyan InsectEffect, amely a rovar sebességét befolyásolja.
  */
 public class SpeedEffect extends InsectEffect {

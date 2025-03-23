@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Queue;
 
 /**
+ * <h3>Tekton</h3>
+ * 
  * Felelőssége a saját szomszédainak, valamint a rajta található további
  * objektumok nyilvántartása. Felelőssége a gombatestek, gombafonalak
  * növesztéséhez szükséges ellenőrzések elvégzése, valamint ezek halálakor azon
@@ -48,8 +50,7 @@ public class Tecton implements IActive {
     protected Mushroom mushroom;
 
     /**
-     * Inicializálja az új tektont.
-     *
+     * Létrehoz egy új példányt alapértelmezett beállításokkal.
      */
     public Tecton() {
         printCall(this.getClass());
@@ -240,8 +241,7 @@ public class Tecton implements IActive {
      * 
      * @param fungus a szóban forgó gombafaj.
      * @return Igazat ad vissza, amennyiben a paraméterként kapott gombafajhoz lehet
-     *         újabb gombafonalat növeszteni és a tektonon található gombafonal vagy
-     *         gombatest a paraméterként kapott gombafajtól.
+     *         újabb gombafonalat növeszteni a gombafajtól.
      */
     public boolean canGrowMyceliumFrom(Fungus fungus) { // NOSONAR this param is needed in the specialized classes
         Skeleton.printCall(this, List.of(fungus));
@@ -250,7 +250,7 @@ public class Tecton implements IActive {
     }
 
     /**
-     * Visszaadja, hogy a paraméterként kapott tekton mekkora távolságra van.
+     * Kiszámolja, hogy a paraméterként kapott tekton mekkora távolságra van.
      * 
      * @param tecton a távolság szempontból vizsgált tekton.
      * @return a távolság ugrásszámban, vagy {@link Integer.MAX_VALUE} ha nem
@@ -358,7 +358,10 @@ public class Tecton implements IActive {
         return null;
     }
 
-    public void tectonBreak() {
+    /**
+     * Levezényli a tekton törési folyamatát.
+     */
+    private void tectonBreak() {
         Skeleton.printCall(this);
         while (!mycelia.isEmpty()) {
             mycelia.get(0).die();
@@ -382,6 +385,12 @@ public class Tecton implements IActive {
         Skeleton.printReturn();
     }
 
+    /**
+     * <p>
+     * {@inheritDoc}
+     * </p>
+     * Időnként a tekton eltörik.
+     */
     @Override
     public void tick(double dT) {
         Skeleton.printCall(this, List.of(dT));

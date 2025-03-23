@@ -4,6 +4,8 @@ import helper.Skeleton;
 import java.util.Arrays;
 
 /**
+ * <h3>Spóra</h3>
+ * 
  * Saját gombafajának és hatásának nyílvántartása.
  */
 public class Spore {

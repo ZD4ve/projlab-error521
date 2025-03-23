@@ -6,6 +6,8 @@ import static helper.Skeleton.printReturn;
 import java.util.Arrays;
 
 /**
+ * <h3>Gombafonal</h3>
+ * 
  * A gombafonalak bizonyos feltételeket teljesítő tektonokon nőhetnek,
  * felelőssége ezen feltételek ellenőrzése, valamint a létrejövés utáni
  * vastagodás elvégzése, ennek sikerességéről a gombafaj tájékoztatása.
