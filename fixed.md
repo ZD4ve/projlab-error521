@@ -4,4 +4,16 @@ Grow-mushroom és Tecton-break diagramok setMushroom rossz tektonon
 
 Tecton-break myceliumok és szomszédok törlési sorrendjének cseréje
 
-ABsorb-mycelium map paraméterek és felesleges/rossz hívások
+Absorb-mycelium map paraméterek és felesleges/rossz hívások
+
+bool returnök
+
+fungus removeMushroom paraméter nélküli
+
+tecton growMushroom paraméter nélküli
+
+eatSpore usecasek egyesültek
+
+eatSpore szekv. diagramok átdolgozva
+
+insectmove szekv. diagram hasMyceliumTo után getEnds

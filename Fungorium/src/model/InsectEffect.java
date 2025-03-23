@@ -4,6 +4,8 @@ import helper.Skeleton;
 import java.util.Arrays;
 
 /**
+ * <h3>Rovar hatás</h3>
+ * 
  * A hatását kifejti a rovarra, annak időbeli hosszát számon tartja,
  * valamint idő lejárta után negálja a saját hatását.
  */
@@ -51,6 +53,9 @@ public abstract class InsectEffect implements IActive {
      */
     public abstract void remove();
 
+    /**
+     * Hívásakor csökkentjük a hatás hátralévő idejét.
+     */
     @Override
     public void tick(double dT) {
         Skeleton.printCall(this, Arrays.asList(dT));

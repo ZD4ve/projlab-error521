@@ -10,9 +10,13 @@ import java.util.HashSet;
 import java.util.List;
 
 /**
- * Felelőssége összekötni az egy fajhoz tartozó spórákat, gombafonalakat, valamint gombatesteket.
- * Felelőssége továbbá annak ellenőrzése, hogy a gombafaj tud-e gombatestet növeszteni.
- * Felelőssége fonal növesztésénének kezdeményezése, fonalak összekötöttségének ellenőrzése, gombatest növesztésének kezdeményezése.
+ * <h3>Gombafaj</h3>
+ * 
+ * Felelőssége összekötni az egy fajhoz tartozó spórákat, gombafonalakat,
+ * valamint gombatesteket. Felelőssége továbbá annak ellenőrzése, hogy a
+ * gombafaj tud-e gombatestet növeszteni. Felelőssége fonal növesztésénének
+ * kezdeményezése, fonalak összekötöttségének ellenőrzése, gombatest
+ * növesztésének kezdeményezése.
  */
 public class Fungus {
     /**
@@ -28,6 +32,10 @@ public class Fungus {
     private int growingMycelia = 0;
     private boolean checkConnectivityRunning = false;
 
+    /**
+     * Ellenőrzi, hogy a gombafajhoz tartozó gombafonalak közül melyek vannak izolálva,
+     * és törtli azokat.
+     */
     private void checkConnectivity() {
         if (checkConnectivityRunning)
             return;
@@ -144,7 +152,8 @@ public class Fungus {
     // FUNCTIONS--------------------------------------------------------------
 
     /**
-     * Megkeresi azokat a tektonokat, ahol a gombafajnak van gombateste vagy gombafonala, vagyis tud onnan gombafonalat növeszteni.
+     * Megkeresi azokat a tektonokat, ahol a gombafajnak van gombateste vagy
+     * gombafonala, vagyis tud onnan gombafonalat növeszteni.
      * 
      * @return a lehetséges gombafonal növesztési források egy listában
      */
@@ -170,7 +179,8 @@ public class Fungus {
     }
 
     /**
-     * Megkeresi azokat a tektonokat, ahol a gombafajnak van fonala, vagyis lehet gombatestet növeszteni rajta.
+     * Megkeresi azokat a tektonokat, ahol a gombafajnak van fonala, vagyis lehet
+     * gombatestet növeszteni rajta.
      * 
      * @return Minden olyan tekton, ahova lehet gombafonalat növeszteni, listában
      */
@@ -192,7 +202,8 @@ public class Fungus {
     /**
      * Megvizsgálja, hogy az adott gombafaj éppen hány gombafonalat növeszt.
      * 
-     * @return Ha ez a szám kisebb mint a fajhoz tartozó gombafejek száma akkor igazat, különben hamisat ad vissza.
+     * @return Ha ez a szám kisebb mint a fajhoz tartozó gombafejek száma akkor
+     *         igazat, különben hamisat ad vissza.
      */
     public boolean canGrowMycelium() {
         Skeleton.printCall(this);
@@ -216,14 +227,21 @@ public class Fungus {
     /**
      * A gombatest növesztését kezdeményezi a paraméterként kapott tektonra.
      * 
-     * @param tecton az új gombatest tektona
+     * @param tecton az új gombatest tektonja
+     * @return true ha a művelet sikeres, false egyébként
      */
-    public void growMushroom(Tecton tecton) {
+    public boolean growMushroom(Tecton tecton) {
         Skeleton.printCall(this, Arrays.asList(tecton));
         Mushroom mushroom = tecton.growMushroom(this);
 
-        Skeleton.printReturn();
+        if (mushroom == null) {
+            Skeleton.printReturn(false);
+            return false;
+        }
+
         mushrooms.add(mushroom);
+        Skeleton.printReturn(true);
+        return true;
     }
 
     /**
@@ -231,8 +249,9 @@ public class Fungus {
      * 
      * @param source a forrástekton
      * @param target a céltekton
+     * @return true ha a művelet sikeres, false egyébként
      */
-    public void growMycelium(Tecton source, Tecton target) {
+    public boolean growMycelium(Tecton source, Tecton target) {
         Skeleton.printCall(this, Arrays.asList(source, target));
         boolean ready = canGrowMycelium();
 
@@ -242,9 +261,14 @@ public class Fungus {
             if (mycelium != null) {
                 mycelia.add(mycelium);
                 growingMycelia++;
+                Skeleton.printReturn(true);
+                return true;
             }
+            Skeleton.printReturn(false);
+            return false;
         }
 
-        Skeleton.printReturn();
+        Skeleton.printReturn(false);
+        return false;
     }
 }

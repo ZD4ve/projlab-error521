@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Queue;
 
 /**
+ * <h3>Tekton</h3>
+ * 
  * Felelőssége a saját szomszédainak, valamint a rajta található további
  * objektumok nyilvántartása. Felelőssége a gombatestek, gombafonalak
  * növesztéséhez szükséges ellenőrzések elvégzése, valamint ezek halálakor azon
@@ -22,10 +24,29 @@ import java.util.Queue;
  * tektonokra.
  */
 public class Tecton implements IActive {
+    /**
+     * A tektonhoz tartozó szomszédokat tárolja el.
+     */
     private List<Tecton> neighbors;
+
+    /**
+     * A tektonhoz tartozó gombafonalakat tárolja.
+     */
     protected List<Mycelium> mycelia;
+
+    /**
+     * A tektonon található spórákat tárolja.
+     */
     private List<Spore> spores;
+
+    /**
+     * A tektonon található spórákat tárolja.
+     */
     private List<Insect> insects;
+
+    /**
+     * A tektonon található gombatestet tárolja.
+     */
     protected Mushroom mushroom;
 
     /**
@@ -329,7 +350,7 @@ public class Tecton implements IActive {
         Skeleton.printCall(this, List.of(fungus, target));
         if (canGrowMyceliumFrom(fungus) && target.canGrowMyceliumFrom(fungus) && neighbors.contains(target) && !myceliumExists(fungus, this, target) && ((mushroom != null && mushroom.getSpecies() == fungus) || (neighbors.stream().anyMatch(x -> myceliumExists(fungus, this, x))))) {
             Mycelium mycelium = new Mycelium(fungus, this, target);
-
+            Skeleton.addObject(mycelium, "myc");
             Skeleton.printReturn(mycelium);
             return mycelium;
         }

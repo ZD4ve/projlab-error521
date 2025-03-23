@@ -4,6 +4,8 @@ import helper.Skeleton;
 import java.util.Arrays;
 
 /**
+ * <h3>Bénító hatás</h3>
+ * 
  * Olyan InsectEffect, amely a rovar mozgását tudja korlátozni.
  */
 public class ParalysingEffect extends InsectEffect {

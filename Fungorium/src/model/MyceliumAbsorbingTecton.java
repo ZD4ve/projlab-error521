@@ -2,7 +2,6 @@ package model;
 
 import static helper.Skeleton.ask;
 
-import java.util.List;
 import java.util.Arrays;
 
 import helper.Skeleton;
