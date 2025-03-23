@@ -28,6 +28,10 @@ public class Fungus {
     private int growingMycelia = 0;
     private boolean checkConnectivityRunning = false;
 
+    /**
+     * Ellenőrzi, hogy a gombafajhoz tartozó gombafonalak közül melyek vannak izolálva,
+     * és törtli azokat.
+     */
     private void checkConnectivity() {
         if (checkConnectivityRunning)
             return;
