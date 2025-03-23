@@ -6,9 +6,19 @@ import java.util.Arrays;
 
 import helper.Skeleton;
 
+/**
+ * Olyan speciális tekton, ami időnként felszívja a rajta található
+ * gombafonalakat.
+ */
 public class MyceliumAbsorbingTecton extends Tecton {
+    /**
+     * A gombafonalak felszívódásáig hátralévő idő másodpercben.
+     */
     private double timeUntilAbsorbtion;
 
+    /**
+     * Létrehoz egy új példányt alapértelmezett beállításokkal.
+     */
     public MyceliumAbsorbingTecton() {
         Skeleton.printCall(this.getClass());
         // TODO: use actual time
@@ -25,6 +35,12 @@ public class MyceliumAbsorbingTecton extends Tecton {
         return ret;
     }
 
+    /**
+     * <p>
+     * {@inheritDoc}
+     * </p>
+     * Ha eltelt adott mennyiségű idő, felszívódnak a fonalak a tektonon.
+     */
     @Override
     public void tick(double dT) {
         Skeleton.printCall(this, Arrays.asList(dT));

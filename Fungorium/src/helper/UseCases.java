@@ -671,7 +671,7 @@ public class UseCases {
     static void tectonBreak() {
         tectonBreakMap();
         Tecton tecton = (Tecton) getObjByName("tecton");
-        tecton.tectonBreak();
+        tecton.tick(1); // dT >= 1-nél a törés garantált (jelenleg)
         Skeleton.printTrace();
     }
 
@@ -753,7 +753,7 @@ public class UseCases {
         printOn = false;
         objNames.clear();
 
-        Tecton target = new Tecton();
+        NoMushroomTecton target = new NoMushroomTecton();
         objNames.put(target, "target");
 
         Tecton neighbor1 = new Tecton();
