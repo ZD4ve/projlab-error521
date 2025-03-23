@@ -12,17 +12,11 @@ participant "mycelia2:Mycelium" as mycelia2
 
 participant "s1:Fungus" as s1
 
-Tester -> Dying : tectonBreak(tecton)
+Tester -> Dying : tectonBreak()
 activate Dying
 
     participant "m1:Mushroom" as mushroom
-    Dying -> neighbor1 : removeNeighbor(tecton)
-    activate neighbor1
-    return
-
-    Dying -> neighbor2 : removeNeighbor(tecton)
-    activate neighbor2
-    return
+    
 
             Dying -> mycelia1 : die()
 
@@ -67,13 +61,21 @@ activate Dying
             return
             destroy mycelia2
 
+    Dying -> neighbor1 : removeNeighbor(tecton)
+    activate neighbor1
+    return
+
+    Dying -> neighbor2 : removeNeighbor(tecton)
+    activate neighbor2
+    return
+
 
 newpage
     create "t1:Tecton" as New1
     Dying -> New1 : newMe()
     activate New1
     return
-    Dying -> New1 : fillWithStuff([s1], m1, [i1], [neighbor1])
+    Dying -> New1 : fillWithStuff([s1], m1, [i1], [neighbor1, t2])
     activate New1
 
             participant "i1:Insect" as insect1
@@ -101,7 +103,7 @@ newpage
     activate New2
     return
 
-    Dying -> New2 : fillWithStuff([s2], null, [i2], [neighbor2])
+    Dying -> New2 : fillWithStuff([s2], null, [i2], [neighbor2, t1])
     activate New2
 
             participant "i2:Insect" as insect2
