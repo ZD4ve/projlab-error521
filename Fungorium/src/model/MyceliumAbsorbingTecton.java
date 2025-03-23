@@ -32,7 +32,7 @@ public class MyceliumAbsorbingTecton extends Tecton {
         timeUntilAbsorbtion = Math.max(timeUntilAbsorbtion - dT, 0);
         if (ask("Felszívódjanak a gombafonalak a tektonról?") && (true || timeUntilAbsorbtion == 0)) {
             while (!mycelia.isEmpty()) {
-                mycelia.getFirst().die();
+                mycelia.get(0).die();
             }
             // TODO: reset timer
         }
