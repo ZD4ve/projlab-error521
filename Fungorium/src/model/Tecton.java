@@ -352,9 +352,10 @@ public class Tecton implements IActive {
      */
     public Mycelium growMycelium(Fungus fungus, Tecton target) {
         Skeleton.printCall(this, Arrays.asList(fungus, target));
-        if (canGrowMyceliumFrom(fungus) && target.canGrowMyceliumFrom(fungus) && neighbors.contains(target)
+        if (canGrowMyceliumFrom(fungus) && target.canGrowMyceliumFrom(fungus)
                 && ((mushroom != null && mushroom.getSpecies() == fungus)
-                        || (mycelia.stream().anyMatch(x -> x.getSpecies() == fungus)))) {
+                        || (mycelia.stream().anyMatch(x -> x.getSpecies() == fungus)))
+                && neighbors.contains(target)) {
             Mycelium mycelium = new Mycelium(fungus, this, target);
             Skeleton.addObject(mycelium, "myc");
             Skeleton.printReturn(mycelium);
