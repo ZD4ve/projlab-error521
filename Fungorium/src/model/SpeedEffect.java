@@ -3,16 +3,16 @@ package model;
 import helper.Skeleton;
 import java.util.Arrays;
 
-/*
+/**
  * Olyan InsectEffect, amely a rovar sebességét befolyásolja.
  */
 public class SpeedEffect extends InsectEffect {
-    /*
+    /**
      * Lebegőpontos szám, ezzel szorozza a rovar sebességét.
      */
     private double multiplier;
 
-    /*
+    /**
      * Inicializálja az effektet.
      */
     public SpeedEffect() {
@@ -21,7 +21,7 @@ public class SpeedEffect extends InsectEffect {
         Skeleton.printReturn(this);
     }
 
-    /*
+    /**
      * A paraméterben kapott rovar sebességét állítja.
      * 
      * @param insect a rovar, ami kapja a hatást
@@ -35,7 +35,7 @@ public class SpeedEffect extends InsectEffect {
         Skeleton.printReturn();
     }
 
-    /*
+    /**
      * Visszaállítja a rovar sebességét.
     */
     @Override

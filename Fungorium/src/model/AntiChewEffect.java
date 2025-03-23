@@ -3,12 +3,11 @@ package model;
 import helper.Skeleton;
 import java.util.Arrays;
 
-/*
+/**
  * Olyan InsectEffect, amely megakadályozza, hogy a rovar tudjon gombafonalat rágni.
  */
 public class AntiChewEffect extends InsectEffect {
-
-    /*
+    /**
      * Inicializálja az effektet.
      */
     public AntiChewEffect() {
@@ -16,7 +15,7 @@ public class AntiChewEffect extends InsectEffect {
         Skeleton.printReturn(this);
     }
 
-    /*
+    /**
      * A paraméterben kapott rovar fonal elrágási képességét megszünteti.
      * 
      * @param insect a rovar, ami kapja a hatást
@@ -30,7 +29,7 @@ public class AntiChewEffect extends InsectEffect {
         Skeleton.printReturn();
     }
 
-    /*
+    /**
      * Visszaadja a rovar a fonal elrágási képességét.
      */
     @Override

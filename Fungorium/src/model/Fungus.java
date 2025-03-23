@@ -9,18 +9,18 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-/*
+/**
  * Felelőssége összekötni az egy fajhoz tartozó spórákat, gombafonalakat, valamint gombatesteket.
  * Felelőssége továbbá annak ellenőrzése, hogy a gombafaj tud-e gombatestet növeszteni.
  * Felelőssége fonal növesztésénének kezdeményezése, fonalak összekötöttségének ellenőrzése, gombatest növesztésének kezdeményezése.
  */
 public class Fungus {
-    /*
+    /**
      * A gombafajhoz tartozó gombafonalak számontartása.
      */
     private final List<Mycelium> mycelia = new ArrayList<>();
 
-    /*
+    /**
      * A gombafajhoz tartozó gombatestek számontartása.
      */
     private final List<Mushroom> mushrooms = new ArrayList<>();
@@ -94,7 +94,7 @@ public class Fungus {
     }
 
     // GETTERS-SETTERS--------------------------------------------------------------
-    /*
+    /**
      * Hozzáadja a paraméterként kapott gombatestet a gombafajban tároltakhoz.
      * 
      * @param mushroom az új gombatest
@@ -105,7 +105,7 @@ public class Fungus {
         Skeleton.printReturn();
     }
 
-    /*
+    /**
      * Kiveszi a paraméterként kapott gombatestet a gombafajban tároltakból.
      * 
      * @param mushroom a gombatest, amelyet kiveszünk
@@ -117,7 +117,7 @@ public class Fungus {
         Skeleton.printReturn();
     }
 
-    /*
+    /**
      * Hozzáadja a paraméterként kapott gombafonalat a gombafajban tároltakhoz.
      * 
      * @param mycelium az új gombafonal
@@ -128,7 +128,7 @@ public class Fungus {
         Skeleton.printReturn();
     }
 
-    /*
+    /**
      * Kiveszi a paraméterként kapott gombafonalat a gombafajban tároltakból.
      * 
      * @param mycelium a gombafonal, amelyet kiveszünk
@@ -143,7 +143,7 @@ public class Fungus {
     // PUBLIC MEMBER
     // FUNCTIONS--------------------------------------------------------------
 
-    /*
+    /**
      * Megkeresi azokat a tektonokat, ahol a gombafajnak van gombateste vagy gombafonala, vagyis tud onnan gombafonalat növeszteni.
      * 
      * @return a lehetséges gombafonal növesztési források egy listában
@@ -169,7 +169,7 @@ public class Fungus {
         return new ArrayList<>(potentialSources);
     }
 
-    /*
+    /**
      * Megkeresi azokat a tektonokat, ahol a gombafajnak van fonala, vagyis lehet gombatestet növeszteni rajta.
      * 
      * @return Minden olyan tekton, ahova lehet gombafonalat növeszteni, listában
@@ -189,7 +189,7 @@ public class Fungus {
         return new ArrayList<>(potentialSources);
     }
 
-    /*
+    /**
      * Megvizsgálja, hogy az adott gombafaj éppen hány gombafonalat növeszt.
      * 
      * @return Ha ez a szám kisebb mint a fajhoz tartozó gombafejek száma akkor igazat, különben hamisat ad vissza.
@@ -204,7 +204,7 @@ public class Fungus {
         return canGrow;
     }
 
-    /*
+    /**
      * Jelzi, hogy a gombafonál növekedése befejeződött, ezt kezeli le.
      */
     public void myceliumGrowthComplete() {
@@ -213,7 +213,7 @@ public class Fungus {
         Skeleton.printReturn();
     }
 
-    /*
+    /**
      * A gombatest növesztését kezdeményezi a paraméterként kapott tektonra.
      * 
      * @param tecton az új gombatest tektona
@@ -226,7 +226,7 @@ public class Fungus {
         mushrooms.add(mushroom);
     }
 
-    /*
+    /**
      * A paraméterként kapott két tekton közé gombafonal építését kezdeményezi.
      * 
      * @param source a forrástekton
