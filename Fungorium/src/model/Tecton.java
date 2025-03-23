@@ -22,10 +22,29 @@ import java.util.Queue;
  * tektonokra.
  */
 public class Tecton implements IActive {
+    /**
+     * A tektonhoz tartozó szomszédokat tárolja el.
+     */
     private List<Tecton> neighbors;
+
+    /**
+     * A tektonhoz tartozó gombafonalakat tárolja.
+     */
     protected List<Mycelium> mycelia;
+
+    /**
+     * A tektonon található spórákat tárolja.
+     */
     private List<Spore> spores;
+
+    /**
+     * A tektonon található spórákat tárolja.
+     */
     private List<Insect> insects;
+
+    /**
+     * A tektonon található gombatestet tárolja.
+     */
     protected Mushroom mushroom;
 
     /**

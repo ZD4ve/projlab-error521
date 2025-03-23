@@ -5,7 +5,9 @@ title INIT: InsectMove-Map
 actor Tester as S
 participant "i1:Insect" as insect
 participant "t1:Tecton" as location
+participant "my1:Mycelium" as my1
 participant "t2:Tecton" as target
+
 
 S -> insect : moveTo(t2)
 activate insect
@@ -18,6 +20,9 @@ opt idle
 
     insect -> location : hasMyceliumTo(t2)
     activate location
+    location -> my1 : getEnds()
+    activate my1
+    return [t1, t2] 
     return moveValid = true
 
     insect -> location : removeInsect(i1)

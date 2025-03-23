@@ -54,6 +54,9 @@ public class UseCases {
 
     // #region AbsorbMycelium
 
+    /**
+     * Gombafonalat felszívó tekton felszívja a rajta található gombafonalat.
+     */
     static void absorbMyceliumSuccess() {
         printOn = false;
         objNames.clear();
@@ -118,7 +121,6 @@ public class UseCases {
 
     /**
      * Gombafonalat felszívó tekton felszívja a rajta található gombafonalat.
-     * Aktorok: Tester
      */
     static void burstSporeDist1() {
         burstSporeMap();
@@ -130,7 +132,6 @@ public class UseCases {
 
     /**
      * Egy gombatest egy tőle 2 távolságra lévő tektonra kíván spórát szórni.
-     * Aktorok: Tester
      */
     static void burstSporeDist2() {
         burstSporeMap();
@@ -142,7 +143,6 @@ public class UseCases {
 
     /**
      * Egy gombatest egy tőle 3 távolságra lévő tektonra kíván spórát szórni.
-     * Aktorok: Tester
      */
     static void burstSporeDist3() {
         burstSporeMap();
@@ -155,6 +155,12 @@ public class UseCases {
     // #endregion
 
     // #region GrowMycelium
+
+    /**
+     * Egy normális tektonról egy másikra próbálunk gombafonalat növeszteni, de a
+     * forrás nem tartalmaz alkalmas gombatestet vagy gombafonalat (konkrétan
+     * semmilyet).
+     */
     static void growMyceliumNoSourceFail() {
         printOn = false;
         objNames.clear();
@@ -169,6 +175,10 @@ public class UseCases {
         Skeleton.printTrace();
     }
 
+    /**
+     * Egy normális tektonról egy másikra próbálunk gombafonalat növeszteni, de az
+     * nem szomszédos a forrással.
+     */
     static void growMyceliumNotNeighbor() {
         printOn = false;
         objNames.clear();
@@ -190,6 +200,10 @@ public class UseCases {
         Skeleton.printTrace();
     }
 
+    /**
+     * Egy normális tektonról egy SingleMyceliumTecton-ra próbálunk gombafonalat
+     * növeszteni, de azon egy másik fajnak már van fonala.
+     */
     static void growMyceliumSingleMyceliumFail() {
         printOn = false;
         objNames.clear();
@@ -225,6 +239,10 @@ public class UseCases {
         Skeleton.printTrace();
     }
 
+    /**
+     * Egy normális tektonról egy SingleMyceliumTecton-ra növesztünk gombafonalat,
+     * optimális körülmények között.
+     */
     static void growMyceliumSingleMyceliumSuccess() {
         printOn = false;
         objNames.clear();
@@ -254,6 +272,10 @@ public class UseCases {
         Skeleton.printTrace();
     }
 
+    /**
+     * Egy normális tektonról egy másikra növesztünk gombafonalat, optimális
+     * körülmények között.
+     */
     static void growMyceliumSuccess() {
         printOn = false;
         objNames.clear();
@@ -322,6 +344,9 @@ public class UseCases {
         printOn = true;
     }
 
+    /**
+     * A rovar átmozdul egy gombafonal mentén.
+     */
     static void insectMoveSuccess() {
         insectMoveMap();
         Insect i1 = (Insect) getObjByName("i1");
@@ -331,6 +356,9 @@ public class UseCases {
         Skeleton.printTrace();
     }
 
+    /**
+     * Mozgás sikertelen, mivel a rovar béna.
+     */
     static void insectMoveParalysed() {
         insectMoveMap();
         Insect i2 = (Insect) getObjByName("i2");
@@ -340,6 +368,10 @@ public class UseCases {
         Skeleton.printTrace();
     }
 
+    /**
+     * A rovar megpróbál atmozdulni egy tektonra, de mivel nincs fonál oda, így ez
+     * nem történik meg.
+     */
     static void insectMoveNoMycelium() {
         insectMoveMap();
         Insect i1 = (Insect) getObjByName("i1");
@@ -394,6 +426,9 @@ public class UseCases {
         printOn = true;
     }
 
+    /**
+     * A rovar sikeresen elrág egy fonalat.
+     */
     static void insectChewMyceliumSuccess() {
         insectChewMyceliumMap();
         Insect i1 = (Insect) getObjByName("i1");
@@ -403,6 +438,9 @@ public class UseCases {
         Skeleton.printTrace();
     }
 
+    /**
+     * Elrágás sikertelen, mivel a rovar béna.
+     */
     static void insectChewMyceliumParalysed() {
         insectChewMyceliumMap();
         Insect i2 = (Insect) getObjByName("i2");
@@ -412,6 +450,9 @@ public class UseCases {
         Skeleton.printTrace();
     }
 
+    /**
+     * Elrágás sikertelen, mivel a rovar rágásképtelen.
+     */
     static void insectChewMyceliumToothless() {
         insectChewMyceliumMap();
         Insect i3 = (Insect) getObjByName("i3");
@@ -458,6 +499,9 @@ public class UseCases {
         printOn = true;
     }
 
+    /**
+     * Elvágódik egy gombafonál a gombatestjétől, így megszűnik.
+     */
     static void myceliumTearingTear() {
         myceliumTearingMap();
         Mycelium my1 = (Mycelium) getObjByName("my1");
@@ -528,6 +572,9 @@ public class UseCases {
         printOn = true;
     }
 
+    /**
+     * Rovar spóra evést követően rágást képtelen lesz.
+     */
     static void eatSporeParalysed() {
         eatSporeMapParalysed();
         Insect i1 = (Insect) getObjByName("i1");
@@ -536,6 +583,9 @@ public class UseCases {
         Skeleton.printTrace();
     }
 
+    /**
+     * Rovar megpróbál spórát enni, de a tektonon nincs spóra.
+     */
     static void eatSporeNoSpore() {
         eatSporeMapNoSpore();
         Insect i1 = (Insect) getObjByName("i1");
@@ -544,6 +594,9 @@ public class UseCases {
         Skeleton.printTrace();
     }
 
+    /**
+     * Rovar sikeresen elfogyaszt egy spórát.
+     */
     static void eatSporeSuccess() {
         eatSporeMapSuccess();
         Insect i1 = (Insect) getObjByName("i1");
@@ -612,6 +665,9 @@ public class UseCases {
         printOn = true;
     }
 
+    /**
+     * A tektontörés folyamatát végezzük el egy adott tektonon.
+     */
     static void tectonBreak() {
         tectonBreakMap();
         Tecton tecton = (Tecton) getObjByName("tecton");
@@ -622,7 +678,6 @@ public class UseCases {
     // #endregion
 
     // #region Grow-mushroom
-
     static void mapAlreadyOnTarget() {
         printOn = false;
         objNames.clear();
@@ -681,6 +736,10 @@ public class UseCases {
         printOn = true;
     }
 
+    /**
+     * Egy tektonra próbálunk gombatestet növeszteni úgy, hogy azon már van
+     * gombatest.
+     */
     static void growMushroomAlreadyOnTarget() {
         mapAlreadyOnTarget();
         Fungus fu1 = (Fungus) getObjByName("fu1");
@@ -747,6 +806,10 @@ public class UseCases {
         printOn = true;
     }
 
+    /**
+     * Egy olyan tektonra próbálunk gombatestet növeszteni, amelyen nem lehet
+     * gombatest.
+     */
     static void growMushroomNoMushroom() {
         mapNoMushroom();
         Fungus fu1 = (Fungus) getObjByName("fu1");
@@ -814,6 +877,10 @@ public class UseCases {
         printOn = true;
     }
 
+    /**
+     * Egy tektonra próbálunk növeszteni gombatestet úgy, hogy arra nem vezet
+     * megfelelő gombafonal.
+     */
     static void growMushroomNoMycelia() {
         mapNoMycelia();
         Fungus fu1 = (Fungus) getObjByName("fu1");
@@ -872,6 +939,10 @@ public class UseCases {
         printOn = true;
     }
 
+    /**
+     * Olyan tektonra próbálunk gombatestet növeszteni, amelyen nincs ehhez elegendő
+     * spóra.
+     */
     static void growMushroomNotEnoughSpore() {
         mapNotEnoughSpore();
         Fungus fu1 = (Fungus) getObjByName("fu1");
@@ -939,6 +1010,9 @@ public class UseCases {
         printOn = true;
     }
 
+    /**
+     * Egy olyan tektonra növesztünk gombatestet, amely minden feltételnek megfelel.
+     */
     static void growMushroomSuccess() {
         mapSuccess();
         Fungus fu1 = (Fungus) getObjByName("fu1");
