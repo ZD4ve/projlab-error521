@@ -321,6 +321,7 @@ public class Tecton implements IActive {
             if (speciesSpores.size() >= sporesNeeded && hasMycelium) {
                 spores.removeAll(speciesSpores.subList(0, sporesNeeded));
                 mushroom = new Mushroom(fungus, this);
+                Skeleton.addObject(mushroom, "mush");
                 Skeleton.printReturn(null);
                 return mushroom;
             }
