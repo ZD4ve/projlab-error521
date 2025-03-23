@@ -12,38 +12,38 @@ public class UseCases {
         // TODO: Doksiban szereplő sorrendben legyenek!
         // (@Tamás ezt majd te csináld meg a végén)
 
+        // TODO: AbsorbMycelium (@cromwell1028)
+
         // BurstSpore
         addUseCase(UseCases::burstSporeDist1, "BurstSpore-Dist1");
         addUseCase(UseCases::burstSporeDist2, "BurstSpore-Dist2");
         addUseCase(UseCases::burstSporeDist3, "BurstSpore-Dist3");
 
         // GrowMycelium
-        addUseCase(UseCases::growMyceliumNoSourceFail, "GrowMycelium-NoSource");
-        addUseCase(UseCases::growMyceliumNotNeighbor, "GrowMycelium-NotNeighbor");
-        addUseCase(UseCases::growMyceliumSingleMyceliumFail, "GrowMycelium-SingleFail");
-        addUseCase(UseCases::growMyceliumSingleMyceliumSuccess, "GrowMycelium-SingleSuccess");
         addUseCase(UseCases::growMyceliumSuccess, "GrowMycelium-Success");
+        addUseCase(UseCases::growMyceliumSingleMyceliumSuccess, "GrowMycelium-SingleSuccess");
+        addUseCase(UseCases::growMyceliumSingleMyceliumFail, "GrowMycelium-SingleFail");
+        addUseCase(UseCases::growMyceliumNotNeighbor, "GrowMycelium-NotNeighbor");
+        addUseCase(UseCases::growMyceliumNoSourceFail, "GrowMycelium-NoSource");
+        
+        // InsectChewMycelium
+        addUseCase(UseCases::insectChewMyceliumSuccess, "InsectChewMycelium-Success");
+        addUseCase(UseCases::insectChewMyceliumParalysed, "InsectChewMycelium-Paralysed");
+        addUseCase(UseCases::insectChewMyceliumToothless, "InsectChewMycelium-Toothless");
 
         // InsectMove
         addUseCase(UseCases::insectMoveSuccess, "InsectMove-Success");
         addUseCase(UseCases::insectMoveParalysed, "InsectMove-Paralysed");
         addUseCase(UseCases::insectMoveNoMycelium, "InsectMove-NoMycelium");
 
-        // InsectChewMycelium
-        addUseCase(UseCases::insectChewMyceliumSuccess, "InsectChewMycelium-Success");
-        addUseCase(UseCases::insectChewMyceliumParalysed, "InsectChewMycelium-Paralysed");
-        addUseCase(UseCases::insectChewMyceliumToothless, "InsectChewMycelium-Toothless");
-
         // MyceliumTearing
         addUseCase(UseCases::myceliumTearingTear, "MyceliumTearing-Tear");
 
         // EatSpore
+        // TODO: GetAntiChewEffect, GetNoEffect, GetParalysedEffect, GetSpeedEffect a Success helyett
         addUseCase(UseCases::eatSporeSuccess, "EatSpore-Success");
         addUseCase(UseCases::eatSporeNoSpore, "EatSpore-NoSpore");
         addUseCase(UseCases::eatSporeParalysed, "EatSpore-Paralysed");
-
-        // TectonBreak
-        addUseCase(UseCases::tectonBreak, "Tecton-Break");
 
         // GrowMushroom
         addUseCase(UseCases::growMushroomAlreadyOnTarget, "GrowMushroom-AlreadyOnTarget");
@@ -51,6 +51,9 @@ public class UseCases {
         addUseCase(UseCases::growMushroomNoMushroom, "GrowMushroom-NoMushroom");
         addUseCase(UseCases::growMushroomNotEnoughSpore, "GrowMushroom-NotEnoughSpore");
         addUseCase(UseCases::growMushroomSuccess, "GrowMushroom-Success");
+
+        // TectonBreak
+        addUseCase(UseCases::tectonBreak, "Tecton-Break");
     }
 
     // #region BurstSpore
