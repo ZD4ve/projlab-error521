@@ -40,7 +40,6 @@ public class UseCases {
         addUseCase(UseCases::myceliumTearingTear, "MyceliumTearing-Tear");
 
         // EatSpore
-        // TODO: GetAntiChewEffect, GetNoEffect, GetParalysedEffect, GetSpeedEffect a Success helyett
         addUseCase(UseCases::eatSporeSuccess, "EatSpore-Success");
         addUseCase(UseCases::eatSporeNoSpore, "EatSpore-NoSpore");
         addUseCase(UseCases::eatSporeParalysed, "EatSpore-Paralysed");
