@@ -272,7 +272,7 @@ public class UseCases {
         printOn = true;
         boolean success = s1.growMycelium(t1, t2);
         if (success) {
-            var myc = (Mycelium) getObjByName("myc");
+            var myc = (Mycelium) getObjByName("mycelium");
             myc.tick(1);
         }
 
@@ -306,7 +306,7 @@ public class UseCases {
         printOn = true;
         boolean success = s1.growMycelium(t1, t2);
         if (success) {
-            var myc = (Mycelium) getObjByName("myc");
+            var myc = (Mycelium) getObjByName("mycelium");
             myc.tick(1);
         }
 
