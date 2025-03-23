@@ -3,7 +3,6 @@ package model;
 import helper.Skeleton;
 import static helper.Skeleton.printCall;
 import static helper.Skeleton.printReturn;
-import java.util.List;
 import java.util.Arrays;
 
 public class Mushroom implements IActive {
@@ -23,10 +22,10 @@ public class Mushroom implements IActive {
     public void burstSpore(Tecton target) {
         Skeleton.printCall(this, Arrays.asList(target));
         boolean isReady = Skeleton.ask("Készen áll m1 a spóra szórására?");
-        int distance = location.distanceTo(target);
         int tmpRange = 1; // attribútum helyett lokális változó (teszthez)
 
         if (isReady) {
+            int distance = location.distanceTo(target);
             if (distance == 2) {
                 boolean isGrown = Skeleton.ask("Fejlett-e a gomba?");
                 if (isGrown)
@@ -52,10 +51,14 @@ public class Mushroom implements IActive {
     }
 
     public Fungus getSpecies() {
+        Skeleton.printCall(this);
+        Skeleton.printReturn(species);
         return species;
     }
 
     public Tecton getLocation() {
+        Skeleton.printCall(this);
+        Skeleton.printReturn(location);
         return location;
     }
 }
