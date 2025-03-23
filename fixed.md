@@ -5,3 +5,5 @@ Grow-mushroom és Tecton-break diagramok setMushroom rossz tektonon
 Tecton-break myceliumok és szomszédok törlési sorrendjének cseréje
 
 insectmove szekv. diagram hasMyceliumTo után getEnds
+
+singlemycelium-fail missing getSpicies call added

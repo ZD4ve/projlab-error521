@@ -116,6 +116,8 @@ public class UseCases {
         objNames.put(s1, "s1");
         Mushroom m1 = new Mushroom(s1, t1);
         objNames.put(m1, "m1");
+        s1.addMushroom(m1);
+        t1.setMushroom(m1);
 
         printOn = true;
     }
