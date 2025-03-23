@@ -43,7 +43,6 @@ public class Mushroom implements IActive {
         printCall(this.getClass(), Arrays.asList(fungus, location));
         this.species = fungus;
         this.location = location;
-        location.setMushroom(this);
         printReturn(this);
     }
 

@@ -322,7 +322,7 @@ public class Tecton implements IActive {
                 spores.removeAll(speciesSpores.subList(0, sporesNeeded));
                 mushroom = new Mushroom(fungus, this);
                 Skeleton.addObject(mushroom, "mush");
-                Skeleton.printReturn(null);
+                Skeleton.printReturn(mushroom);
                 return mushroom;
             }
         }
