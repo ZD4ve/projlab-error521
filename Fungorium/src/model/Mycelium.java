@@ -5,13 +5,21 @@ import static helper.Skeleton.printCall;
 import static helper.Skeleton.printReturn;
 import java.util.Arrays;
 
+/**
+ * A gombafonalak bizonyos feltételeket teljesítő tektonokon nőhetnek,
+ * felelőssége ezen feltételek ellenőrzése, valamint a létrejövés utáni
+ * vastagodás elvégzése, ennek sikerességéről a gombafaj tájékoztatása.
+ * Felelőssége továbbá a bármilyen okból történő megsemmisülésének kezelése,
+ * erről fajának értesítése, továbbá saját gombafajánal nyilvántartása.
+ */
 public class Mycelium implements IActive {
     private final Fungus species;
     private final Tecton[] ends;
 
-    // TODO: ez még nincs kész, csak beletrollkodtam (by: David)
-    // Én is (by: Márton)
-    // Most már én is (by: Panni)
+    /**
+     * Konstruktor, létrehozza a paraméterként kapott gombafajhoz tartozó
+     * gombafonalat, a két paraméterként kapott tekton közé.
+     */
     public Mycelium(Fungus fungus, Tecton end1, Tecton end2) {
         Skeleton.printCall(this.getClass(), Arrays.asList(fungus, end1, end2));
         this.species = fungus;
@@ -22,6 +30,9 @@ public class Mycelium implements IActive {
         Skeleton.printReturn(this);
     }
 
+    /**
+     * Megszünteti az egyedet, erről értesíti a gombafaját és végpontjait.
+     */
     public void die() {
         printCall(this);
         for (Tecton tecton : ends) {
@@ -31,12 +42,18 @@ public class Mycelium implements IActive {
         printReturn();
     }
 
+    /**
+     * Visszaadja a gombafonal két végpontját.
+     */
     public Tecton[] getEnds() {
         Skeleton.printCall(this);
         Skeleton.printReturn(ends);
         return ends;
     }
 
+    /**
+     * Visszaadja a gombafajt, amelyhez a gombafonal tartozik.
+     */
     public Fungus getSpecies() {
         Skeleton.printCall(this);
         Skeleton.printReturn(species);
