@@ -3,17 +3,29 @@ package model;
 import helper.Skeleton;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Arrays;
 
+/*
+ * Felelőssége összekötni az egy fajhoz tartozó spórákat, gombafonalakat, valamint gombatesteket.
+ * Felelőssége továbbá annak ellenőrzése, hogy a gombafaj tud-e gombatestet növeszteni.
+ * Felelőssége fonal növesztésénének kezdeményezése, fonalak összekötöttségének ellenőrzése, gombatest növesztésének kezdeményezése.
+ */
 public class Fungus {
-    private final List<Mushroom> mushrooms = new ArrayList<>();
+    /*
+     * A gombafajhoz tartozó gombafonalak számontartása.
+     */
     private final List<Mycelium> mycelia = new ArrayList<>();
-    private int growingMycelia = 0;
 
+    /*
+     * A gombafajhoz tartozó gombatestek számontartása.
+     */
+    private final List<Mushroom> mushrooms = new ArrayList<>();
+
+    private int growingMycelia = 0;
     private boolean checkConnectivityRunning = false;
 
     private void checkConnectivity() {
@@ -82,13 +94,22 @@ public class Fungus {
     }
 
     // GETTERS-SETTERS--------------------------------------------------------------
-
+    /*
+     * Hozzáadja a paraméterként kapott gombatestet a gombafajban tároltakhoz.
+     * 
+     * @param mushroom az új gombatest
+     */
     public void addMushroom(Mushroom mushroom) {
         Skeleton.printCall(this, Arrays.asList(mushroom));
         mushrooms.add(mushroom);
         Skeleton.printReturn();
     }
 
+    /*
+     * Kiveszi a paraméterként kapott gombatestet a gombafajban tároltakból.
+     * 
+     * @param mushroom a gombatest, amelyet kiveszünk
+     */
     public void removeMushroom(Mushroom mushroom) {
         Skeleton.printCall(this, Arrays.asList(mushroom));
         mushrooms.remove(mushroom);
@@ -96,12 +117,22 @@ public class Fungus {
         Skeleton.printReturn();
     }
 
+    /*
+     * Hozzáadja a paraméterként kapott gombafonalat a gombafajban tároltakhoz.
+     * 
+     * @param mycelium az új gombafonal
+     */
     public void addMycelium(Mycelium mycelium) {
         Skeleton.printCall(this, Arrays.asList(mycelium));
         mycelia.add(mycelium);
         Skeleton.printReturn();
     }
 
+    /*
+     * Kiveszi a paraméterként kapott gombafonalat a gombafajban tároltakból.
+     * 
+     * @param mycelium a gombafonal, amelyet kiveszünk
+     */
     public void removeMycelium(Mycelium mycelium) {
         Skeleton.printCall(this, Arrays.asList(mycelium));
         mycelia.remove(mycelium);
@@ -112,6 +143,11 @@ public class Fungus {
     // PUBLIC MEMBER
     // FUNCTIONS--------------------------------------------------------------
 
+    /*
+     * Megkeresi azokat a tektonokat, ahol a gombafajnak van gombateste vagy gombafonala, vagyis tud onnan gombafonalat növeszteni.
+     * 
+     * @return a lehetséges gombafonal növesztési források egy listában
+     */
     public List<Tecton> getPotentialMyceliumSources() {
         Skeleton.printCall(this);
         HashSet<Tecton> potentialSources = new HashSet<>();
@@ -133,6 +169,11 @@ public class Fungus {
         return new ArrayList<>(potentialSources);
     }
 
+    /*
+     * Megkeresi azokat a tektonokat, ahol a gombafajnak van fonala, vagyis lehet gombatestet növeszteni rajta.
+     * 
+     * @return Minden olyan tekton, ahova lehet gombafonalat növeszteni, listában
+     */
     public List<Tecton> getTectonsWithMycelia() {
         Skeleton.printCall(this);
         HashSet<Tecton> potentialSources = new HashSet<>();
@@ -148,6 +189,11 @@ public class Fungus {
         return new ArrayList<>(potentialSources);
     }
 
+    /*
+     * Megvizsgálja, hogy az adott gombafaj éppen hány gombafonalat növeszt.
+     * 
+     * @return Ha ez a szám kisebb mint a fajhoz tartozó gombafejek száma akkor igazat, különben hamisat ad vissza.
+     */
     public boolean canGrowMycelium() {
         Skeleton.printCall(this);
         // TODO: restore
@@ -158,12 +204,20 @@ public class Fungus {
         return canGrow;
     }
 
+    /*
+     * Jelzi, hogy a gombafonál növekedése befejeződött, ezt kezeli le.
+     */
     public void myceliumGrowthComplete() {
         Skeleton.printCall(this);
         growingMycelia--;
         Skeleton.printReturn();
     }
 
+    /*
+     * A gombatest növesztését kezdeményezi a paraméterként kapott tektonra.
+     * 
+     * @param tecton az új gombatest tektona
+     */
     public void growMushroom(Tecton tecton) {
         Skeleton.printCall(this, Arrays.asList(tecton));
         Mushroom mushroom = tecton.growMushroom(this);
@@ -172,6 +226,12 @@ public class Fungus {
         mushrooms.add(mushroom);
     }
 
+    /*
+     * A paraméterként kapott két tekton közé gombafonal építését kezdeményezi.
+     * 
+     * @param source a forrástekton
+     * @param target a céltekton
+     */
     public void growMycelium(Tecton source, Tecton target) {
         Skeleton.printCall(this, Arrays.asList(source, target));
         boolean ready = canGrowMycelium();
