@@ -753,7 +753,7 @@ public class UseCases {
         printOn = false;
         objNames.clear();
 
-        Tecton target = new Tecton();
+        NoMushroomTecton target = new NoMushroomTecton();
         objNames.put(target, "target");
 
         Tecton neighbor1 = new Tecton();
