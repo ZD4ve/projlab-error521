@@ -312,7 +312,7 @@ public class Tecton implements IActive {
      * @return az új gombatest, vagy null ha nem lehetséges a művelet.
      */
     public Mushroom growMushroom(Fungus fungus) {
-        Skeleton.printCall(this);
+        Skeleton.printCall(this, Arrays.asList(fungus));
         if (mushroom == null) {
             List<Spore> speciesSpores = getSporesForSpecies(fungus);
             boolean hasMycelium = mycelia.stream().anyMatch(x -> x.getSpecies() == fungus);
