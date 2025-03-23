@@ -342,7 +342,7 @@ public class UseCases {
 
     static void insectMoveNoMycelium() {
         insectMoveMap();
-        Insect i1 = (Insect) getObjByName("i2");
+        Insect i1 = (Insect) getObjByName("i1");
         Tecton t3 = (Tecton) getObjByName("t3");
         i1.moveTo(t3);
 

@@ -7,3 +7,9 @@ Tecton-break myceliumok és szomszédok törlési sorrendjének cseréje
 Absorb-mycelium map paraméterek és felesleges/rossz hívások
 
 bool returnök
+
+fungus removeMushroom paraméter nélküli
+
+eatSpore usecasek egyesültek
+
+insectmove szekv. diagram hasMyceliumTo után getEnds
