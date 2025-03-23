@@ -10,6 +10,10 @@ bool returnök
 
 fungus removeMushroom paraméter nélküli
 
+tecton growMushroom paraméter nélküli
+
 eatSpore usecasek egyesültek
+
+eatSpore szekv. diagramok átdolgozva
 
 insectmove szekv. diagram hasMyceliumTo után getEnds
