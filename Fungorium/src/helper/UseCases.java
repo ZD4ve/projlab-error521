@@ -56,6 +56,7 @@ public class UseCases {
 
     static void absorbMyceliumSuccess() {
         printOn = false;
+        objNames.clear();
 
         var t1 = new Tecton();
         addObject(t1, "t1");
@@ -156,6 +157,7 @@ public class UseCases {
     // #region GrowMycelium
     static void growMyceliumNoSourceFail() {
         printOn = false;
+        objNames.clear();
         var t1 = new Tecton();
         addObject(t1, "t1");
         var t2 = new Tecton();
@@ -169,6 +171,7 @@ public class UseCases {
 
     static void growMyceliumNotNeighbor() {
         printOn = false;
+        objNames.clear();
         var t1 = new Tecton();
         addObject(t1, "t1");
 
@@ -189,6 +192,7 @@ public class UseCases {
 
     static void growMyceliumSingleMyceliumFail() {
         printOn = false;
+        objNames.clear();
         var t1 = new Tecton();
         addObject(t1, "t1");
 
@@ -223,6 +227,7 @@ public class UseCases {
 
     static void growMyceliumSingleMyceliumSuccess() {
         printOn = false;
+        objNames.clear();
         var t1 = new Tecton();
         addObject(t1, "t1");
 
@@ -248,6 +253,7 @@ public class UseCases {
 
     static void growMyceliumSuccess() {
         printOn = false;
+        objNames.clear();
         var t1 = new Tecton();
         addObject(t1, "t1");
 
