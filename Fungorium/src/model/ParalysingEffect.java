@@ -3,11 +3,11 @@ package model;
 import helper.Skeleton;
 import java.util.Arrays;
 
-/*
+/**
  * Olyan InsectEffect, amely a rovar mozgását tudja korlátozni.
  */
 public class ParalysingEffect extends InsectEffect {
-    /*
+    /**
      * Inicializálja az effektet.
      */
     public ParalysingEffect() {
@@ -15,7 +15,7 @@ public class ParalysingEffect extends InsectEffect {
         Skeleton.printReturn(this);
     }
 
-    /*
+    /**
      * Mozgásképtelenné teszi a paraméterben kapott rovart.
      *
      * @param insect a rovar, ami kapja a hatást
@@ -28,7 +28,7 @@ public class ParalysingEffect extends InsectEffect {
         Skeleton.printReturn();
     }
 
-    /*
+    /**
      * Visszaadja a rovarnak a mozgás képességét.
      */
     @Override
