@@ -357,9 +357,10 @@ public class Tecton implements IActive {
         t1Neighbors.add(t2);
         t1.fillWithStuff(spores.subList(0, spores.size() / 2), mushroom, insects.subList(0, insects.size() / 2), t1Neighbors);
 
-        var t2Neighbors = new ArrayList<>(neighbors.subList(neighbors.size() / 2, neighbors.size() - 1));
+        var t2Neighbors = new ArrayList<>(neighbors.subList(neighbors.size() / 2, Math.max(neighbors.size() - 1, 0)));
         t2Neighbors.add(t1);
-        t2.fillWithStuff(spores.subList(spores.size() / 2, spores.size() - 1), null, insects.subList(insects.size() / 2, insects.size() - 1), t2Neighbors);
+        t2.fillWithStuff(spores.subList(spores.size() / 2, Math.max(spores.size() - 1,
+                0)), null, insects.subList(insects.size() / 2, Math.max(insects.size() - 1, 0)), t2Neighbors);
         Skeleton.printReturn();
     }
 
