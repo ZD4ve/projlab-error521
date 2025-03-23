@@ -22,10 +22,10 @@ public class Mushroom implements IActive {
     public void burstSpore(Tecton target) {
         Skeleton.printCall(this, Arrays.asList(target));
         boolean isReady = Skeleton.ask("Készen áll m1 a spóra szórására?");
-        int distance = location.distanceTo(target);
         int tmpRange = 1; // attribútum helyett lokális változó (teszthez)
 
         if (isReady) {
+            int distance = location.distanceTo(target);
             if (distance == 2) {
                 boolean isGrown = Skeleton.ask("Fejlett-e a gomba?");
                 if (isGrown)
