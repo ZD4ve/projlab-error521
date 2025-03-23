@@ -75,7 +75,7 @@ newpage
     Dying -> New1 : newMe()
     activate New1
     return
-    Dying -> New1 : fillWithStuff([s1], m1, [i1], [neighbor1, t2])
+    Dying -> New1 : fillWithStuff([s2], m1, [i1], [neighbor1, t2])
     activate New1
 
             participant "i1:Insect" as insect1
@@ -103,7 +103,7 @@ newpage
     activate New2
     return
 
-    Dying -> New2 : fillWithStuff([s2], null, [i2], [neighbor2, t1])
+    Dying -> New2 : fillWithStuff([], null, [i2], [neighbor2, t1])
     activate New2
 
             participant "i2:Insect" as insect2
