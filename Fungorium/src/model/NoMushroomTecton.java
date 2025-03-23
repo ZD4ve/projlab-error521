@@ -1,10 +1,11 @@
 package model;
 
+import helper.Skeleton;
 import java.util.Arrays;
 
-import helper.Skeleton;
-
 /**
+ * <h3>Gombatest nélküli tekton</h3>
+ * 
  * Olyan speciális tekton, ami nem engedélyezi gombatest növesztését.
  */
 public class NoMushroomTecton extends Tecton {
