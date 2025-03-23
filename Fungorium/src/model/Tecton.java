@@ -330,19 +330,6 @@ public class Tecton implements IActive {
         return null;
     }
 
-    private boolean myceliumExists(Fungus fungus, Tecton t1, Tecton t2) {
-        printCall(this, Arrays.asList(fungus, t1, t2));
-        for (Mycelium m : mycelia) {
-            if (m.getSpecies() == fungus && (Arrays.equals(m.getEnds(), new Tecton[] { t1, t2 })
-                    || Arrays.equals(m.getEnds(), new Tecton[] { t2, t1 }))) {
-                Skeleton.printReturn(true);
-                return true;
-            }
-        }
-        Skeleton.printReturn(false);
-        return false;
-    }
-
     /**
      * Gombafonalat növeszt a megadott cél tektonra, ha lehetséges.
      * 
