@@ -120,7 +120,7 @@ public class UseCases {
     }
 
     /**
-     * Gombafonalat felszívó tekton felszívja a rajta található gombafonalat.
+     * Egy gombatest egy tőle 1 távolságra lévő tektonra kíván spórát szórni.
      */
     static void burstSporeDist1() {
         burstSporeMap();
@@ -369,12 +369,12 @@ public class UseCases {
     }
 
     /**
-     * A rovar megpróbál atmozdulni egy tektonra, de mivel nincs fonál oda, így ez
+     * A rovar megpróbál átmozdulni egy tektonra, de mivel nincs fonál oda, így ez
      * nem történik meg.
      */
     static void insectMoveNoMycelium() {
         insectMoveMap();
-        Insect i1 = (Insect) getObjByName("i2");
+        Insect i1 = (Insect) getObjByName("i1");
         Tecton t3 = (Tecton) getObjByName("t3");
         i1.moveTo(t3);
 
@@ -573,7 +573,7 @@ public class UseCases {
     }
 
     /**
-     * Rovar spóra evést követően rágást képtelen lesz.
+     * Rovar spóra evést követően rágásképtelen lesz.
      */
     static void eatSporeParalysed() {
         eatSporeMapParalysed();
