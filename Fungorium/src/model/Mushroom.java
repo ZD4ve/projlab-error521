@@ -6,6 +6,8 @@ import static helper.Skeleton.printReturn;
 import java.util.Arrays;
 
 /**
+ * <h3>Gombatest</h3>
+ * 
  * Felelőssége a saját fejlődésének kezelése, illetve a saját halálának feltételeinek beteljesülésének ellenőrzése.
  * Halálakor értesíti a megfelelő objektumokat, hogy ők is le tudják kezelni a halálának következményeit.
  * Felelőssége továbbá a spóraszórás kezdeményezése, illetve az ehhez szükséges ellenőrzések elvégzése.

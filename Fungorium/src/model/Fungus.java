@@ -10,6 +10,8 @@ import java.util.HashSet;
 import java.util.List;
 
 /**
+ * <h3>Gombafaj</h3>
+ * 
  * Felelőssége összekötni az egy fajhoz tartozó spórákat, gombafonalakat,
  * valamint gombatesteket. Felelőssége továbbá annak ellenőrzése, hogy a
  * gombafaj tud-e gombatestet növeszteni. Felelőssége fonal növesztésénének

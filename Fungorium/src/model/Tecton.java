@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Queue;
 
 /**
+ * <h3>Tekton</h3>
+ * 
  * Felelőssége a saját szomszédainak, valamint a rajta található további
  * objektumok nyilvántartása. Felelőssége a gombatestek, gombafonalak
  * növesztéséhez szükséges ellenőrzések elvégzése, valamint ezek halálakor azon
