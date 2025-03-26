@@ -114,7 +114,7 @@ newpage
     return
 
 
-    Dying -> New2 : fillWithStuff([s2], null, [i2], [neighbor2, t1])
+    Dying -> New2 : fillWithStuff([], null, [i2], [neighbor2, t1])
     activate New2
 
             participant "i2:Insect" as insect2
