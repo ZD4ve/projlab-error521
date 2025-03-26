@@ -3,15 +3,24 @@ hide footbox
 
 actor Time
 participant ":Mycelium" as mycelium
-participant ":Fungus" as fungus
+participant "species:Fungus" as species
 
 Time -> mycelium : tick(dT)
 activate mycelium
 
-opt Growing && cooldown == 0
-    mycelium -> fungus : myceliumGrowthComplete()
-    activate fungus
-    return
+opt cooldown == 0    
+    alt Growing
+        mycelium -> species : myceliumGrowthComplete()
+        activate species
+        return
+    else Chewed
+        mycelium -> mycelium : die()
+        activate mycelium
+            ref over mycelium
+                mycelium-death
+            end ref
+        return 
+    end
 end
 
 return

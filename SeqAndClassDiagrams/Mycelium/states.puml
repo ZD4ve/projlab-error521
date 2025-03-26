@@ -1,5 +1,4 @@
 @startuml MyceliumStates
-skinparam linetype ortho
 
 [*] --> Growing
 Growing --> Normal : tick(dT)\n[cooldown == 0]
@@ -7,5 +6,10 @@ Growing --> Normal : tick(dT)\n[cooldown == 0]
 Normal --> [*] : die()
 Growing --> [*] : die()
 
+Normal --> Chewed : chew()
+Growing --> Chewed : chew()
 
-@enduml
+Chewed --> [*] : tick(dT)\n[cooldown == 0]
+ 
+
+@enduml   

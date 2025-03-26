@@ -1,4 +1,5 @@
 @startuml Tecton/special-tecton-classes
+left to right direction
 
 class Tecton
 class NoMushroomTecton {
@@ -14,9 +15,14 @@ class MyceliumAbsorbingTecton {
     newMe() : MyceliumAbsorbingTecton
     tick(dT)
 }
+class MyceliumKeepingTecton {
+    newMe() : MyceliumKeepingTecton
+    keepsMyceliumAlive() : boolean
+}
 
 Tecton <|-- NoMushroomTecton
 Tecton <|-- SingleMyceliumTecton
 Tecton <|-- MyceliumAbsorbingTecton
+Tecton <|-- MyceliumKeepingTecton
 
 @enduml

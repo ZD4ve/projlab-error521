@@ -4,9 +4,11 @@ hide footbox
 actor Mycologist
 participant "species:Fungus" as fungus
 participant "target:Tecton" as target
-collections "spores:Spore" as spore
 collections "mycelia:Mycelium" as mycelium
+collections "spores:Spore" as spore
 participant "mushroom:Mushroom" as mushroom
+collections "insects:Insect" as insect
+collections "activeEffects:InsectEffect" as effect
 
 Mycologist -> fungus : growMushroom(target)
 activate fungus
@@ -15,24 +17,46 @@ fungus -> target: growMushroom(species)
 activate target
 
 opt mushroom does not exist
-    target -> spore : getSpecies()
-    activate spore
-    return species
 
-    opt hasEnoughSpores
-        target -> mycelium : getSpecies()
-        activate mycelium
+    target -> mycelium : getSpecies()
+    activate mycelium
+    return species
+    opt hasMycelium
+        target -> insect : isParalysed()
+        activate insect
+        return paralysed
+        opt is any paralysed
+            note over insect : only calling on first paralysed insect
+            target -> insect : die()
+            activate insect
+                insect -> effect : remove()
+                activate effect
+                return
+                insect -> target : removeInsect()
+                activate target
+                return
+            return
+        end
+        target -> spore : getSpecies()
+        activate spore
         return species
-        opt hasMycelium
+
+        opt is any paralysed || hasEnoughSpores 
             create mushroom
             target -> mushroom : new(species, target)
             activate mushroom
-            return mushroom
+                mushroom -> fungus : addMushroom(mushroom)
+                activate fungus
+                return
+                mushroom -> target : setMushroom(mushroom)
+                activate target
+                return
+            return
         end
     end
 end
-return mushroom
+return success
 
-return
+return success
 
 @enduml

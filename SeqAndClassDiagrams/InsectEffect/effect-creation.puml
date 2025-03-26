@@ -6,6 +6,7 @@ participant ":InsectEffect" as effect
 participant ":AntiChewEffect" as antichewEffect
 participant ":ParalysingEffect" as paralysingEffect
 participant ":SpeedEffect" as speedEffect
+participant ":FissionEffect" as fissionEffect
 
 activate spore
 
@@ -27,7 +28,12 @@ else random == 3
     effect -> speedEffect : new()
     activate speedEffect
     return effect
-else random > 3
+else random == 4
+    create fissionEffect
+    effect -> fissionEffect : new()
+    activate fissionEffect
+    return effect
+else random > 4
     ' effect -> effect : effect = null
     note over effect
         effect is null here

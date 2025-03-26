@@ -17,5 +17,6 @@ state Alive {
     Toothless --> CanChew : setAntiChewCount(0)
 }
 [*] --> Alive
+Alive --> [*] : die()
 
 @enduml

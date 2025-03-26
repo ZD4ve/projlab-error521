@@ -1,0 +1,26 @@
+@startuml FissionEffect/application
+hide footbox
+
+participant ":FissionEffect" as effect
+participant "target:Insect" as target
+participant "ins:Insect" as ins
+participant "location:Tecton" as location
+
+-> effect : applyTo(target)
+activate effect
+
+effect -> target : split()
+activate target
+    create ins
+    target -> ins : new(location)
+    activate ins
+        ins -> location : addInsect(ins)
+        activate location
+        return
+    return
+    note over target : register to the same controller
+return
+
+<-- effect
+deactivate effect
+@enduml

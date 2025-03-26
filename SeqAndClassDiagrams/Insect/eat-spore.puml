@@ -38,6 +38,6 @@ opt Idle && CanMove
     end
 end
 
-return
+return success
 
 @enduml

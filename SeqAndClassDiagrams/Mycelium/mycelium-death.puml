@@ -8,6 +8,12 @@ participant "species:Fungus" as fungus
 -> mycelium : die()
 activate mycelium
 
+opt Growing
+    mycelium -> fungus : myceliumGrowthComplete()
+    activate fungus
+    return
+end
+
 mycelium -> location : removeMycelium(myc)
 activate location
 return

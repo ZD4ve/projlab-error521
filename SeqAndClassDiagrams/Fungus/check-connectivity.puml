@@ -4,6 +4,7 @@ hide footbox
 participant ":Fungus" as fungus
 collections "mycelia:Myceilum" as mycelium
 collections "mushrooms:Mushroom" as mushroom
+collections "ends:Tecton" as ends
 
 activate fungus
 
@@ -14,6 +15,11 @@ return location
 fungus -> mycelium : getEnds()
 activate mycelium
 return ends
+
+fungus -> ends : keepsMyceliumAlive()
+activate ends
+'implementation: simulate a virtual Mushroom
+return keepsAlive
 
 
 loop for each item in mycela

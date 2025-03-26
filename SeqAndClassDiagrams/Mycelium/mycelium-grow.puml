@@ -51,9 +51,13 @@ activate source
         activate target
         return
 
-        return mycelium
+        mycelium -> species : addMycelium(mycelium)
+        activate species
+        return
+
+        return
     end
-return mycelium
+return success
 end
 
 return success

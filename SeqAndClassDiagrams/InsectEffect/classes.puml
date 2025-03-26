@@ -20,8 +20,13 @@ class AntiChewEffect{
     applyTo(Insect)
     remove()
 }
+class FissionEffect{
+    applyTo(Insect)
+    remove()
+}
 
 
 InsectEffect <|-- SpeedEffect
 InsectEffect <|-- ParalysingEffect
 InsectEffect <|-- AntiChewEffect
+InsectEffect <|-- FissionEffect

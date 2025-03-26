@@ -12,10 +12,11 @@ class Tecton {
     fillWithStuff(Spore[], Mushroom, Insect[], Tecton[])
     hasMyceliumTo(Tecton) : boolean
     canGrowMyceliumFrom(Fungus) : boolean
+    keepsMyceliumAlive() : boolean
     distanceTo(Tecton) : int
     newMe() : Tecton
-    growMushroom(Fungus)
-    growMycelium(Fungus, Tecton)
+    growMushroom(Fungus) : boolean
+    growMycelium(Fungus, Tecton) : boolean
 }
 class Fungus {
     Fungus()
@@ -23,18 +24,19 @@ class Fungus {
     getTectonsWithMycelia() : Tecton[]
     canGrowMycelium() : boolean
     myceliumGrowthComplete()
-    growMushroom(Tecton)
-    growMycelium(Tecton, Tecton)
+    growMushroom(Tecton) : boolean
+    growMycelium(Tecton, Tecton) : boolean
 }
 class Mycelium {
     Mycelium(Fungus,Tecton,Tecton)
     die()
+    chew()
 }
 class Mushroom {
     range
     cooldown
     Mushroom(Fungus, Tecton)
-    burstSpore(Tecton)
+    burstSpore(Tecton) : boolean
 }
 class Spore {
     Spore(Fungus)
@@ -47,12 +49,14 @@ class Insect {
     isParalysed
     score
     Insect(Tecton)
-    eatSpore()
+    eatSpore() : boolean
     getPotentialMoveTargets() : Tecton[]
     getPotencialChewTargets() : Mycelium[]
     removeEffect(InsectEffect)
-    moveTo(Tecton)
-    chewMycelium(Mycelium)
+    moveTo(Tecton) : boolean
+    chewMycelium(Mycelium): boolean
+    split()
+    die()
 }
 abstract InsectEffect {
     timeLeft
