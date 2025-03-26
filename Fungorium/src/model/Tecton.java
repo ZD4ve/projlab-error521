@@ -71,7 +71,8 @@ public class Tecton implements IActive {
      */
     public void addNeighbor(Tecton tecton) {
         Skeleton.printCall(this, Arrays.asList(tecton));
-        neighbors.add(tecton);
+        if (!neighbors.contains(tecton))
+            neighbors.add(tecton);
         Skeleton.printReturn();
     }
 
@@ -209,9 +210,13 @@ public class Tecton implements IActive {
     public void fillWithStuff(List<Spore> spores, Mushroom mushroom, List<Insect> insects, List<Tecton> neighbors) {
         Skeleton.printCall(this, Arrays.asList(spores, mushroom, insects, neighbors));
         this.spores.addAll(spores);
-        this.mushroom = mushroom;
         this.insects.addAll(insects);
+        insects.forEach(x -> x.setLocation(this));
+        this.mushroom = mushroom;
+        if (mushroom != null)
+            mushroom.setLocation(this);
         this.neighbors.addAll(neighbors);
+        neighbors.forEach(x -> x.addNeighbor(this));
         Skeleton.printReturn();
 
     }
@@ -371,11 +376,13 @@ public class Tecton implements IActive {
 
         var t1Neighbors = new ArrayList<>(neighbors.subList(0, neighbors.size() / 2));
         t1Neighbors.add(t2);
-        t1.fillWithStuff(spores.subList(0, spores.size() / 2), mushroom, insects.subList(0, insects.size() / 2), t1Neighbors);
+        t1.fillWithStuff(spores.subList(0, spores.size() / 2), mushroom, insects.subList(0, insects.size() / 2),
+                t1Neighbors);
 
         var t2Neighbors = new ArrayList<>(neighbors.subList(neighbors.size() / 2, Math.max(neighbors.size() - 1, 0)));
         t2Neighbors.add(t1);
-        t2.fillWithStuff(spores.subList(spores.size() / 2, Math.max(spores.size() - 1, 0)), null, insects.subList(insects.size() / 2, Math.max(insects.size() - 1, 0)), t2Neighbors);
+        t2.fillWithStuff(spores.subList(spores.size() / 2, Math.max(spores.size() - 1, 0)), null,
+                insects.subList(insects.size() / 2, Math.max(insects.size() - 1, 0)), t2Neighbors);
         Skeleton.printReturn();
     }
 

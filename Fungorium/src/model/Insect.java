@@ -135,6 +135,17 @@ public class Insect implements IActive {
     }
 
     /**
+     * Beállítja a rovar helyét.
+     * 
+     * @param location a rovar új helye
+     */
+    public void setLocation(Tecton location) {
+        Skeleton.printCall(this, Arrays.asList(location));
+        this.location = location;
+        Skeleton.printReturn();
+    }
+
+    /**
      * A rovarász pontszámának lekérdezése.
      * 
      * @return rovarász jelenlegi pontszáma

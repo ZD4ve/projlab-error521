@@ -75,6 +75,12 @@ newpage
     Dying -> New1 : newMe()
     activate New1
     return
+
+    create "t2:Tecton" as New2
+    Dying -> New2 : newMe()
+    activate New2
+    return
+
     Dying -> New1 : fillWithStuff([s1], m1, [i1], [neighbor1, t2])
     activate New1
 
@@ -91,17 +97,22 @@ newpage
             New1 -> neighbor1 : addNeighbor(t1)
             activate neighbor1
             return
+            New1 -> New2 : addNeighbor(t1)
+            activate New2
+            return
 
+            /'
+            Belső működés
             New1 -> New1 : addNeighbor(neighbor1)
             activate New1
             return
+            New1 -> New1 : addNeighbor(t2)
+            activate New1
+            return
+            '/
 
     return
 
-    create "t2:Tecton" as New2
-    Dying -> New2 : newMe()
-    activate New2
-    return
 
     Dying -> New2 : fillWithStuff([s2], null, [i2], [neighbor2, t1])
     activate New2
@@ -115,10 +126,22 @@ newpage
             New2 -> neighbor2 : addNeighbor(t2)
             activate neighbor2
             return
+            
+            New2 -> New1 : addNeighbor(t2)
+            activate New1
+            return
 
+            /'
+            Belső működés
             New2 -> New2 : addNeighbor(neighbor2)
             activate New2
             return
+
+            New2 -> New2 : addNeighbor(t1)
+            activate New2
+            return
+            '/
+
 
     return
 
