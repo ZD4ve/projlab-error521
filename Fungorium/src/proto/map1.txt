@@ -1,0 +1,30 @@
+tectons
+tect
+tect
+exit
+
+neighbors
+te01 -- te02
+exit
+
+fungi 1
+
+spores
+fu01 te01
+exit
+
+mycelia
+te01 .. te02 : fu01
+exit
+
+colonies 1
+
+insects
+co01 te01
+exit
+
+mushrooms
+fu01 te01
+exit
+
+end
