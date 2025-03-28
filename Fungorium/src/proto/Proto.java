@@ -1,9 +1,15 @@
 package proto;
 
 import java.util.HashMap;
+import java.util.Map;
+
+import model.Fungus;
+import model.Mushroom;
+import model.Tecton;
 
 public class Proto {
     static HashMap<String, Object> gameObjects = new HashMap<>();
+    static Map<Class, String> names = Map.of(Fungus.class, "fu", Tecton.class, "te", Mushroom.class, "mu");
 
     public static void main(String[] args) {
 
