@@ -1,0 +1,22 @@
+@startuml Grow-mycelium/map-success
+'skinparam linetype ortho
+left to right direction
+title GrowMycelium-MapSuccess
+
+rectangle Skeleton
+
+rectangle "t1:Tecton" as t1
+rectangle "t2:Tecton" as t2
+rectangle "s1:Fungus" as s1
+rectangle "m1:Mushroom" as m1
+
+Skeleton --> t1: 1: new()
+Skeleton --> t2: 2: new()
+Skeleton --> t1: 3: addNeighbor(t2)
+Skeleton --> t2: 4: addNeighbor(t1)
+Skeleton --> s1 : 5: new()
+Skeleton --> m1: 6: new(s1, t1)
+Skeleton -> t1 : 7: setMushroom(m1)
+Skeleton --> s1 : 8: addMushroom(m1)
+
+@enduml

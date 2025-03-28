@@ -1,0 +1,29 @@
+{
+    "files.autoSave": "afterDelay",
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "git.autofetch": true,
+    "cSpell.enabled": true,
+    "cSpell.language": "en,hu",
+    "java.project.sourcePaths": [
+        "src"
+    ],
+    "java.project.outputPath": "bin",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar"
+    ],
+    "files.exclude": {
+        "bin": true
+    },
+    "cSpell.words": [
+        "beállítva",
+        "cooldown",
+        "NOSONAR",
+        "paralysed",
+        "paralysing",
+        "tecton",
+        "tectons"
+    ],
+    "java.format.settings.url": ".vscode/java-formatter.xml",
+    "java.completion.guessMethodArguments": "off"
+}

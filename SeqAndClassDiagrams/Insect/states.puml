@@ -1,0 +1,22 @@
+@startuml InsectStates
+skinparam linetype ortho
+
+skinparam Padding 9
+
+state Alive {
+    [*] --> Idle
+    Idle --> Active : setCooldown(value)\n[value > 0]
+    Active --> Idle : tick(dT)\n[cooldown == 0]
+    ||
+    [*] --> CanMove
+    CanMove --> Paralysed : setIsParalysed(true)
+    Paralysed --> CanMove : setIsParalysed(false)
+    ||
+    [*] --> CanChew
+    CanChew --> Toothless : setAntiChewCount(value)\n[value > 0]
+    Toothless --> CanChew : setAntiChewCount(0)
+}
+[*] --> Alive
+Alive --> [*] : die()
+
+@enduml

@@ -1,0 +1,24 @@
+@startuml Mushroom/mushroom-death
+hide footbox
+
+participant "mushroom:Mushroom" as mushroom
+participant "location:Tecton" as location
+participant "species:Fungus" as fungus
+
+activate mushroom
+
+mushroom -> location : removeMushroom(mushroom)
+activate location
+return
+
+mushroom -> fungus : removeMushroom(mushroom)
+activate fungus
+ref over fungus
+    check-connectivity 
+end ref
+return
+
+
+' destroy mushroom
+
+@enduml

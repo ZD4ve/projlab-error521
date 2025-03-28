@@ -1,0 +1,91 @@
+@startuml classes
+interface IActive {
+    tick(dT)
+}
+class Tecton {
+    Tecton()
+    addNeighbor(Tecton)
+    addInsect(Insect)
+    addSpore(Spore)
+    removeNeighbor(Tecton)
+    removeInsect(Insect)
+    fillWithStuff(Spore[], Mushroom, Insect[], Tecton[])
+    hasMyceliumTo(Tecton) : boolean
+    canGrowMyceliumFrom(Fungus) : boolean
+    keepsMyceliumAlive() : boolean
+    distanceTo(Tecton) : int
+    newMe() : Tecton
+    growMushroom(Fungus) : boolean
+    growMycelium(Fungus, Tecton) : boolean
+}
+class Fungus {
+    Fungus()
+    getPotentialMyceliumSources() : Tecton[]
+    getTectonsWithMycelia() : Tecton[]
+    canGrowMycelium() : boolean
+    myceliumGrowthComplete()
+    growMushroom(Tecton) : boolean
+    growMycelium(Tecton, Tecton) : boolean
+}
+class Mycelium {
+    Mycelium(Fungus,Tecton,Tecton)
+    die()
+    chew()
+}
+class Mushroom {
+    range
+    cooldown
+    Mushroom(Fungus, Tecton)
+    burstSpore(Tecton) : boolean
+}
+class Spore {
+    Spore(Fungus)
+    getEffect() : InsectEffect
+}
+class Insect {
+    cooldown
+    speed
+    antiChewCount
+    isParalysed
+    score
+    Insect(Tecton)
+    eatSpore() : boolean
+    getPotentialMoveTargets() : Tecton[]
+    getPotencialChewTargets() : Mycelium[]
+    removeEffect(InsectEffect)
+    moveTo(Tecton) : boolean
+    chewMycelium(Mycelium): boolean
+    split()
+    die()
+}
+abstract InsectEffect {
+    timeLeft
+    {static} createEffect() : InsectEffect
+    {abstract} applyTo(Insect)
+    {abstract} remove()
+}
+
+IActive ()- Tecton
+IActive ()- Mushroom
+IActive ()- Mycelium
+IActive ()- Insect
+IActive ()- InsectEffect
+
+Tecton "*" -- "*" Tecton : neighbors
+Tecton "ends 2" -- "mycelia *" Mycelium
+Tecton "1" --> "spores *" Spore
+Tecton "location 1" -- "mushroom 0..1" Mushroom
+
+Mycelium "mycelia *" -- "species 1" Fungus
+Insect "insect 1" -- "activeEffects *" InsectEffect
+Insect "insects *" -- "location 1" Tecton
+Fungus "species 1" -- "mushrooms *" Mushroom
+Spore "*" --> "species 1" Fungus
+
+Fungus ..> Tecton
+Spore ..> InsectEffect
+Insect ..> Mycelium
+Insect ..> Spore
+Mushroom ..> Spore
+
+@enduml

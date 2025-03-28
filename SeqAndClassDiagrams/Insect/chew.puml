@@ -1,0 +1,29 @@
+@startuml Insect/chew
+hide footbox
+
+actor Entomologist
+participant ":Insect" as insect
+participant "target:Mycelium" as target
+participant "species:Fungus" as species
+
+Entomologist -> insect : chewMycelium(target)
+activate insect
+
+opt CanChew && CanMove && Idle
+    insect -> target : chew()
+    activate target
+    opt Growing
+        target -> species : myceliumGrowthComplete()
+        activate species
+        return
+    end
+    return
+
+    insect -> insect : setCooldown(num)
+    activate insect
+    return
+end
+
+return success
+
+@enduml

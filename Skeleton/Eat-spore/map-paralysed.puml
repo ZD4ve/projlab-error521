@@ -1,0 +1,28 @@
+@startuml Eat-spore/map-paralysed
+left to right direction
+<<<<<<< HEAD:Skeleton/Eat-spore/map-!canMove.pu
+title EatSpore-Map!CanMove
+=======
+title EatSpore-MapParalysed
+>>>>>>> 0212bc0635bebf279ac0957216bbc1a4768b4fab:Skeleton/Eat-spore/map-paralysed.puml
+
+rectangle Skeleton as S 
+
+rectangle "fu1:Fungus" as fu1
+rectangle "t1:Tecton" as t1
+rectangle "i1:Insect" as i1
+rectangle "p1:ParalysingEffect" as p1
+
+S --> t1: 1: new()
+
+S --> i1 : 2: new(t1)
+i1 --> t1 : 2.1: addInsect(i1)
+
+S --> fu1: 3: new()
+
+S --> p1 : 4: new()
+S --> i1 : 5: addActiveEffect(p1)
+S --> p1 : 6: applyTo(i1)
+p1 --> i1 : 6.1: setIsParalysed(true)
+
+@enduml

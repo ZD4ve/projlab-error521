@@ -8,8 +8,12 @@
     "cooldown",
     "enduml",
     "footbox",
+    "hívásai",
+    "NOSONAR",
+    "Paralysed",
     "startuml",
     "Tecton"
   ],
   "cSpell.language": "en,hu",
+  "java.completion.guessMethodArguments": "off"
 }

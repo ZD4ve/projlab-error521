@@ -1,0 +1,55 @@
+@startuml Grow-mushroom/map-success
+left to right direction
+
+title GrowMushroom-MapSuccess
+
+rectangle Skeleton as S 
+
+rectangle "fu1:Fungus" as fu1
+rectangle "fu2:Fungus" as fu2
+rectangle "my1:Mycelium" as mycelia1
+rectangle "my2:Mycelium" as mycelia2
+rectangle "target:Tecton" as tecton
+rectangle "neighbor1:Tecton" as neighbor1
+rectangle "neighbor2:Tecton" as neighbor2
+rectangle "sp1:Spore" as sp1
+rectangle "sp2:Spore" as sp2
+rectangle "sp3:Spore" as sp3
+rectangle "mu1:Mushroom" as mu1
+
+S --> tecton: 1: new()
+S --> neighbor1: 2: new()
+S --> neighbor2: 3: new()
+S --> tecton: 4: addNeighbor(neighbor2)
+S --> tecton: 5: addNeighbor(neighbor1)
+S --> neighbor1: 6: addNeighbor(target)
+S --> neighbor1: 7: addNeighbor(neighbor2)
+S --> neighbor2: 8: addNeighbor(target)
+S --> neighbor2: 9: addNeighbor(neighbor1)
+
+S -left-> fu1: 10: new()
+S -left-> fu2: 11: new()
+
+S --> mycelia1: 12: new(fu2,target,neighbor2)
+mycelia1 --> tecton: 12.1: addMycelium(mycelia1)
+mycelia1 --> neighbor2 : 12.2: addMycelium(mycelia1)
+
+S --> mycelia2: 13: new(fu1,target,neighbor1)
+mycelia2 --> tecton: 13.1: addMycelium(mycelia2)
+mycelia2 --> neighbor1 : 13.2: addMycelium(mycelia2)
+
+S --> fu2: 14. addMycelium(mycelia1)
+S --> fu1: 15. addMycelium(mycelia2)
+
+S --> sp1: 16: new(fu1)
+S --> sp2: 17: new(fu1)
+S --> sp3: 18: new(fu1)
+S --> tecton: 19: addSpore(sp1)
+S --> tecton: 20: addSpore(sp2)
+S --> tecton: 21: addSpore(sp3)
+
+S --> mu1: 22: new(fu1, neighbor1)
+S --> fu1: 23: addMushroom(mu1)
+S --> neighbor1: 24: setMushroom(mu1)
+
+@enduml

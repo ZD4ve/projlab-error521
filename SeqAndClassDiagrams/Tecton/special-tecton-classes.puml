@@ -1,0 +1,28 @@
+@startuml Tecton/special-tecton-classes
+left to right direction
+
+class Tecton
+class NoMushroomTecton {
+    newMe() : NoMushroomTecton
+    growMushroom(Fungus)
+}
+class SingleMyceliumTecton {
+    newMe() : SingleMyceliumTecton
+    canGrowMyceliumFrom(Fungus) : boolean
+}
+class MyceliumAbsorbingTecton {
+    absorbtionTimer
+    newMe() : MyceliumAbsorbingTecton
+    tick(dT)
+}
+class MyceliumKeepingTecton {
+    newMe() : MyceliumKeepingTecton
+    keepsMyceliumAlive() : boolean
+}
+
+Tecton <|-- NoMushroomTecton
+Tecton <|-- SingleMyceliumTecton
+Tecton <|-- MyceliumAbsorbingTecton
+Tecton <|-- MyceliumKeepingTecton
+
+@enduml

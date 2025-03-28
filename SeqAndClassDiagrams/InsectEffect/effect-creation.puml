@@ -1,0 +1,45 @@
+@startuml InsectEffect/effect-creation
+hide footbox
+
+participant ":Spore" as spore
+participant ":InsectEffect" as effect
+participant ":AntiChewEffect" as antichewEffect
+participant ":ParalysingEffect" as paralysingEffect
+participant ":SpeedEffect" as speedEffect
+participant ":FissionEffect" as fissionEffect
+
+activate spore
+
+spore -> effect : createEffect()
+activate effect
+
+alt random == 1
+    create antichewEffect
+    effect -> antichewEffect : new()
+    activate antichewEffect
+    return effect
+else random == 2
+    create paralysingEffect
+    effect -> paralysingEffect : new()
+    activate paralysingEffect
+    return effect
+else random == 3
+    create speedEffect
+    effect -> speedEffect : new()
+    activate speedEffect
+    return effect
+else random == 4
+    create fissionEffect
+    effect -> fissionEffect : new()
+    activate fissionEffect
+    return effect
+else random > 4
+    ' effect -> effect : effect = null
+    note over effect
+        effect is null here
+    end note
+end
+
+return effect
+
+@enduml

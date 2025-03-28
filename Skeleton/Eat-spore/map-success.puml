@@ -1,0 +1,22 @@
+@startuml Eat-spore/map-success
+hide footbox
+title EatSpore-MapSuccess
+
+rectangle Skeleton as S
+
+rectangle "fu1:Fungus" as fu1
+rectangle "t1:Tecton" as t1
+rectangle "sp1:Spore" as sp1
+rectangle "i1:Insect" as i1
+
+S --> fu1 : 1: new()
+
+S --> t1 : 2: new()
+
+S --> sp1 : 3: new(fu1)
+sp1 --> t1 : 3.1: addSpore(sp1)
+
+S --> i1 : 4: new(t1)
+i1 --> t1: 4.1: addInsect(i1)
+
+@enduml

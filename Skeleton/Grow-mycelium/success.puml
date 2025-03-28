@@ -1,0 +1,77 @@
+@startuml grow-mycelium-success
+hide footbox
+
+title INIT: GrowMycelium-MapSuccess
+
+actor Tester
+participant "s1:Fungus" as species
+participant "t1:Tecton" as source
+participant "t2:Tecton" as target
+participant "mycelium:Mycelium" as mycelium
+participant "m1:Mushroom" as m1
+
+
+Tester -> species : growMycelium(t1, t2)
+activate species
+
+species -> species : canGrowMycelium()
+activate species
+
+Tester <- species : ask("Tud még gombafonalat növeszteni a gombafaj?")
+activate Tester
+return ready
+
+return ready
+
+opt ready
+
+    species -> source : growMycelium(s1, t2)
+    activate source
+        source -> source : canGrowMyceliumFrom(s1)
+        activate source
+        return sourceCanGrow=true
+
+        source -> target : canGrowMyceliumFrom(s1)
+        activate target
+        return targetCanGrow=true
+
+        source -> m1 : getSpecies()
+        activate m1
+        return mushroomSpecies
+        note over source: mushroomSpecies = s1
+
+        create mycelium
+        source -> mycelium : new(s1, t1, t2)
+        activate mycelium
+
+        mycelium -> source : addMycelium(mycelium)
+        activate source
+        return
+
+        mycelium -> target : addMycelium(mycelium)
+        activate target
+        return
+
+        return mycelium
+
+    return mycelium
+end
+return success=ready
+
+opt success
+    Tester -> mycelium : tick(1)
+    activate mycelium
+
+    Tester <- mycelium : ask("Megvastagodott a gombafonal?")
+    activate Tester
+    return thickened
+
+    opt thickened 
+        mycelium -> species : myceliumGrowthComplete()
+        activate species
+        return
+    end
+
+    return
+end
+@enduml

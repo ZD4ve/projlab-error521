@@ -1,0 +1,10 @@
+@startuml FissionEffect/wearoff
+hide footbox
+
+participant ":FissionEffect" as effect
+
+-> effect : remove()
+activate effect
+return
+
+@enduml

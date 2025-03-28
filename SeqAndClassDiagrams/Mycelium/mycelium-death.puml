@@ -1,0 +1,32 @@
+@startuml Mycelium/mycelium-death
+hide footbox
+
+participant "myc:Mycelium" as mycelium
+collections "ends:Tecton" as location
+participant "species:Fungus" as fungus
+
+-> mycelium : die()
+activate mycelium
+
+opt Growing
+    mycelium -> fungus : myceliumGrowthComplete()
+    activate fungus
+    return
+end
+
+mycelium -> location : removeMycelium(myc)
+activate location
+return
+
+
+mycelium -> fungus : removeMycelium(myc)
+activate fungus
+ref over fungus
+    check-connectivity
+end ref
+return
+
+return
+destroy mycelium
+
+@enduml

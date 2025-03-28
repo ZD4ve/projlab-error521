@@ -1,0 +1,52 @@
+@startuml Tecton-break/map 
+left to right direction
+
+title Tecton-Break-Map
+
+rectangle Skeleton as S 
+
+rectangle "s1:Fungus" as s1
+rectangle "mycelia1:Mycelium" as mycelia1
+rectangle "mycelia1:Mycelium" as mycelia2
+rectangle "m1:Mushroom" as m1
+rectangle "tecton:Tecton" as tecton
+rectangle "neighbor1:Tecton" as neighbor1
+rectangle "neighbor2:Tecton" as neighbor2
+rectangle "i1:Insect" as i1
+rectangle "i2:Insect" as i2
+rectangle "s2:Spore" as s2
+
+S --> tecton: 1: new()
+S --> neighbor1: 2: new()
+S --> neighbor2: 3: new()
+S --> tecton: 4: addNeighbor(neighbor2)
+S --> tecton: 5: addNeighbor(neighbor1)
+S --> neighbor1: 6: addNeighbor(tecton)
+S --> neighbor2: 7: addNeighbor(tecton)
+
+S --> i1 : 8: new(tecton)
+i1 --> tecton : 8.1: addInsect(i1)
+S --> i2 : 9: new(tecton)
+i2 --> tecton : 9.1: addInsect(i2)
+
+S --> s1: 10: new()
+
+S --> mycelia1: 11: new(s1,tecton,neighbor1)
+mycelia1 --> tecton: 11.1: addMycelium(mycelia1)
+mycelia1 --> neighbor1 : 11.2: addMycelium(mycelia1)
+
+S --> mycelia2: 12: new(s1,tecton,neighbor2)
+mycelia2 --> tecton: 12.1: addMycelium(mycelia2)
+mycelia2 --> neighbor2 : 12.2: addMycelium(mycelia2)
+
+S --> s1: 13. addMycelium(mycelia1)
+S --> s1: 14. addMycelium(mycelia2)
+
+S --> m1: 15: new(s1, tecton)
+S --> s1: 16: addMushroom(m1)
+S --> neighbor1: 17: setMushroom(m1)
+
+S --> s2: 18: new(s1)
+S --> tecton: 19: addSpore(s2)
+
+@enduml

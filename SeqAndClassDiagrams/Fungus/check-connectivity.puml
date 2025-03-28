@@ -1,0 +1,34 @@
+@startuml Fungus/check-connectivity
+hide footbox
+
+participant ":Fungus" as fungus
+collections "mycelia:Myceilum" as mycelium
+collections "mushrooms:Mushroom" as mushroom
+collections "ends:Tecton" as ends
+
+activate fungus
+
+fungus -> mushroom : getLocation()
+activate mushroom
+return location
+
+fungus -> mycelium : getEnds()
+activate mycelium
+return ends
+
+fungus -> ends : keepsMyceliumAlive()
+activate ends
+'implementation: simulate a virtual Mushroom
+return keepsAlive
+
+
+loop for each item in mycela
+    opt disconnected
+        fungus -> mycelium : die()
+        activate mycelium
+        return
+        destroy mycelium
+    end
+end
+
+@enduml

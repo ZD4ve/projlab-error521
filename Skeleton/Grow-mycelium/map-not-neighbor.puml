@@ -1,0 +1,28 @@
+@startuml Grow-mycelium/map-not-neighbor
+'skinparam linetype ortho
+left to right direction
+title GrowMycelium-MapNotNeighbor
+
+rectangle Skeleton
+
+rectangle "t1:Tecton" as t1
+rectangle "t2:Tecton" as t2
+rectangle "m1:Mushroom" as m1
+rectangle "s1:Fungus" as s1
+
+
+Skeleton --> t1: 1: new()
+Skeleton --> t2: 2: new()
+Skeleton --> s1: 3: new()
+Skeleton --> m1: 4: new(s1, t1)
+Skeleton --> s1 : 5: addMushroom(m1)
+Skeleton --> t1 : 6: setMushroom(m1)
+
+
+'TODO ez így még nem lesz jó, nincs minden attr. beallitva
+'I know I know
+
+
+
+
+@enduml

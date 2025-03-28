@@ -1,0 +1,32 @@
+@startuml InsectEffect/classes
+
+abstract InsectEffect {
+    timeLeft
+    {static} createEffect() : InsectEffect
+    {abstract} applyTo(Insect)
+    {abstract} remove()
+}
+
+class SpeedEffect {
+    multiplier
+    applyTo(Insect)
+    remove()
+}
+class ParalysingEffect{
+    applyTo(Insect)
+    remove()
+}
+class AntiChewEffect{
+    applyTo(Insect)
+    remove()
+}
+class FissionEffect{
+    applyTo(Insect)
+    remove()
+}
+
+
+InsectEffect <|-- SpeedEffect
+InsectEffect <|-- ParalysingEffect
+InsectEffect <|-- AntiChewEffect
+InsectEffect <|-- FissionEffect
