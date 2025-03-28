@@ -57,7 +57,7 @@ public class Mushroom implements IActive {
      * 
      * @param target a céltekton, ahova a spóra kerül
      */
-    public void burstSpore(Tecton target) {
+    public boolean burstSpore(Tecton target) {
         Skeleton.printCall(this, Arrays.asList(target));
         boolean isReady = Skeleton.ask("Készen áll m1 a spóra szórására?");
         int tmpRange = 1; // attribútum helyett lokális változó (teszthez)
@@ -78,9 +78,12 @@ public class Mushroom implements IActive {
                     location.removeMushroom();
                     species.removeMushroom(this);
                 }
+                Skeleton.printReturn(true);
+                return true;
             }
         }
-        Skeleton.printReturn();
+        Skeleton.printReturn(false);
+        return false;
     }
 
     @Override

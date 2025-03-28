@@ -3,13 +3,11 @@ package proto;
 import java.util.HashMap;
 import java.util.Map;
 
-import model.Fungus;
-import model.Mushroom;
-import model.Tecton;
+import model.*;
 
 public class Proto {
     static HashMap<String, Object> gameObjects = new HashMap<>();
-    static Map<Class, String> names = Map.of(Fungus.class, "fu", Tecton.class, "te", Mushroom.class, "mu");
+    static Map<Class, String> names = Map.of(Fungus.class, "fu", Tecton.class, "te", Mushroom.class, "mu", Mycelium.class, "my", Spore.class, "sp", InsectEffect.class, "ie", Insect.class, "in");
 
     public static void main(String[] args) {
 

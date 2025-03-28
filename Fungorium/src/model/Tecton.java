@@ -197,6 +197,10 @@ public class Tecton implements IActive {
         Skeleton.printReturn();
     }
 
+    public Mushroom getMushroom() {
+        return mushroom;
+    }
+
     // -----------------------------------------------------------------------------
 
     /**
