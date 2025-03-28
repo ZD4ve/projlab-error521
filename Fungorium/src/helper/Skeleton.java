@@ -20,6 +20,10 @@ public class Skeleton {
     static List<Runnable> useCases = new ArrayList<>();
     static Map<Runnable, String> useCaseNames = new HashMap<>();
 
+    public static void setPrint(boolean print) {
+        printOn = print;
+    }
+
     // Segédfüggvények
     // --------------------------------------------------------------------------------
 

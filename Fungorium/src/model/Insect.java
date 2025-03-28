@@ -48,6 +48,10 @@ public class Insect implements IActive {
 
     // #region GETTERS-SETTERS
 
+    public List<InsectEffect> getActiveEffects() {
+        return activeEffects;
+    }
+
     /**
      * Beállítja a rovar várakozási idejét.
      * 
