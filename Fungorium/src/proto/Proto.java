@@ -1,15 +1,15 @@
 package proto;
 
+import helper.Skeleton;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import model.*;
 
-import helper.Skeleton;
 
 import static proto.Interact.interactPhase;
 
-import model.*;
 
 @java.lang.SuppressWarnings("java:S106") // használható büntetlenül a System IO
 public class Proto {
@@ -61,7 +61,7 @@ public class Proto {
 
         do {
             for (var param : params) {
-                if (param.equals("exit"))
+                if (param.isEmpty())
                     return;
 
                 addTectonObject(param);
@@ -91,13 +91,13 @@ public class Proto {
 
     private static void neighborsMenu(ArrayList<String> params) {
         String input;
-
+    
         for (int i = 0; i < params.size() - 2; i += 3) {
             String t1 = params.get(i);
             String check = params.get(i + 1);
             String t2 = params.get(i + 2);
 
-            if (t1.equals("exit") || check.equals("exit") || t2.equals("exit"))
+            if (t1.isEmpty()|| check.isEmpty() || t2.isEmpty())
                 return;
             if (!check.equals("--")) {
                 System.out.println("Error: invalid neighbor definition");
@@ -111,7 +111,7 @@ public class Proto {
             input = System.console().readLine();
             params = new ArrayList<>(Arrays.asList(input.split(" ")));
 
-            if (!params.isEmpty() && params.get(0).equals("exit"))
+            if (!params.isEmpty())
                 return;
 
             if (params.size() < 3) {
@@ -140,7 +140,7 @@ public class Proto {
             input = System.console().readLine();
             params = new ArrayList<>(Arrays.asList(input.split(" ")));
 
-            if (!params.isEmpty() && params.get(0).equals("exit"))
+            if (!params.isEmpty())
                 return;
 
             if (params.size() < 2) {
@@ -174,7 +174,7 @@ public class Proto {
             input = System.console().readLine();
             params = new ArrayList<>(Arrays.asList(input.split(" ")));
 
-            if (!params.isEmpty() && params.get(0).equals("exit"))
+            if (!params.isEmpty())
                 return;
 
             if (params.size() < 5) {
@@ -222,7 +222,7 @@ public class Proto {
             input = System.console().readLine();
             params = new ArrayList<>(Arrays.asList(input.split(" ")));
 
-            if (!params.isEmpty() && params.get(0).equals("exit"))
+            if (!params.isEmpty())
                 return;
 
             if (params.size() < 2) {
@@ -259,7 +259,7 @@ public class Proto {
             input = System.console().readLine();
             params = new ArrayList<>(Arrays.asList(input.split(" ")));
 
-            if (!params.isEmpty() && params.get(0).equals("exit"))
+            if (!params.isEmpty())
                 return;
 
             if (params.size() < 2) {
@@ -302,9 +302,6 @@ public class Proto {
 
             insect.setSpeed(teId);
             gameObjects.put(String.format(names.get(Insect.class) + "%02d", inId++), new Insect(tecton));
-
-            if (s.equals("exit"))
-                return;
 
         } while (!params.isEmpty());
     }
