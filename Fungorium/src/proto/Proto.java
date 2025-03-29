@@ -60,10 +60,10 @@ public class Proto {
         String input;
 
         do {
-            for (var param : params) {
-                if (param.isEmpty())
-                    return;
+            if (params.isEmpty())
+                return;
 
+            for (var param : params) {
                 addTectonObject(param);
             }
 
