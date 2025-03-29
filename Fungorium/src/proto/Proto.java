@@ -1,15 +1,13 @@
 package proto;
 
+import helper.Skeleton;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-
-import helper.Skeleton;
+import model.*;
 
 import static proto.Interact.interactPhase;
-
-import model.*;
 
 @java.lang.SuppressWarnings("java:S106") // használható büntetlenül a System IO
 public class Proto {
@@ -56,64 +54,23 @@ public class Proto {
         teId++;
     }
 
-    private static void tectonsMenu(ArrayList<String> params) {
-        String input;
-
+    private static void tectonsMenu() {
         do {
-            for (var param : params) {
-                if (param.equals("exit"))
-                    return;
-
-                addTectonObject(param);
-            }
-
-            input = System.console().readLine();
-            params = new ArrayList<>(Arrays.asList(input.split(" ")));
-        } while (!params.isEmpty());
-    }
-
-    private static void addNeighbor(String name1, String name2) {
-        var t1 = (Tecton) gameObjects.get(name1);
-        if (t1 == null) {
-            System.out.println("Error: invalid left tecton name");
-            return;
-        }
-
-        var t2 = (Tecton) gameObjects.get(name2);
-        if (t2 == null) {
-            System.out.println("Error: invalid right tecton name");
-            return;
-        }
-
-        t1.addNeighbor(t2);
-        t2.addNeighbor(t1);
-    }
-
-    private static void neighborsMenu(ArrayList<String> params) {
-        String input;
-
-        for (int i = 0; i < params.size() - 2; i += 3) {
-            String t1 = params.get(i);
-            String check = params.get(i + 1);
-            String t2 = params.get(i + 2);
-
-            if (t1.equals("exit") || check.equals("exit") || t2.equals("exit"))
-                return;
-            if (!check.equals("--")) {
-                System.out.println("Error: invalid neighbor definition");
-                continue;
-            }
-
-            addNeighbor(t1, t2);
-        }
-
-        do {
-            input = System.console().readLine();
-            params = new ArrayList<>(Arrays.asList(input.split(" ")));
-
-            if (!params.isEmpty() && params.get(0).equals("exit"))
+            String input = System.console().readLine().trim();
+            if (input.isEmpty())
                 return;
 
+            addTectonObject(input);
+        } while (true);
+    }
+
+    private static void neighborsMenu() {
+        do {
+            String input = System.console().readLine().trim();
+            if (input.isEmpty())
+                return;
+
+            var params = new ArrayList<>(Arrays.asList(input.split(" ")));
             if (params.size() < 3) {
                 System.out.println("Error: not enough args");
                 continue;
@@ -128,21 +85,30 @@ public class Proto {
                 continue;
             }
 
-            addNeighbor(t1, t2);
-        } while (!params.isEmpty());
+            var left = (Tecton) gameObjects.get(t1);
+            if (t1 == null) {
+                System.out.println("Error: invalid left tecton name");
+                return;
+            }
+
+            var right = (Tecton) gameObjects.get(t2);
+            if (t2 == null) {
+                System.out.println("Error: invalid right tecton name");
+                return;
+            }
+
+            left.addNeighbor(right);
+            right.addNeighbor(left);
+        } while (true);
     }
 
-    private static void mushroomsMenu(ArrayList<String> params) {
-        String input;
-
+    private static void mushroomsMenu() {
         do {
-
-            input = System.console().readLine();
-            params = new ArrayList<>(Arrays.asList(input.split(" ")));
-
-            if (!params.isEmpty() && params.get(0).equals("exit"))
+            String input = System.console().readLine().trim();
+            if (input.isEmpty())
                 return;
 
+            var params = new ArrayList<>(Arrays.asList(input.split(" ")));
             if (params.size() < 2) {
                 System.out.println("Not enough args.");
                 continue;
@@ -167,16 +133,13 @@ public class Proto {
         } while (true);
     }
 
-    private static void myceliaMenu(ArrayList<String> params) {
-        String input;
-
+    private static void myceliaMenu() {
         do {
-            input = System.console().readLine();
-            params = new ArrayList<>(Arrays.asList(input.split(" ")));
-
-            if (!params.isEmpty() && params.get(0).equals("exit"))
+            String input = System.console().readLine().trim();
+            if (input.isEmpty())
                 return;
 
+            var params = new ArrayList<>(Arrays.asList(input.split(" ")));
             if (params.size() < 5) {
                 System.out.println("Not enough args.");
                 continue;
@@ -212,19 +175,16 @@ public class Proto {
             }
 
             gameObjects.put(String.format(names.get(Mycelium.class) + "%02d", myId++), new Mycelium(fungus, left, right));
-        } while (!params.isEmpty());
+        } while (true);
     }
 
-    private static void sporesMenu(ArrayList<String> params) {
-        String input;
-
+    private static void sporesMenu() {
         do {
-            input = System.console().readLine();
-            params = new ArrayList<>(Arrays.asList(input.split(" ")));
-
-            if (!params.isEmpty() && params.get(0).equals("exit"))
+            String input = System.console().readLine().trim();
+            if (input.isEmpty())
                 return;
 
+            var params = new ArrayList<>(Arrays.asList(input.split(" ")));
             if (params.size() < 2) {
                 System.out.println("Not enough args.");
                 continue;
@@ -248,20 +208,15 @@ public class Proto {
             var spore = new Spore(fungus);
 
             tecton.addSpore(spore);
-
         } while (true);
     }
 
-    private static void insectsMenu(ArrayList<String> params) {
-        String input;
-
+    private static void insectsMenu() {
         do {
-            input = System.console().readLine();
-            params = new ArrayList<>(Arrays.asList(input.split(" ")));
-
-            if (!params.isEmpty() && params.get(0).equals("exit"))
+            String input = System.console().readLine().trim();
+            if (input.isEmpty())
                 return;
-
+            var params = new ArrayList<>(Arrays.asList(input.split(" ")));
             if (params.size() < 2) {
                 System.out.println("Not enough args.");
                 continue;
@@ -303,18 +258,13 @@ public class Proto {
             insect.setSpeed(teId);
             gameObjects.put(String.format(names.get(Insect.class) + "%02d", inId++), new Insect(tecton));
 
-            if (s.equals("exit"))
-                return;
-
-        } while (!params.isEmpty());
+        } while (true);
     }
 
     // Main menu
     private static void buildPhase() {
-        String input;
-
         do {
-            input = System.console().readLine();
+            String input = System.console().readLine();
             if (input.isEmpty())
                 continue;
 
@@ -324,10 +274,10 @@ public class Proto {
 
             switch (command) {
             case "tectons":
-                tectonsMenu(params);
+                tectonsMenu();
                 break;
             case "neighbors":
-                neighborsMenu(params);
+                neighborsMenu();
                 break;
             case "fungi":
                 if (!params.isEmpty()) {
@@ -339,7 +289,6 @@ public class Proto {
                     } catch (Exception e) {
                         System.out.println("Arg must be a valid integer.");
                     }
-
                 }
 
                 break;
@@ -358,17 +307,17 @@ public class Proto {
                 }
                 break;
             case "mushrooms":
-                mushroomsMenu(params);
+                mushroomsMenu();
                 break;
             case "mycelia":
-                myceliaMenu(params);
+                myceliaMenu();
                 break;
             case "insects":
                 // rovarok hozzáadása
-                insectsMenu(params);
+                insectsMenu();
                 break;
             case "spores":
-                sporesMenu(params);
+                sporesMenu();
                 break;
             case "end":
                 System.out.println("Entering interaction phase.");
