@@ -111,7 +111,7 @@ public class Proto {
             input = System.console().readLine();
             params = new ArrayList<>(Arrays.asList(input.split(" ")));
 
-            if (!params.isEmpty())
+            if (params.isEmpty())
                 return;
 
             if (params.size() < 3) {
@@ -140,7 +140,7 @@ public class Proto {
             input = System.console().readLine();
             params = new ArrayList<>(Arrays.asList(input.split(" ")));
 
-            if (!params.isEmpty())
+            if (params.isEmpty())
                 return;
 
             if (params.size() < 2) {
@@ -174,7 +174,7 @@ public class Proto {
             input = System.console().readLine();
             params = new ArrayList<>(Arrays.asList(input.split(" ")));
 
-            if (!params.isEmpty())
+            if (params.isEmpty())
                 return;
 
             if (params.size() < 5) {
@@ -222,7 +222,7 @@ public class Proto {
             input = System.console().readLine();
             params = new ArrayList<>(Arrays.asList(input.split(" ")));
 
-            if (!params.isEmpty())
+            if (params.isEmpty())
                 return;
 
             if (params.size() < 2) {
@@ -259,7 +259,7 @@ public class Proto {
             input = System.console().readLine();
             params = new ArrayList<>(Arrays.asList(input.split(" ")));
 
-            if (!params.isEmpty())
+            if (params.isEmpty())
                 return;
 
             if (params.size() < 2) {
