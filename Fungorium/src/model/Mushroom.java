@@ -15,6 +15,8 @@ import java.util.Arrays;
  * ellenőrzések elvégzése.
  */
 public class Mushroom implements IActive {
+    public static final int GROW_SPORES_REQUIRED = 3;
+
     /**
      * Mekkora a gomba hatótávja.
      */
