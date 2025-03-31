@@ -35,8 +35,7 @@ public abstract class InsectEffect implements IActive {
         else if (Skeleton.ask("AntiChew effektet hozzak létre?"))
             newEffect = new AntiChewEffect();
 
-        if (newEffect != null)
-            return newEffect;
+        return newEffect;
     }
 
     /**
