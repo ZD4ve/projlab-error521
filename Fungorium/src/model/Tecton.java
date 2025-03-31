@@ -1,11 +1,8 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
+import controller.Controller;
 import controller.RandomProvider;
 
 /**
@@ -58,6 +55,9 @@ public class Tecton implements IActive {
         spores = new ArrayList<>();
         insects = new ArrayList<>();
         mushroom = null;
+
+        Controller.registerActiveObject(this);
+        Controller.registerTecton(this);
     }
 
     // #region getters-setters
@@ -335,6 +335,9 @@ public class Tecton implements IActive {
      * Levezényli a tekton törési folyamatát.
      */
     private void tectonBreak() {
+        Controller.unregisterActiveObject(this);
+        Controller.unregisterTecton(this);
+
         while (!mycelia.isEmpty()) {
             mycelia.get(0).die();
         }

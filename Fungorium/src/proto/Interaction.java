@@ -216,6 +216,8 @@ public class Interaction {
                 handleInsect(input);
             } else if (input[0].startsWith(Prototype.names.get(Fungus.class))) {
                 handleFungus(input);
+            } else {
+                System.out.println(SYNTAX_ERROR);
             }
         } while (true);
     }
