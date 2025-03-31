@@ -37,7 +37,7 @@ public class SpeedEffect extends InsectEffect {
      * Visszaállítja a rovar sebességét.
      */
     @Override
-    public void remove() {
+    protected void remove() {
         double speed = insect.getSpeed();
         insect.setSpeed(speed / multiplier);
     }

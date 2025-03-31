@@ -1,10 +1,6 @@
 package model;
 
-import helper.Skeleton;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Arrays;
+import java.util.*;
 
 /**
  * <h3>Rovar</h3>
@@ -32,7 +28,7 @@ public class Insect implements IActive {
     /** hány spórát evett meg a rovar */
     private int score;
 
-    private static final double ACTION_DURATION = 1;
+    private static final double ACTION_DURATION = 3;
 
     /**
      * Rovar létrehozása és elhelyezése egy tektonon.
@@ -95,6 +91,11 @@ public class Insect implements IActive {
         this.antiChewCount = antiChewCount;
     }
 
+    // TODO DOC
+    public boolean isParalysed() {
+        return isParalysed;
+    }
+
     /**
      * A rovar bénító hatás beállítása
      */
@@ -144,8 +145,16 @@ public class Insect implements IActive {
      * @return lejárt-e a várakozási idő
      */
     private boolean ready() {
-        return Skeleton.ask("A rovarnak lejárt a várakozási ideje?");
-        // return cooldown <= 0;
+        return cooldown <= 0;
+    }
+
+    /**
+     * Megkeresi azokat a fonal, amelyeket a rovar elrághat.
+     * 
+     * @return a lehetséges célpontok listája
+     */
+    public List<Mycelium> getPotentialChewTargets() {
+        return location.getMycelia();
     }
 
     // #endregion
@@ -160,18 +169,7 @@ public class Insect implements IActive {
      */
     public List<Tecton> getPotentialMoveTargets() {
         // nem követi seq diagramot, mert az szar XD
-        var ret = location.getNeighbors().stream().filter(t -> location.hasMyceliumTo(t)).toList();
-        return ret;
-    }
-
-    /**
-     * Megkeresi azokat a fonal, amelyeket a rovar elrághat.
-     * 
-     * @return a lehetséges célpontok listája
-     */
-    public List<Mycelium> getPotentialChewTargets() {
-        var ret = location.getMycelia();
-        return ret;
+        return location.getNeighbors().stream().filter(t -> location.hasMyceliumTo(t)).toList();
     }
 
     /**
@@ -230,7 +228,7 @@ public class Insect implements IActive {
         if (isParalysed || antiChewCount > 0 || !ready()) {
             return false;
         }
-        mycelium.die();
+        mycelium.chew();
         setCooldown(ACTION_DURATION);
         return true;
     }
@@ -244,7 +242,17 @@ public class Insect implements IActive {
     // TODO DOC
     public void split() {
         new Insect(location);
-        // TODO: register to the same controller
+        // TODO register to the same controller
+    }
+
+    // TODO DOC
+    public void die() {
+        // TODO unregister from the controller
+        // TODO unregister from clock
+        while (!activeEffects.isEmpty()) {
+            activeEffects.get(0).wearOff();
+        }
+        location.removeInsect(this);
     }
     // #endregion
 }

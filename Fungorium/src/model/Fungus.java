@@ -214,14 +214,7 @@ public class Fungus {
      * @return true ha a művelet sikeres, false egyébként
      */
     public boolean growMushroom(Tecton tecton) {
-        Mushroom mushroom = tecton.growMushroom(this);
-
-        if (mushroom == null) {
-            return false;
-        }
-
-        mushrooms.add(mushroom);
-        return true;
+        return tecton.growMushroom(this);
     }
 
     /**
@@ -232,18 +225,14 @@ public class Fungus {
      * @return true ha a művelet sikeres, false egyébként
      */
     public boolean growMycelium(Tecton source, Tecton target) {
+        boolean success = false;
         boolean ready = canGrowMycelium();
-
         if (ready) {
-            Mycelium mycelium = source.growMycelium(this, target);
-
-            if (mycelium != null) {
-                mycelia.add(mycelium);
-                growingMycelia++;
-                return true;
-            }
-            return false;
+            success = source.growMycelium(this, target);
         }
-        return false;
+        if (success) {
+            growingMycelia++;
+        }
+        return success;
     }
 }

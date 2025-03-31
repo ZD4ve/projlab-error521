@@ -30,7 +30,7 @@ public class ParalysingEffect extends InsectEffect {
      * Visszaadja a rovarnak a mozgás képességét.
      */
     @Override
-    public void remove() {
+    protected void remove() {
         insect.setIsParalysed(true);
     }
 }

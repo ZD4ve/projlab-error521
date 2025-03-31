@@ -48,7 +48,13 @@ public abstract class InsectEffect implements IActive {
     /**
      * Leveszi a rovarról a hatását.
      */
-    public abstract void remove();
+    protected abstract void remove();
+
+    public void wearOff() {
+        remove();
+        insect.removeEffect(this);
+        // TODO unregister from clock
+    }
 
     /**
      * Hívásakor csökkentjük a hatás hátralévő idejét.
@@ -57,8 +63,7 @@ public abstract class InsectEffect implements IActive {
     public void tick(double dT) {
         timeLeft -= dT;
         if (timeLeft <= 0) {
-            remove();
-            insect.removeEffect(this);
+            wearOff();
         }
     }
 }

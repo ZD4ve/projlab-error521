@@ -15,8 +15,18 @@ import java.util.Arrays;
  * erről fajának értesítése, továbbá saját gombafajának nyilvántartása.
  */
 public class Mycelium implements IActive {
+    private static final double GROWTH_TIME = 10;
+    private static final double CHEW_TIME = 3;
+
     private final Fungus species;
     private final Tecton[] ends;
+
+    private enum State {
+        GROWING, NORMAL, CHEWED
+    }
+
+    private State state;
+    private double cooldown;
 
     /**
      * Konstruktor, létrehozza a paraméterként kapott gombafajhoz tartozó
@@ -28,17 +38,13 @@ public class Mycelium implements IActive {
 
         end1.addMycelium(this);
         end2.addMycelium(this);
+        fungus.addMycelium(this);
+
+        state = State.GROWING;
+        cooldown = GROWTH_TIME;
     }
 
-    /**
-     * Megszünteti az egyedet, erről értesíti a gombafaját és végpontjait.
-     */
-    public void die() {
-        for (Tecton tecton : ends) {
-            tecton.removeMycelium(this);
-        }
-        species.removeMycelium(this);
-    }
+    // #region GETTERS-SETTERS
 
     /**
      * Visszaadja a gombafonal két végpontját.
@@ -54,10 +60,46 @@ public class Mycelium implements IActive {
         return species;
     }
 
+    // #endregion
+    // #region FUNCTIONS
+
+    /**
+     * Megszünteti az egyedet, erről értesíti a gombafaját és végpontjait.
+     */
+    public void die() {
+        if (state == State.GROWING) {
+            species.myceliumGrowthComplete();
+        }
+        for (Tecton tecton : ends) {
+            tecton.removeMycelium(this);
+        }
+        species.removeMycelium(this);
+    }
+
+    // TODO DOC
+    public void chew() {
+        if (state == State.GROWING) {
+            species.myceliumGrowthComplete();
+        }
+        state = State.CHEWED;
+        cooldown = CHEW_TIME;
+    }
+
     @Override
     public void tick(double dT) {
-        boolean thickened = Skeleton.ask("Megvastagodott a gombafonal?");
-        if (thickened)
-            species.myceliumGrowthComplete();
+        if (cooldown > 0) {
+            cooldown -= dT;
+        }
+        if (cooldown <= 0) {
+            if (state == State.GROWING) {
+                state = State.NORMAL;
+                species.myceliumGrowthComplete();
+            }
+            if (state == State.CHEWED) {
+                die();
+            }
+        }
+
     }
+    // #endregion
 }

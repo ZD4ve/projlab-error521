@@ -10,7 +10,7 @@ public class FissionEffect extends InsectEffect {
     }
 
     @Override
-    public void remove() {
+    protected void remove() {
         // Nem kell semmit csinálnia, csak azonnali hatása van
     }
 
