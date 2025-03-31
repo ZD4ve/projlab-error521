@@ -1,6 +1,6 @@
 package model;
 
-import controller.RandomProvider;
+import controller.*;
 
 /**
  * <h3>Rovar hatás</h3>
@@ -18,6 +18,10 @@ public abstract class InsectEffect implements IActive {
      * A rovar, ami a hatást szenvedi.
      */
     protected Insect insect;
+
+    protected InsectEffect() {
+        Controller.registerActiveObject(this);
+    }
 
     /**
      * véletlenszerűen választ egy hatást és létrehoz belőle egyet.
@@ -53,7 +57,7 @@ public abstract class InsectEffect implements IActive {
     public void wearOff() {
         remove();
         insect.removeEffect(this);
-        // TODO unregister from clock
+        Controller.unregisterActiveObject(this);
     }
 
     /**
