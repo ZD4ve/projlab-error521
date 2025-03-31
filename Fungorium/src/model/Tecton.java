@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import proto.RandomProvider;
+
 /**
  * <h3>Tekton</h3>
  * 
@@ -20,6 +22,8 @@ import java.util.Queue;
  * tektonokra.
  */
 public class Tecton implements IActive {
+    public static final double BREAK_CHANCE_PER_SEC = 0.001;
+
     /**
      * A tektonhoz tartozó szomszédokat tárolja el.
      */
@@ -327,15 +331,18 @@ public class Tecton implements IActive {
         var t1 = newMe();
         var t2 = newMe();
 
-        // TODO: actual logic
+        // weird solution to handle the case when there is only 1 element
+        int sporeMid = Math.min(spores.size(), Math.max(spores.size() / 2, 1)); // NOSONAR this would throw an exception if it was a clamp
+        int insectMid = Math.min(insects.size(), Math.max(insects.size() / 2, 1)); // NOSONAR this would throw an exception if it was a clamp
+        int neighborMid = Math.min(neighbors.size(), Math.max(neighbors.size() / 2, 1)); // NOSONAR this would throw an exception if it was a clamp
 
-        var t1Neighbors = new ArrayList<>(neighbors.subList(0, neighbors.size() / 2));
+        var t1Neighbors = new ArrayList<>(neighbors.subList(0, neighborMid));
         t1Neighbors.add(t2);
-        t1.fillWithStuff(spores.subList(0, Math.min(spores.size(), Math.max(spores.size() / 2, 1))), mushroom, insects.subList(0, insects.size() / 2), t1Neighbors);
+        t1.fillWithStuff(spores.subList(0, sporeMid), null, insects.subList(0, insectMid), t1Neighbors);
 
-        var t2Neighbors = new ArrayList<>(neighbors.subList(neighbors.size() / 2, neighbors.size()));
+        var t2Neighbors = new ArrayList<>(neighbors.subList(neighborMid, neighbors.size()));
         t2Neighbors.add(t1);
-        t2.fillWithStuff(spores.subList(Math.min(spores.size(), Math.max(spores.size() / 2, 1)), spores.size()), null, insects.subList(insects.size() / 2, insects.size()), t2Neighbors);
+        t2.fillWithStuff(spores.subList(sporeMid, spores.size()), mushroom, insects.subList(insectMid, insects.size()), t2Neighbors);
     }
 
     /**
@@ -346,10 +353,9 @@ public class Tecton implements IActive {
      */
     @Override
     public void tick(double dT) {
-        if (dT >= 1) {
+        if (RandomProvider.nextRand() > 1.0 - dT * BREAK_CHANCE_PER_SEC) {
             tectonBreak();
         }
     }
-
     // #endregion
 }

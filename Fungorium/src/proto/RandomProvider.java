@@ -5,17 +5,20 @@ import java.util.Queue;
 import java.util.Random;
 
 public class RandomProvider {
-    private static Queue<Integer> nexts = new LinkedList<>();
-    private static Random R = new Random();
+    private static Queue<Double> nextRandoms = new LinkedList<>();
+    private static Random r = new Random();
 
-    public static int NextRand() {
-        if (!nexts.isEmpty()) {
-            return nexts.poll();
+    public static double nextRand() {
+        if (!nextRandoms.isEmpty()) {
+            return nextRandoms.poll();
         }
-        return R.nextInt();
+        return r.nextDouble();
     }
 
-    public static void addNext(int next) {
-        nexts.add(next);
+    public static void addNext(double next) {
+        nextRandoms.add(next);
+    }
+
+    private RandomProvider() {
     }
 }
