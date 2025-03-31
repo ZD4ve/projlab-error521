@@ -12,18 +12,6 @@
             "name": "Skeleton",
             "request": "launch",
             "mainClass": "helper.Skeleton"
-        },
-        {
-            "type": "java",
-            "name": "App",
-            "request": "launch",
-            "mainClass": "App"
-        },
-        {
-            "type": "java",
-            "name": "Current File",
-            "request": "launch",
-            "mainClass": "${file}"
         }
     ]
 }
