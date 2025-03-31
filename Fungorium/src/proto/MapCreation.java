@@ -1,18 +1,15 @@
 package proto;
 
-import helper.Skeleton;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import model.*;
-
-import static proto.Interact.interactPhase;
+import static proto.Prototype.*;
 
 @java.lang.SuppressWarnings("java:S106") // használható büntetlenül a System IO
-public class Proto {
-    static HashMap<String, Object> gameObjects = new HashMap<>();
-    static Map<Class, String> names = Map.of(Fungus.class, "fu", Tecton.class, "te", Mushroom.class, "mu", Mycelium.class, "my", Spore.class, "sp", InsectEffect.class, "ie", Insect.class, "in", Colony.class, "co");
+public class MapCreation {
+
+    private MapCreation() {
+    }
 
     private static int teId = 1;
     private static int fuId = 1;
@@ -21,30 +18,24 @@ public class Proto {
     private static int muId = 1;
     private static int myId = 1;
 
-    public static void main(String[] args) {
-        Skeleton.setPrint(false);
-        buildPhase();
-        interactPhase();
-    }
-
     private static void addTectonObject(String tecton) {
-        String name = String.format(names.get(Tecton.class) + "%02d", teId);
+        String name = String.format("%s%02d", Prototype.names.get(Tecton.class), teId);
 
         switch (tecton) {
         case "tect":
-            gameObjects.put(name, new Tecton());
+            namedObjects.put(name, new Tecton());
             break;
         case "nomu":
-            gameObjects.put(name, new NoMushroomTecton());
+            namedObjects.put(name, new NoMushroomTecton());
             break;
         case "simy":
-            gameObjects.put(name, new SingleMyceliumTecton());
+            namedObjects.put(name, new SingleMyceliumTecton());
             break;
         case "myab":
-            gameObjects.put(name, new MyceliumAbsorbingTecton());
+            namedObjects.put(name, new MyceliumAbsorbingTecton());
             break;
         case "myke":
-            gameObjects.put(name, new MyceliumKeepingTecton());
+            namedObjects.put(name, new MyceliumKeepingTecton());
             break;
         default:
             System.out.println("Error: invalid tecton type");
@@ -85,13 +76,13 @@ public class Proto {
                 continue;
             }
 
-            var left = (Tecton) gameObjects.get(t1);
+            var left = (Tecton) namedObjects.get(t1);
             if (t1 == null) {
                 System.out.println("Error: invalid left tecton name");
                 return;
             }
 
-            var right = (Tecton) gameObjects.get(t2);
+            var right = (Tecton) namedObjects.get(t2);
             if (t2 == null) {
                 System.out.println("Error: invalid right tecton name");
                 return;
@@ -116,19 +107,19 @@ public class Proto {
             String f = params.get(0);
             String t = params.get(1);
 
-            var fungus = (Fungus) gameObjects.get(f);
+            var fungus = (Fungus) namedObjects.get(f);
             if (fungus == null) {
                 System.out.println("Error: invalid fungus name");
                 continue;
             }
 
-            var tecton = (Tecton) gameObjects.get(t);
+            var tecton = (Tecton) namedObjects.get(t);
             if (tecton == null) {
                 System.out.println("Error: invalid tecton name");
                 continue;
             }
 
-            gameObjects.put(String.format(names.get(Mushroom.class) + "%02d", muId++), new Mushroom(fungus, tecton));
+            Prototype.registerNamedObject(Mushroom.class, new Mushroom(fungus, tecton));
 
         } while (true);
     }
@@ -156,25 +147,25 @@ public class Proto {
                 continue;
             }
 
-            Tecton left = (Tecton) gameObjects.get(t1);
+            Tecton left = (Tecton) namedObjects.get(t1);
             if (left == null) {
                 System.out.println("Error: invalid left tecton name");
                 continue;
             }
 
-            Tecton right = (Tecton) gameObjects.get(t2);
+            Tecton right = (Tecton) namedObjects.get(t2);
             if (right == null) {
                 System.out.println("Error: invalid right tecton name");
                 continue;
             }
 
-            var fungus = (Fungus) gameObjects.get(f);
+            var fungus = (Fungus) namedObjects.get(f);
             if (fungus == null) {
                 System.out.println("Error: invalid fungus name");
                 continue;
             }
 
-            gameObjects.put(String.format(names.get(Mycelium.class) + "%02d", myId++), new Mycelium(fungus, left, right));
+            namedObjects.put(String.format(Prototype.names.get(Mycelium.class) + "%02d", myId++), new Mycelium(fungus, left, right));
         } while (true);
     }
 
@@ -193,13 +184,13 @@ public class Proto {
             String f = params.get(0);
             String t = params.get(1);
 
-            var fungus = (Fungus) gameObjects.get(f);
+            var fungus = (Fungus) namedObjects.get(f);
             if (fungus == null) {
                 System.out.println("Error: invalid fungus name");
                 continue;
             }
 
-            var tecton = (Tecton) gameObjects.get(t);
+            var tecton = (Tecton) namedObjects.get(t);
             if (tecton == null) {
                 System.out.println("Error: invalid tecton name");
                 continue;
@@ -230,13 +221,13 @@ public class Proto {
                 s = params.get(2);
             }
 
-            var colony = (Colony) gameObjects.get(c);
+            var colony = (Colony) namedObjects.get(c);
             if (colony == null) {
                 System.out.println("Error: invalid colony name");
                 continue;
             }
 
-            var tecton = (Tecton) gameObjects.get(t);
+            var tecton = (Tecton) namedObjects.get(t);
             if (tecton == null) {
                 System.out.println("Error: invalid tecton name");
                 continue;
@@ -256,13 +247,13 @@ public class Proto {
             }
 
             insect.setSpeed(teId);
-            gameObjects.put(String.format(names.get(Insect.class) + "%02d", inId++), new Insect(tecton));
+            namedObjects.put(String.format(Prototype.names.get(Insect.class) + "%02d", inId++), new Insect(tecton));
 
         } while (true);
     }
 
     // Main menu
-    private static void buildPhase() {
+    public static void createMap() {
         do {
             String input = System.console().readLine();
             if (input.isEmpty())
@@ -284,7 +275,7 @@ public class Proto {
                     try {
                         int count = Integer.parseInt(params.get(0));
                         for (int i = 0; i < count; i++) {
-                            gameObjects.put(String.format(names.get(Fungus.class) + "%02d", fuId++), new Fungus());
+                            namedObjects.put(String.format(Prototype.names.get(Fungus.class) + "%02d", fuId++), new Fungus());
                         }
                     } catch (Exception e) {
                         System.out.println("Arg must be a valid integer.");
@@ -298,7 +289,7 @@ public class Proto {
                     try {
                         int count = Integer.parseInt(params.get(0));
                         for (int i = 0; i < count; i++) {
-                            gameObjects.put(String.format(names.get(Colony.class) + "%02d", coId++), new Colony());
+                            namedObjects.put(String.format(Prototype.names.get(Colony.class) + "%02d", coId++), new Colony());
                         }
                     } catch (Exception e) {
                         System.out.println("Arg must be a valid integer.");

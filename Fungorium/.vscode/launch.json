@@ -5,7 +5,7 @@
             "type": "java",
             "name": "Proto",
             "request": "launch",
-            "mainClass": "proto.Proto"
+            "mainClass": "proto.Prototype"
         },
         {
             "type": "java",
