@@ -42,12 +42,10 @@ public class Mushroom implements IActive {
      * @param location a tekton, amin található
      */
     public Mushroom(Fungus fungus, Tecton location) {
-        printCall(this.getClass(), Arrays.asList(fungus, location));
         this.species = fungus;
         this.location = location;
         location.mushroom = this;
         fungus.addMushroom(this);
-        printReturn(this);
     }
 
     /**

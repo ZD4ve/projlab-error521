@@ -53,13 +53,11 @@ public class Tecton implements IActive {
      * Létrehoz egy új példányt alapértelmezett beállításokkal.
      */
     public Tecton() {
-        printCall(this.getClass());
         neighbors = new ArrayList<>();
         mycelia = new ArrayList<>();
         spores = new ArrayList<>();
         insects = new ArrayList<>();
         mushroom = null;
-        printReturn(this);
     }
 
     // GETTERS-SETTERS--------------------------------------------------------------

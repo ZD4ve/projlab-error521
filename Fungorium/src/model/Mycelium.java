@@ -34,12 +34,10 @@ public class Mycelium implements IActive {
      * Megszünteti az egyedet, erről értesíti a gombafaját és végpontjait.
      */
     public void die() {
-        printCall(this);
         for (Tecton tecton : ends) {
             tecton.removeMycelium(this);
         }
         species.removeMycelium(this);
-        printReturn();
     }
 
     /**
@@ -58,10 +56,8 @@ public class Mycelium implements IActive {
 
     @Override
     public void tick(double dT) {
-        printCall(this, Arrays.asList(dT));
         boolean thickened = Skeleton.ask("Megvastagodott a gombafonal?");
         if (thickened)
             species.myceliumGrowthComplete();
-        printReturn();
     }
 }
