@@ -1,8 +1,5 @@
 package model;
 
-import helper.Skeleton;
-import java.util.Arrays;
-
 /**
  * <h3>Gombatest nélküli tekton</h3>
  * 
@@ -13,12 +10,12 @@ public class NoMushroomTecton extends Tecton {
      * Létrehoz egy új példányt alapértelmezett beállításokkal.
      */
     public NoMushroomTecton() {
+        // this is for documentation purposes
     }
 
     @Override
     public NoMushroomTecton newMe() {
-        var ret = new NoMushroomTecton();
-        return ret;
+        return new NoMushroomTecton();
     }
 
     /**

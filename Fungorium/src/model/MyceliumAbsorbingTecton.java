@@ -1,9 +1,5 @@
 package model;
 
-import helper.Skeleton;
-import static helper.Skeleton.ask;
-import java.util.Arrays;
-
 /**
  * <h3>Gombafonal felszívó tekton</h3>
  * 
@@ -11,6 +7,7 @@ import java.util.Arrays;
  * gombafonalakat.
  */
 public class MyceliumAbsorbingTecton extends Tecton {
+    public static final double ABSORPTION_TIME_SECONDS = 60;
     /**
      * A gombafonalak felszívódásáig hátralévő idő másodpercben.
      */
@@ -20,14 +17,12 @@ public class MyceliumAbsorbingTecton extends Tecton {
      * Létrehoz egy új példányt alapértelmezett beállításokkal.
      */
     public MyceliumAbsorbingTecton() {
-        // TODO: use actual time
-        timeUntilAbsorption = 1;
+        timeUntilAbsorption = ABSORPTION_TIME_SECONDS;
     }
 
     @Override
     public MyceliumAbsorbingTecton newMe() {
-        var ret = new MyceliumAbsorbingTecton();
-        return ret;
+        return new MyceliumAbsorbingTecton();
     }
 
     /**
@@ -38,12 +33,12 @@ public class MyceliumAbsorbingTecton extends Tecton {
      */
     @Override
     public void tick(double dT) {
-        timeUntilAbsorption = Math.max(timeUntilAbsorption - dT, 0);
-        if (ask("Felszívódjanak a gombafonalak a tektonról?") && (true || timeUntilAbsorption == 0)) {
+        timeUntilAbsorption -= dT;
+        if (timeUntilAbsorption <= 0) {
             while (!mycelia.isEmpty()) {
                 mycelia.get(0).die();
             }
-            // TODO: reset timer
+            timeUntilAbsorption = ABSORPTION_TIME_SECONDS;
         }
         super.tick(dT);
     }

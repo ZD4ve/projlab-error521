@@ -1,8 +1,5 @@
 package model;
 
-import helper.Skeleton;
-import java.util.Arrays;
-
 /**
  * <h3>Egy gombafonalat engedő tekton</h3>
  * 
@@ -13,12 +10,12 @@ public class SingleMyceliumTecton extends Tecton {
      * Létrehoz egy új példányt alapértelmezett beállításokkal.
      */
     public SingleMyceliumTecton() {
+        // this exists just so that we can document it :)
     }
 
     @Override
     public SingleMyceliumTecton newMe() {
-        var ret = new SingleMyceliumTecton();
-        return ret;
+        return new SingleMyceliumTecton();
     }
 
     /**
@@ -30,14 +27,9 @@ public class SingleMyceliumTecton extends Tecton {
      */
     @Override
     public boolean canGrowMyceliumFrom(Fungus fungus) {
-        for (Mycelium m : mycelia) {
-            if (m.getSpecies() != fungus) {
-                return false;
-            }
-        }
-        if (mushroom != null && mushroom.getSpecies() != fungus) {
-            return false;
-        }
-        return true;
+        boolean enemyMycelium = mycelia.stream().anyMatch(x -> x.getSpecies() != fungus);
+        boolean enemyMushroom = mushroom != null && mushroom.getSpecies() != fungus;
+
+        return enemyMycelium || enemyMushroom;
     }
 }

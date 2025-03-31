@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.Map;
 import java.util.Set;
 
+import controller.RandomProvider;
 import model.Fungus;
 import model.IActive;
 import model.Insect;
