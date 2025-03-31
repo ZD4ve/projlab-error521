@@ -240,5 +240,11 @@ public class Insect implements IActive {
         if (cooldown > 0)
             cooldown -= dT * speed;
     }
+
+    // TODO DOC
+    public void split() {
+        new Insect(location);
+        // TODO: register to the same controller
+    }
     // #endregion
 }
