@@ -18,9 +18,7 @@ public class SpeedEffect extends InsectEffect {
      * Inicializálja az effektet.
      */
     public SpeedEffect() {
-        Skeleton.printCall(this.getClass());
         this.multiplier = 0.65;
-        Skeleton.printReturn(this);
     }
 
     /**
@@ -30,11 +28,9 @@ public class SpeedEffect extends InsectEffect {
      */
     @Override
     public void applyTo(Insect insect) {
-        Skeleton.printCall(this, Arrays.asList(insect));
         double speed = insect.getSpeed();
         insect.setSpeed(speed * multiplier);
         this.insect = insect;
-        Skeleton.printReturn();
     }
 
     /**
@@ -42,9 +38,7 @@ public class SpeedEffect extends InsectEffect {
      */
     @Override
     public void remove() {
-        Skeleton.printCall(this);
         double speed = insect.getSpeed();
         insect.setSpeed(speed / multiplier);
-        Skeleton.printReturn();
     }
 }

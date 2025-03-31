@@ -6,15 +6,14 @@ import java.util.Arrays;
 /**
  * <h3>Gombafonal rágás tiltó hatás</h3>
  * 
- * Olyan InsectEffect, amely megakadályozza, hogy a rovar tudjon gombafonalat rágni.
+ * Olyan InsectEffect, amely megakadályozza, hogy a rovar tudjon gombafonalat
+ * rágni.
  */
 public class AntiChewEffect extends InsectEffect {
     /**
      * Inicializálja az effektet.
      */
     public AntiChewEffect() {
-        Skeleton.printCall(this.getClass());
-        Skeleton.printReturn(this);
     }
 
     /**
@@ -24,11 +23,9 @@ public class AntiChewEffect extends InsectEffect {
      */
     @Override
     public void applyTo(Insect insect) {
-        Skeleton.printCall(this, Arrays.asList(insect));
         int antiChewCount = insect.getAntiChewCount();
         insect.setAntiChewCount(antiChewCount + 1);
         this.insect = insect;
-        Skeleton.printReturn();
     }
 
     /**
@@ -36,9 +33,7 @@ public class AntiChewEffect extends InsectEffect {
      */
     @Override
     public void remove() {
-        Skeleton.printCall(this);
         int antiChewCount = insect.getAntiChewCount();
         insect.setAntiChewCount(antiChewCount - 1);
-        Skeleton.printReturn();
     }
 }

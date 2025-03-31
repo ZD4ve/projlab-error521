@@ -20,9 +20,7 @@ public class Spore {
      * @param fungus a spórához tartozó gombafaj
      */
     public Spore(Fungus fungus) {
-        Skeleton.printCall(this.getClass(), Arrays.asList(fungus));
         this.species = fungus;
-        Skeleton.printReturn(this);
     }
 
     /**
@@ -31,9 +29,7 @@ public class Spore {
      * @return a spórához tartozó effekt
      */
     public InsectEffect getEffect() {
-        Skeleton.printCall(this);
         InsectEffect effect = InsectEffect.createEffect();
-        Skeleton.printReturn(effect);
         return effect;
     }
 
@@ -43,8 +39,6 @@ public class Spore {
      * @return a spórához tartozó gombafaj.
      */
     public Fungus getSpecies() {
-        Skeleton.printCall(this);
-        Skeleton.printReturn(species);
         return species;
     }
 }

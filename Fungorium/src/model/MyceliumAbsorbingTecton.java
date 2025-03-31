@@ -20,18 +20,13 @@ public class MyceliumAbsorbingTecton extends Tecton {
      * Létrehoz egy új példányt alapértelmezett beállításokkal.
      */
     public MyceliumAbsorbingTecton() {
-        Skeleton.printCall(this.getClass());
         // TODO: use actual time
         timeUntilAbsorption = 1;
-        Skeleton.printReturn(this);
     }
 
     @Override
     public MyceliumAbsorbingTecton newMe() {
-        Skeleton.printCall(this);
         var ret = new MyceliumAbsorbingTecton();
-        Skeleton.addObject(ret, "tecMycAbs");
-        Skeleton.printReturn(ret);
         return ret;
     }
 
@@ -43,7 +38,6 @@ public class MyceliumAbsorbingTecton extends Tecton {
      */
     @Override
     public void tick(double dT) {
-        Skeleton.printCall(this, Arrays.asList(dT));
         timeUntilAbsorption = Math.max(timeUntilAbsorption - dT, 0);
         if (ask("Felszívódjanak a gombafonalak a tektonról?") && (true || timeUntilAbsorption == 0)) {
             while (!mycelia.isEmpty()) {
@@ -52,6 +46,5 @@ public class MyceliumAbsorbingTecton extends Tecton {
             // TODO: reset timer
         }
         super.tick(dT);
-        Skeleton.printReturn();
     }
 }

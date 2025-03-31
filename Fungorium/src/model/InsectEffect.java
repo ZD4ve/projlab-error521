@@ -26,7 +26,6 @@ public abstract class InsectEffect implements IActive {
      * @return a létrehozott effekt
      */
     public static InsectEffect createEffect() {
-        Skeleton.printCall(InsectEffect.class);
         InsectEffect newEffect = null;
 
         if (Skeleton.ask("Paralysing effektet hozzak létre?"))
@@ -37,9 +36,7 @@ public abstract class InsectEffect implements IActive {
             newEffect = new AntiChewEffect();
 
         if (newEffect != null)
-            Skeleton.addObject(newEffect, "eff");
-        Skeleton.printReturn(newEffect);
-        return newEffect;
+            return newEffect;
     }
 
     /**
@@ -59,12 +56,10 @@ public abstract class InsectEffect implements IActive {
      */
     @Override
     public void tick(double dT) {
-        Skeleton.printCall(this, Arrays.asList(dT));
         timeLeft -= dT;
         if (timeLeft <= 0) {
             remove();
             insect.removeEffect(this);
         }
-        Skeleton.printReturn();
     }
 }

@@ -23,13 +23,11 @@ public class Mycelium implements IActive {
      * gombafonalat, a két paraméterként kapott tekton közé.
      */
     public Mycelium(Fungus fungus, Tecton end1, Tecton end2) {
-        Skeleton.printCall(this.getClass(), Arrays.asList(fungus, end1, end2));
         this.species = fungus;
         this.ends = new Tecton[] { end1, end2 };
 
         end1.addMycelium(this);
         end2.addMycelium(this);
-        Skeleton.printReturn(this);
     }
 
     /**
@@ -48,8 +46,6 @@ public class Mycelium implements IActive {
      * Visszaadja a gombafonal két végpontját.
      */
     public Tecton[] getEnds() {
-        Skeleton.printCall(this);
-        Skeleton.printReturn(ends);
         return ends;
     }
 
@@ -57,8 +53,6 @@ public class Mycelium implements IActive {
      * Visszaadja a gombafajt, amelyhez a gombafonal tartozik.
      */
     public Fungus getSpecies() {
-        Skeleton.printCall(this);
-        Skeleton.printReturn(species);
         return species;
     }
 

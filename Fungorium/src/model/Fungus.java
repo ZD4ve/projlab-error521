@@ -33,8 +33,8 @@ public class Fungus {
     private boolean checkConnectivityRunning = false;
 
     /**
-     * Ellenőrzi, hogy a gombafajhoz tartozó gombafonalak közül melyek vannak izolálva,
-     * és törli azokat.
+     * Ellenőrzi, hogy a gombafajhoz tartozó gombafonalak közül melyek vannak
+     * izolálva, és törli azokat.
      */
     private void checkConnectivity() {
         if (checkConnectivityRunning)
@@ -108,9 +108,7 @@ public class Fungus {
      * @param mushroom az új gombatest
      */
     public void addMushroom(Mushroom mushroom) {
-        Skeleton.printCall(this, Arrays.asList(mushroom));
         mushrooms.add(mushroom);
-        Skeleton.printReturn();
     }
 
     /**
@@ -119,10 +117,8 @@ public class Fungus {
      * @param mushroom a gombatest, amelyet kiveszünk
      */
     public void removeMushroom(Mushroom mushroom) {
-        Skeleton.printCall(this, Arrays.asList(mushroom));
         mushrooms.remove(mushroom);
         checkConnectivity();
-        Skeleton.printReturn();
     }
 
     /**
@@ -131,9 +127,7 @@ public class Fungus {
      * @param mycelium az új gombafonal
      */
     public void addMycelium(Mycelium mycelium) {
-        Skeleton.printCall(this, Arrays.asList(mycelium));
         mycelia.add(mycelium);
-        Skeleton.printReturn();
     }
 
     /**
@@ -142,10 +136,8 @@ public class Fungus {
      * @param mycelium a gombafonal, amelyet kiveszünk
      */
     public void removeMycelium(Mycelium mycelium) {
-        Skeleton.printCall(this, Arrays.asList(mycelium));
         mycelia.remove(mycelium);
         checkConnectivity();
-        Skeleton.printReturn();
     }
 
     // PUBLIC MEMBER
@@ -158,7 +150,6 @@ public class Fungus {
      * @return a lehetséges gombafonal növesztési források egy listában
      */
     public List<Tecton> getPotentialMyceliumSources() {
-        Skeleton.printCall(this);
         HashSet<Tecton> potentialSources = new HashSet<>();
 
         for (Mycelium mycelium : mycelia) {
@@ -173,8 +164,6 @@ public class Fungus {
 
             potentialSources.add(location);
         }
-
-        Skeleton.printReturn(potentialSources);
         return new ArrayList<>(potentialSources);
     }
 
@@ -185,7 +174,6 @@ public class Fungus {
      * @return Minden olyan tekton, ahova lehet gombafonalat növeszteni, listában
      */
     public List<Tecton> getTectonsWithMycelia() {
-        Skeleton.printCall(this);
         HashSet<Tecton> potentialSources = new HashSet<>();
 
         for (Mycelium mycelium : mycelia) {
@@ -194,8 +182,6 @@ public class Fungus {
             potentialSources.add(ends[0]);
             potentialSources.add(ends[1]);
         }
-
-        Skeleton.printReturn(potentialSources);
         return new ArrayList<>(potentialSources);
     }
 
@@ -206,12 +192,9 @@ public class Fungus {
      *         igazat, különben hamisat ad vissza.
      */
     public boolean canGrowMycelium() {
-        Skeleton.printCall(this);
         // TODO: restore
         // boolean canGrow = growingMycelia < mushrooms.size();
         boolean canGrow = Skeleton.ask("Tud még gombafonalat növeszteni a gombafaj?");
-
-        Skeleton.printReturn(canGrow);
         return canGrow;
     }
 
@@ -219,9 +202,7 @@ public class Fungus {
      * Jelzi, hogy a gombafonál növekedése befejeződött, ezt kezeli le.
      */
     public void myceliumGrowthComplete() {
-        Skeleton.printCall(this);
         growingMycelia--;
-        Skeleton.printReturn();
     }
 
     /**
@@ -231,16 +212,13 @@ public class Fungus {
      * @return true ha a művelet sikeres, false egyébként
      */
     public boolean growMushroom(Tecton tecton) {
-        Skeleton.printCall(this, Arrays.asList(tecton));
         Mushroom mushroom = tecton.growMushroom(this);
 
         if (mushroom == null) {
-            Skeleton.printReturn(false);
             return false;
         }
 
         mushrooms.add(mushroom);
-        Skeleton.printReturn(true);
         return true;
     }
 
@@ -252,7 +230,6 @@ public class Fungus {
      * @return true ha a művelet sikeres, false egyébként
      */
     public boolean growMycelium(Tecton source, Tecton target) {
-        Skeleton.printCall(this, Arrays.asList(source, target));
         boolean ready = canGrowMycelium();
 
         if (ready) {
@@ -261,14 +238,10 @@ public class Fungus {
             if (mycelium != null) {
                 mycelia.add(mycelium);
                 growingMycelia++;
-                Skeleton.printReturn(true);
                 return true;
             }
-            Skeleton.printReturn(false);
             return false;
         }
-
-        Skeleton.printReturn(false);
         return false;
     }
 }

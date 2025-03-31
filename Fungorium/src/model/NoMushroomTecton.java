@@ -13,16 +13,11 @@ public class NoMushroomTecton extends Tecton {
      * Létrehoz egy új példányt alapértelmezett beállításokkal.
      */
     public NoMushroomTecton() {
-        Skeleton.printCall(this.getClass());
-        Skeleton.printReturn(this);
     }
 
     @Override
     public NoMushroomTecton newMe() {
-        Skeleton.printCall(this);
         var ret = new NoMushroomTecton();
-        Skeleton.addObject(ret, "tecNoMush");
-        Skeleton.printReturn(ret);
         return ret;
     }
 
@@ -38,8 +33,6 @@ public class NoMushroomTecton extends Tecton {
 
     @Override
     public Mushroom growMushroom(Fungus fungus) {
-        Skeleton.printCall(this, Arrays.asList(fungus));
-        Skeleton.printReturn(null);
         return null;
     }
 }

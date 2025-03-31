@@ -13,8 +13,6 @@ public class ParalysingEffect extends InsectEffect {
      * Inicializálja az effektet.
      */
     public ParalysingEffect() {
-        Skeleton.printCall(this.getClass());
-        Skeleton.printReturn(this);
     }
 
     /**
@@ -24,10 +22,8 @@ public class ParalysingEffect extends InsectEffect {
      */
     @Override
     public void applyTo(Insect insect) {
-        Skeleton.printCall(this, Arrays.asList(insect));
         insect.setIsParalysed(true);
         this.insect = insect;
-        Skeleton.printReturn();
     }
 
     /**
@@ -35,8 +31,6 @@ public class ParalysingEffect extends InsectEffect {
      */
     @Override
     public void remove() {
-        Skeleton.printCall(this);
         insect.setIsParalysed(true);
-        Skeleton.printReturn();
     }
 }

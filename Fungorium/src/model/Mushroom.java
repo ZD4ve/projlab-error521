@@ -60,7 +60,6 @@ public class Mushroom implements IActive {
      * @param target a céltekton, ahova a spóra kerül
      */
     public boolean burstSpore(Tecton target) {
-        Skeleton.printCall(this, Arrays.asList(target));
         boolean isReady = Skeleton.ask("Készen áll m1 a spóra szórására?");
         int tmpRange = 1; // attribútum helyett lokális változó (teszthez)
 
@@ -73,18 +72,15 @@ public class Mushroom implements IActive {
             }
             if (distance <= tmpRange) {
                 Spore spo = new Spore(species);
-                Skeleton.addObject(spo, "spo");
                 target.addSpore(spo);
                 boolean alive = Skeleton.ask("Tud még spórát szórni a gomba?");
                 if (!alive) {
                     location.removeMushroom();
                     species.removeMushroom(this);
                 }
-                Skeleton.printReturn(true);
                 return true;
             }
         }
-        Skeleton.printReturn(false);
         return false;
     }
 
@@ -99,8 +95,6 @@ public class Mushroom implements IActive {
      * @return a spóra faja
      */
     public Fungus getSpecies() {
-        Skeleton.printCall(this);
-        Skeleton.printReturn(species);
         return species;
     }
 
@@ -110,8 +104,6 @@ public class Mushroom implements IActive {
      * @return a tartózkodási tektonja
      */
     public Tecton getLocation() {
-        Skeleton.printCall(this);
-        Skeleton.printReturn(location);
         return location;
     }
 
@@ -121,8 +113,6 @@ public class Mushroom implements IActive {
      * @param location a Tekton, amin a gomba van
      */
     public void setLocation(Tecton location) {
-        Skeleton.printCall(this, Arrays.asList(location));
         this.location = location;
-        Skeleton.printReturn();
     }
 }

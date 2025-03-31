@@ -70,10 +70,8 @@ public class Tecton implements IActive {
      * @param tecton az új szomszéd
      */
     public void addNeighbor(Tecton tecton) {
-        Skeleton.printCall(this, Arrays.asList(tecton));
         if (!neighbors.contains(tecton))
             neighbors.add(tecton);
-        Skeleton.printReturn();
     }
 
     /**
@@ -82,8 +80,6 @@ public class Tecton implements IActive {
      * @return a szomszédok egy listában
      */
     public List<Tecton> getNeighbors() {
-        Skeleton.printCall(this);
-        Skeleton.printReturn(neighbors);
         return neighbors;
     }
 
@@ -93,9 +89,7 @@ public class Tecton implements IActive {
      * @param tecton az eltávolítandó tekton
      */
     public void removeNeighbor(Tecton tecton) {
-        Skeleton.printCall(this, Arrays.asList(tecton));
         neighbors.remove(tecton);
-        Skeleton.printReturn();
     }
 
     /**
@@ -104,9 +98,7 @@ public class Tecton implements IActive {
      * @param mycelium a hozzáadandó gombafonal.
      */
     public void addMycelium(Mycelium mycelium) {
-        Skeleton.printCall(this, Arrays.asList(mycelium));
         mycelia.add(mycelium);
-        Skeleton.printReturn();
     }
 
     /**
@@ -115,8 +107,6 @@ public class Tecton implements IActive {
      * @return a gombafonalak egy listában.
      */
     public List<Mycelium> getMycelia() {
-        Skeleton.printCall(this);
-        Skeleton.printReturn(mycelia);
         return mycelia;
     }
 
@@ -126,9 +116,7 @@ public class Tecton implements IActive {
      * @param insect a hozzáadandó rovar.
      */
     public void addInsect(Insect insect) {
-        Skeleton.printCall(this, Arrays.asList(insect));
         insects.add(insect);
-        Skeleton.printReturn();
     }
 
     /**
@@ -137,18 +125,14 @@ public class Tecton implements IActive {
      * @param insect az eltávolítandó rovar.
      */
     public void removeInsect(Insect insect) {
-        Skeleton.printCall(this, Arrays.asList(insect));
         insects.remove(insect);
-        Skeleton.printReturn();
     }
 
     /**
      * Eltávolítja a tektonról a gombatestet.
      */
     public void removeMushroom() {
-        Skeleton.printCall(this);
         mushroom = null;
-        Skeleton.printReturn();
     }
 
     /**
@@ -157,9 +141,7 @@ public class Tecton implements IActive {
      * @param myc az eltávolítandó gombafonal.
      */
     public void removeMycelium(Mycelium myc) {
-        Skeleton.printCall(this, Arrays.asList(myc));
         mycelia.remove(myc);
-        Skeleton.printReturn();
     }
 
     /**
@@ -168,9 +150,7 @@ public class Tecton implements IActive {
      * @param spore a hozzáadandó rovar.
      */
     public void addSpore(Spore spore) {
-        Skeleton.printCall(this, Arrays.asList(spore));
         spores.add(spore);
-        Skeleton.printReturn();
     }
 
     /**
@@ -180,9 +160,7 @@ public class Tecton implements IActive {
      */
 
     public Spore takeSpore() {
-        Skeleton.printCall(this);
         Spore ret = spores.isEmpty() ? null : spores.remove(spores.size() - 1);
-        Skeleton.printReturn(ret);
         return ret;
     }
 
@@ -192,9 +170,7 @@ public class Tecton implements IActive {
      * @param mushroom a gombatest.
      */
     public void setMushroom(Mushroom mushroom) {
-        Skeleton.printCall(this, Arrays.asList(mushroom));
         this.mushroom = mushroom;
-        Skeleton.printReturn();
     }
 
     public Mushroom getMushroom() {
@@ -212,7 +188,6 @@ public class Tecton implements IActive {
      * @param neighbors a tekton szomszédai.
      */
     public void fillWithStuff(List<Spore> spores, Mushroom mushroom, List<Insect> insects, List<Tecton> neighbors) {
-        Skeleton.printCall(this, Arrays.asList(spores, mushroom, insects, neighbors));
         this.spores.addAll(spores);
         this.insects.addAll(insects);
         insects.forEach(x -> x.setLocation(this));
@@ -221,7 +196,6 @@ public class Tecton implements IActive {
             mushroom.setLocation(this);
         this.neighbors.addAll(neighbors);
         neighbors.forEach(x -> x.addNeighbor(this));
-        Skeleton.printReturn();
 
     }
 
@@ -232,15 +206,12 @@ public class Tecton implements IActive {
      * @return az ellenőrzés eredménye.
      */
     public boolean hasMyceliumTo(Tecton tecton) {
-        Skeleton.printCall(this, Arrays.asList(tecton));
         for (Mycelium m : mycelia) {
             Tecton[] ends = m.getEnds();
             if (ends[0] == tecton || ends[1] == tecton) {
-                Skeleton.printReturn(true);
                 return true;
             }
         }
-        Skeleton.printReturn(false);
         return false;
     }
 
@@ -253,8 +224,6 @@ public class Tecton implements IActive {
      *         újabb gombafonalat növeszteni a gombafajtól.
      */
     public boolean canGrowMyceliumFrom(Fungus fungus) { // NOSONAR this param is needed in the specialized classes
-        Skeleton.printCall(this, Arrays.asList(fungus));
-        Skeleton.printReturn(true);
         return true;
     }
 
@@ -266,9 +235,7 @@ public class Tecton implements IActive {
      *         elérhető.
      */
     public int distanceTo(Tecton tecton) {
-        Skeleton.printCall(this, Arrays.asList(tecton));
         if (tecton == this) {
-            Skeleton.printReturn(0);
             return 0;
         }
         HashSet<Tecton> done = new HashSet<>();
@@ -279,7 +246,6 @@ public class Tecton implements IActive {
             HashSet<Tecton> newNeighbors = new HashSet<>();
             for (Tecton t : toVisit) {
                 if (t == tecton) {
-                    Skeleton.printReturn(dst);
                     return dst;
                 }
                 for (Tecton neighbor : t.neighbors) {
@@ -292,7 +258,6 @@ public class Tecton implements IActive {
             toVisit.addAll(newNeighbors);
             dst++;
         }
-        Skeleton.printReturn(Integer.MAX_VALUE);
         return Integer.MAX_VALUE;
     }
 
@@ -303,10 +268,7 @@ public class Tecton implements IActive {
      * @return az új példány.
      */
     public Tecton newMe() {
-        Skeleton.printCall(this);
         var nt = new Tecton();
-        Skeleton.addObject(nt, "tec");
-        Skeleton.printReturn(nt);
         return nt;
     }
 
@@ -321,7 +283,6 @@ public class Tecton implements IActive {
      * @return az új gombatest, vagy null ha nem lehetséges a művelet.
      */
     public Mushroom growMushroom(Fungus fungus) {
-        Skeleton.printCall(this, Arrays.asList(fungus));
         if (mushroom == null) {
             List<Spore> speciesSpores = getSporesForSpecies(fungus);
             boolean hasMycelium = mycelia.stream().anyMatch(x -> x.getSpecies() == fungus);
@@ -330,12 +291,9 @@ public class Tecton implements IActive {
             if (speciesSpores.size() >= sporesNeeded && hasMycelium) {
                 spores.removeAll(speciesSpores.subList(0, sporesNeeded));
                 mushroom = new Mushroom(fungus, this);
-                Skeleton.addObject(mushroom, "mush");
-                Skeleton.printReturn(mushroom);
                 return mushroom;
             }
         }
-        Skeleton.printReturn(null);
         return null;
     }
 
@@ -347,14 +305,10 @@ public class Tecton implements IActive {
      * @return a keletkezett gombafonal vagy null.
      */
     public Mycelium growMycelium(Fungus fungus, Tecton target) {
-        Skeleton.printCall(this, Arrays.asList(fungus, target));
         if (canGrowMyceliumFrom(fungus) && target.canGrowMyceliumFrom(fungus) && ((mushroom != null && mushroom.getSpecies() == fungus) || (mycelia.stream().anyMatch(x -> x.getSpecies() == fungus))) && neighbors.contains(target)) {
             Mycelium mycelium = new Mycelium(fungus, this, target);
-            Skeleton.addObject(mycelium, "mycelium");
-            Skeleton.printReturn(mycelium);
             return mycelium;
         }
-        Skeleton.printReturn(null);
         return null;
     }
 
@@ -362,7 +316,6 @@ public class Tecton implements IActive {
      * Levezényli a tekton törési folyamatát.
      */
     private void tectonBreak() {
-        Skeleton.printCall(this);
         while (!mycelia.isEmpty()) {
             mycelia.get(0).die();
         }
@@ -372,9 +325,6 @@ public class Tecton implements IActive {
         var t1 = newMe();
         var t2 = newMe();
 
-        Skeleton.addObject(t1, "t1");
-        Skeleton.addObject(t2, "t2");
-
         var t1Neighbors = new ArrayList<>(neighbors.subList(0, neighbors.size() / 2));
         t1Neighbors.add(t2);
         t1.fillWithStuff(spores.subList(0, Math.min(spores.size(), Math.max(spores.size() / 2, 1))), mushroom, insects.subList(0, insects.size() / 2), t1Neighbors);
@@ -382,7 +332,6 @@ public class Tecton implements IActive {
         var t2Neighbors = new ArrayList<>(neighbors.subList(neighbors.size() / 2, neighbors.size()));
         t2Neighbors.add(t1);
         t2.fillWithStuff(spores.subList(Math.min(spores.size(), Math.max(spores.size() / 2, 1)), spores.size()), null, insects.subList(insects.size() / 2, insects.size()), t2Neighbors);
-        Skeleton.printReturn();
     }
 
     /**
@@ -393,10 +342,8 @@ public class Tecton implements IActive {
      */
     @Override
     public void tick(double dT) {
-        Skeleton.printCall(this, Arrays.asList(dT));
         if (dT >= 1) {
             tectonBreak();
         }
-        Skeleton.printReturn();
     }
 }
