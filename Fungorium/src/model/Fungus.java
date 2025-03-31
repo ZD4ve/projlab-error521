@@ -1,6 +1,8 @@
 package model;
 
 import helper.Skeleton;
+
+import java.security.KeyStore.Entry;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,10 +46,10 @@ public class Fungus {
         HashMap<Tecton, HashSet<Tecton>> adjacencyList = new HashMap<>();
         HashMap<Mycelium, Tecton[]> myceliaEnds = new HashMap<>();
         HashSet<Tecton> tectons = new HashSet<>(mushrooms.stream().map(x -> x.getLocation()).toList());
+        tectons.addAll(myceliaEnds.entrySet().stream().flatMap(entry -> Arrays.stream(entry.getValue())).filter(Tecton::keepsMyceliumAlive).toList());
 
         for (Mycelium mycelium : mycelia) {
             var ends = mycelium.getEnds();
-
             myceliaEnds.put(mycelium, ends);
             if (!adjacencyList.containsKey(ends[0]))
                 adjacencyList.put(ends[0], new HashSet<>());

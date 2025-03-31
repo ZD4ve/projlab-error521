@@ -175,6 +175,11 @@ public class Tecton implements IActive {
         return mushroom;
     }
 
+    // TODO DOC
+    public boolean keepsMyceliumAlive() {
+        return false;
+    }
+
     // -----------------------------------------------------------------------------
 
     /**
