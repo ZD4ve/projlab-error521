@@ -1,10 +1,6 @@
 package model;
 
-import helper.Skeleton;
-import static helper.Skeleton.printCall;
-import static helper.Skeleton.printReturn;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -60,7 +56,7 @@ public class Tecton implements IActive {
         mushroom = null;
     }
 
-    // GETTERS-SETTERS--------------------------------------------------------------
+    // #region getters-setters
 
     /**
      * Hozzáad egy szomszédot a tektonhoz
@@ -158,8 +154,7 @@ public class Tecton implements IActive {
      */
 
     public Spore takeSpore() {
-        Spore ret = spores.isEmpty() ? null : spores.remove(spores.size() - 1);
-        return ret;
+        return spores.isEmpty() ? null : spores.remove(spores.size() - 1);
     }
 
     /**
@@ -171,11 +166,18 @@ public class Tecton implements IActive {
         this.mushroom = mushroom;
     }
 
+    /**
+     * Lekéri a tektonon található gombatestet.
+     * 
+     * @return a tektonon található {@ref Mushroom}, vagy {@code null}.
+     */
     public Mushroom getMushroom() {
         return mushroom;
     }
 
-    // -----------------------------------------------------------------------------
+    // #endregion
+
+    // #region main methods
 
     /**
      * Feltölti a tektont a paraméterként kapott objektumokkal.
@@ -187,11 +189,14 @@ public class Tecton implements IActive {
      */
     public void fillWithStuff(List<Spore> spores, Mushroom mushroom, List<Insect> insects, List<Tecton> neighbors) {
         this.spores.addAll(spores);
+
         this.insects.addAll(insects);
         insects.forEach(x -> x.setLocation(this));
+
         this.mushroom = mushroom;
         if (mushroom != null)
             mushroom.setLocation(this);
+
         this.neighbors.addAll(neighbors);
         neighbors.forEach(x -> x.addNeighbor(this));
 
@@ -266,10 +271,12 @@ public class Tecton implements IActive {
      * @return az új példány.
      */
     public Tecton newMe() {
-        var nt = new Tecton();
-        return nt;
+        return new Tecton();
     }
 
+    /**
+     * Kiválogatja az adott fajhoz tartozó spórákat
+     */
     private List<Spore> getSporesForSpecies(Fungus species) {
         return spores.stream().filter(x -> x.getSpecies() == species).toList();
     }
@@ -284,10 +291,8 @@ public class Tecton implements IActive {
         if (mushroom == null) {
             List<Spore> speciesSpores = getSporesForSpecies(fungus);
             boolean hasMycelium = mycelia.stream().anyMatch(x -> x.getSpecies() == fungus);
-            // TODO: use actual spores needed
-            int sporesNeeded = 1;
-            if (speciesSpores.size() >= sporesNeeded && hasMycelium) {
-                spores.removeAll(speciesSpores.subList(0, sporesNeeded));
+            if (speciesSpores.size() >= Mushroom.GROW_SPORES_REQUIRED && hasMycelium) {
+                spores.removeAll(speciesSpores.subList(0, Mushroom.GROW_SPORES_REQUIRED));
                 mushroom = new Mushroom(fungus, this);
                 return mushroom;
             }
@@ -304,8 +309,7 @@ public class Tecton implements IActive {
      */
     public Mycelium growMycelium(Fungus fungus, Tecton target) {
         if (canGrowMyceliumFrom(fungus) && target.canGrowMyceliumFrom(fungus) && ((mushroom != null && mushroom.getSpecies() == fungus) || (mycelia.stream().anyMatch(x -> x.getSpecies() == fungus))) && neighbors.contains(target)) {
-            Mycelium mycelium = new Mycelium(fungus, this, target);
-            return mycelium;
+            return new Mycelium(fungus, this, target);
         }
         return null;
     }
@@ -322,6 +326,8 @@ public class Tecton implements IActive {
         }
         var t1 = newMe();
         var t2 = newMe();
+
+        // TODO: actual logic
 
         var t1Neighbors = new ArrayList<>(neighbors.subList(0, neighbors.size() / 2));
         t1Neighbors.add(t2);
@@ -344,4 +350,6 @@ public class Tecton implements IActive {
             tectonBreak();
         }
     }
+
+    // #endregion
 }
