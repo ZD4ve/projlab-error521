@@ -10,7 +10,7 @@ import java.util.Arrays;
  * <h3>Rovar</h3>
  * 
  * Kezeli a felhasználó által kezdeményezett spóra evés, mozgás és fonal elrágás
- * akciókat, illetve ezek során interaktál a többi objektummal. A rovar csak
+ * akciókat, illetve ezek során kommunikál a többi objektummal. A rovar csak
  * bizonyos időközönként végezhet akciókat, ezt is követi és ellenőrzi.
  */
 public class Insect implements IActive {
@@ -64,9 +64,9 @@ public class Insect implements IActive {
     }
 
     /**
-     * A rovar sebesség modosító értékét adja vissza.
+     * A rovar sebesség módosító értékét adja vissza.
      * 
-     * @return a sebesség modosító értéke
+     * @return a sebesség módosító értéke
      */
     public double getSpeed() {
         Skeleton.printCall(this);
@@ -75,9 +75,9 @@ public class Insect implements IActive {
     }
 
     /**
-     * Beállítja a rovar sebesség modosító értékét.
+     * Beállítja a rovar sebesség módosító értékét.
      * 
-     * @param speed a sebesség modosító értéke
+     * @param speed a sebesség módosító értéke
      */
     public void setSpeed(double speed) {
         Skeleton.printCall(this, Arrays.asList(speed));
@@ -108,7 +108,7 @@ public class Insect implements IActive {
     }
 
     /**
-     * A rovar bénító hatás beállíása
+     * A rovar bénító hatás beállítása
      */
     public void setIsParalysed(boolean isParalysed) {
         Skeleton.printCall(this, Arrays.asList(isParalysed));

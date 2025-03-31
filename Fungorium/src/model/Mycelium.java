@@ -12,7 +12,7 @@ import java.util.Arrays;
  * felelőssége ezen feltételek ellenőrzése, valamint a létrejövés utáni
  * vastagodás elvégzése, ennek sikerességéről a gombafaj tájékoztatása.
  * Felelőssége továbbá a bármilyen okból történő megsemmisülésének kezelése,
- * erről fajának értesítése, továbbá saját gombafajánal nyilvántartása.
+ * erről fajának értesítése, továbbá saját gombafajának nyilvántartása.
  */
 public class Mycelium implements IActive {
     private final Fungus species;

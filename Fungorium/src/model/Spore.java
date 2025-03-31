@@ -6,7 +6,7 @@ import java.util.Arrays;
 /**
  * <h3>Spóra</h3>
  * 
- * Saját gombafajának és hatásának nyílvántartása.
+ * Saját gombafajának és hatásának nyilvántartása.
  */
 public class Spore {
     /**

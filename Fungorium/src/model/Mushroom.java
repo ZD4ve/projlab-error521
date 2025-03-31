@@ -16,7 +16,7 @@ import java.util.Arrays;
  */
 public class Mushroom implements IActive {
     /**
-     * Mekkor a gomba hatótávja.
+     * Mekkora a gomba hatótávja.
      */
     private int range;
 

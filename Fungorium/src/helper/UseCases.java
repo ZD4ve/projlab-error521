@@ -161,8 +161,7 @@ public class UseCases {
 
     /**
      * Egy normális tektonról egy másikra próbálunk gombafonalat növeszteni, de a
-     * forrás nem tartalmaz alkalmas gombatestet vagy gombafonalat (konkrétan
-     * semmilyet).
+     * forrás nem tartalmaz alkalmas gombatestet vagy gombafonalat.
      */
     static void growMyceliumNoSourceFail() {
         printOn = false;
@@ -378,8 +377,8 @@ public class UseCases {
     }
 
     /**
-     * A rovar megpróbál átmozdulni egy tektonra, de mivel nincs fonál oda, így ez
-     * nem történik meg.
+     * A rovar megpróbál átmenni egy tektonra, de mivel nincs fonál oda, így ez nem
+     * történik meg.
      */
     static void insectMoveNoMycelium() {
         insectMoveMap();
@@ -667,7 +666,7 @@ public class UseCases {
 
         s1.addMushroom(m1);
 
-        tecton.setMushroom(m1); // TODO: KOMM DIAGRAM
+        tecton.setMushroom(m1);
 
         Spore s2 = new Spore(s1);
         objNames.put(s2, "s2");

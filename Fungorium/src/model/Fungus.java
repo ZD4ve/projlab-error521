@@ -14,7 +14,7 @@ import java.util.List;
  * 
  * Felelőssége összekötni az egy fajhoz tartozó spórákat, gombafonalakat,
  * valamint gombatesteket. Felelőssége továbbá annak ellenőrzése, hogy a
- * gombafaj tud-e gombatestet növeszteni. Felelőssége fonal növesztésénének
+ * gombafaj tud-e gombatestet növeszteni. Felelőssége fonal növesztésének
  * kezdeményezése, fonalak összekötöttségének ellenőrzése, gombatest
  * növesztésének kezdeményezése.
  */
@@ -34,7 +34,7 @@ public class Fungus {
 
     /**
      * Ellenőrzi, hogy a gombafajhoz tartozó gombafonalak közül melyek vannak izolálva,
-     * és törtli azokat.
+     * és törli azokat.
      */
     private void checkConnectivity() {
         if (checkConnectivityRunning)
