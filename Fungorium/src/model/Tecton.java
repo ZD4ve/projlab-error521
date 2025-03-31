@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import proto.RandomProvider;
+import controller.RandomProvider;
 
 /**
  * <h3>Tekton</h3>
@@ -171,7 +171,7 @@ public class Tecton implements IActive {
     }
 
     /**
-     * Lekéri a tektonon található gombatestet.
+     * Visszaadja a tektonon található gombatestet.
      * 
      * @return a tektonon található {@ref Mushroom}, vagy {@code null}.
      */
@@ -179,7 +179,10 @@ public class Tecton implements IActive {
         return mushroom;
     }
 
-    // TODO DOC
+    /**
+     * Megadja, hogy a tekton életben tartja-e a gombatesthez nem csatlakozó
+     * gombafonalakat.
+     */
     public boolean keepsMyceliumAlive() {
         return false;
     }
