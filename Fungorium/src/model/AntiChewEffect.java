@@ -1,7 +1,5 @@
 package model;
 
-import helper.Skeleton;
-import java.util.Arrays;
 
 /**
  * <h3>Gombafonal rágás tiltó hatás</h3>

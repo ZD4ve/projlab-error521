@@ -1,7 +1,6 @@
 package model;
 
 import helper.Skeleton;
-import java.util.Arrays;
 
 /**
  * <h3>Rovar hatás</h3>
@@ -34,7 +33,7 @@ public abstract class InsectEffect implements IActive {
             newEffect = new SpeedEffect();
         else if (Skeleton.ask("AntiChew effektet hozzak létre?"))
             newEffect = new AntiChewEffect();
-        // TODO FissionEffect generálása
+        // TODO FissionEffect generálás
         return newEffect;
     }
 

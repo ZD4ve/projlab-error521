@@ -1,9 +1,6 @@
 package model;
 
 import helper.Skeleton;
-import static helper.Skeleton.printCall;
-import static helper.Skeleton.printReturn;
-import java.util.Arrays;
 
 /**
  * <h3>Gombatest</h3>

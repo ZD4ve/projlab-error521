@@ -1,7 +1,5 @@
 package model;
 
-import helper.Skeleton;
-import java.util.Arrays;
 
 /**
  * <h3>Spóra</h3>
@@ -29,8 +27,7 @@ public class Spore {
      * @return a spórához tartozó effekt
      */
     public InsectEffect getEffect() {
-        InsectEffect effect = InsectEffect.createEffect();
-        return effect;
+        return InsectEffect.createEffect();
     }
 
     /**
