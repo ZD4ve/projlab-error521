@@ -29,7 +29,7 @@ public class NoMushroomTecton extends Tecton {
      */
 
     @Override
-    public Mushroom growMushroom(Fungus fungus) {
-        return null;
+    public boolean growMushroom(Fungus fungus) {
+        return false;
     }
 }

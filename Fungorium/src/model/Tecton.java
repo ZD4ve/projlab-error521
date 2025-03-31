@@ -298,17 +298,22 @@ public class Tecton implements IActive {
      * @param fungus a gombatestet növesztő gombafaj.
      * @return az új gombatest, vagy null ha nem lehetséges a művelet.
      */
-    public Mushroom growMushroom(Fungus fungus) {
-        if (mushroom == null) {
-            List<Spore> speciesSpores = getSporesForSpecies(fungus);
-            boolean hasMycelium = mycelia.stream().anyMatch(x -> x.getSpecies() == fungus);
-            if (speciesSpores.size() >= Mushroom.GROW_SPORES_REQUIRED && hasMycelium) {
+    public boolean growMushroom(Fungus fungus) {
+        if (mushroom == null && mycelia.stream().anyMatch(x -> x.getSpecies() == fungus)) {
+            var paralysed = insects.stream().filter(Insect::isParalysed).findFirst();
+            if (paralysed.isPresent()) {
+                paralysed.get().die();
+            }
+            var speciesSpores = getSporesForSpecies(fungus);
+            if (speciesSpores.size() >= Mushroom.GROW_SPORES_REQUIRED) {
                 spores.removeAll(speciesSpores.subList(0, Mushroom.GROW_SPORES_REQUIRED));
+            }
+            if (paralysed.isPresent() || speciesSpores.size() >= Mushroom.GROW_SPORES_REQUIRED) {
                 mushroom = new Mushroom(fungus, this);
-                return mushroom;
+                return true;
             }
         }
-        return null;
+        return false;
     }
 
     /**
@@ -318,11 +323,12 @@ public class Tecton implements IActive {
      * @param target a cél tekton.
      * @return a keletkezett gombafonal vagy null.
      */
-    public Mycelium growMycelium(Fungus fungus, Tecton target) {
+    public boolean growMycelium(Fungus fungus, Tecton target) {
         if (canGrowMyceliumFrom(fungus) && target.canGrowMyceliumFrom(fungus) && ((mushroom != null && mushroom.getSpecies() == fungus) || (mycelia.stream().anyMatch(x -> x.getSpecies() == fungus))) && neighbors.contains(target)) {
-            return new Mycelium(fungus, this, target);
+            new Mycelium(fungus, this, target);
+            return true;
         }
-        return null;
+        return false;
     }
 
     /**

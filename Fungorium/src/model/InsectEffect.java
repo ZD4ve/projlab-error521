@@ -1,7 +1,6 @@
 package model;
 
-import helper.Skeleton;
-import java.util.Arrays;
+import controller.RandomProvider;
 
 /**
  * <h3>Rovar hatás</h3>
@@ -27,14 +26,15 @@ public abstract class InsectEffect implements IActive {
      */
     public static InsectEffect createEffect() {
         InsectEffect newEffect = null;
-
-        if (Skeleton.ask("Paralysing effektet hozzak létre?"))
+        int ran = (int) (RandomProvider.nextRand() * 5);
+        if (ran == 0)
             newEffect = new ParalysingEffect();
-        else if (Skeleton.ask("Speed effektet hozzak létre?"))
+        else if (ran == 1)
             newEffect = new SpeedEffect();
-        else if (Skeleton.ask("AntiChew effektet hozzak létre?"))
+        else if (ran == 2)
             newEffect = new AntiChewEffect();
-        // TODO FissionEffect generálása
+        else if (ran == 3)
+            newEffect = new FissionEffect();
         return newEffect;
     }
 
@@ -48,7 +48,13 @@ public abstract class InsectEffect implements IActive {
     /**
      * Leveszi a rovarról a hatását.
      */
-    public abstract void remove();
+    protected abstract void remove();
+
+    public void wearOff() {
+        remove();
+        insect.removeEffect(this);
+        // TODO unregister from clock
+    }
 
     /**
      * Hívásakor csökkentjük a hatás hátralévő idejét.
@@ -57,8 +63,7 @@ public abstract class InsectEffect implements IActive {
     public void tick(double dT) {
         timeLeft -= dT;
         if (timeLeft <= 0) {
-            remove();
-            insect.removeEffect(this);
+            wearOff();
         }
     }
 }

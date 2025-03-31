@@ -1,7 +1,5 @@
 package model;
 
-import helper.Skeleton;
-import java.util.Arrays;
 
 /**
  * <h3>Bénító hatás</h3>
@@ -30,7 +28,7 @@ public class ParalysingEffect extends InsectEffect {
      * Visszaadja a rovarnak a mozgás képességét.
      */
     @Override
-    public void remove() {
+    protected void remove() {
         insect.setIsParalysed(true);
     }
 }

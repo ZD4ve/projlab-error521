@@ -1,7 +1,5 @@
 package model;
 
-import helper.Skeleton;
-import java.util.Arrays;
 
 /**
  * <h3>Gombafonal rágás tiltó hatás</h3>
@@ -32,7 +30,7 @@ public class AntiChewEffect extends InsectEffect {
      * Visszaadja a rovar a fonal elrágási képességét.
      */
     @Override
-    public void remove() {
+    protected void remove() {
         int antiChewCount = insect.getAntiChewCount();
         insect.setAntiChewCount(antiChewCount - 1);
     }
