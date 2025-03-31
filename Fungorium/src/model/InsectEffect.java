@@ -1,6 +1,6 @@
 package model;
 
-import helper.Skeleton;
+import controller.RandomProvider;
 
 /**
  * <h3>Rovar hatás</h3>
@@ -26,14 +26,15 @@ public abstract class InsectEffect implements IActive {
      */
     public static InsectEffect createEffect() {
         InsectEffect newEffect = null;
-
-        if (Skeleton.ask("Paralysing effektet hozzak létre?"))
+        int ran = (int) (RandomProvider.nextRand() * 5);
+        if (ran == 0)
             newEffect = new ParalysingEffect();
-        else if (Skeleton.ask("Speed effektet hozzak létre?"))
+        else if (ran == 1)
             newEffect = new SpeedEffect();
-        else if (Skeleton.ask("AntiChew effektet hozzak létre?"))
+        else if (ran == 2)
             newEffect = new AntiChewEffect();
-        // TODO FissionEffect generálás
+        else if (ran == 3)
+            newEffect = new FissionEffect();
         return newEffect;
     }
 
