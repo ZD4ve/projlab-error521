@@ -17,7 +17,7 @@ import controller.RandomProvider;
  */
 public class Tecton implements IActive {
     // #region CONSTANTS
-    /** TODO DOC */
+    /** Annak az esélye, hogy egy tekton egy adott másodperc alatt eltörik. */
     public static final double BREAK_CHANCE_PER_SEC = 0.001;
     // #endregion
 

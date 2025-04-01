@@ -7,7 +7,7 @@ package model;
  */
 public class MyceliumAbsorbingTecton extends Tecton {
     // #region CONSTANTS
-    /** TODO DOC */
+    /** A tektonon található gombafonalak felszívásához szükséges idő másodpercben. */
     public static final double ABSORPTION_TIME_SECONDS = 60;
     // #endregion
 

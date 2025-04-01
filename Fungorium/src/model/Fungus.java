@@ -24,11 +24,17 @@ public class Fungus {
     // #endregion
 
     // #region ATTRIBUTES
-    /** TODO DOC */
+    /**
+     * A gombafajhoz tartozó növekedő gombafonalak száma.
+     */
     private int growingMycelia = 0;
-    /** TODO DOC */
+    /**
+     * Az éppen fut-e összekötöttség ellenőrzése.
+     */
     private boolean checkConnectivityRunning = false;
-    /** TODO DOC */
+    /**
+     * A gombafajhoz tartozó gombász pontszáma.
+     */
     private int score = 0;
     // #endregion
 

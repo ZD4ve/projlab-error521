@@ -78,12 +78,20 @@ public class Mushroom implements IActive {
         this.location = location;
     }
 
-    // TODO DOC
+    /**
+     * Visszaadja, hogy fejlett-e a gomba.
+     * 
+     * @return igaz ha fejlett, hamis ha nem
+     */
     public boolean getIsGrown() {
         return isGrown;
     }
 
-    // TODO DOC
+    /**
+     * Beállítja a gomba fejlettségét.
+     * 
+     * @param isGrown igaz ha fejlett, hamis ha nem
+     */
     public void setIsGrown(boolean isGrown) {
         this.isGrown = isGrown;
         range = isGrown ? 2 : 1;
@@ -116,7 +124,13 @@ public class Mushroom implements IActive {
         return false;
     }
 
-    // TODO DOC
+    /**
+     * <p>
+     * {@inheritDoc}
+     * </p>
+     * A gombafaj időtől függő fejlődését kezelő metódus. Kezeli a gomba fejlődését, illetve spóraszórások között
+     * eltelendő időt.
+     */
     @Override
     public void tick(double dT) {
         if (cooldown > 0) {

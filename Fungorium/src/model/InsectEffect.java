@@ -19,7 +19,9 @@ public abstract class InsectEffect implements IActive {
     // #endregion
 
     // #region CONSTRUCTORS
-    // TODO DOC
+    /**
+     * InsectEffect konstruktor. Regisztrálja az objektumot az aktív objektumok között.
+     */
     protected InsectEffect() {
         Controller.registerActiveObject(this);
     }
@@ -53,11 +55,13 @@ public abstract class InsectEffect implements IActive {
     public abstract void applyTo(Insect insect);
 
     /**
-     * Leveszi a rovarról a hatását.
+     * Megszünteti a példány hatását.
      */
     protected abstract void remove();
 
-    // TODO DOC
+    /**
+     * A hatás megszűnésekor hívódik meg, eltávolítja a hatást a rovarról.
+     */
     public void wearOff() {
         remove();
         insect.removeEffect(this);
