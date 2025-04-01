@@ -1,6 +1,5 @@
 package model;
 
-
 /**
  * <h3>Gombafonal rágás tiltó hatás</h3>
  * 

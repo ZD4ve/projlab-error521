@@ -1,5 +1,6 @@
 package model;
 
+import controller.Controller;
 import java.util.*;
 
 /**
@@ -10,13 +11,16 @@ import java.util.*;
  * bizonyos időközönként végezhet akciókat, ezt is követi és ellenőrzi.
  */
 public class Insect implements IActive {
-    // ASSOCIATIONS
+    // #region ASSOCIATIONS
     /** ezen a tektonon áll éppen a rovar. */
     private Tecton location;
     /** épp a rovarra ható hatások */
     private final List<InsectEffect> activeEffects = new ArrayList<>();
+    /** a rovar kolóniája */
+    private final Colony colony;
+    // #endregion
 
-    // ATTRIBUTES
+    // #region ATTRIBUTES
     /** mennyi idő múlva végezhető a következő akció */
     private double cooldown;
     /** a rovar sebessége a normálishoz képest */
@@ -27,19 +31,36 @@ public class Insect implements IActive {
     private boolean isParalysed;
     /** hány spórát evett meg a rovar */
     private int score;
+    // #endregion
 
+    // #region CONSTANTS
     private static final double ACTION_DURATION = 3;
+    // #endregion
 
+    // #region CONSTRUCTORS
     /**
      * Rovar létrehozása és elhelyezése egy tektonon.
      * 
      * @param location a rovar kezdeti helye
+     * @param colony   a rovar kolóniája
      */
-    public Insect(Tecton location) {
+    public Insect(Tecton location, Colony colony) {
         this.location = location;
         location.addInsect(this);
+        this.colony = colony;
+        colony.born(this);
+        Controller.registerActiveObject(this);
     }
 
+    /**
+     * @deprecated ONLY FOR SKELETON BACKWARD COMPATIBILITY
+     */
+    @Deprecated(since = "proto", forRemoval = false)
+    public Insect(Tecton location) {
+        this(location, new Colony());
+    }
+
+    // #endregion
     // #region GETTERS-SETTERS
 
     public List<InsectEffect> getActiveEffects() {
@@ -91,7 +112,11 @@ public class Insect implements IActive {
         this.antiChewCount = antiChewCount;
     }
 
-    // TODO DOC
+    /**
+     * A rovar bénaságának lekérdezése.
+     * 
+     * @return bénaság állapota
+     */
     public boolean isParalysed() {
         return isParalysed;
     }
@@ -168,7 +193,6 @@ public class Insect implements IActive {
      * @return a lehetséges célpontok listája
      */
     public List<Tecton> getPotentialMoveTargets() {
-        // nem követi seq diagramot, mert az szar XD
         return location.getNeighbors().stream().filter(t -> location.hasMyceliumTo(t)).toList();
     }
 
@@ -179,20 +203,19 @@ public class Insect implements IActive {
      * @return sikeresség
      */
     public boolean eatSpore() {
-        boolean success = false;
         if (!isParalysed && ready()) {
             Spore sporeTaken = location.takeSpore();
             if (sporeTaken != null) {
                 score++;
-                success = true;
                 InsectEffect effect = sporeTaken.getEffect();
                 if (effect != null) {
                     effect.applyTo(this);
                 }
                 setCooldown(ACTION_DURATION);
+                return true;
             }
         }
-        return success;
+        return false;
     }
 
     /**
@@ -203,18 +226,15 @@ public class Insect implements IActive {
      * @return sikeresség
      */
     public boolean moveTo(Tecton target) {
-        boolean success = false;
-        if (!isParalysed && ready()) {
-            boolean moveValid = location.hasMyceliumTo(target);
-            if (moveValid) {
-                success = true;
-                location.removeInsect(this);
-                location = target;
-                location.addInsect(this);
-                setCooldown(ACTION_DURATION);
-            }
-        }
-        return success;
+        if (isParalysed || !ready())
+            return false;
+        if (!location.hasMyceliumTo(target))
+            return false;
+        location.removeInsect(this);
+        location = target;
+        location.addInsect(this);
+        setCooldown(ACTION_DURATION);
+        return true;
     }
 
     /**
@@ -225,9 +245,8 @@ public class Insect implements IActive {
      * @return sikeresség
      */
     public boolean chewMycelium(Mycelium mycelium) {
-        if (isParalysed || antiChewCount > 0 || !ready()) {
+        if (isParalysed || antiChewCount > 0 || !ready())
             return false;
-        }
         mycelium.chew();
         setCooldown(ACTION_DURATION);
         return true;
@@ -239,16 +258,19 @@ public class Insect implements IActive {
             cooldown -= dT * speed;
     }
 
-    // TODO DOC
+    /**
+     * A rovart osztódásra kényszeríti.
+     */
     public void split() {
-        new Insect(location);
-        // TODO register to the same controller
+        new Insect(location, colony);
     }
 
-    // TODO DOC
+    /**
+     * A rovar elpusztul. Kilép a kolóniából, eltünik a tektonról.
+     */
     public void die() {
-        // TODO unregister from the controller
-        // TODO unregister from clock
+        Controller.unregisterActiveObject(this);
+        colony.died(this);
         while (!activeEffects.isEmpty()) {
             activeEffects.get(0).wearOff();
         }

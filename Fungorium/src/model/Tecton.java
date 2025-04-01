@@ -324,7 +324,10 @@ public class Tecton implements IActive {
      * @return a keletkezett gombafonal vagy null.
      */
     public boolean growMycelium(Fungus fungus, Tecton target) {
-        if (canGrowMyceliumFrom(fungus) && target.canGrowMyceliumFrom(fungus) && ((mushroom != null && mushroom.getSpecies() == fungus) || (mycelia.stream().anyMatch(x -> x.getSpecies() == fungus))) && neighbors.contains(target)) {
+        if (canGrowMyceliumFrom(fungus) && target.canGrowMyceliumFrom(fungus)
+                && ((mushroom != null && mushroom.getSpecies() == fungus)
+                        || (mycelia.stream().anyMatch(x -> x.getSpecies() == fungus)))
+                && neighbors.contains(target)) {
             new Mycelium(fungus, this, target);
             return true;
         }
@@ -348,9 +351,12 @@ public class Tecton implements IActive {
         var t2 = newMe();
 
         // weird solution to handle the case when there is only 1 element
-        int sporeMid = Math.min(spores.size(), Math.max(spores.size() / 2, 1)); // NOSONAR this would throw an exception if it was a clamp
-        int insectMid = Math.min(insects.size(), Math.max(insects.size() / 2, 1)); // NOSONAR this would throw an exception if it was a clamp
-        int neighborMid = Math.min(neighbors.size(), Math.max(neighbors.size() / 2, 1)); // NOSONAR this would throw an exception if it was a clamp
+        int sporeMid = Math.min(spores.size(), Math.max(spores.size() / 2, 1)); // NOSONAR this would throw an exception
+                                                                                // if it was a clamp
+        int insectMid = Math.min(insects.size(), Math.max(insects.size() / 2, 1)); // NOSONAR this would throw an
+                                                                                   // exception if it was a clamp
+        int neighborMid = Math.min(neighbors.size(), Math.max(neighbors.size() / 2, 1)); // NOSONAR this would throw an
+                                                                                         // exception if it was a clamp
 
         var t1Neighbors = new ArrayList<>(neighbors.subList(0, neighborMid));
         t1Neighbors.add(t2);
@@ -358,7 +364,8 @@ public class Tecton implements IActive {
 
         var t2Neighbors = new ArrayList<>(neighbors.subList(neighborMid, neighbors.size()));
         t2Neighbors.add(t1);
-        t2.fillWithStuff(spores.subList(sporeMid, spores.size()), mushroom, insects.subList(insectMid, insects.size()), t2Neighbors);
+        t2.fillWithStuff(spores.subList(sporeMid, spores.size()), mushroom, insects.subList(insectMid, insects.size()),
+                t2Neighbors);
     }
 
     /**

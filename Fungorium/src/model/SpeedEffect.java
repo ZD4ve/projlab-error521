@@ -1,6 +1,5 @@
 package model;
 
-
 /**
  * <h3>Sebesség változtató hatás</h3>
  * 

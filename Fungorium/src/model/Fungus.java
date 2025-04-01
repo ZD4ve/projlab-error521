@@ -1,7 +1,5 @@
 package model;
 
-import helper.Skeleton;
-
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,18 +18,96 @@ import java.util.List;
  * növesztésének kezdeményezése.
  */
 public class Fungus {
-    /**
-     * A gombafajhoz tartozó gombafonalak számontartása.
-     */
+    // #region ASSOCIATIONS
+    /** A gombafajhoz tartozó gombafonalak számontartása. */
     private final List<Mycelium> mycelia = new ArrayList<>();
-
-    /**
-     * A gombafajhoz tartozó gombatestek számontartása.
-     */
+    /** A gombafajhoz tartozó gombatestek számontartása. */
     private final List<Mushroom> mushrooms = new ArrayList<>();
+    // #endregion
 
+    // #region ATTRIBUTES
     private int growingMycelia = 0;
     private boolean checkConnectivityRunning = false;
+    // #endregion
+
+    // #region GETTERS-SETTERS
+    /**
+     * Hozzáadja a paraméterként kapott gombatestet a gombafajban tároltakhoz.
+     * 
+     * @param mushroom az új gombatest
+     */
+    public void addMushroom(Mushroom mushroom) {
+        mushrooms.add(mushroom);
+    }
+
+    /**
+     * Kiveszi a paraméterként kapott gombatestet a gombafajban tároltakból.
+     * 
+     * @param mushroom a gombatest, amelyet kiveszünk
+     */
+    public void removeMushroom(Mushroom mushroom) {
+        mushrooms.remove(mushroom);
+        checkConnectivity();
+    }
+
+    /**
+     * Hozzáadja a paraméterként kapott gombafonalat a gombafajban tároltakhoz.
+     * 
+     * @param mycelium az új gombafonal
+     */
+    public void addMycelium(Mycelium mycelium) {
+        mycelia.add(mycelium);
+    }
+
+    /**
+     * Kiveszi a paraméterként kapott gombafonalat a gombafajban tároltakból.
+     * 
+     * @param mycelium a gombafonal, amelyet kiveszünk
+     */
+    public void removeMycelium(Mycelium mycelium) {
+        mycelia.remove(mycelium);
+        checkConnectivity();
+    }
+
+    /**
+     * Megkeresi azokat a tektonokat, ahol a gombafajnak van gombateste vagy
+     * gombafonala, vagyis tud onnan gombafonalat növeszteni.
+     * 
+     * @return a lehetséges gombafonal növesztési források egy listában
+     */
+    public List<Tecton> getPotentialMyceliumSources() {
+        HashSet<Tecton> potentialSources = new HashSet<>();
+
+        potentialSources.addAll(mushrooms.stream().map(x -> x.getLocation()).toList());
+        potentialSources.addAll(mycelia.stream().flatMap(x -> Arrays.stream(x.getEnds())).toList());
+
+        return new ArrayList<>(potentialSources);
+    }
+
+    /**
+     * Megkeresi azokat a tektonokat, ahol a gombafajnak van fonala, vagyis lehet
+     * gombatestet növeszteni rajta.
+     * 
+     * @return Minden olyan tekton, ahova lehet gombafonalat növeszteni, listában
+     */
+    public List<Tecton> getTectonsWithMycelia() {
+        HashSet<Tecton> potentialSources = new HashSet<>();
+        potentialSources.addAll(mycelia.stream().flatMap(x -> Arrays.stream(x.getEnds())).toList());
+        return new ArrayList<>(potentialSources);
+    }
+
+    /**
+     * Megvizsgálja, hogy az adott gombafaj éppen hány gombafonalat növeszt.
+     * 
+     * @return Ha ez a szám kisebb mint a fajhoz tartozó gombafejek száma akkor
+     *         igazat, különben hamisat ad vissza.
+     */
+    public boolean canGrowMycelium() {
+        return growingMycelia < mushrooms.size();
+    }
+
+    // #endregion
+    // #region FUNCTIONS
 
     /**
      * Ellenőrzi, hogy a gombafajhoz tartozó gombafonalak közül melyek vannak
@@ -45,7 +121,8 @@ public class Fungus {
         HashMap<Tecton, HashSet<Tecton>> adjacencyList = new HashMap<>();
         HashMap<Mycelium, Tecton[]> myceliaEnds = new HashMap<>();
         HashSet<Tecton> tectons = new HashSet<>(mushrooms.stream().map(x -> x.getLocation()).toList());
-        tectons.addAll(myceliaEnds.entrySet().stream().flatMap(entry -> Arrays.stream(entry.getValue())).filter(Tecton::keepsMyceliumAlive).toList());
+        tectons.addAll(myceliaEnds.entrySet().stream().flatMap(entry -> Arrays.stream(entry.getValue()))
+                .filter(Tecton::keepsMyceliumAlive).toList());
 
         for (Mycelium mycelium : mycelia) {
             var ends = mycelium.getEnds();
@@ -102,103 +179,6 @@ public class Fungus {
         checkConnectivityRunning = false;
     }
 
-    // GETTERS-SETTERS--------------------------------------------------------------
-    /**
-     * Hozzáadja a paraméterként kapott gombatestet a gombafajban tároltakhoz.
-     * 
-     * @param mushroom az új gombatest
-     */
-    public void addMushroom(Mushroom mushroom) {
-        mushrooms.add(mushroom);
-    }
-
-    /**
-     * Kiveszi a paraméterként kapott gombatestet a gombafajban tároltakból.
-     * 
-     * @param mushroom a gombatest, amelyet kiveszünk
-     */
-    public void removeMushroom(Mushroom mushroom) {
-        mushrooms.remove(mushroom);
-        checkConnectivity();
-    }
-
-    /**
-     * Hozzáadja a paraméterként kapott gombafonalat a gombafajban tároltakhoz.
-     * 
-     * @param mycelium az új gombafonal
-     */
-    public void addMycelium(Mycelium mycelium) {
-        mycelia.add(mycelium);
-    }
-
-    /**
-     * Kiveszi a paraméterként kapott gombafonalat a gombafajban tároltakból.
-     * 
-     * @param mycelium a gombafonal, amelyet kiveszünk
-     */
-    public void removeMycelium(Mycelium mycelium) {
-        mycelia.remove(mycelium);
-        checkConnectivity();
-    }
-
-    // PUBLIC MEMBER
-    // FUNCTIONS--------------------------------------------------------------
-
-    /**
-     * Megkeresi azokat a tektonokat, ahol a gombafajnak van gombateste vagy
-     * gombafonala, vagyis tud onnan gombafonalat növeszteni.
-     * 
-     * @return a lehetséges gombafonal növesztési források egy listában
-     */
-    public List<Tecton> getPotentialMyceliumSources() {
-        HashSet<Tecton> potentialSources = new HashSet<>();
-
-        for (Mycelium mycelium : mycelia) {
-            Tecton[] ends = mycelium.getEnds();
-
-            potentialSources.add(ends[0]);
-            potentialSources.add(ends[1]);
-        }
-
-        for (Mushroom mushroom : mushrooms) {
-            Tecton location = mushroom.getLocation();
-
-            potentialSources.add(location);
-        }
-        return new ArrayList<>(potentialSources);
-    }
-
-    /**
-     * Megkeresi azokat a tektonokat, ahol a gombafajnak van fonala, vagyis lehet
-     * gombatestet növeszteni rajta.
-     * 
-     * @return Minden olyan tekton, ahova lehet gombafonalat növeszteni, listában
-     */
-    public List<Tecton> getTectonsWithMycelia() {
-        HashSet<Tecton> potentialSources = new HashSet<>();
-
-        for (Mycelium mycelium : mycelia) {
-            Tecton[] ends = mycelium.getEnds();
-
-            potentialSources.add(ends[0]);
-            potentialSources.add(ends[1]);
-        }
-        return new ArrayList<>(potentialSources);
-    }
-
-    /**
-     * Megvizsgálja, hogy az adott gombafaj éppen hány gombafonalat növeszt.
-     * 
-     * @return Ha ez a szám kisebb mint a fajhoz tartozó gombafejek száma akkor
-     *         igazat, különben hamisat ad vissza.
-     */
-    public boolean canGrowMycelium() {
-        // TODO: restore
-        // boolean canGrow = growingMycelia < mushrooms.size();
-        boolean canGrow = Skeleton.ask("Tud még gombafonalat növeszteni a gombafaj?");
-        return canGrow;
-    }
-
     /**
      * Jelzi, hogy a gombafonál növekedése befejeződött, ezt kezeli le.
      */
@@ -224,14 +204,14 @@ public class Fungus {
      * @return true ha a művelet sikeres, false egyébként
      */
     public boolean growMycelium(Tecton source, Tecton target) {
-        boolean success = false;
-        boolean ready = canGrowMycelium();
-        if (ready) {
-            success = source.growMycelium(this, target);
+        if (canGrowMycelium()) {
+            boolean success = source.growMycelium(this, target);
+            if (success) {
+                growingMycelia++;
+                return true;
+            }
         }
-        if (success) {
-            growingMycelia++;
-        }
-        return success;
+        return false;
     }
+    // #endregion
 }
