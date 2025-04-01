@@ -15,6 +15,19 @@
     "files.exclude": {
         "bin": true
     },
+    "material-icon-theme.folders.associations": {
+        "tester": "test",
+    },
+    "material-icon-theme.files.associations": {
+        "**.map": "steadybit",
+        "**.op": "deepsource",
+        "**.res": "document",
+    },
+    "files.associations": {
+        "**.map": "plaintext",
+        "**.op": "plaintext",
+        "**.res": "plaintext",
+    },
     "cSpell.words": [
         "átlépni",
         "Beállítja",

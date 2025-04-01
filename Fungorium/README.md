@@ -27,3 +27,4 @@ RUN.bat is only for deployment.
 - ErrorLens
 - Code Spell Checker
 - Hungarian - Code Spell Checker
+- Material Icon Theme
