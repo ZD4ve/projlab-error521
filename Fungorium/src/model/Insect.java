@@ -214,6 +214,7 @@ public class Insect implements IActive {
                 InsectEffect effect = sporeTaken.getEffect();
                 if (effect != null) {
                     effect.applyTo(this);
+                    activeEffects.add(effect);
                 }
                 setCooldown(ACTION_DURATION);
                 return true;

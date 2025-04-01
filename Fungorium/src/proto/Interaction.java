@@ -2,10 +2,13 @@ package proto;
 
 import controller.Controller;
 import controller.RandomProvider;
+import model.Colony;
 import model.Fungus;
 import model.Insect;
+import model.InsectEffect;
 import model.Mushroom;
 import model.Mycelium;
+import model.SpeedEffect;
 import model.Tecton;
 
 import static proto.Prototype.*;
@@ -58,8 +61,9 @@ public class Interaction {
         // matrix
         for (Entry<String, Tecton> trow : tectons) {
             for (Entry<String, Tecton> tcol : tectons) {
-                long myCount = trow.getValue().getMycelia().stream().filter(x -> Arrays.asList(x.getEnds()).stream()
-                        .filter(y -> y != trow.getValue()).anyMatch(y -> y == tcol.getValue()) && x.getSpecies() == f.getValue())
+                long myCount = trow.getValue().getMycelia().stream()
+                        .filter(x -> Arrays.asList(x.getEnds()).stream().filter(y -> y != trow.getValue())
+                                .anyMatch(y -> y == tcol.getValue()) && x.getSpecies() == f.getValue())
                         .count();
                 // we only have 1 char of space :(
                 System.out.print(myCount % 10);
@@ -71,6 +75,33 @@ public class Interaction {
                 muState = mushroom.getIsGrown() ? 'M' : 'm';
             }
             System.out.printf("|%s %d %c%n", trow.getKey(), spores, muState);
+        }
+    }
+
+    private static void printInsects() {
+        var colonies = namedObjects.entrySet().stream().filter(x -> x.getKey().startsWith(names.get(Colony.class)))
+                .map(x -> new AbstractMap.SimpleEntry<>(x.getKey(), (Colony) x.getValue()))
+                .sorted((x, y) -> x.getKey().compareTo(y.getKey())).toList();
+
+        for (SimpleEntry<String, Colony> colony : colonies) {
+            System.out.printf("%s %d%n", colony.getKey(), colony.getValue().getScore());
+            var insects = namedObjects.entrySet().stream().filter(x -> x.getKey().startsWith(names.get(Insect.class)))
+                    .map(x -> new AbstractMap.SimpleEntry<>(x.getKey(), (Insect) x.getValue()))
+                    .filter(x -> colony.getValue().getInsects().contains(x.getValue()))
+                    .sorted((x, y) -> x.getKey().compareTo(y.getKey())).toList();
+            for (SimpleEntry<String, Insect> insect : insects) {
+                System.out.printf("  %s%n", insect.getKey());
+                for (InsectEffect effect : insect.getValue().getActiveEffects()) {
+                    String effectType = Prototype.effecTypes.get(effect.getClass());
+                    System.out.printf("    %s", effectType);
+                    if (effectType.equals(Prototype.effecTypes.get(SpeedEffect.class))) {
+                        System.out.printf("-%.1f", ((SpeedEffect) effect).getMultiplier());
+                    }
+                    System.out.print(' ');
+                }
+                System.out.println();
+            }
+            System.out.println();
         }
     }
 
@@ -87,6 +118,7 @@ public class Interaction {
             printMyceliumMatrix(tectons, fungus);
             System.out.println();
         }
+        printInsects();
     }
 
     private static void handleFungus(String[] input) {

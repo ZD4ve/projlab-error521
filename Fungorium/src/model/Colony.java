@@ -23,6 +23,14 @@ public class Colony {
         insects.add(insect);
     }
 
+    public List<Insect> getInsects() {
+        return insects;
+    }
+
+    public int getScore() {
+        return insects.stream().mapToInt(Insect::getScore).sum();
+    }
+
     /**
      * Rovar eltávolítása a kolóniából.
      * 

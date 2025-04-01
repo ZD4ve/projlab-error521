@@ -16,6 +16,9 @@ public class Prototype {
             SingleMyceliumTecton.class, "simy", MyceliumAbsorbingTecton.class, "myab", MyceliumKeepingTecton.class,
             "myke");
 
+    protected static Map<Class, String> effecTypes = Map.of(AntiChewEffect.class, "anti", FissionEffect.class, "fiss",
+            ParalysingEffect.class, "para", SpeedEffect.class, "sped");
+
     public static void registerNamedObject(Class cls, Object obj) {
         namedObjects.put(
                 String.format("%s%02d", Prototype.names.get(cls),
@@ -30,7 +33,7 @@ public class Prototype {
             MapCreation.createMap();
             reset = Interaction.handleInteractions();
         } while (reset);
-        
+
     }
 
     private Prototype() {
