@@ -19,6 +19,8 @@ public class Mushroom implements IActive {
      */
     private int range;
 
+    private boolean isGrown;
+
     /**
      * Mennyi időnek kell még legalább eltelnie, hogy ismét szórhasson spórát.
      */
@@ -84,6 +86,10 @@ public class Mushroom implements IActive {
     @Override
     public void tick(double dT) {
 
+    }
+
+    public boolean getIsGrown() {
+        return isGrown;
     }
 
     /**

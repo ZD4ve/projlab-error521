@@ -28,9 +28,18 @@ public class Fungus {
     // #region ATTRIBUTES
     private int growingMycelia = 0;
     private boolean checkConnectivityRunning = false;
+    private int score = 0;
     // #endregion
 
     // #region GETTERS-SETTERS
+
+    /**
+     * Lekéri a gombafaj pontszámát.
+     */
+    public int getScore() {
+        return score;
+    }
+
     /**
      * Hozzáadja a paraméterként kapott gombatestet a gombafajban tároltakhoz.
      * 
@@ -38,6 +47,7 @@ public class Fungus {
      */
     public void addMushroom(Mushroom mushroom) {
         mushrooms.add(mushroom);
+        score++;
     }
 
     /**
