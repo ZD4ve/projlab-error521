@@ -266,7 +266,7 @@ public class Insect implements IActive {
     }
 
     /**
-     * A rovar elpusztul. Kilép a kolóniából, eltünik a tektonról.
+     * A rovar elpusztul. Kilép a kolóniából, eltűnik a tektonról.
      */
     public void die() {
         Controller.unregisterActiveObject(this);

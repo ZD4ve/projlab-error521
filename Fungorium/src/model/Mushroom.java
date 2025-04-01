@@ -1,7 +1,5 @@
 package model;
 
-import helper.Skeleton;
-
 /**
  * <h3>Gombatest</h3>
  * 
@@ -12,7 +10,28 @@ import helper.Skeleton;
  * ellenőrzések elvégzése.
  */
 public class Mushroom implements IActive {
-    public static final int GROW_SPORES_REQUIRED = 3;
+
+    // #region ASSOCIATIONS
+    /**
+     * Gombatesthez tartozó faj.
+     */
+    private final Fungus species;
+
+    /**
+     * Az a tekton amelyen a gombatest található.
+     */
+    private Tecton location;
+    // #endregion
+
+
+    //#region ATTRIBUTES
+    /**
+     * A gombafaj állapotai: alap és fejlett.
+     */
+    private enum State {
+        DEFAULT, GROWN
+    }
+    private State state;
 
     /**
      * Mekkora a gomba hatótávja.
@@ -25,15 +44,29 @@ public class Mushroom implements IActive {
     private double cooldown;
 
     /**
-     * Gombatesthez tartozó faj.
+     * Mennyi időnek kell eltelnie, hogy a gomba fejletté váljon.
      */
-    private Fungus species;
+    private double growCooldown;
+    
+    /**
+     * Mennyi spórát szórt eddig a gombafej.
+     */
+    private int burstCount;
+    //#endregion
+
+    //#region CONSTANTS
+    /**
+     * Mennyi spóra kell egy gombafej növesztéséhez.
+     */
+    public static final int GROW_SPORES_REQUIRED = 3;
 
     /**
-     * Az a tekton amelyen a gombatest található.
+     * Mennyi spórát tud szórni a gombafej.
      */
-    private Tecton location;
+    public static final int MAX_SPORE_BURSTS = 10;
+    //#endregion
 
+    //#region CONSTRUCTORS
     /**
      * Létrehoz egy fungus fajú gombatestet a location tektonon
      * 
@@ -46,46 +79,9 @@ public class Mushroom implements IActive {
         fungus.addMushroom(this);
         location.setMushroom(this);
     }
+    //#endregion
 
-    /**
-     * spóraszórást kezdeményező metódus. Hatására a paraméterben kapott tektonra
-     * spórát szór a gomba, amennyiben éppen spóraszórásra alkalmas állapotban van,
-     * és a céltekton a gombatest hatókörében található. A spóraszórás hatására a
-     * gombatest meg is halhat, ha már kiszórta minden spóráját. A visszatérési
-     * érték a spóraszórás sikeressége.
-     * 
-     * @param target a céltekton, ahova a spóra kerül
-     */
-    public boolean burstSpore(Tecton target) {
-        boolean isReady = Skeleton.ask("Készen áll m1 a spóra szórására?");
-        int tmpRange = 1; // attribútum helyett lokális változó (teszthez)
-
-        if (isReady) {
-            int distance = location.distanceTo(target);
-            if (distance == 2) {
-                boolean isGrown = Skeleton.ask("Fejlett-e a gomba?");
-                if (isGrown)
-                    tmpRange = 2;
-            }
-            if (distance <= tmpRange) {
-                Spore spo = new Spore(species);
-                target.addSpore(spo);
-                boolean alive = Skeleton.ask("Tud még spórát szórni a gomba?");
-                if (!alive) {
-                    location.removeMushroom();
-                    species.removeMushroom(this);
-                }
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public void tick(double dT) {
-
-    }
-
+    //#region GETTERS-SETTERS
     /**
      * Visszaadja a spóra faját.
      * 
@@ -112,4 +108,50 @@ public class Mushroom implements IActive {
     public void setLocation(Tecton location) {
         this.location = location;
     }
+    //#endregion
+
+    //#region FUNCTIONS
+    /**
+     * spóraszórást kezdeményező metódus. Hatására a paraméterben kapott tektonra
+     * spórát szór a gomba, amennyiben éppen spóraszórásra alkalmas állapotban van,
+     * és a céltekton a gombatest hatókörében található. A spóraszórás hatására a
+     * gombatest meg is halhat, ha már kiszórta minden spóráját. A visszatérési
+     * érték a spóraszórás sikeressége.
+     * 
+     * @param target a céltekton, ahova a spóra kerül
+     */
+    public boolean burstSpore(Tecton target) {
+
+        if (cooldown == 0) {
+            int distance = location.distanceTo(target);
+            range = state == State.DEFAULT ? 1 : 2;
+            if (distance <= range) {
+                Spore spo = new Spore(species);
+                target.addSpore(spo);
+                burstCount++;
+                if (burstCount>MAX_SPORE_BURSTS) {
+                    location.removeMushroom();
+                    species.removeMushroom(this);
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //TODO DOC
+    @Override
+    public void tick(double dT) {
+        if (cooldown > 0) {
+            cooldown -= dT;
+        }
+        if (growCooldown > 0) {
+            growCooldown -= dT;
+        }
+        if (growCooldown <= 0 && state == State.DEFAULT) {
+            state = State.GROWN;
+        }
+    }
+    //#endregion
+
 }
