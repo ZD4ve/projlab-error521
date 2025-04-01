@@ -11,11 +11,9 @@ import java.util.List;
 /**
  * <h3>Gombafaj</h3>
  * 
- * Felelőssége összekötni az egy fajhoz tartozó spórákat, gombafonalakat,
- * valamint gombatesteket. Felelőssége továbbá annak ellenőrzése, hogy a
- * gombafaj tud-e gombatestet növeszteni. Felelőssége fonal növesztésének
- * kezdeményezése, fonalak összekötöttségének ellenőrzése, gombatest
- * növesztésének kezdeményezése.
+ * Felelőssége összekötni az egy fajhoz tartozó spórákat, gombafonalakat, valamint gombatesteket. Felelőssége továbbá
+ * annak ellenőrzése, hogy a gombafaj tud-e gombatestet növeszteni. Felelőssége fonal növesztésének kezdeményezése,
+ * fonalak összekötöttségének ellenőrzése, gombatest növesztésének kezdeményezése.
  */
 public class Fungus {
     // #region ASSOCIATIONS
@@ -80,8 +78,8 @@ public class Fungus {
     }
 
     /**
-     * Megkeresi azokat a tektonokat, ahol a gombafajnak van gombateste vagy
-     * gombafonala, vagyis tud onnan gombafonalat növeszteni.
+     * Megkeresi azokat a tektonokat, ahol a gombafajnak van gombateste vagy gombafonala, vagyis tud onnan gombafonalat
+     * növeszteni.
      * 
      * @return a lehetséges gombafonal növesztési források egy listában
      */
@@ -95,8 +93,7 @@ public class Fungus {
     }
 
     /**
-     * Megkeresi azokat a tektonokat, ahol a gombafajnak van fonala, vagyis lehet
-     * gombatestet növeszteni rajta.
+     * Megkeresi azokat a tektonokat, ahol a gombafajnak van fonala, vagyis lehet gombatestet növeszteni rajta.
      * 
      * @return Minden olyan tekton, ahova lehet gombafonalat növeszteni, listában
      */
@@ -109,8 +106,7 @@ public class Fungus {
     /**
      * Megvizsgálja, hogy az adott gombafaj éppen hány gombafonalat növeszt.
      * 
-     * @return Ha ez a szám kisebb mint a fajhoz tartozó gombafejek száma akkor
-     *         igazat, különben hamisat ad vissza.
+     * @return Ha ez a szám kisebb mint a fajhoz tartozó gombafejek száma akkor igazat, különben hamisat ad vissza.
      */
     public boolean canGrowMycelium() {
         return growingMycelia < mushrooms.size();
@@ -120,8 +116,7 @@ public class Fungus {
     // #region FUNCTIONS
 
     /**
-     * Ellenőrzi, hogy a gombafajhoz tartozó gombafonalak közül melyek vannak
-     * izolálva, és törli azokat.
+     * Ellenőrzi, hogy a gombafajhoz tartozó gombafonalak közül melyek vannak izolálva, és törli azokat.
      */
     private void checkConnectivity() {
         if (checkConnectivityRunning)

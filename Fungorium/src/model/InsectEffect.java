@@ -5,8 +5,7 @@ import controller.*;
 /**
  * <h3>Rovar hatás</h3>
  * 
- * A hatását kifejti a rovarra, annak időbeli hosszát számon tartja, valamint
- * idő lejárta után negálja a saját hatását.
+ * A hatását kifejti a rovarra, annak időbeli hosszát számon tartja, valamint idő lejárta után negálja a saját hatását.
  */
 public abstract class InsectEffect implements IActive {
     /**

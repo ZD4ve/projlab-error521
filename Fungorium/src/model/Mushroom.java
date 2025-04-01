@@ -3,11 +3,9 @@ package model;
 /**
  * <h3>Gombatest</h3>
  * 
- * Felelőssége a saját fejlődésének kezelése, illetve a saját halálának
- * feltételeinek beteljesülésének ellenőrzése. Halálakor értesíti a megfelelő
- * objektumokat, hogy ők is le tudják kezelni a halálának következményeit.
- * Felelőssége továbbá a spóraszórás kezdeményezése, illetve az ehhez szükséges
- * ellenőrzések elvégzése.
+ * Felelőssége a saját fejlődésének kezelése, illetve a saját halálának feltételeinek beteljesülésének ellenőrzése.
+ * Halálakor értesíti a megfelelő objektumokat, hogy ők is le tudják kezelni a halálának következményeit. Felelőssége
+ * továbbá a spóraszórás kezdeményezése, illetve az ehhez szükséges ellenőrzések elvégzése.
  */
 public class Mushroom implements IActive {
 
@@ -23,8 +21,7 @@ public class Mushroom implements IActive {
     private Tecton location;
     // #endregion
 
-
-    //#region ATTRIBUTES
+    // #region ATTRIBUTES
     /**
      * Mekkora a gomba hatótávja.
      */
@@ -44,14 +41,14 @@ public class Mushroom implements IActive {
      * Mennyi időnek kell eltelnie, hogy a gomba fejletté váljon.
      */
     private double growCooldown;
-    
+
     /**
      * Mennyi spórát szórt eddig a gombafej.
      */
     private int burstCount;
-    //#endregion
+    // #endregion
 
-    //#region CONSTANTS
+    // #region CONSTANTS
     /**
      * Mennyi spóra kell egy gombafej növesztéséhez.
      */
@@ -61,9 +58,9 @@ public class Mushroom implements IActive {
      * Mennyi spórát tud szórni a gombafej.
      */
     public static final int MAX_SPORE_BURSTS = 10;
-    //#endregion
+    // #endregion
 
-    //#region CONSTRUCTORS
+    // #region CONSTRUCTORS
     /**
      * Létrehoz egy fungus fajú gombatestet a location tektonon
      * 
@@ -76,9 +73,9 @@ public class Mushroom implements IActive {
         fungus.addMushroom(this);
         location.setMushroom(this);
     }
-    //#endregion
+    // #endregion
 
-    //#region GETTERS-SETTERS
+    // #region GETTERS-SETTERS
     /**
      * Visszaadja a spóra faját.
      * 
@@ -113,15 +110,13 @@ public class Mushroom implements IActive {
     public void setIsGrown(boolean isGrown) {
         this.isGrown = isGrown;
     }
-    //#endregion
+    // #endregion
 
-    //#region FUNCTIONS
+    // #region FUNCTIONS
     /**
-     * spóraszórást kezdeményező metódus. Hatására a paraméterben kapott tektonra
-     * spórát szór a gomba, amennyiben éppen spóraszórásra alkalmas állapotban van,
-     * és a céltekton a gombatest hatókörében található. A spóraszórás hatására a
-     * gombatest meg is halhat, ha már kiszórta minden spóráját. A visszatérési
-     * érték a spóraszórás sikeressége.
+     * spóraszórást kezdeményező metódus. Hatására a paraméterben kapott tektonra spórát szór a gomba, amennyiben éppen
+     * spóraszórásra alkalmas állapotban van, és a céltekton a gombatest hatókörében található. A spóraszórás hatására a
+     * gombatest meg is halhat, ha már kiszórta minden spóráját. A visszatérési érték a spóraszórás sikeressége.
      * 
      * @param target a céltekton, ahova a spóra kerül
      */
@@ -134,7 +129,7 @@ public class Mushroom implements IActive {
                 Spore spo = new Spore(species);
                 target.addSpore(spo);
                 burstCount++;
-                if (burstCount>MAX_SPORE_BURSTS) {
+                if (burstCount > MAX_SPORE_BURSTS) {
                     location.removeMushroom();
                     species.removeMushroom(this);
                 }
@@ -144,7 +139,7 @@ public class Mushroom implements IActive {
         return false;
     }
 
-    //TODO DOC
+    // TODO DOC
     @Override
     public void tick(double dT) {
         if (cooldown > 0) {
@@ -157,6 +152,6 @@ public class Mushroom implements IActive {
             isGrown = true;
         }
     }
-    //#endregion
+    // #endregion
 
 }

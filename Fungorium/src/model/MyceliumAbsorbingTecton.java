@@ -3,8 +3,7 @@ package model;
 /**
  * <h3>Gombafonal felszívó tekton</h3>
  * 
- * Olyan speciális tekton, ami időnként felszívja a rajta található
- * gombafonalakat.
+ * Olyan speciális tekton, ami időnként felszívja a rajta található gombafonalakat.
  */
 public class MyceliumAbsorbingTecton extends Tecton {
     public static final double ABSORPTION_TIME_SECONDS = 60;

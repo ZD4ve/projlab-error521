@@ -3,8 +3,7 @@ package model;
 /**
  * <h3>Elszakadt gombafonal életben tartó tekton</h3>
  * 
- * Olyan speciális tekton, amely gombatesthez nem csatlakoztatható
- * gombafonalakat is életben tart.
+ * Olyan speciális tekton, amely gombatesthez nem csatlakoztatható gombafonalakat is életben tart.
  */
 public class MyceliumKeepingTecton extends Tecton {
     @Override

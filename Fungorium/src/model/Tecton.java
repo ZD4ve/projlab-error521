@@ -8,14 +8,11 @@ import controller.RandomProvider;
 /**
  * <h3>Tekton</h3>
  * 
- * Felelőssége a saját szomszédainak, valamint a rajta található további
- * objektumok nyilvántartása. Felelőssége a gombatestek, gombafonalak
- * növesztéséhez szükséges ellenőrzések elvégzése, valamint ezek halálakor azon
- * objektumok törlése. Felelőssége a rovarokkal való kapcsolatának
- * karbantartása, azok hozzáadása, valamint törlése, spóra hozzáadásának
- * kezelése, spóra átadása az azt megevő rovarnak. Felelőssége a tekton
- * törésének kezdeményezése és kezelése, ezalatt a rajta található objektumok
- * elosztása, valamint saját tulajdonságainak lemásolása a keletkező új
+ * Felelőssége a saját szomszédainak, valamint a rajta található további objektumok nyilvántartása. Felelőssége a
+ * gombatestek, gombafonalak növesztéséhez szükséges ellenőrzések elvégzése, valamint ezek halálakor azon objektumok
+ * törlése. Felelőssége a rovarokkal való kapcsolatának karbantartása, azok hozzáadása, valamint törlése, spóra
+ * hozzáadásának kezelése, spóra átadása az azt megevő rovarnak. Felelőssége a tekton törésének kezdeményezése és
+ * kezelése, ezalatt a rajta található objektumok elosztása, valamint saját tulajdonságainak lemásolása a keletkező új
  * tektonokra.
  */
 public class Tecton implements IActive {
@@ -187,8 +184,7 @@ public class Tecton implements IActive {
     }
 
     /**
-     * Megadja, hogy a tekton életben tartja-e a gombatesthez nem csatlakozó
-     * gombafonalakat.
+     * Megadja, hogy a tekton életben tartja-e a gombatesthez nem csatlakozó gombafonalakat.
      */
     public boolean keepsMyceliumAlive() {
         return false;
@@ -237,12 +233,11 @@ public class Tecton implements IActive {
     }
 
     /**
-     * Ellenőrzi, hogy a kapott gombafaj tud-e gombafonalat növeszteni a tektonról
-     * vagy a tektonra.
+     * Ellenőrzi, hogy a kapott gombafaj tud-e gombafonalat növeszteni a tektonról vagy a tektonra.
      * 
      * @param fungus a szóban forgó gombafaj.
-     * @return Igazat ad vissza, amennyiben a paraméterként kapott gombafajhoz lehet
-     *         újabb gombafonalat növeszteni a gombafajtól.
+     * @return Igazat ad vissza, amennyiben a paraméterként kapott gombafajhoz lehet újabb gombafonalat növeszteni a
+     *         gombafajtól.
      */
     public boolean canGrowMyceliumFrom(Fungus fungus) { // NOSONAR this param is needed in the specialized classes
         return true;
@@ -252,8 +247,7 @@ public class Tecton implements IActive {
      * Kiszámolja, hogy a paraméterként kapott tekton mekkora távolságra van.
      * 
      * @param tecton a távolság szempontból vizsgált tekton.
-     * @return a távolság ugrásszámban, vagy {@link Integer.MAX_VALUE} ha nem
-     *         elérhető.
+     * @return a távolság ugrásszámban, vagy {@link Integer.MAX_VALUE} ha nem elérhető.
      */
     public int distanceTo(Tecton tecton) {
         if (tecton == this) {
@@ -283,8 +277,7 @@ public class Tecton implements IActive {
     }
 
     /**
-     * Létrehoz egy új példányt a tektonból. Azért kell, hogy a speciális tektonok
-     * duplikálhatók legyenek töréskor.
+     * Létrehoz egy új példányt a tektonból. Azért kell, hogy a speciális tektonok duplikálhatók legyenek töréskor.
      * 
      * @return az új példány.
      */

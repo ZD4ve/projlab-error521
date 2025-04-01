@@ -22,8 +22,7 @@ public class NoMushroomTecton extends Tecton {
      * <p>
      * {@inheritDoc}
      * </p>
-     * Ezen a tektonon nem lehetséges gombatestet növeszteni, ezért mindig
-     * {@code null} a visszatérési érték.
+     * Ezen a tektonon nem lehetséges gombatestet növeszteni, ezért mindig {@code null} a visszatérési érték.
      * 
      * @return {@code null}
      */

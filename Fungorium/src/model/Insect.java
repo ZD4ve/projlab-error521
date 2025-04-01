@@ -6,9 +6,8 @@ import java.util.*;
 /**
  * <h3>Rovar</h3>
  * 
- * Kezeli a felhasználó által kezdeményezett spóra evés, mozgás és fonal elrágás
- * akciókat, illetve ezek során kommunikál a többi objektummal. A rovar csak
- * bizonyos időközönként végezhet akciókat, ezt is követi és ellenőrzi.
+ * Kezeli a felhasználó által kezdeményezett spóra evés, mozgás és fonal elrágás akciókat, illetve ezek során kommunikál
+ * a többi objektummal. A rovar csak bizonyos időközönként végezhet akciókat, ezt is követi és ellenőrzi.
  */
 public class Insect implements IActive {
     // #region ASSOCIATIONS
@@ -187,8 +186,8 @@ public class Insect implements IActive {
     // #region FUNCTIONS
 
     /**
-     * Megkeresi azokat a tektonokat, melyre a rovar képes átlépni, vagyis vezet oda
-     * gombafonal a jelenlegi pozíciójáról.
+     * Megkeresi azokat a tektonokat, melyre a rovar képes átlépni, vagyis vezet oda gombafonal a jelenlegi
+     * pozíciójáról.
      * 
      * @return a lehetséges célpontok listája
      */
@@ -197,8 +196,8 @@ public class Insect implements IActive {
     }
 
     /**
-     * A rovar megpróbál elfogyasztani egy spórát azon a tektonon, amelyen áll. A
-     * visszatérési érték a művelet sikerességét jelzi.
+     * A rovar megpróbál elfogyasztani egy spórát azon a tektonon, amelyen áll. A visszatérési érték a művelet
+     * sikerességét jelzi.
      * 
      * @return sikeresség
      */
@@ -219,8 +218,7 @@ public class Insect implements IActive {
     }
 
     /**
-     * A rovar megpróbál a target tektonra mozogni. A visszatérési érték a művelet
-     * sikerességét jelzi.
+     * A rovar megpróbál a target tektonra mozogni. A visszatérési érték a művelet sikerességét jelzi.
      * 
      * @param target cél tekton
      * @return sikeresség
@@ -238,8 +236,7 @@ public class Insect implements IActive {
     }
 
     /**
-     * A rovar megpróbálja elrágni a target gombafonalat. A visszatérési érték a
-     * művelet sikerességét jelzi.
+     * A rovar megpróbálja elrágni a target gombafonalat. A visszatérési érték a művelet sikerességét jelzi.
      * 
      * @param mycelium a fonal, amit el akar rágni
      * @return sikeresség

@@ -3,8 +3,7 @@ package model;
 /**
  * <h3>Gombafonal rágás tiltó hatás</h3>
  * 
- * Olyan InsectEffect, amely megakadályozza, hogy a rovar tudjon gombafonalat
- * rágni.
+ * Olyan InsectEffect, amely megakadályozza, hogy a rovar tudjon gombafonalat rágni.
  */
 public class AntiChewEffect extends InsectEffect {
 

@@ -3,11 +3,10 @@ package model;
 /**
  * <h3>Gombafonal</h3>
  * 
- * A gombafonalak bizonyos feltételeket teljesítő tektonokon nőhetnek,
- * felelőssége ezen feltételek ellenőrzése, valamint a létrejövés utáni
- * vastagodás elvégzése, ennek sikerességéről a gombafaj tájékoztatása.
- * Felelőssége továbbá a bármilyen okból történő megsemmisülésének kezelése,
- * erről fajának értesítése, továbbá saját gombafajának nyilvántartása.
+ * A gombafonalak bizonyos feltételeket teljesítő tektonokon nőhetnek, felelőssége ezen feltételek ellenőrzése, valamint
+ * a létrejövés utáni vastagodás elvégzése, ennek sikerességéről a gombafaj tájékoztatása. Felelőssége továbbá a
+ * bármilyen okból történő megsemmisülésének kezelése, erről fajának értesítése, továbbá saját gombafajának
+ * nyilvántartása.
  */
 public class Mycelium implements IActive {
     private static final double GROWTH_TIME = 10;
@@ -24,8 +23,8 @@ public class Mycelium implements IActive {
     private double cooldown;
 
     /**
-     * Konstruktor, létrehozza a paraméterként kapott gombafajhoz tartozó
-     * gombafonalat, a két paraméterként kapott tekton közé.
+     * Konstruktor, létrehozza a paraméterként kapott gombafajhoz tartozó gombafonalat, a két paraméterként kapott
+     * tekton közé.
      */
     public Mycelium(Fungus fungus, Tecton end1, Tecton end2) {
         this.species = fungus;

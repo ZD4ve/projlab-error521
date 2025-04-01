@@ -22,8 +22,7 @@ public class SingleMyceliumTecton extends Tecton {
      * <p>
      * {@inheritDoc}
      * </p>
-     * Ez akkor teljesül, ha nincs másik fajnak gombateste vagy gombafonala a
-     * tektonon.
+     * Ez akkor teljesül, ha nincs másik fajnak gombateste vagy gombafonala a tektonon.
      */
     @Override
     public boolean canGrowMyceliumFrom(Fungus fungus) {
