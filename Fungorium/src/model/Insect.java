@@ -11,15 +11,16 @@ import java.util.*;
  * bizonyos időközönként végezhet akciókat, ezt is követi és ellenőrzi.
  */
 public class Insect implements IActive {
-    // ASSOCIATIONS
+    // #region ASSOCIATIONS
     /** ezen a tektonon áll éppen a rovar. */
     private Tecton location;
     /** épp a rovarra ható hatások */
     private final List<InsectEffect> activeEffects = new ArrayList<>();
     /** a rovar kolóniája */
     private final Colony colony;
+    // #endregion
 
-    // ATTRIBUTES
+    // #region ATTRIBUTES
     /** mennyi idő múlva végezhető a következő akció */
     private double cooldown;
     /** a rovar sebessége a normálishoz képest */
@@ -30,9 +31,13 @@ public class Insect implements IActive {
     private boolean isParalysed;
     /** hány spórát evett meg a rovar */
     private int score;
+    // #endregion
 
+    // #region CONSTANTS
     private static final double ACTION_DURATION = 3;
+    // #endregion
 
+    // #region CONSTRUCTORS
     /**
      * Rovar létrehozása és elhelyezése egy tektonon.
      * 
@@ -55,6 +60,7 @@ public class Insect implements IActive {
         this(location, new Colony());
     }
 
+    // #endregion
     // #region GETTERS-SETTERS
 
     public List<InsectEffect> getActiveEffects() {
@@ -197,20 +203,19 @@ public class Insect implements IActive {
      * @return sikeresség
      */
     public boolean eatSpore() {
-        boolean success = false;
         if (!isParalysed && ready()) {
             Spore sporeTaken = location.takeSpore();
             if (sporeTaken != null) {
                 score++;
-                success = true;
                 InsectEffect effect = sporeTaken.getEffect();
                 if (effect != null) {
                     effect.applyTo(this);
                 }
                 setCooldown(ACTION_DURATION);
+                return true;
             }
         }
-        return success;
+        return false;
     }
 
     /**
@@ -240,9 +245,8 @@ public class Insect implements IActive {
      * @return sikeresség
      */
     public boolean chewMycelium(Mycelium mycelium) {
-        if (isParalysed || antiChewCount > 0 || !ready()) {
+        if (isParalysed || antiChewCount > 0 || !ready())
             return false;
-        }
         mycelium.chew();
         setCooldown(ACTION_DURATION);
         return true;
