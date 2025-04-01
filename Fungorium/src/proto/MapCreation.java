@@ -227,7 +227,7 @@ public class MapCreation {
             return;
         }
 
-        var insect = new Insect(tecton);
+        var insect = new Insect(tecton, colony);
         insect.setSpeed(speed);
         registerNamedObject(Insect.class, insect);
     }
