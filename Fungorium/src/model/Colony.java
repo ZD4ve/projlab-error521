@@ -1,10 +1,11 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // TODO DOC
 public class Colony {
-    private List<Insect> insects;
+    private List<Insect> insects = new ArrayList<>();
 
     /**
      * Rovar felvétel a kolóniába.

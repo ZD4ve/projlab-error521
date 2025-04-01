@@ -4,7 +4,6 @@ import controller.Controller;
 import controller.RandomProvider;
 import model.Fungus;
 import model.Insect;
-import model.InsectEffect;
 import model.Mushroom;
 import model.Mycelium;
 import model.Tecton;
@@ -68,7 +67,8 @@ public class Interaction {
             return;
         }
 
-        if (!input[2].startsWith(Prototype.names.get(Tecton.class)) || !input[3].startsWith(Prototype.names.get(Tecton.class))) {
+        if (!input[2].startsWith(Prototype.names.get(Tecton.class))
+                || !input[3].startsWith(Prototype.names.get(Tecton.class))) {
             System.out.println(SYNTAX_ERROR + ": 3rd arg must be a tecton.");
             return;
         }
@@ -148,13 +148,8 @@ public class Interaction {
             }
         } else if (input[1].equals("chew")) {
             handleInsectChew(in, input);
-        } else if (input[1].equals("eat")) {
-            if (!in.eatSpore()) {
-                System.out.println("eat failed");
-            } else {
-                var effect = in.getActiveEffects().get(in.getActiveEffects().size() - 1);
-                Prototype.registerNamedObject(InsectEffect.class, effect);
-            }
+        } else if (input[1].equals("eat") && !in.eatSpore()) {
+            System.out.println("eat failed");
         }
     }
 
