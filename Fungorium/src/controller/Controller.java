@@ -9,6 +9,8 @@ public class Controller {
     private static List<IActive> activeObjects = new ArrayList<>();
     private static List<Tecton> tectons = new ArrayList<>();
 
+    private static IActive lastRemoved = null;
+
     public static void registerTecton(Tecton t) {
         if (!tectons.contains(t)) {
             tectons.add(t);
@@ -28,12 +30,17 @@ public class Controller {
     }
 
     public static void unregisterActiveObject(IActive object) {
+        lastRemoved = object;
         activeObjects.remove(object);
     }
 
     public static void onTimeElapsed(double dT) {
-        for (IActive a : activeObjects) {
-            a.tick(dT);
+        for (int i = 0; i < activeObjects.size();) {
+            var curr = activeObjects.get(i);
+            curr.tick(dT);
+            if (lastRemoved != curr) {
+                i++;
+            }
         }
     }
 

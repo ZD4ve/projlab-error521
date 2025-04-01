@@ -46,13 +46,13 @@ public class MapCreation {
         }
 
         var left = (Tecton) namedObjects.get(t1);
-        if (t1 == null) {
+        if (left == null) {
             System.out.println(INVALID_ARG + ": invalid left tecton name");
             return;
         }
 
         var right = (Tecton) namedObjects.get(t2);
-        if (t2 == null) {
+        if (right == null) {
             System.out.println(INVALID_ARG + ": invalid right tecton name");
             return;
         }

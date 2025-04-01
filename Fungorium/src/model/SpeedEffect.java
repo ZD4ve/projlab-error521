@@ -21,6 +21,12 @@ public class SpeedEffect extends InsectEffect {
     }
     // #endregion
 
+    // #region getters-setters
+    public double getMultiplier() {
+        return multiplier;
+    }
+    // #endregion
+
     // #region FUNCTIONS
     /**
      * <p>
