@@ -10,28 +10,28 @@ package model;
  */
 public class Mycelium implements IActive {
     // #region CONSTANTS
-    /** TODO DOC */
+    /** A gombafonal növekedési ideje */
     private static final double GROWTH_TIME = 10;
-    /** TODO DOC */
+    /** A gombafonal elrágási ideje */
     private static final double CHEW_TIME = 3;
     // #endregion
 
     // #region ASSOCIATIONS
-    /** TODO DOC */
+    /** A gombafaj, amelyhez a gombafonal tartozik */
     private final Fungus species;
-    /** TODO DOC */
+    /** A gombafonal két végén található tektonok tömbje */
     private final Tecton[] ends;
     // #endregion
 
     // #region ATTRIBUTES
-    /** TODO DOC */
+    /** A gombafonal állapotai, ezek lehet növekvő, normális, vagy elrágott */
     private enum State {
         GROWING, NORMAL, CHEWED
     }
 
-    /** TODO DOC */
+    /** Az aktuális gombafonal állapota */
     private State state;
-    /** TODO DOC */
+    /** mennyi idő múlva végezhető a következő akció */
     private double cooldown;
     // #endregion
 

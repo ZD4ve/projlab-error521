@@ -78,12 +78,20 @@ public class Mushroom implements IActive {
         this.location = location;
     }
 
-    // TODO DOC
+    /**
+     * Visszaadja, hogy a gomba fejlett-e.
+     * 
+     * @return boolean érték, a gomba fejlett-e
+     */
     public boolean getIsGrown() {
         return isGrown;
     }
 
-    // TODO DOC
+    /**
+     * Beállítja a gomba fejlettségét a paraméterként kapott értékre.
+     * 
+     * @param isGrown igaz-hamis érték, erre állítjuk be a gomba fejlettségét
+     */
     public void setIsGrown(boolean isGrown) {
         this.isGrown = isGrown;
         range = isGrown ? 2 : 1;

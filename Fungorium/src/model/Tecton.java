@@ -1,9 +1,8 @@
 package model;
 
-import java.util.*;
-
 import controller.Controller;
 import controller.RandomProvider;
+import java.util.*;
 
 /**
  * <h3>Tekton</h3>
@@ -17,7 +16,7 @@ import controller.RandomProvider;
  */
 public class Tecton implements IActive {
     // #region CONSTANTS
-    /** TODO DOC */
+    /** Annak az esélye, hogy a tekton egy másodpercben eltörik */
     public static final double BREAK_CHANCE_PER_SEC = 0.001;
     // #endregion
 
