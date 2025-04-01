@@ -26,24 +26,14 @@ public class Mushroom implements IActive {
 
     //#region ATTRIBUTES
     /**
-     * A gombafaj állapotai: alap és fejlett.
-     */
-    private enum State {
-        DEFAULT, GROWN
-    }
-    private State state;
-
-    /**
      * Mekkora a gomba hatótávja.
      */
     private int range;
 
-    private boolean isGrown;
-
     /**
      * Fejlett-e a gombatest.
      */
-    private boolean isGrown = false;
+    private boolean isGrown;
 
     /**
      * Mennyi időnek kell még legalább eltelnie, hogy ismét szórhasson spórát.
@@ -139,7 +129,7 @@ public class Mushroom implements IActive {
 
         if (cooldown == 0) {
             int distance = location.distanceTo(target);
-            range = state == State.DEFAULT ? 1 : 2;
+            range = isGrown ? 2 : 1;
             if (distance <= range) {
                 Spore spo = new Spore(species);
                 target.addSpore(spo);
@@ -163,8 +153,8 @@ public class Mushroom implements IActive {
         if (growCooldown > 0) {
             growCooldown -= dT;
         }
-        if (growCooldown <= 0 && state == State.DEFAULT) {
-            state = State.GROWN;
+        if (growCooldown <= 0 && !isGrown) {
+            isGrown = true;
         }
     }
     //#endregion
