@@ -93,10 +93,6 @@ public class Mushroom implements IActive {
 
     }
 
-    public boolean getIsGrown() {
-        return isGrown;
-    }
-
     /**
      * Visszaadja a spóra faját.
      * 
