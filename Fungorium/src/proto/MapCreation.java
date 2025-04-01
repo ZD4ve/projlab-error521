@@ -16,6 +16,7 @@ public class MapCreation {
     private static final String INVALID_ARG = "Syntax error: invalid argument";
     private static final String FUNGUS_INVALID = ": invalid fungus name";
     private static final String TECTON_INVALID = ": invalid tecton name";
+    private static final String SPORE_INVALID = ": invalid spore count";
 
     private static void addTectonObject(String tecton) {
         switch (tecton) {
@@ -76,7 +77,27 @@ public class MapCreation {
         } while (true);
     }
 
-    private static void handleMushroom(String f, String t) {
+    private static void handleMushroom(String f, String t, String isGrown, String sporeCount) { // NOSONAR
+        boolean isGrownBoolean = false;
+        if (isGrown.equals("true")) {
+            isGrownBoolean = true;
+        } else if (!isGrown.equals("false")) {
+            System.out.println(SYNTAX_ERROR + ": invalid mushroom growth status");
+            return;
+        }
+
+        int sporeCountInt; // SoonToBeUpdated
+        try {
+            sporeCountInt = Integer.parseInt(sporeCount);
+            if (sporeCountInt < 0) {
+                System.out.println(INVALID_ARG + SPORE_INVALID);
+                return;
+            }
+        } catch (NumberFormatException e) {
+            System.out.println(SYNTAX_ERROR + SPORE_INVALID);
+            return;
+        }
+
         var fungus = (Fungus) namedObjects.get(f);
         if (fungus == null) {
             System.out.println(INVALID_ARG + FUNGUS_INVALID);
@@ -88,8 +109,10 @@ public class MapCreation {
             System.out.println(INVALID_ARG + TECTON_INVALID);
             return;
         }
-
-        Prototype.registerNamedObject(Mushroom.class, new Mushroom(fungus, tecton));
+        
+        var mushroom = new Mushroom(fungus, tecton);
+        mushroom.setIsGrown(isGrownBoolean);
+        Prototype.registerNamedObject(Mushroom.class, mushroom);
     }
 
     private static void mushroomsMenu() {
@@ -104,7 +127,15 @@ public class MapCreation {
                 continue;
             }
 
-            handleMushroom(params.get(0), params.get(1));
+            if (params.size() > 2 && params.size() < 4) {
+                handleMushroom(params.get(0), params.get(1), params.get(2), "1");
+            }
+            else if (params.size() > 3) {
+                handleMushroom(params.get(0), params.get(1), params.get(2), params.get(3));
+            }
+            else {
+                handleMushroom(params.get(0), params.get(1), "false", "1");
+            }
         } while (true);
     }
 
@@ -168,11 +199,11 @@ public class MapCreation {
         try {
             dbInt = Integer.parseInt(db);
             if (dbInt < 0) {
-                System.out.println(SYNTAX_ERROR + ": invalid spore count");
+                System.out.println(SYNTAX_ERROR + SPORE_INVALID);
                 return;
             }
         } catch (NumberFormatException e) {
-            System.out.println(SYNTAX_ERROR + ": invalid spore count");
+            System.out.println(SYNTAX_ERROR + SPORE_INVALID);
             return;
         }
 

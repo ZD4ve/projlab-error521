@@ -20,6 +20,11 @@ public class Mushroom implements IActive {
     private int range;
 
     /**
+     * Fejlett-e a gombatest.
+     */
+    private boolean isGrown = false;
+
+    /**
      * Mennyi időnek kell még legalább eltelnie, hogy ismét szórhasson spórát.
      */
     private double cooldown;
@@ -111,5 +116,13 @@ public class Mushroom implements IActive {
      */
     public void setLocation(Tecton location) {
         this.location = location;
+    }
+
+    public boolean getIsGrown() {
+        return isGrown;
+    }
+
+    public void setIsGrown(boolean isGrown) {
+        this.isGrown = isGrown;
     }
 }
