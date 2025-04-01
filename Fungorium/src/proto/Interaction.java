@@ -11,6 +11,9 @@ import model.Tecton;
 import static proto.Prototype.*;
 
 import java.util.AbstractMap;
+import java.util.Arrays;
+import java.util.List;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.Map.Entry;
 
 @java.lang.SuppressWarnings("java:S106") // használható büntetlenül a System IO
@@ -22,15 +25,20 @@ public class Interaction {
     private Interaction() {
     }
 
-    private static void printNeighborMatrix() {
-        var tectons = namedObjects.entrySet().stream().filter(x -> x.getKey().startsWith(names.get(Tecton.class))).map(x -> new AbstractMap.SimpleEntry<>(x.getKey(), (Tecton) x.getValue())).sorted((x, y) -> x.getKey().compareTo(y.getKey())).toList();
-        // header
+    private static void printTectonNamesVertically(List<SimpleEntry<String, Tecton>> tectons) {
         for (int i = 0; i < 4; i++) {
             for (Entry<String, Tecton> t : tectons) {
                 System.out.print(t.getKey().charAt(i));
             }
             System.out.println();
         }
+    }
+
+    private static void printNeighborMatrix(List<SimpleEntry<String, Tecton>> tectons) {
+
+        // header
+        printTectonNamesVertically(tectons);
+        // matrix
         for (Entry<String, Tecton> trow : tectons) {
             for (Entry<String, Tecton> tcol : tectons) {
                 if (trow.getValue().getNeighbors().contains(tcol.getValue())) {
@@ -39,12 +47,46 @@ public class Interaction {
                     System.out.print(' ');
                 }
             }
-            System.out.printf("|%s %s", trow.getKey(), Prototype.tectonTypes.get(trow.getValue().getClass()));
+            System.out.printf("|%s %s%n", trow.getKey(), Prototype.tectonTypes.get(trow.getValue().getClass()));
+        }
+    }
+
+    private static void printMyceliumMatrix(List<SimpleEntry<String, Tecton>> tectons, SimpleEntry<String, Fungus> f) {
+        System.out.printf("%s %d%n", f.getKey(), f.getValue().getScore());
+        // header
+        printTectonNamesVertically(tectons);
+        // matrix
+        for (Entry<String, Tecton> trow : tectons) {
+            for (Entry<String, Tecton> tcol : tectons) {
+                long myCount = trow.getValue().getMycelia().stream().filter(x -> Arrays.asList(x.getEnds()).stream()
+                        .filter(y -> y != trow.getValue()).anyMatch(y -> y == tcol.getValue()) && x.getSpecies() == f.getValue())
+                        .count();
+                // we only have 1 char of space :(
+                System.out.print(myCount % 10);
+            }
+            long spores = trow.getValue().getSpores().stream().filter(x -> x.getSpecies() == f.getValue()).count();
+            var mushroom = trow.getValue().getMushroom();
+            char muState = ' ';
+            if (mushroom != null) {
+                muState = mushroom.getIsGrown() ? 'M' : 'm';
+            }
+            System.out.printf("|%s %d %c%n", trow.getKey(), spores, muState);
         }
     }
 
     private static void printState() {
-        printNeighborMatrix();
+        var tectons = namedObjects.entrySet().stream().filter(x -> x.getKey().startsWith(names.get(Tecton.class)))
+                .map(x -> new AbstractMap.SimpleEntry<>(x.getKey(), (Tecton) x.getValue()))
+                .sorted((x, y) -> x.getKey().compareTo(y.getKey())).toList();
+        printNeighborMatrix(tectons);
+        System.out.println();
+        var fungi = namedObjects.entrySet().stream().filter(x -> x.getKey().startsWith(names.get(Fungus.class)))
+                .map(x -> new AbstractMap.SimpleEntry<>(x.getKey(), (Fungus) x.getValue()))
+                .sorted((x, y) -> x.getKey().compareTo(y.getKey())).toList();
+        for (SimpleEntry<String, Fungus> fungus : fungi) {
+            printMyceliumMatrix(tectons, fungus);
+            System.out.println();
+        }
     }
 
     private static void handleFungus(String[] input) {
@@ -209,7 +251,12 @@ public class Interaction {
         RandomProvider.addNext(next);
     }
 
-    public static void handleInteractions() {
+    private static void handleReset() {
+        Controller.reset();
+        namedObjects.clear();
+    }
+
+    public static boolean handleInteractions() {
         String[] input;
         do {
             input = System.console().readLine().split(" ");
@@ -217,12 +264,14 @@ public class Interaction {
             if (input.length == 0) {
                 // we ignore empty line without using continue
             } else if (input[0].equals("end")) {
-                break;
+                return false;
             } else if (input[0].equals("printstate")) {
                 printState();
             } else if (input[0].equals("tick")) {
                 handleTick(input);
-
+            } else if (input[0].equals("reset")) {
+                handleReset();
+                return true;
             } else if (input[0].equals("nextrand")) {
                 handleNextRand(input);
             } else if (input[0].startsWith(Prototype.names.get(Mushroom.class))) {

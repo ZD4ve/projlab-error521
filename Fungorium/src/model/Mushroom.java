@@ -19,6 +19,8 @@ public class Mushroom implements IActive {
      */
     private int range;
 
+    private boolean isGrown;
+
     /**
      * Fejlett-e a gombatest.
      */
@@ -89,6 +91,10 @@ public class Mushroom implements IActive {
     @Override
     public void tick(double dT) {
 
+    }
+
+    public boolean getIsGrown() {
+        return isGrown;
     }
 
     /**

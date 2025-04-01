@@ -39,6 +39,10 @@ public class Controller {
 
     // #endregion
 
+    public static void reset() {
+        activeObjects.clear();
+    }
+
     private Controller() {
     }
 }

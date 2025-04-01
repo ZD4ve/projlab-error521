@@ -3,7 +3,11 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO DOC
+/**
+ * <h3>Kolónia</h3>
+ * 
+ * Egy rovarász által irányított rovarok összessége.
+ */
 public class Colony {
     private List<Insect> insects = new ArrayList<>();
 
