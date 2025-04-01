@@ -10,53 +10,29 @@ package model;
 public class Mushroom implements IActive {
 
     // #region ASSOCIATIONS
-    /**
-     * Gombatesthez tartozó faj.
-     */
+    /** Gombatesthez tartozó faj. */
     private final Fungus species;
-
-    /**
-     * Az a tekton amelyen a gombatest található.
-     */
+    /** Az a tekton amelyen a gombatest található. */
     private Tecton location;
     // #endregion
 
     // #region ATTRIBUTES
-    /**
-     * Mekkora a gomba hatótávja.
-     */
+    /** Mekkora a gomba hatótávja. */
     private int range;
-
-    /**
-     * Fejlett-e a gombatest.
-     */
+    /** Fejlett-e a gombatest. */
     private boolean isGrown;
-
-    /**
-     * Mennyi időnek kell még legalább eltelnie, hogy ismét szórhasson spórát.
-     */
+    /** Mennyi időnek kell még eltelnie, hogy ismét szórhasson spórát. */
     private double cooldown;
-
-    /**
-     * Mennyi időnek kell eltelnie, hogy a gomba fejletté váljon.
-     */
+    /** Mennyi időnek kell eltelnie, hogy a gomba fejletté váljon. */
     private double growCooldown;
-
-    /**
-     * Mennyi spórát szórt eddig a gombafej.
-     */
+    /** Mennyi spórát szórt eddig a gombafej. */
     private int burstCount;
     // #endregion
 
     // #region CONSTANTS
-    /**
-     * Mennyi spóra kell egy gombafej növesztéséhez.
-     */
+    /** Mennyi spóra kell egy gombafej növesztéséhez. */
     public static final int GROW_SPORES_REQUIRED = 3;
-
-    /**
-     * Mennyi spórát tud szórni a gombafej.
-     */
+    /** Mennyi spórát tud szórni a gombafej. */
     public static final int MAX_SPORE_BURSTS = 10;
     // #endregion
 
@@ -103,12 +79,15 @@ public class Mushroom implements IActive {
         this.location = location;
     }
 
+    // TODO DOC
     public boolean getIsGrown() {
         return isGrown;
     }
 
+    // TODO DOC
     public void setIsGrown(boolean isGrown) {
         this.isGrown = isGrown;
+        range = isGrown ? 2 : 1;
     }
     // #endregion
 
@@ -124,7 +103,6 @@ public class Mushroom implements IActive {
 
         if (cooldown == 0) {
             int distance = location.distanceTo(target);
-            range = isGrown ? 2 : 1;
             if (distance <= range) {
                 Spore spo = new Spore(species);
                 target.addSpore(spo);
@@ -150,6 +128,7 @@ public class Mushroom implements IActive {
         }
         if (growCooldown <= 0 && !isGrown) {
             isGrown = true;
+            range = 2;
         }
     }
     // #endregion
