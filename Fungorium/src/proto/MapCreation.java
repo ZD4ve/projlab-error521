@@ -233,11 +233,8 @@ public class MapCreation {
                 continue;
             }
 
-            var insect = new Insect(tecton);
+            var insect = new Insect(tecton,colony);
 
-            // TODO: Colony implementation missing here, like addinsect, or we can just set
-            // it at
-            // the constructor
 
             float speed;
             try {
