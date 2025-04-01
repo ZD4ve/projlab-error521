@@ -15,6 +15,7 @@ public class SpeedEffect extends InsectEffect {
      * Inicializálja az effektet.
      */
     public SpeedEffect() {
+        // TODO RANDOM
         this.multiplier = 0.65;
     }
 
