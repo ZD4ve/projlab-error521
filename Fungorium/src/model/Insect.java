@@ -11,7 +11,7 @@ import java.util.*;
  */
 public class Insect implements IActive {
     // #region CONSTANTS
-    /** Megadja, mennyi ideig tart a rovar egy akciója */
+    /** Az akciók végrehajtásának ideje másodpercben. */
     private static final double ACTION_DURATION = 3;
     // #endregion
 
@@ -64,9 +64,9 @@ public class Insect implements IActive {
     // #region GETTERS-SETTERS
 
     /**
-     * A rovaron lévő effektek listáját adja vissza
+     * Visszaadja a rovarra jelenleg ható hatásokat.
      * 
-     * @return a rovaron lévő effektek listája
+     * @return a hatások listája
      */
     public List<InsectEffect> getActiveEffects() {
         return activeEffects;
