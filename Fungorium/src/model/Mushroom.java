@@ -8,6 +8,12 @@ package model;
  * továbbá a spóraszórás kezdeményezése, illetve az ehhez szükséges ellenőrzések elvégzése.
  */
 public class Mushroom implements IActive {
+    // #region CONSTANTS
+    /** Mennyi spóra kell egy gombafej növesztéséhez. */
+    public static final int GROW_SPORES_REQUIRED = 3;
+    /** Mennyi spórát tud szórni a gombafej. */
+    public static final int MAX_SPORE_BURSTS = 10;
+    // #endregion
 
     // #region ASSOCIATIONS
     /** Gombatesthez tartozó faj. */
@@ -27,13 +33,6 @@ public class Mushroom implements IActive {
     private double growCooldown;
     /** Mennyi spórát szórt eddig a gombafej. */
     private int burstCount;
-    // #endregion
-
-    // #region CONSTANTS
-    /** Mennyi spóra kell egy gombafej növesztéséhez. */
-    public static final int GROW_SPORES_REQUIRED = 3;
-    /** Mennyi spórát tud szórni a gombafej. */
-    public static final int MAX_SPORE_BURSTS = 10;
     // #endregion
 
     // #region CONSTRUCTORS

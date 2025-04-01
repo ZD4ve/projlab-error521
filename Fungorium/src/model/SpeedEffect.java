@@ -6,11 +6,12 @@ package model;
  * Olyan InsectEffect, amely a rovar sebességét befolyásolja.
  */
 public class SpeedEffect extends InsectEffect {
-    /**
-     * Lebegőpontos szám, ezzel szorozza a rovar sebességét.
-     */
+    // #region ATTRIBUTES
+    /** Lebegőpontos szám, ezzel szorozza a rovar sebességét. */
     private double multiplier;
+    // #endregion
 
+    // #region CONSTRUCTORS
     /**
      * Inicializálja az effektet.
      */
@@ -18,8 +19,13 @@ public class SpeedEffect extends InsectEffect {
         // TODO RANDOM
         this.multiplier = 0.65;
     }
+    // #endregion
 
+    // #region FUNCTIONS
     /**
+     * <p>
+     * {@inheritDoc}
+     * </p>
      * A paraméterben kapott rovar sebességét állítja.
      * 
      * @param insect a rovar, ami kapja a hatást
@@ -32,6 +38,9 @@ public class SpeedEffect extends InsectEffect {
     }
 
     /**
+     * <p>
+     * {@inheritDoc}
+     * </p>
      * Visszaállítja a rovar sebességét.
      */
     @Override
@@ -39,4 +48,5 @@ public class SpeedEffect extends InsectEffect {
         double speed = insect.getSpeed();
         insect.setSpeed(speed / multiplier);
     }
+    // #endregion
 }

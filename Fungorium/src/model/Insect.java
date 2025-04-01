@@ -10,6 +10,11 @@ import java.util.*;
  * a többi objektummal. A rovar csak bizonyos időközönként végezhet akciókat, ezt is követi és ellenőrzi.
  */
 public class Insect implements IActive {
+    // #region CONSTANTS
+    /** TODO DOC */
+    private static final double ACTION_DURATION = 3;
+    // #endregion
+
     // #region ASSOCIATIONS
     /** ezen a tektonon áll éppen a rovar. */
     private Tecton location;
@@ -32,10 +37,6 @@ public class Insect implements IActive {
     private int score;
     // #endregion
 
-    // #region CONSTANTS
-    private static final double ACTION_DURATION = 3;
-    // #endregion
-
     // #region CONSTRUCTORS
     /**
      * Rovar létrehozása és elhelyezése egy tektonon.
@@ -55,13 +56,14 @@ public class Insect implements IActive {
      * @deprecated ONLY FOR SKELETON BACKWARD COMPATIBILITY
      */
     @Deprecated(since = "proto", forRemoval = false)
-    public Insect(Tecton location) {
+    public Insect(Tecton location) { // NOSONAR skeleton működéshez szükséges
         this(location, new Colony());
     }
 
     // #endregion
     // #region GETTERS-SETTERS
 
+    // TODO DOC
     public List<InsectEffect> getActiveEffects() {
         return activeEffects;
     }
@@ -182,7 +184,6 @@ public class Insect implements IActive {
     }
 
     // #endregion
-
     // #region FUNCTIONS
 
     /**
@@ -249,6 +250,12 @@ public class Insect implements IActive {
         return true;
     }
 
+    /**
+     * <p>
+     * {@inheritDoc}
+     * </p>
+     * Várakozási idő csökkentése.
+     */
     @Override
     public void tick(double dT) {
         if (cooldown > 0)

@@ -8,20 +8,24 @@ import controller.*;
  * A hatását kifejti a rovarra, annak időbeli hosszát számon tartja, valamint idő lejárta után negálja a saját hatását.
  */
 public abstract class InsectEffect implements IActive {
-    /**
-     * A hatás hátralévő ideje.
-     */
-    protected double timeLeft = 0.5;
-
-    /**
-     * A rovar, ami a hatást szenvedi.
-     */
+    // #region ASSOCIATIONS
+    /** A rovar, ami a hatást szenvedi. */
     protected Insect insect;
+    // #endregion
 
+    // #region ATTRIBUTES
+    /** A hatás hátralévő ideje. */
+    protected double timeLeft = 0.5;
+    // #endregion
+
+    // #region CONSTRUCTORS
+    // TODO DOC
     protected InsectEffect() {
         Controller.registerActiveObject(this);
     }
+    // #endregion
 
+    // #region FUNCTIONS
     /**
      * véletlenszerűen választ egy hatást és létrehoz belőle egyet.
      * 
@@ -53,6 +57,7 @@ public abstract class InsectEffect implements IActive {
      */
     protected abstract void remove();
 
+    // TODO DOC
     public void wearOff() {
         remove();
         insect.removeEffect(this);
@@ -60,13 +65,19 @@ public abstract class InsectEffect implements IActive {
     }
 
     /**
+     * <p>
+     * {@inheritDoc}
+     * </p>
      * Hívásakor csökkentjük a hatás hátralévő idejét.
      */
     @Override
     public void tick(double dT) {
+        if (insect == null)
+            return;
         timeLeft -= dT;
         if (timeLeft <= 0) {
             wearOff();
         }
     }
+    // #endregion
 }

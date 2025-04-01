@@ -6,13 +6,6 @@ package model;
  * Olyan speciális tekton, melyen csak csak egy gombafajnak lehet gombafonala.
  */
 public class SingleMyceliumTecton extends Tecton {
-    /**
-     * Létrehoz egy új példányt alapértelmezett beállításokkal.
-     */
-    public SingleMyceliumTecton() {
-        // this exists just so that we can document it :)
-    }
-
     @Override
     public SingleMyceliumTecton newMe() {
         return new SingleMyceliumTecton();

@@ -3,7 +3,7 @@ package helper;
 import static helper.Skeleton.*;
 import model.*;
 
-@java.lang.SuppressWarnings("java:S106") // használható büntetlenül a System IO
+@java.lang.SuppressWarnings({ "java:S106", "deprecation" }) // használható büntetlenül a System IO és a régi Rovar ctor
 public class UseCases {
     private UseCases() {
     } // UseCases ne legyen példányosítható
@@ -160,8 +160,8 @@ public class UseCases {
     // #region GrowMycelium
 
     /**
-     * Egy normális tektonról egy másikra próbálunk gombafonalat növeszteni, de a
-     * forrás nem tartalmaz alkalmas gombatestet vagy gombafonalat.
+     * Egy normális tektonról egy másikra próbálunk gombafonalat növeszteni, de a forrás nem tartalmaz alkalmas
+     * gombatestet vagy gombafonalat.
      */
     static void growMyceliumNoSourceFail() {
         printOn = false;
@@ -178,8 +178,7 @@ public class UseCases {
     }
 
     /**
-     * Egy normális tektonról egy másikra próbálunk gombafonalat növeszteni, de az
-     * nem szomszédos a forrással.
+     * Egy normális tektonról egy másikra próbálunk gombafonalat növeszteni, de az nem szomszédos a forrással.
      */
     static void growMyceliumNotNeighbor() {
         printOn = false;
@@ -204,8 +203,8 @@ public class UseCases {
     }
 
     /**
-     * Egy normális tektonról egy SingleMyceliumTecton-ra próbálunk gombafonalat
-     * növeszteni, de azon egy másik fajnak már van fonala.
+     * Egy normális tektonról egy SingleMyceliumTecton-ra próbálunk gombafonalat növeszteni, de azon egy másik fajnak
+     * már van fonala.
      */
     static void growMyceliumSingleMyceliumFail() {
         printOn = false;
@@ -245,8 +244,7 @@ public class UseCases {
     }
 
     /**
-     * Egy normális tektonról egy SingleMyceliumTecton-ra növesztünk gombafonalat,
-     * optimális körülmények között.
+     * Egy normális tektonról egy SingleMyceliumTecton-ra növesztünk gombafonalat, optimális körülmények között.
      */
     static void growMyceliumSingleMyceliumSuccess() {
         printOn = false;
@@ -279,8 +277,7 @@ public class UseCases {
     }
 
     /**
-     * Egy normális tektonról egy másikra növesztünk gombafonalat, optimális
-     * körülmények között.
+     * Egy normális tektonról egy másikra növesztünk gombafonalat, optimális körülmények között.
      */
     static void growMyceliumSuccess() {
         printOn = false;
@@ -377,8 +374,7 @@ public class UseCases {
     }
 
     /**
-     * A rovar megpróbál átmenni egy tektonra, de mivel nincs fonál oda, így ez nem
-     * történik meg.
+     * A rovar megpróbál átmenni egy tektonra, de mivel nincs fonál oda, így ez nem történik meg.
      */
     static void insectMoveNoMycelium() {
         insectMoveMap();
@@ -748,8 +744,7 @@ public class UseCases {
     }
 
     /**
-     * Egy tektonra próbálunk gombatestet növeszteni úgy, hogy azon már van
-     * gombatest.
+     * Egy tektonra próbálunk gombatestet növeszteni úgy, hogy azon már van gombatest.
      */
     static void growMushroomAlreadyOnTarget() {
         mapAlreadyOnTarget();
@@ -818,8 +813,7 @@ public class UseCases {
     }
 
     /**
-     * Egy olyan tektonra próbálunk gombatestet növeszteni, amelyen nem lehet
-     * gombatest.
+     * Egy olyan tektonra próbálunk gombatestet növeszteni, amelyen nem lehet gombatest.
      */
     static void growMushroomNoMushroom() {
         mapNoMushroom();
@@ -889,8 +883,7 @@ public class UseCases {
     }
 
     /**
-     * Egy tektonra próbálunk növeszteni gombatestet úgy, hogy arra nem vezet
-     * megfelelő gombafonal.
+     * Egy tektonra próbálunk növeszteni gombatestet úgy, hogy arra nem vezet megfelelő gombafonal.
      */
     static void growMushroomNoMycelia() {
         mapNoMycelia();
@@ -951,8 +944,7 @@ public class UseCases {
     }
 
     /**
-     * Olyan tektonra próbálunk gombatestet növeszteni, amelyen nincs ehhez elegendő
-     * spóra.
+     * Olyan tektonra próbálunk gombatestet növeszteni, amelyen nincs ehhez elegendő spóra.
      */
     static void growMushroomNotEnoughSpore() {
         mapNotEnoughSpore();

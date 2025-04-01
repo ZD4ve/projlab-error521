@@ -9,18 +9,33 @@ package model;
  * nyilvántartása.
  */
 public class Mycelium implements IActive {
+    // #region CONSTANTS
+    /** TODO DOC */
     private static final double GROWTH_TIME = 10;
+    /** TODO DOC */
     private static final double CHEW_TIME = 3;
+    // #endregion
 
+    // #region ASSOCIATIONS
+    /** TODO DOC */
     private final Fungus species;
+    /** TODO DOC */
     private final Tecton[] ends;
+    // #endregion
 
+    // #region ATTRIBUTES
+    /** TODO DOC */
     private enum State {
         GROWING, NORMAL, CHEWED
     }
 
+    /** TODO DOC */
     private State state;
+    /** TODO DOC */
     private double cooldown;
+    // #endregion
+
+    // #region CONSTRUCTORS
 
     /**
      * Konstruktor, létrehozza a paraméterként kapott gombafajhoz tartozó gombafonalat, a két paraméterként kapott
@@ -37,6 +52,7 @@ public class Mycelium implements IActive {
         state = State.GROWING;
         cooldown = GROWTH_TIME;
     }
+    // #endregion
 
     // #region GETTERS-SETTERS
 
@@ -81,6 +97,7 @@ public class Mycelium implements IActive {
         cooldown = CHEW_TIME;
     }
 
+    // TODO DOC
     @Override
     public void tick(double dT) {
         if (cooldown > 0) {

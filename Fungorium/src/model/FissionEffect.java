@@ -6,8 +6,10 @@ package model;
  * Olyan InsectEffect, amely osztódásra készteti a rovart.
  */
 public class FissionEffect extends InsectEffect {
-
     /**
+     * <p>
+     * {@inheritDoc}
+     * </p>
      * A paraméterben kapott rovar osztódását idézi elő.
      * 
      * @param insect a rovar, ami osztódik
@@ -19,6 +21,9 @@ public class FissionEffect extends InsectEffect {
     }
 
     /**
+     * <p>
+     * {@inheritDoc}
+     * </p>
      * Mellékhatás nélküli függvény, hiszen az osztódás azonnali hatású.
      */
     @Override

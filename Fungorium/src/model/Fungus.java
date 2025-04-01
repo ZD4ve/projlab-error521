@@ -24,8 +24,11 @@ public class Fungus {
     // #endregion
 
     // #region ATTRIBUTES
+    /** TODO DOC */
     private int growingMycelia = 0;
+    /** TODO DOC */
     private boolean checkConnectivityRunning = false;
+    /** TODO DOC */
     private int score = 0;
     // #endregion
 

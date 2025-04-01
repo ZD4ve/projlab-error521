@@ -9,8 +9,11 @@ import java.util.List;
  * Egy rovarász által irányított rovarok összessége.
  */
 public class Colony {
+    // #region ASSOCIATIONS
+    /** RODO DOC */
     private List<Insect> insects = new ArrayList<>();
 
+    // #region FUNCTIONS
     /**
      * Rovar felvétel a kolóniába.
      * 
@@ -28,4 +31,5 @@ public class Colony {
     public void died(Insect insect) {
         insects.remove(insect);
     }
+    // #endregion
 }

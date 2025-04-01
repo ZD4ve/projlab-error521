@@ -6,13 +6,6 @@ package model;
  * Olyan speciális tekton, ami nem engedélyezi gombatest növesztését.
  */
 public class NoMushroomTecton extends Tecton {
-    /**
-     * Létrehoz egy új példányt alapértelmezett beállításokkal.
-     */
-    public NoMushroomTecton() {
-        // this is for documentation purposes
-    }
-
     @Override
     public NoMushroomTecton newMe() {
         return new NoMushroomTecton();
@@ -22,11 +15,10 @@ public class NoMushroomTecton extends Tecton {
      * <p>
      * {@inheritDoc}
      * </p>
-     * Ezen a tektonon nem lehetséges gombatestet növeszteni, ezért mindig {@code null} a visszatérési érték.
+     * Ezen a tektonon nem lehetséges gombatestet növeszteni, ezért mindig {@code false} a visszatérési érték.
      * 
-     * @return {@code null}
+     * @return {@code false}
      */
-
     @Override
     public boolean growMushroom(Fungus fungus) {
         return false;

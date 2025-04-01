@@ -16,33 +16,25 @@ import controller.RandomProvider;
  * tektonokra.
  */
 public class Tecton implements IActive {
+    // #region CONSTANTS
+    /** TODO DOC */
     public static final double BREAK_CHANCE_PER_SEC = 0.001;
+    // #endregion
 
-    /**
-     * A tektonhoz tartozó szomszédokat tárolja el.
-     */
+    // #region ASSOCIATIONS
+    /** A tektonhoz tartozó szomszédokat tárolja el. */
     private List<Tecton> neighbors;
-
-    /**
-     * A tektonhoz tartozó gombafonalakat tárolja.
-     */
+    /** A tektonhoz tartozó gombafonalakat tárolja. */
     protected List<Mycelium> mycelia;
-
-    /**
-     * A tektonon található spórákat tárolja.
-     */
+    /** A tektonon található spórákat tárolja. */
     private List<Spore> spores;
-
-    /**
-     * A tektonon található spórákat tárolja.
-     */
+    /** A tektonon található spórákat tárolja. */
     private List<Insect> insects;
-
-    /**
-     * A tektonon található gombatestet tárolja.
-     */
+    /** A tektonon található gombatestet tárolja. */
     protected Mushroom mushroom;
+    // #endregion
 
+    // #region CONSTRUCTORS
     /**
      * Létrehoz egy új példányt alapértelmezett beállításokkal.
      */
@@ -56,8 +48,9 @@ public class Tecton implements IActive {
         Controller.registerActiveObject(this);
         Controller.registerTecton(this);
     }
+    // #endregion
 
-    // #region getters-setters
+    // #region GETTERS-SETTERS
 
     /**
      * Visszadja a tektonon található spórák listáját.
@@ -189,9 +182,9 @@ public class Tecton implements IActive {
     public boolean keepsMyceliumAlive() {
         return false;
     }
-    // #endregion
 
-    // #region main methods
+    // #endregion
+    // #region FUNCTIONS
 
     /**
      * Feltölti a tektont a paraméterként kapott objektumokkal.

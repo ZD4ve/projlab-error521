@@ -6,19 +6,26 @@ package model;
  * Olyan speciális tekton, ami időnként felszívja a rajta található gombafonalakat.
  */
 public class MyceliumAbsorbingTecton extends Tecton {
+    // #region CONSTANTS
+    /** TODO DOC */
     public static final double ABSORPTION_TIME_SECONDS = 60;
-    /**
-     * A gombafonalak felszívódásáig hátralévő idő másodpercben.
-     */
-    private double timeUntilAbsorption;
+    // #endregion
 
+    // #region ATTRIBUTES
+    /** A gombafonalak felszívódásáig hátralévő idő másodpercben. */
+    private double timeUntilAbsorption;
+    // #endregion
+
+    // #region CONSTRUCTORS
     /**
      * Létrehoz egy új példányt alapértelmezett beállításokkal.
      */
     public MyceliumAbsorbingTecton() {
         timeUntilAbsorption = ABSORPTION_TIME_SECONDS;
     }
+    // #endregion
 
+    // #region FUNCTIONS
     @Override
     public MyceliumAbsorbingTecton newMe() {
         return new MyceliumAbsorbingTecton();
@@ -41,4 +48,5 @@ public class MyceliumAbsorbingTecton extends Tecton {
         }
         super.tick(dT);
     }
+    // #endregion
 }

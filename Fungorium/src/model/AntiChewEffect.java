@@ -6,8 +6,10 @@ package model;
  * Olyan InsectEffect, amely megakadályozza, hogy a rovar tudjon gombafonalat rágni.
  */
 public class AntiChewEffect extends InsectEffect {
-
     /**
+     * <p>
+     * {@inheritDoc}
+     * </p>
      * A paraméterben kapott rovar fonal elrágási képességét megszünteti.
      * 
      * @param insect a rovar, ami kapja a hatást
@@ -20,6 +22,9 @@ public class AntiChewEffect extends InsectEffect {
     }
 
     /**
+     * <p>
+     * {@inheritDoc}
+     * </p>
      * Visszaadja a rovar a fonal elrágási képességét.
      */
     @Override

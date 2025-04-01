@@ -6,11 +6,12 @@ package model;
  * Saját gombafajának és hatásának nyilvántartása.
  */
 public class Spore {
-    /**
-     * A spórához tartozó gombafaj.
-     */
+    // #region ASSOCIATIONS
+    /** A spórához tartozó gombafaj. */
     private final Fungus species;
+    // #endregion
 
+    // #region CONSTRUCTORS
     /**
      * Inicializálja a spórát.
      * 
@@ -19,7 +20,9 @@ public class Spore {
     public Spore(Fungus fungus) {
         this.species = fungus;
     }
+    // #endregion
 
+    // #region GETTERS-SETTERS
     /**
      * Visszaadja a spórához tartozó effektet
      * 
@@ -37,4 +40,5 @@ public class Spore {
     public Fungus getSpecies() {
         return species;
     }
+    // #endregion
 }
