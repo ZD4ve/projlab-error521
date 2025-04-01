@@ -1,6 +1,5 @@
 package model;
 
-
 /**
  * <h3>Gombafonal rágás tiltó hatás</h3>
  * 
@@ -8,11 +7,6 @@ package model;
  * rágni.
  */
 public class AntiChewEffect extends InsectEffect {
-    /**
-     * Inicializálja az effektet.
-     */
-    public AntiChewEffect() {
-    }
 
     /**
      * A paraméterben kapott rovar fonal elrágási képességét megszünteti.

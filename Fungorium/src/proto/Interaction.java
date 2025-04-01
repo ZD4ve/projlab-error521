@@ -4,12 +4,14 @@ import controller.Controller;
 import controller.RandomProvider;
 import model.Fungus;
 import model.Insect;
-import model.InsectEffect;
 import model.Mushroom;
 import model.Mycelium;
 import model.Tecton;
 
 import static proto.Prototype.*;
+
+import java.util.AbstractMap;
+import java.util.Map.Entry;
 
 @java.lang.SuppressWarnings("java:S106") // használható büntetlenül a System IO
 public class Interaction {
@@ -20,12 +22,29 @@ public class Interaction {
     private Interaction() {
     }
 
-    private static void printState() {
-        // will depend on output lang
-        System.out.println("Objects:");
-        for (var e : namedObjects.keySet()) {
-            System.out.println(e);
+    private static void printNeighborMatrix() {
+        var tectons = namedObjects.entrySet().stream().filter(x -> x.getKey().startsWith(names.get(Tecton.class))).map(x -> new AbstractMap.SimpleEntry<>(x.getKey(), (Tecton) x.getValue())).sorted((x, y) -> x.getKey().compareTo(y.getKey())).toList();
+        // header
+        for (int i = 0; i < 4; i++) {
+            for (Entry<String, Tecton> t : tectons) {
+                System.out.print(t.getKey().charAt(i));
+            }
+            System.out.println();
         }
+        for (Entry<String, Tecton> trow : tectons) {
+            for (Entry<String, Tecton> tcol : tectons) {
+                if (trow.getValue().getNeighbors().contains(tcol.getValue())) {
+                    System.out.print('X');
+                } else {
+                    System.out.print(' ');
+                }
+            }
+            System.out.printf("|%s %s", trow.getKey(), Prototype.tectonTypes.get(trow.getValue().getClass()));
+        }
+    }
+
+    private static void printState() {
+        printNeighborMatrix();
     }
 
     private static void handleFungus(String[] input) {
@@ -68,7 +87,8 @@ public class Interaction {
             return;
         }
 
-        if (!input[2].startsWith(Prototype.names.get(Tecton.class)) || !input[3].startsWith(Prototype.names.get(Tecton.class))) {
+        if (!input[2].startsWith(Prototype.names.get(Tecton.class))
+                || !input[3].startsWith(Prototype.names.get(Tecton.class))) {
             System.out.println(SYNTAX_ERROR + ": 3rd arg must be a tecton.");
             return;
         }
@@ -148,13 +168,8 @@ public class Interaction {
             }
         } else if (input[1].equals("chew")) {
             handleInsectChew(in, input);
-        } else if (input[1].equals("eat")) {
-            if (!in.eatSpore()) {
-                System.out.println("eat failed");
-            } else {
-                var effect = in.getActiveEffects().get(in.getActiveEffects().size() - 1);
-                Prototype.registerNamedObject(InsectEffect.class, effect);
-            }
+        } else if (input[1].equals("eat") && !in.eatSpore()) {
+            System.out.println("eat failed");
         }
     }
 
@@ -216,6 +231,8 @@ public class Interaction {
                 handleInsect(input);
             } else if (input[0].startsWith(Prototype.names.get(Fungus.class))) {
                 handleFungus(input);
+            } else {
+                System.out.println(SYNTAX_ERROR);
             }
         } while (true);
     }

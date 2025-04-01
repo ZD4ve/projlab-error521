@@ -1,7 +1,5 @@
 package model;
 
-import helper.Skeleton;
-
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,89 +18,19 @@ import java.util.List;
  * növesztésének kezdeményezése.
  */
 public class Fungus {
-    /**
-     * A gombafajhoz tartozó gombafonalak számontartása.
-     */
+    // #region ASSOCIATIONS
+    /** A gombafajhoz tartozó gombafonalak számontartása. */
     private final List<Mycelium> mycelia = new ArrayList<>();
-
-    /**
-     * A gombafajhoz tartozó gombatestek számontartása.
-     */
+    /** A gombafajhoz tartozó gombatestek számontartása. */
     private final List<Mushroom> mushrooms = new ArrayList<>();
+    // #endregion
 
+    // #region ATTRIBUTES
     private int growingMycelia = 0;
     private boolean checkConnectivityRunning = false;
+    // #endregion
 
-    /**
-     * Ellenőrzi, hogy a gombafajhoz tartozó gombafonalak közül melyek vannak
-     * izolálva, és törli azokat.
-     */
-    private void checkConnectivity() {
-        if (checkConnectivityRunning)
-            return;
-        checkConnectivityRunning = true;
-
-        HashMap<Tecton, HashSet<Tecton>> adjacencyList = new HashMap<>();
-        HashMap<Mycelium, Tecton[]> myceliaEnds = new HashMap<>();
-        HashSet<Tecton> tectons = new HashSet<>(mushrooms.stream().map(x -> x.getLocation()).toList());
-        tectons.addAll(myceliaEnds.entrySet().stream().flatMap(entry -> Arrays.stream(entry.getValue())).filter(Tecton::keepsMyceliumAlive).toList());
-
-        for (Mycelium mycelium : mycelia) {
-            var ends = mycelium.getEnds();
-            myceliaEnds.put(mycelium, ends);
-            if (!adjacencyList.containsKey(ends[0]))
-                adjacencyList.put(ends[0], new HashSet<>());
-            if (!adjacencyList.containsKey(ends[1]))
-                adjacencyList.put(ends[1], new HashSet<>());
-
-            adjacencyList.get(ends[0]).add(ends[1]);
-            adjacencyList.get(ends[1]).add(ends[0]);
-        }
-
-        HashSet<Tecton> forest = new HashSet<>();
-        var tectonIt = tectons.iterator();
-
-        while (tectonIt.hasNext()) {
-            Tecton tecton = tectonIt.next();
-
-            if (!adjacencyList.containsKey(tecton))
-                continue;
-
-            Deque<Tecton> stack = new ArrayDeque<>();
-
-            stack.add(tecton);
-            forest.add(tecton);
-            while (!stack.isEmpty()) {
-                Tecton active = stack.peek();
-                boolean notFound = true;
-
-                for (Tecton neighbor : adjacencyList.get(active)) {
-                    if (!forest.contains(neighbor)) {
-                        forest.add(neighbor);
-                        stack.push(neighbor);
-                        notFound = false;
-
-                        break;
-                    }
-                }
-                if (notFound)
-                    stack.pop();
-            }
-        }
-
-        ArrayList<Mycelium> toKill = new ArrayList<>();
-        for (Mycelium myc : mycelia) {
-            var ends = myceliaEnds.get(myc);
-            if (!forest.contains(ends[0]) && !forest.contains(ends[1]))
-                toKill.add(myc);
-        }
-        for (Mycelium myc : toKill) {
-            myc.die();
-        }
-        checkConnectivityRunning = false;
-    }
-
-    // GETTERS-SETTERS--------------------------------------------------------------
+    // #region GETTERS-SETTERS
     /**
      * Hozzáadja a paraméterként kapott gombatestet a gombafajban tároltakhoz.
      * 
@@ -141,9 +69,6 @@ public class Fungus {
         checkConnectivity();
     }
 
-    // PUBLIC MEMBER
-    // FUNCTIONS--------------------------------------------------------------
-
     /**
      * Megkeresi azokat a tektonokat, ahol a gombafajnak van gombateste vagy
      * gombafonala, vagyis tud onnan gombafonalat növeszteni.
@@ -153,18 +78,9 @@ public class Fungus {
     public List<Tecton> getPotentialMyceliumSources() {
         HashSet<Tecton> potentialSources = new HashSet<>();
 
-        for (Mycelium mycelium : mycelia) {
-            Tecton[] ends = mycelium.getEnds();
+        potentialSources.addAll(mushrooms.stream().map(x -> x.getLocation()).toList());
+        potentialSources.addAll(mycelia.stream().flatMap(x -> Arrays.stream(x.getEnds())).toList());
 
-            potentialSources.add(ends[0]);
-            potentialSources.add(ends[1]);
-        }
-
-        for (Mushroom mushroom : mushrooms) {
-            Tecton location = mushroom.getLocation();
-
-            potentialSources.add(location);
-        }
         return new ArrayList<>(potentialSources);
     }
 
@@ -176,13 +92,7 @@ public class Fungus {
      */
     public List<Tecton> getTectonsWithMycelia() {
         HashSet<Tecton> potentialSources = new HashSet<>();
-
-        for (Mycelium mycelium : mycelia) {
-            Tecton[] ends = mycelium.getEnds();
-
-            potentialSources.add(ends[0]);
-            potentialSources.add(ends[1]);
-        }
+        potentialSources.addAll(mycelia.stream().flatMap(x -> Arrays.stream(x.getEnds())).toList());
         return new ArrayList<>(potentialSources);
     }
 
@@ -193,10 +103,65 @@ public class Fungus {
      *         igazat, különben hamisat ad vissza.
      */
     public boolean canGrowMycelium() {
-        // TODO: restore
-        // boolean canGrow = growingMycelia < mushrooms.size();
-        boolean canGrow = Skeleton.ask("Tud még gombafonalat növeszteni a gombafaj?");
-        return canGrow;
+        return growingMycelia < mushrooms.size();
+    }
+
+    // #endregion
+    // #region FUNCTIONS
+
+    /**
+     * Ellenőrzi, hogy a gombafajhoz tartozó gombafonalak közül melyek vannak
+     * izolálva, és törli azokat.
+     */
+    private void checkConnectivity() {
+        if (checkConnectivityRunning)
+            return;
+        checkConnectivityRunning = true;
+
+        HashMap<Tecton, HashSet<Tecton>> adjacencyList = new HashMap<>();
+        HashMap<Mycelium, Tecton[]> myceliaEnds = new HashMap<>();
+        HashSet<Tecton> tectons = new HashSet<>(mushrooms.stream().map(x -> x.getLocation()).toList());
+        tectons.addAll(myceliaEnds.entrySet().stream().flatMap(entry -> Arrays.stream(entry.getValue()))
+                .filter(Tecton::keepsMyceliumAlive).toList());
+
+        for (Mycelium mycelium : mycelia) {
+            var ends = mycelium.getEnds();
+            myceliaEnds.put(mycelium, ends);
+            adjacencyList.putIfAbsent(ends[0], new HashSet<>());
+            adjacencyList.putIfAbsent(ends[1], new HashSet<>());
+            adjacencyList.get(ends[0]).add(ends[1]);
+            adjacencyList.get(ends[1]).add(ends[0]);
+        }
+
+        HashSet<Tecton> forest = new HashSet<>();
+        var tectonIt = tectons.iterator();
+
+        while (tectonIt.hasNext()) {
+            Tecton tecton = tectonIt.next();
+
+            if (!adjacencyList.containsKey(tecton))
+                continue;
+
+            Deque<Tecton> stack = new ArrayDeque<>();
+
+            stack.add(tecton);
+            forest.add(tecton);
+            while (!stack.isEmpty()) {
+                var neighbor = adjacencyList.get(stack.peek()).stream().filter(nb -> !forest.contains(nb)).findFirst();
+                if (neighbor.isPresent()) {
+                    forest.add(neighbor.get());
+                    stack.push(neighbor.get());
+                } else {
+                    stack.pop();
+                }
+            }
+        }
+
+        mycelia.stream().filter(myc -> {
+            var ends = myceliaEnds.get(myc);
+            return (!forest.contains(ends[0]) && !forest.contains(ends[1]));
+        }).toList().stream().forEach(Mycelium::die);
+        checkConnectivityRunning = false;
     }
 
     /**
@@ -224,14 +189,14 @@ public class Fungus {
      * @return true ha a művelet sikeres, false egyébként
      */
     public boolean growMycelium(Tecton source, Tecton target) {
-        boolean success = false;
-        boolean ready = canGrowMycelium();
-        if (ready) {
-            success = source.growMycelium(this, target);
+        if (canGrowMycelium()) {
+            boolean success = source.growMycelium(this, target);
+            if (success) {
+                growingMycelia++;
+                return true;
+            }
         }
-        if (success) {
-            growingMycelia++;
-        }
-        return success;
+        return false;
     }
+    // #endregion
 }

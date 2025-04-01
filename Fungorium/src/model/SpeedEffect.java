@@ -1,6 +1,5 @@
 package model;
 
-
 /**
  * <h3>Sebesség változtató hatás</h3>
  * 
@@ -16,6 +15,7 @@ public class SpeedEffect extends InsectEffect {
      * Inicializálja az effektet.
      */
     public SpeedEffect() {
+        // TODO RANDOM
         this.multiplier = 0.65;
     }
 
