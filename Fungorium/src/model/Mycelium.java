@@ -71,7 +71,9 @@ public class Mycelium implements IActive {
         species.removeMycelium(this);
     }
 
-    // TODO DOC
+    /**
+     * Elindítja a gombafonal elrágásának folyamatát.
+     */
     public void chew() {
         if (state == State.GROWING) {
             species.myceliumGrowthComplete();
