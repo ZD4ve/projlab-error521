@@ -1,6 +1,5 @@
 package model;
 
-
 /**
  * <h3>Bénító hatás</h3>
  * 

@@ -45,7 +45,8 @@ public class Fungus {
         HashMap<Tecton, HashSet<Tecton>> adjacencyList = new HashMap<>();
         HashMap<Mycelium, Tecton[]> myceliaEnds = new HashMap<>();
         HashSet<Tecton> tectons = new HashSet<>(mushrooms.stream().map(x -> x.getLocation()).toList());
-        tectons.addAll(myceliaEnds.entrySet().stream().flatMap(entry -> Arrays.stream(entry.getValue())).filter(Tecton::keepsMyceliumAlive).toList());
+        tectons.addAll(myceliaEnds.entrySet().stream().flatMap(entry -> Arrays.stream(entry.getValue()))
+                .filter(Tecton::keepsMyceliumAlive).toList());
 
         for (Mycelium mycelium : mycelia) {
             var ends = mycelium.getEnds();

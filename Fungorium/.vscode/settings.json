@@ -93,5 +93,8 @@
         "Visszaállítja"
     ],
     "java.format.settings.url": ".vscode/java-formatter.xml",
-    "java.completion.guessMethodArguments": "off"
+    "java.completion.guessMethodArguments": "off",
+    "[java]": {
+        "editor.detectIndentation": false
+    }
 }
