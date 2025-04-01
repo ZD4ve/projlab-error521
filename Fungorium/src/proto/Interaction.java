@@ -11,6 +11,9 @@ import model.Tecton;
 
 import static proto.Prototype.*;
 
+import java.util.AbstractMap;
+import java.util.Map.Entry;
+
 @java.lang.SuppressWarnings("java:S106") // használható büntetlenül a System IO
 public class Interaction {
     private static final String SYNTAX_ERROR = "Syntax error";
@@ -20,12 +23,29 @@ public class Interaction {
     private Interaction() {
     }
 
-    private static void printState() {
-        // will depend on output lang
-        System.out.println("Objects:");
-        for (var e : namedObjects.keySet()) {
-            System.out.println(e);
+    private static void printNeighborMatrix() {
+        var tectons = namedObjects.entrySet().stream().filter(x -> x.getKey().startsWith(names.get(Tecton.class))).map(x -> new AbstractMap.SimpleEntry<>(x.getKey(), (Tecton) x.getValue())).sorted((x, y) -> x.getKey().compareTo(y.getKey())).toList();
+        // header
+        for (int i = 0; i < 4; i++) {
+            for (Entry<String, Tecton> t : tectons) {
+                System.out.print(t.getKey().charAt(i));
+            }
+            System.out.println();
         }
+        for (Entry<String, Tecton> trow : tectons) {
+            for (Entry<String, Tecton> tcol : tectons) {
+                if (trow.getValue().getNeighbors().contains(tcol.getValue())) {
+                    System.out.print('X');
+                } else {
+                    System.out.print(' ');
+                }
+            }
+            System.out.printf("|%s %s", trow.getKey(), Prototype.tectonTypes.get(trow.getValue().getClass()));
+        }
+    }
+
+    private static void printState() {
+        printNeighborMatrix();
     }
 
     private static void handleFungus(String[] input) {
