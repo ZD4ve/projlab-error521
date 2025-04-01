@@ -6,11 +6,6 @@ package model;
  * Olyan InsectEffect, amely a rovar mozgását tudja korlátozni.
  */
 public class ParalysingEffect extends InsectEffect {
-    /**
-     * Inicializálja az effektet.
-     */
-    public ParalysingEffect() {
-    }
 
     /**
      * Mozgásképtelenné teszi a paraméterben kapott rovart.

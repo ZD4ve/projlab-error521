@@ -11,38 +11,21 @@ public class MapCreation {
     private MapCreation() {
     }
 
-    private static int teId = 1;
-    private static int fuId = 1;
-    private static int coId = 1;
-    private static int inId = 1;
-    private static int muId = 1;
-    private static int myId = 1;
+    private static final String SYNTAX_ERROR = "Syntax error";
+    private static final String NOT_ENOUGH_ARGS = "Syntax error: not enough args";
+    private static final String INVALID_ARG = "Syntax error: invalid argument";
+    private static final String FUNGUS_INVALID = ": invalid fungus name";
+    private static final String TECTON_INVALID = ": invalid tecton name";
 
     private static void addTectonObject(String tecton) {
-        String name = String.format("%s%02d", Prototype.names.get(Tecton.class), teId);
-
         switch (tecton) {
-        case "tect":
-            namedObjects.put(name, new Tecton());
-            break;
-        case "nomu":
-            namedObjects.put(name, new NoMushroomTecton());
-            break;
-        case "simy":
-            namedObjects.put(name, new SingleMyceliumTecton());
-            break;
-        case "myab":
-            namedObjects.put(name, new MyceliumAbsorbingTecton());
-            break;
-        case "myke":
-            namedObjects.put(name, new MyceliumKeepingTecton());
-            break;
-        default:
-            System.out.println("Error: invalid tecton type");
-            return;
+            case "tect" -> registerNamedObject(Tecton.class, new Tecton());
+            case "nomu" -> registerNamedObject(Tecton.class, new NoMushroomTecton());
+            case "simy" -> registerNamedObject(Tecton.class, new SingleMyceliumTecton());
+            case "myab" -> registerNamedObject(Tecton.class, new MyceliumAbsorbingTecton());
+            case "myke" -> registerNamedObject(Tecton.class, new MyceliumKeepingTecton());
+            default -> System.out.println(SYNTAX_ERROR + ": invalid tecton type");
         }
-
-        teId++;
     }
 
     private static void tectonsMenu() {
@@ -55,6 +38,28 @@ public class MapCreation {
         } while (true);
     }
 
+    private static void handleNeighbor(String t1, String check, String t2) {
+        if (!check.equals("--")) {
+            System.out.println(SYNTAX_ERROR + ": invalid neighbor definition");
+            return;
+        }
+
+        var left = (Tecton) namedObjects.get(t1);
+        if (t1 == null) {
+            System.out.println(INVALID_ARG + ": invalid left tecton name");
+            return;
+        }
+
+        var right = (Tecton) namedObjects.get(t2);
+        if (t2 == null) {
+            System.out.println(INVALID_ARG + ": invalid right tecton name");
+            return;
+        }
+
+        left.addNeighbor(right);
+        right.addNeighbor(left);
+    }
+
     private static void neighborsMenu() {
         do {
             String input = System.console().readLine().trim();
@@ -63,34 +68,28 @@ public class MapCreation {
 
             var params = new ArrayList<>(Arrays.asList(input.split(" ")));
             if (params.size() < 3) {
-                System.out.println("Error: not enough args");
+                System.out.println(NOT_ENOUGH_ARGS);
                 continue;
             }
 
-            String t1 = params.get(0);
-            String check = params.get(1);
-            String t2 = params.get(2);
-
-            if (!check.equals("--")) {
-                System.out.println("Error: invalid neighbor definition");
-                continue;
-            }
-
-            var left = (Tecton) namedObjects.get(t1);
-            if (t1 == null) {
-                System.out.println("Error: invalid left tecton name");
-                return;
-            }
-
-            var right = (Tecton) namedObjects.get(t2);
-            if (t2 == null) {
-                System.out.println("Error: invalid right tecton name");
-                return;
-            }
-
-            left.addNeighbor(right);
-            right.addNeighbor(left);
+            handleNeighbor(params.get(0), params.get(1), params.get(2));
         } while (true);
+    }
+
+    private static void handleMushroom(String f, String t) {
+        var fungus = (Fungus) namedObjects.get(f);
+        if (fungus == null) {
+            System.out.println(INVALID_ARG + FUNGUS_INVALID);
+            return;
+        }
+
+        var tecton = (Tecton) namedObjects.get(t);
+        if (tecton == null) {
+            System.out.println(INVALID_ARG + TECTON_INVALID);
+            return;
+        }
+
+        Prototype.registerNamedObject(Mushroom.class, new Mushroom(fungus, tecton));
     }
 
     private static void mushroomsMenu() {
@@ -101,27 +100,39 @@ public class MapCreation {
 
             var params = new ArrayList<>(Arrays.asList(input.split(" ")));
             if (params.size() < 2) {
-                System.out.println("Not enough args.");
-                continue;
-            }
-            String f = params.get(0);
-            String t = params.get(1);
-
-            var fungus = (Fungus) namedObjects.get(f);
-            if (fungus == null) {
-                System.out.println("Error: invalid fungus name");
+                System.out.println(NOT_ENOUGH_ARGS);
                 continue;
             }
 
-            var tecton = (Tecton) namedObjects.get(t);
-            if (tecton == null) {
-                System.out.println("Error: invalid tecton name");
-                continue;
-            }
-
-            Prototype.registerNamedObject(Mushroom.class, new Mushroom(fungus, tecton));
-
+            handleMushroom(params.get(0), params.get(1));
         } while (true);
+    }
+
+    private static void handleMycelium(String t1, String check1, String t2, String check2, String f) {
+        if (!check1.equals("..") || !check2.equals(":")) {
+            System.out.println(SYNTAX_ERROR + ": invalid mycelium definition");
+            return;
+        }
+
+        Tecton left = (Tecton) namedObjects.get(t1);
+        if (left == null) {
+            System.out.println(INVALID_ARG + ": invalid left tecton name");
+            return;
+        }
+
+        Tecton right = (Tecton) namedObjects.get(t2);
+        if (right == null) {
+            System.out.println(INVALID_ARG + ": invalid right tecton name");
+            return;
+        }
+
+        var fungus = (Fungus) namedObjects.get(f);
+        if (fungus == null) {
+            System.out.println(INVALID_ARG + FUNGUS_INVALID);
+            return;
+        }
+
+        registerNamedObject(Mycelium.class, new Mycelium(fungus, left, right));
     }
 
     private static void myceliaMenu() {
@@ -132,41 +143,42 @@ public class MapCreation {
 
             var params = new ArrayList<>(Arrays.asList(input.split(" ")));
             if (params.size() < 5) {
-                System.out.println("Not enough args.");
+                System.out.println(NOT_ENOUGH_ARGS);
                 continue;
             }
 
-            String t1 = params.get(0);
-            String check1 = params.get(1);
-            String t2 = params.get(2);
-            String check2 = params.get(3);
-            String f = params.get(4);
-
-            if (!check1.equals("..") || !check2.equals(":")) {
-                System.out.println("Error: invalid mycelium definition");
-                continue;
-            }
-
-            Tecton left = (Tecton) namedObjects.get(t1);
-            if (left == null) {
-                System.out.println("Error: invalid left tecton name");
-                continue;
-            }
-
-            Tecton right = (Tecton) namedObjects.get(t2);
-            if (right == null) {
-                System.out.println("Error: invalid right tecton name");
-                continue;
-            }
-
-            var fungus = (Fungus) namedObjects.get(f);
-            if (fungus == null) {
-                System.out.println("Error: invalid fungus name");
-                continue;
-            }
-
-            namedObjects.put(String.format(Prototype.names.get(Mycelium.class) + "%02d", myId++), new Mycelium(fungus, left, right));
+            handleMycelium(params.get(0), params.get(1), params.get(2), params.get(3), params.get(4));
         } while (true);
+    }
+
+    private static void handleSpore(String f, String t, String db) {
+        var fungus = (Fungus) namedObjects.get(f);
+        if (fungus == null) {
+            System.out.println(INVALID_ARG + FUNGUS_INVALID);
+            return;
+        }
+
+        var tecton = (Tecton) namedObjects.get(t);
+        if (tecton == null) {
+            System.out.println(INVALID_ARG + TECTON_INVALID);
+            return;
+        }
+
+        int dbInt;
+        try {
+            dbInt = Integer.parseInt(db);
+            if (dbInt < 0) {
+                System.out.println(SYNTAX_ERROR + ": invalid spore count");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            System.out.println(SYNTAX_ERROR + ": invalid spore count");
+            return;
+        }
+
+        for (int i = 0; i < dbInt; i++) {
+            tecton.addSpore(new Spore(fungus));
+        }
     }
 
     private static void sporesMenu() {
@@ -177,29 +189,47 @@ public class MapCreation {
 
             var params = new ArrayList<>(Arrays.asList(input.split(" ")));
             if (params.size() < 2) {
-                System.out.println("Not enough args.");
+                System.out.println(NOT_ENOUGH_ARGS);
                 continue;
             }
 
-            String f = params.get(0);
-            String t = params.get(1);
-
-            var fungus = (Fungus) namedObjects.get(f);
-            if (fungus == null) {
-                System.out.println("Error: invalid fungus name");
-                continue;
+            if (params.size() > 3) {
+                handleSpore(params.get(0), params.get(1), params.get(2));
             }
-
-            var tecton = (Tecton) namedObjects.get(t);
-            if (tecton == null) {
-                System.out.println("Error: invalid tecton name");
-                continue;
+            else {
+                handleSpore(params.get(0), params.get(1), "1");
             }
-
-            var spore = new Spore(fungus);
-
-            tecton.addSpore(spore);
         } while (true);
+    }
+
+    private static void handleInsect(String c, String t, String s) {
+        var colony = (Colony) namedObjects.get(c);
+        if (colony == null) {
+            System.out.println(INVALID_ARG + ": invalid colony name");
+            return;
+        }
+
+        var tecton = (Tecton) namedObjects.get(t);
+        if (tecton == null) {
+            System.out.println(INVALID_ARG + TECTON_INVALID);
+            return;
+        }
+
+        double speed;
+        try {
+            speed = Double.parseDouble(s);
+            if (speed < 0) {
+                System.out.println(SYNTAX_ERROR + ": invalid insect speed");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            System.out.println(SYNTAX_ERROR + ": invalid insect speed");
+            return;
+        }
+
+        var insect = new Insect(tecton, colony);
+        insect.setSpeed(speed);
+        registerNamedObject(Insect.class, insect);
     }
 
     private static void insectsMenu() {
@@ -209,44 +239,39 @@ public class MapCreation {
                 return;
             var params = new ArrayList<>(Arrays.asList(input.split(" ")));
             if (params.size() < 2) {
-                System.out.println("Not enough args.");
+                System.out.println(NOT_ENOUGH_ARGS);
                 continue;
             }
 
-            String c = params.get(0);
-            String t = params.get(1);
-            String s = "1.0f";
-
-            if (params.size() > 2) {
-                s = params.get(2);
+            if (params.size() > 3) {
+                handleInsect(params.get(0), params.get(1), params.get(2));
             }
-
-            var colony = (Colony) namedObjects.get(c);
-            if (colony == null) {
-                System.out.println("Error: invalid colony name");
-                continue;
+            else {
+                handleInsect(params.get(0), params.get(1), "1.0");
             }
-
-            var tecton = (Tecton) namedObjects.get(t);
-            if (tecton == null) {
-                System.out.println("Error: invalid tecton name");
-                continue;
-            }
-
-            var insect = new Insect(tecton,colony);
-
-
-            float speed;
-            try {
-                speed = Float.parseFloat(s);
-            } catch (NumberFormatException e) {
-                speed = 1.0f;
-            }
-
-            insect.setSpeed(teId);
-            namedObjects.put(String.format(Prototype.names.get(Insect.class) + "%02d", inId++), new Insect(tecton));
-
         } while (true);
+    }
+
+    private static void handleFungi(String cnt) {
+        try {
+            int count = Integer.parseInt(cnt);
+            for (int i = 0; i < count; i++) {
+                registerNamedObject(Fungus.class, new Fungus());
+            }
+        } catch (NumberFormatException e) {
+            System.out.println(SYNTAX_ERROR + ": invalid fungus definition");
+        }
+    }
+
+    private static void handleColonies(String cnt) {
+        try {
+            int count = Integer.parseInt(cnt);
+            for (int i = 0; i < count; i++) {
+                registerNamedObject(Colony.class, new Colony());
+            }
+        } catch (NumberFormatException e) {
+            System.out.println(SYNTAX_ERROR + ": invalid colony definition");
+        }
     }
 
     // Main menu
@@ -261,63 +286,34 @@ public class MapCreation {
             var params = new ArrayList<>(tokens.subList(1, tokens.size())); // NotOkay
 
             switch (command) {
-            case "tectons":
-                tectonsMenu();
-                break;
-            case "neighbors":
-                neighborsMenu();
-                break;
-            case "fungi":
-                if (!params.isEmpty()) {
-                    try {
-                        int count = Integer.parseInt(params.get(0));
-                        for (int i = 0; i < count; i++) {
-                            namedObjects.put(String.format(Prototype.names.get(Fungus.class) + "%02d", fuId++), new Fungus());
-                        }
-                    } catch (Exception e) {
-                        System.out.println("Arg must be a valid integer.");
+                case "tectons" -> tectonsMenu();
+                case "neighbors" -> neighborsMenu();
+                case "fungi" -> {
+                    if (!params.isEmpty()) {
+                        handleFungi(params.get(0));
+                    }
+                    else {
+                        System.out.println(NOT_ENOUGH_ARGS);
                     }
                 }
-
-                break;
-            case "colonies":
-                // kolóniák hozzáadása
-                if (!params.isEmpty()) {
-                    try {
-                        int count = Integer.parseInt(params.get(0));
-                        for (int i = 0; i < count; i++) {
-                            namedObjects.put(String.format(Prototype.names.get(Colony.class) + "%02d", coId++), new Colony());
-                        }
-                    } catch (Exception e) {
-                        System.out.println("Arg must be a valid integer.");
+                case "colonies" -> {
+                    if (!params.isEmpty()) {
+                        handleColonies(params.get(0));
                     }
-
+                    else {
+                        System.out.println(NOT_ENOUGH_ARGS);
+                    }
                 }
-                break;
-            case "mushrooms":
-                mushroomsMenu();
-                break;
-            case "mycelia":
-                myceliaMenu();
-                break;
-            case "insects":
-                // rovarok hozzáadása
-                insectsMenu();
-                break;
-            case "spores":
-                sporesMenu();
-                break;
-            case "end":
-                System.out.println("Entering interaction phase.");
-                return;
-            default:
-                System.out.println("Error: invalid command");
+                case "mushrooms" -> mushroomsMenu();
+                case "mycelia" -> myceliaMenu();
+                case "insects" -> insectsMenu();
+                case "spores" -> sporesMenu();
+                case "end" -> {
+                    System.out.println("Entering interaction phase.");
+                    return;
+                }
+                default -> System.out.println(SYNTAX_ERROR + ": invalid command");
             }
         } while (true);
     }
-
-    // there is no static class in java
-    /**
-     * private Proto() { }
-     */
 }
