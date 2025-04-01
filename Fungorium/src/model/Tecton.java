@@ -63,6 +63,13 @@ public class Tecton implements IActive {
     // #region getters-setters
 
     /**
+     * Visszadja a tektonon található spórák listáját.
+     */
+    public List<Spore> getSpores() {
+        return spores;
+    }
+
+    /**
      * Hozzáad egy szomszédot a tektonhoz
      * 
      * @param tecton az új szomszéd
