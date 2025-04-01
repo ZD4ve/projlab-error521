@@ -16,6 +16,8 @@ public class Insect implements IActive {
     private Tecton location;
     /** épp a rovarra ható hatások */
     private final List<InsectEffect> activeEffects = new ArrayList<>();
+    /** a rovar kolóniája */
+    private final Colony colony;
 
     // ATTRIBUTES
     /** mennyi idő múlva végezhető a következő akció */
@@ -36,10 +38,22 @@ public class Insect implements IActive {
      * 
      * @param location a rovar kezdeti helye
      */
-    public Insect(Tecton location) {
+    public Insect(Tecton location, Colony colony) {
         this.location = location;
         location.addInsect(this);
+        this.colony = colony;
+        colony.born(this);
         Controller.registerActiveObject(this);
+    }
+
+    /**
+     * ONLY FOR SKELETON BACKWARD COMPATIBILITY
+     * 
+     * @deprecated
+     */
+    @Deprecated(since = "proto", forRemoval = false)
+    public Insect(Tecton location) {
+        this(location, new Colony());
     }
 
     // #region GETTERS-SETTERS
@@ -93,7 +107,11 @@ public class Insect implements IActive {
         this.antiChewCount = antiChewCount;
     }
 
-    // TODO DOC
+    /**
+     * A rovar bénaságának lekérdezése.
+     * 
+     * @return bénaság állapota
+     */
     public boolean isParalysed() {
         return isParalysed;
     }
@@ -241,16 +259,19 @@ public class Insect implements IActive {
             cooldown -= dT * speed;
     }
 
-    // TODO DOC
+    /**
+     * A rovart osztódásra kényszeríti.
+     */
     public void split() {
-        new Insect(location);
-        // TODO register to the same controller
+        new Insect(location, colony);
     }
 
-    // TODO DOC
+    /**
+     * A rovar elpusztul. Kilép a kolóniából, eltünik a tektonról.
+     */
     public void die() {
-        // TODO unregister from the controller
         Controller.unregisterActiveObject(this);
+        colony.died(this);
         while (!activeEffects.isEmpty()) {
             activeEffects.get(0).wearOff();
         }
