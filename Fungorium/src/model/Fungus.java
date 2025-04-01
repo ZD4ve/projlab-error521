@@ -127,11 +127,8 @@ public class Fungus {
         for (Mycelium mycelium : mycelia) {
             var ends = mycelium.getEnds();
             myceliaEnds.put(mycelium, ends);
-            if (!adjacencyList.containsKey(ends[0]))
-                adjacencyList.put(ends[0], new HashSet<>());
-            if (!adjacencyList.containsKey(ends[1]))
-                adjacencyList.put(ends[1], new HashSet<>());
-
+            adjacencyList.putIfAbsent(ends[0], new HashSet<>());
+            adjacencyList.putIfAbsent(ends[1], new HashSet<>());
             adjacencyList.get(ends[0]).add(ends[1]);
             adjacencyList.get(ends[1]).add(ends[0]);
         }
@@ -150,32 +147,20 @@ public class Fungus {
             stack.add(tecton);
             forest.add(tecton);
             while (!stack.isEmpty()) {
-                Tecton active = stack.peek();
-                boolean notFound = true;
-
-                for (Tecton neighbor : adjacencyList.get(active)) {
-                    if (!forest.contains(neighbor)) {
-                        forest.add(neighbor);
-                        stack.push(neighbor);
-                        notFound = false;
-
-                        break;
-                    }
-                }
-                if (notFound)
+                var neighbor = adjacencyList.get(stack.peek()).stream().filter(nb -> !forest.contains(nb)).findFirst();
+                if (neighbor.isPresent()) {
+                    forest.add(neighbor.get());
+                    stack.push(neighbor.get());
+                } else {
                     stack.pop();
+                }
             }
         }
 
-        ArrayList<Mycelium> toKill = new ArrayList<>();
-        for (Mycelium myc : mycelia) {
+        mycelia.stream().filter(myc -> {
             var ends = myceliaEnds.get(myc);
-            if (!forest.contains(ends[0]) && !forest.contains(ends[1]))
-                toKill.add(myc);
-        }
-        for (Mycelium myc : toKill) {
-            myc.die();
-        }
+            return (!forest.contains(ends[0]) && !forest.contains(ends[1]));
+        }).toList().stream().forEach(Mycelium::die);
         checkConnectivityRunning = false;
     }
 
