@@ -1,5 +1,6 @@
 package model;
 
+import controller.Controller;
 import java.util.*;
 
 /**
@@ -38,6 +39,7 @@ public class Insect implements IActive {
     public Insect(Tecton location) {
         this.location = location;
         location.addInsect(this);
+        Controller.registerActiveObject(this);
     }
 
     // #region GETTERS-SETTERS
@@ -248,7 +250,7 @@ public class Insect implements IActive {
     // TODO DOC
     public void die() {
         // TODO unregister from the controller
-        // TODO unregister from clock
+        Controller.unregisterActiveObject(this);
         while (!activeEffects.isEmpty()) {
             activeEffects.get(0).wearOff();
         }
