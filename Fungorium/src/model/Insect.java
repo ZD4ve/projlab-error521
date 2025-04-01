@@ -37,6 +37,7 @@ public class Insect implements IActive {
      * Rovar létrehozása és elhelyezése egy tektonon.
      * 
      * @param location a rovar kezdeti helye
+     * @param colony   a rovar kolóniája
      */
     public Insect(Tecton location, Colony colony) {
         this.location = location;
@@ -47,9 +48,7 @@ public class Insect implements IActive {
     }
 
     /**
-     * ONLY FOR SKELETON BACKWARD COMPATIBILITY
-     * 
-     * @deprecated
+     * @deprecated ONLY FOR SKELETON BACKWARD COMPATIBILITY
      */
     @Deprecated(since = "proto", forRemoval = false)
     public Insect(Tecton location) {
@@ -188,7 +187,6 @@ public class Insect implements IActive {
      * @return a lehetséges célpontok listája
      */
     public List<Tecton> getPotentialMoveTargets() {
-        // nem követi seq diagramot, mert az szar XD
         return location.getNeighbors().stream().filter(t -> location.hasMyceliumTo(t)).toList();
     }
 
@@ -223,18 +221,15 @@ public class Insect implements IActive {
      * @return sikeresség
      */
     public boolean moveTo(Tecton target) {
-        boolean success = false;
-        if (!isParalysed && ready()) {
-            boolean moveValid = location.hasMyceliumTo(target);
-            if (moveValid) {
-                success = true;
-                location.removeInsect(this);
-                location = target;
-                location.addInsect(this);
-                setCooldown(ACTION_DURATION);
-            }
-        }
-        return success;
+        if (isParalysed || !ready())
+            return false;
+        if (!location.hasMyceliumTo(target))
+            return false;
+        location.removeInsect(this);
+        location = target;
+        location.addInsect(this);
+        setCooldown(ACTION_DURATION);
+        return true;
     }
 
     /**
