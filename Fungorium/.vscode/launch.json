@@ -9,6 +9,12 @@
         },
         {
             "type": "java",
+            "name": "Tester",
+            "request": "launch",
+            "mainClass": "tester.Tester"
+        },
+        {
+            "type": "java",
             "name": "Skeleton",
             "request": "launch",
             "mainClass": "helper.Skeleton"

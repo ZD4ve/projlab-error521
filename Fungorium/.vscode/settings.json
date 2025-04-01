@@ -28,6 +28,11 @@
         "**.op": "plaintext",
         "**.res": "plaintext",
     },
+    "java.format.settings.url": ".vscode/java-formatter.xml",
+    "java.completion.guessMethodArguments": "off",
+    "[java]": {
+        "editor.detectIndentation": false
+    },
     "cSpell.words": [
         "állapotváltásáig",
         "átlépni",
@@ -118,10 +123,5 @@
         "végrehajtásának",
         "Visszaadja",
         "Visszaállítja"
-    ],
-    "java.format.settings.url": ".vscode/java-formatter.xml",
-    "java.completion.guessMethodArguments": "off",
-    "[java]": {
-        "editor.detectIndentation": false
-    }
+    ]
 }
