@@ -52,7 +52,7 @@ public class Tecton implements IActive {
     // #region GETTERS-SETTERS
 
     /**
-     * Visszadja a tektonon található spórák listáját.
+     * Visszaadja a tektonon található spórák listáját.
      */
     public List<Spore> getSpores() {
         return spores;

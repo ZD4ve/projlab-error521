@@ -29,7 +29,7 @@ public class Fungus {
      */
     private int growingMycelia = 0;
     /**
-     * Az éppen fut-e összekötöttség ellenőrzése.
+     * Éppen fut-e összekötöttség ellenőrzése.
      */
     private boolean checkConnectivityRunning = false;
     /**

@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class Colony {
     // #region ASSOCIATIONS
-    /** RODO DOC */
+    /** A rovarászhoz tartozó rovarok listája */
     private List<Insect> insects = new ArrayList<>();
 
     // #region FUNCTIONS
