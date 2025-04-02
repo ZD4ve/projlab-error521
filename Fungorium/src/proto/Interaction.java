@@ -2,6 +2,11 @@ package proto;
 
 import controller.Controller;
 import controller.RandomProvider;
+import java.util.AbstractMap;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map.Entry;
 import model.Colony;
 import model.Fungus;
 import model.Insect;
@@ -10,14 +15,7 @@ import model.Mushroom;
 import model.Mycelium;
 import model.SpeedEffect;
 import model.Tecton;
-
 import static proto.Prototype.*;
-
-import java.util.AbstractMap;
-import java.util.Arrays;
-import java.util.List;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.Map.Entry;
 
 @java.lang.SuppressWarnings("java:S106") // használható büntetlenül a System IO
 public class Interaction {
@@ -278,9 +276,25 @@ public class Interaction {
             System.out.println(SYNTAX_ERROR);
             return;
         }
+        
+        int n = 1;
+        if (input.length > 2) {
+            try {
+                n = Integer.parseInt(input[2]);
+                if (n <= 0) {
+                    System.out.println(SYNTAX_ERROR);
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println(SYNTAX_ERROR);
+                return;
+            }
+        }
 
-        double next = RandomProvider.RandomConstants.getOrDefault(input[1], Double.parseDouble(input[1]));
-        RandomProvider.addNext(next);
+        for (int i = 0; i < n; i++) {
+            double next = RandomProvider.RandomConstants.getOrDefault(input[1], Double.parseDouble(input[1]));
+            RandomProvider.addNext(next);
+        }
     }
 
     private static void handleReset() {
