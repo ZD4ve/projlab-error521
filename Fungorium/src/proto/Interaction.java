@@ -17,6 +17,16 @@ import model.SpeedEffect;
 import model.Tecton;
 import static proto.Prototype.*;
 
+<<<<<<< HEAD
+=======
+import java.util.AbstractMap;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.Map.Entry;
+
+>>>>>>> 93fc16f15c2e7928e1efb5987091102da168d59d
 @java.lang.SuppressWarnings("java:S106") // használható büntetlenül a System IO
 public class Interaction {
     private static final String SYNTAX_ERROR = "Syntax error";
@@ -76,7 +86,7 @@ public class Interaction {
         }
     }
 
-    private static void printInsects() {
+    private static void printInsects(Map<String, Object> map) {
         var colonies = namedObjects.entrySet().stream().filter(x -> x.getKey().startsWith(names.get(Colony.class)))
                 .map(x -> new AbstractMap.SimpleEntry<>(x.getKey(), (Colony) x.getValue()))
                 .sorted((x, y) -> x.getKey().compareTo(y.getKey())).toList();
@@ -89,6 +99,16 @@ public class Interaction {
                     .sorted((x, y) -> x.getKey().compareTo(y.getKey())).toList();
             for (SimpleEntry<String, Insect> insect : insects) {
                 System.out.printf("  %s%n", insect.getKey());
+                var loctec = insect.getValue().getLocation();
+                var tectEntry = map.entrySet().stream().filter(x -> x.getKey().startsWith(names.get(Tecton.class)))
+                        .map(x -> new AbstractMap.SimpleEntry<>(x.getKey(), (Tecton) x.getValue()))
+                        .filter(x -> x.getValue() == loctec).findFirst();
+                if (tectEntry.isPresent()) {
+                    System.out.printf("    %s%n", tectEntry.get().getKey());
+                } else {
+                    System.out.println();
+                }
+
                 for (InsectEffect effect : insect.getValue().getActiveEffects()) {
                     String effectType = Prototype.effectTypes.get(effect.getClass());
                     System.out.printf("    %s", effectType);
@@ -116,7 +136,7 @@ public class Interaction {
             printMyceliumMatrix(tectons, fungus);
             System.out.println();
         }
-        printInsects();
+        printInsects(namedObjects);
     }
 
     private static void handleFungus(String[] input) {
@@ -309,7 +329,7 @@ public class Interaction {
 
             if (input.length == 0) {
                 // we ignore empty line without using continue
-            } else if (input[0].equals("end")) {
+            } else if (input[0].equals("exit")) {
                 return false;
             } else if (input[0].equals("printstate")) {
                 printState();
