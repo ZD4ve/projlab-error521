@@ -42,6 +42,7 @@ public class Test {
         input.add("");
         input.add("end");
         input.addAll(operation);
+        input.add("printstate");
         input.add("exit");
         return input;
     }
