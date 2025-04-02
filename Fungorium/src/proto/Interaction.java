@@ -18,6 +18,7 @@ import model.Tecton;
 import static proto.Prototype.*;
 
 import java.util.Map;
+import java.util.Scanner;
 
 @java.lang.SuppressWarnings("java:S106") // használható büntetlenül a System IO
 public class Interaction {
@@ -316,12 +317,18 @@ public class Interaction {
 
     public static boolean handleInteractions() {
         String[] input;
+        Scanner scanner = new Scanner(System.in);
         do {
-            input = System.console().readLine().split(" ");
+            if (scanner.hasNextLine()) {
+                input = scanner.nextLine().split(" ");
+            } else {
+                input = new String[] { "exit" };
+            }
 
             if (input.length == 0) {
                 // we ignore empty line without using continue
             } else if (input[0].equals("exit")) {
+                scanner.close();
                 return false;
             } else if (input[0].equals("printstate")) {
                 printState();
@@ -329,6 +336,7 @@ public class Interaction {
                 handleTick(input);
             } else if (input[0].equals("reset")) {
                 handleReset();
+                scanner.close();
                 return true;
             } else if (input[0].equals("nextrand")) {
                 handleNextRand(input);

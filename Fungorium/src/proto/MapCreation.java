@@ -2,6 +2,8 @@ package proto;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
+
 import model.*;
 import static proto.Prototype.*;
 
@@ -18,20 +20,24 @@ public class MapCreation {
     private static final String TECTON_INVALID = ": invalid tecton name";
     private static final String SPORE_INVALID = ": invalid spore count";
 
+    private static final Scanner scanner = new Scanner(System.in);
+
     private static void addTectonObject(String tecton) {
         switch (tecton) {
-            case "tect" -> registerNamedObject(Tecton.class, new Tecton());
-            case "nomu" -> registerNamedObject(Tecton.class, new NoMushroomTecton());
-            case "simy" -> registerNamedObject(Tecton.class, new SingleMyceliumTecton());
-            case "myab" -> registerNamedObject(Tecton.class, new MyceliumAbsorbingTecton());
-            case "myke" -> registerNamedObject(Tecton.class, new MyceliumKeepingTecton());
-            default -> System.out.println(SYNTAX_ERROR + ": invalid tecton type");
+        case "tect" -> registerNamedObject(Tecton.class, new Tecton());
+        case "nomu" -> registerNamedObject(Tecton.class, new NoMushroomTecton());
+        case "simy" -> registerNamedObject(Tecton.class, new SingleMyceliumTecton());
+        case "myab" -> registerNamedObject(Tecton.class, new MyceliumAbsorbingTecton());
+        case "myke" -> registerNamedObject(Tecton.class, new MyceliumKeepingTecton());
+        default -> System.out.println(SYNTAX_ERROR + ": invalid tecton type");
         }
     }
 
     private static void tectonsMenu() {
         do {
-            String input = System.console().readLine().trim();
+            if (!scanner.hasNextLine())
+                return;
+            String input = scanner.nextLine().trim();
             if (input.isEmpty())
                 return;
 
@@ -63,7 +69,9 @@ public class MapCreation {
 
     private static void neighborsMenu() {
         do {
-            String input = System.console().readLine().trim();
+            if (!scanner.hasNextLine())
+                return;
+            String input = scanner.nextLine().trim();
             if (input.isEmpty())
                 return;
 
@@ -109,7 +117,7 @@ public class MapCreation {
             System.out.println(INVALID_ARG + TECTON_INVALID);
             return;
         }
-        
+
         var mushroom = new Mushroom(fungus, tecton);
         mushroom.setIsGrown(isGrownBoolean);
         Prototype.registerNamedObject(Mushroom.class, mushroom);
@@ -117,7 +125,9 @@ public class MapCreation {
 
     private static void mushroomsMenu() {
         do {
-            String input = System.console().readLine().trim();
+            if (!scanner.hasNextLine())
+                return;
+            String input = scanner.nextLine().trim();
             if (input.isEmpty())
                 return;
 
@@ -129,11 +139,9 @@ public class MapCreation {
 
             if (params.size() > 2 && params.size() < 4) {
                 handleMushroom(params.get(0), params.get(1), params.get(2), "1");
-            }
-            else if (params.size() > 3) {
+            } else if (params.size() > 3) {
                 handleMushroom(params.get(0), params.get(1), params.get(2), params.get(3));
-            }
-            else {
+            } else {
                 handleMushroom(params.get(0), params.get(1), "false", "1");
             }
         } while (true);
@@ -168,7 +176,9 @@ public class MapCreation {
 
     private static void myceliaMenu() {
         do {
-            String input = System.console().readLine().trim();
+            if (!scanner.hasNextLine())
+                return;
+            String input = scanner.nextLine().trim();
             if (input.isEmpty())
                 return;
 
@@ -214,7 +224,9 @@ public class MapCreation {
 
     private static void sporesMenu() {
         do {
-            String input = System.console().readLine().trim();
+            if (!scanner.hasNextLine())
+                return;
+            String input = scanner.nextLine().trim();
             if (input.isEmpty())
                 return;
 
@@ -226,8 +238,7 @@ public class MapCreation {
 
             if (params.size() > 3) {
                 handleSpore(params.get(0), params.get(1), params.get(2));
-            }
-            else {
+            } else {
                 handleSpore(params.get(0), params.get(1), "1");
             }
         } while (true);
@@ -265,7 +276,9 @@ public class MapCreation {
 
     private static void insectsMenu() {
         do {
-            String input = System.console().readLine().trim();
+            if (!scanner.hasNextLine())
+                return;
+            String input = scanner.nextLine().trim();
             if (input.isEmpty())
                 return;
             var params = new ArrayList<>(Arrays.asList(input.split(" ")));
@@ -276,8 +289,7 @@ public class MapCreation {
 
             if (params.size() > 3) {
                 handleInsect(params.get(0), params.get(1), params.get(2));
-            }
-            else {
+            } else {
                 handleInsect(params.get(0), params.get(1), "1.0");
             }
         } while (true);
@@ -308,7 +320,9 @@ public class MapCreation {
     // Main menu
     public static void createMap() {
         do {
-            String input = System.console().readLine();
+            if (!scanner.hasNextLine())
+                return;
+            String input = scanner.nextLine().trim();
             if (input.isEmpty())
                 continue;
 
@@ -317,33 +331,31 @@ public class MapCreation {
             var params = new ArrayList<>(tokens.subList(1, tokens.size())); // NotOkay
 
             switch (command) {
-                case "tectons" -> tectonsMenu();
-                case "neighbors" -> neighborsMenu();
-                case "fungi" -> {
-                    if (!params.isEmpty()) {
-                        handleFungi(params.get(0));
-                    }
-                    else {
-                        System.out.println(NOT_ENOUGH_ARGS);
-                    }
+            case "tectons" -> tectonsMenu();
+            case "neighbors" -> neighborsMenu();
+            case "fungi" -> {
+                if (!params.isEmpty()) {
+                    handleFungi(params.get(0));
+                } else {
+                    System.out.println(NOT_ENOUGH_ARGS);
                 }
-                case "colonies" -> {
-                    if (!params.isEmpty()) {
-                        handleColonies(params.get(0));
-                    }
-                    else {
-                        System.out.println(NOT_ENOUGH_ARGS);
-                    }
+            }
+            case "colonies" -> {
+                if (!params.isEmpty()) {
+                    handleColonies(params.get(0));
+                } else {
+                    System.out.println(NOT_ENOUGH_ARGS);
                 }
-                case "mushrooms" -> mushroomsMenu();
-                case "mycelia" -> myceliaMenu();
-                case "insects" -> insectsMenu();
-                case "spores" -> sporesMenu();
-                case "end" -> {
-                    System.out.println("Entering interaction phase.");
-                    return;
-                }
-                default -> System.out.println(SYNTAX_ERROR + ": invalid command");
+            }
+            case "mushrooms" -> mushroomsMenu();
+            case "mycelia" -> myceliaMenu();
+            case "insects" -> insectsMenu();
+            case "spores" -> sporesMenu();
+            case "end" -> {
+                System.out.println("Entering interaction phase.");
+                return;
+            }
+            default -> System.out.println(SYNTAX_ERROR + ": invalid command");
             }
         } while (true);
     }
