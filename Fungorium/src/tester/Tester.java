@@ -145,6 +145,10 @@ public class Tester {
             System.out.println("The actual output is the same as the expected output");
             return;
         }
+        if (idx == Math.min(t.getResult().size(), t.getActualOutput().size())) {
+            System.out.println("The actual output is not the same length as the expected output");
+            return;
+        }
         System.out.println("First difference at line " + (idx + 1));
         System.out.println("Expected: \n" + t.getResult().get(idx));
         System.out.println("Actual: \n" + t.getActualOutput().get(idx));
