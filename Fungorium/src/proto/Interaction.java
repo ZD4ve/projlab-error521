@@ -17,16 +17,8 @@ import model.SpeedEffect;
 import model.Tecton;
 import static proto.Prototype.*;
 
-<<<<<<< HEAD
-=======
-import java.util.AbstractMap;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.Map.Entry;
 
->>>>>>> 93fc16f15c2e7928e1efb5987091102da168d59d
 @java.lang.SuppressWarnings("java:S106") // használható büntetlenül a System IO
 public class Interaction {
     private static final String SYNTAX_ERROR = "Syntax error";
@@ -296,7 +288,7 @@ public class Interaction {
             System.out.println(SYNTAX_ERROR);
             return;
         }
-        
+
         int n = 1;
         if (input.length > 2) {
             try {
