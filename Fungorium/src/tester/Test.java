@@ -64,13 +64,13 @@ public class Test {
             PrintWriter writer = new PrintWriter(new OutputStreamWriter(process.getOutputStream()));
             getInput().forEach(writer::println);
             writer.flush();
-            writer.close();
             process.waitFor();
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
             while ((line = reader.readLine()) != null) {
                 actualOutput.add(line);
             }
+            writer.close();
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
