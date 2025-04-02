@@ -9,24 +9,34 @@ public class Tester {
     private static int passed = 0;
 
     public static void main(String[] args) {
+        build();
         readTests();
-        tests.forEach(t -> {
-            try {
-                if (runTest(t)) {
-                    System.out.println("Test " + t.getName() + " passed");
-                    passed++;
-                } else {
-                    System.out.println("Test " + t.getName() + " failed");
-                }
-            } catch (IOException | InterruptedException e) {
-                System.out.println("Test " + t.getName() + " failed");
-                e.printStackTrace();
-            }
-        });
-        System.out.println("Passed " + passed + "/" + tests.size() + " tests");
+        System.out.println("Running tests...");
+        tests.forEach(Test::run);
+        System.out.println("Tests finished!");
+        sum();
+        interact();
     }
 
-    private static void readTests() {
+    // TODO: remove this method
+    // ONLY FOR DEVELOPMENT
+    static void build() {
+        String os = System.getProperty("os.name").toLowerCase();
+        String command = os.contains("win") ? "build.bat" : "./build.sh";
+        ProcessBuilder builder = new ProcessBuilder(command);
+        builder.redirectErrorStream(true);
+        try {
+            Process process = builder.start();
+            process.waitFor();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    static void readTests() {
         tests = new ArrayList<>();
         File testsDir = new File(Test.TESTS_DIR);
         for (File folder : testsDir.listFiles(File::isDirectory)) {
@@ -42,31 +52,117 @@ public class Tester {
         }
     }
 
-    private static boolean runTest(Test t) throws IOException, InterruptedException {
-        ProcessBuilder builder = new ProcessBuilder("java -jar Fungorium.jar");
-        builder.redirectErrorStream(true);
-        Process process = builder.start();
-        PrintWriter writer = new PrintWriter(new OutputStreamWriter(process.getOutputStream()));
-        t.getInput().forEach(writer::println);
-        writer.flush();
-        writer.close();
-        process.waitFor();
-        List<String> result = new ArrayList<>();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-        String line;
-        while ((line = reader.readLine()) != null) {
-            result.add(line);
-        }
-        reader.close();
-        if (result.size() != t.getResult().size()) {
-            return false;
-        }
-        for (int i = 0; i < result.size(); i++) {
-            if (!result.get(i).equals(t.getResult().get(i))) {
-                return false;
+    static void interact() {
+        Scanner scanner = new Scanner(System.in);
+        String command;
+        do {
+            System.out.print("> ");
+            String[] line = scanner.nextLine().split(" ");
+            command = line.length > 0 ? line[0] : "";
+
+            switch (line.length) {
+            case 0:
+                break;
+            case 1:
+                switch (command) {
+                case "ls" -> ls();
+                case "sum" -> sum();
+                case "help" -> help();
+                case "diff" -> notEnoughArgs();
+                case "inp" -> notEnoughArgs();
+                case "exp" -> notEnoughArgs();
+                case "act" -> notEnoughArgs();
+                case "exit" -> System.out.println("Exiting...");
+                default -> System.out.println("Unknown command: " + command);
+                }
+                break;
+            case 2:
+                int testIndex = Integer.parseInt(line[1]) - 1;
+                if (testIndex < 0 || testIndex >= tests.size()) {
+                    System.out.println("Invalid test number");
+                    continue;
+                }
+                Test t = tests.get(testIndex);
+
+                switch (command) {
+                case "diff" -> diff(t);
+                case "inp" -> inp(t);
+                case "exp" -> exp(t);
+                case "act" -> act(t);
+                case "exit" -> System.out.println("Exiting...");
+                default -> System.out.println("Unknown command: " + command);
+                }
+                break;
+            default:
+                System.out.println("Invalid command");
+                break;
             }
-        }
-        return true;
+
+        } while (!command.equals("exit"));
+        scanner.close();
+
     }
 
+    static void notEnoughArgs() {
+        System.out.println("No test number provided");
+    }
+
+    // #region COMMANDS
+    static void sum() {
+        for (Test t : tests) {
+            if (t.hasPassed()) {
+                System.out.println("[PASS] " + t.getName());
+                passed++;
+            } else {
+                System.out.println("[FAIL] " + t.getName());
+            }
+        }
+        System.out.println("Passed " + passed + "/" + tests.size() + " tests");
+    }
+
+    static void ls() {
+        for (int i = 0; i < tests.size(); i++) {
+            System.out.println((i + 1) + ". " + tests.get(i).getName());
+        }
+    }
+
+    static void help() {
+        System.out.println("  ls               - List test numbers");
+        System.out.println("  sum              - Summary");
+        System.out.println("  diff <test num>  - First difference between expected and actual output");
+        System.out.println("  inp <test num>   - Input");
+        System.out.println("  exp <test num>   - Expected output");
+        System.out.println("  act <test num>   - Actual output");
+        System.out.println("  exit             - Exit");
+    }
+
+    static void diff(Test t) {
+        int idx = t.getDiffLine();
+        if (idx == -1) {
+            System.out.println("The actual output is the same as the expected output");
+            return;
+        }
+        System.out.println("First difference at line " + (idx + 1));
+        System.out.println("Expected: " + t.getResult().get(idx));
+        System.out.println("Actual: " + t.getActualOutput().get(idx));
+    }
+
+    static void inp(Test t) {
+        for (String line : t.getInput()) {
+            System.out.println(line);
+        }
+    }
+
+    static void exp(Test t) {
+        for (String line : t.getResult()) {
+            System.out.println(line);
+        }
+    }
+
+    static void act(Test t) {
+        for (String line : t.getActualOutput()) {
+            System.out.println(line);
+        }
+    }
+    // #endregion
 }
