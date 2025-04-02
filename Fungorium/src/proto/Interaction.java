@@ -92,9 +92,9 @@ public class Interaction {
             for (SimpleEntry<String, Insect> insect : insects) {
                 System.out.printf("  %s%n", insect.getKey());
                 for (InsectEffect effect : insect.getValue().getActiveEffects()) {
-                    String effectType = Prototype.effecTypes.get(effect.getClass());
+                    String effectType = Prototype.effectTypes.get(effect.getClass());
                     System.out.printf("    %s", effectType);
-                    if (effectType.equals(Prototype.effecTypes.get(SpeedEffect.class))) {
+                    if (effectType.equals(Prototype.effectTypes.get(SpeedEffect.class))) {
                         System.out.printf("-%.1f", ((SpeedEffect) effect).getMultiplier());
                     }
                     System.out.print(' ');
