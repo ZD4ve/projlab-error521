@@ -1,5 +1,7 @@
 package model;
 
+import controller.Controller;
+
 /**
  * <h3>Gombafonal</h3>
  * 
@@ -51,6 +53,8 @@ public class Mycelium implements IActive {
 
         state = State.GROWING;
         cooldown = GROWTH_TIME;
+
+        Controller.registerActiveObject(this);
     }
     // #endregion
 
@@ -84,6 +88,7 @@ public class Mycelium implements IActive {
             tecton.removeMycelium(this);
         }
         species.removeMycelium(this);
+        Controller.unregisterActiveObject(this);
     }
 
     /**
