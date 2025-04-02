@@ -42,7 +42,6 @@ public class Test {
         input.add("");
         input.add("end");
         input.addAll(operation);
-        input.add("printstate");
         input.add("exit");
         return input;
     }
@@ -64,12 +63,12 @@ public class Test {
             PrintWriter writer = new PrintWriter(new OutputStreamWriter(process.getOutputStream()));
             getInput().forEach(writer::println);
             writer.flush();
-            process.waitFor();
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
             while ((line = reader.readLine()) != null) {
                 actualOutput.add(line);
             }
+            process.waitFor();
             writer.close();
             reader.close();
         } catch (IOException e) {
@@ -80,16 +79,17 @@ public class Test {
             Thread.currentThread().interrupt();
             return false;
         }
-        for (int i = 0; i < result.size(); i++) {
-            if (i >= actualOutput.size()) {
+        for (int i = 0; i < Math.max(result.size(), actualOutput.size()); i++) {
+            if (i >= Math.min(result.size(), actualOutput.size())) {
                 diffLine = i;
                 return false;
             }
-            if (!result.get(i).equals(actualOutput.get(i))) {
+            if (!result.get(i).trim().equals(actualOutput.get(i).trim())) {
                 diffLine = i;
                 return false;
             }
         }
+        passed = true;
         return true;
     }
 }

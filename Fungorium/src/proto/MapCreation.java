@@ -2,7 +2,6 @@ package proto;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Scanner;
 
 import model.*;
 import static proto.Prototype.*;
@@ -19,8 +18,6 @@ public class MapCreation {
     private static final String FUNGUS_INVALID = ": invalid fungus name";
     private static final String TECTON_INVALID = ": invalid tecton name";
     private static final String SPORE_INVALID = ": invalid spore count";
-
-    private static final Scanner scanner = new Scanner(System.in);
 
     private static void addTectonObject(String tecton) {
         switch (tecton) {
@@ -352,7 +349,7 @@ public class MapCreation {
             case "insects" -> insectsMenu();
             case "spores" -> sporesMenu();
             case "end" -> {
-                System.out.println("Entering interaction phase.");
+                // System.out.println("Entering interaction phase.");
                 return;
             }
             default -> System.out.println(SYNTAX_ERROR + ": invalid command");

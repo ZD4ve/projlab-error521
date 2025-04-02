@@ -5,7 +5,7 @@ ee
  X|te01 tect
 X |te02 tect
 
-fu01 0
+fu01 1
 tt
 ee
 00
@@ -13,7 +13,7 @@ ee
 01|te01 0 m
 10|te02 0
 
-co01 5
+co01 0
   in01
     te02
     

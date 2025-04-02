@@ -26,3 +26,6 @@ out/
 
 # anything in the bin folder
 Fungorium/bin/
+
+# test actual result files
+*.resa

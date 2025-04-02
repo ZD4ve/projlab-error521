@@ -1,6 +1,7 @@
 package tester;
 
 import java.io.*;
+import java.nio.channels.Pipe.SourceChannel;
 import java.util.*;
 
 @SuppressWarnings("java:S106")
@@ -21,6 +22,7 @@ public class Tester {
     // TODO: remove this method
     // ONLY FOR DEVELOPMENT
     static void build() {
+        System.out.println("Building...");
         String os = System.getProperty("os.name").toLowerCase();
         String command = os.contains("win") ? "build.bat" : "./build.sh";
         ProcessBuilder builder = new ProcessBuilder(command);
@@ -89,6 +91,7 @@ public class Tester {
                 case "inp" -> inp(t);
                 case "exp" -> exp(t);
                 case "act" -> act(t);
+                case "save" -> save(t);
                 case "exit" -> System.out.println("Exiting...");
                 default -> System.out.println("Unknown command: " + command);
                 }
@@ -143,8 +146,8 @@ public class Tester {
             return;
         }
         System.out.println("First difference at line " + (idx + 1));
-        System.out.println("Expected: " + t.getResult().get(idx));
-        System.out.println("Actual: " + t.getActualOutput().get(idx));
+        System.out.println("Expected: \n" + t.getResult().get(idx));
+        System.out.println("Actual: \n" + t.getActualOutput().get(idx));
     }
 
     static void inp(Test t) {
@@ -162,6 +165,27 @@ public class Tester {
     static void act(Test t) {
         for (String line : t.getActualOutput()) {
             System.out.println(line);
+        }
+    }
+
+    static void save(Test t) {
+        File outputFile = new File(Test.TESTS_DIR + File.separator + t.getName() + ".resa");
+        if (outputFile.exists()) {
+            System.out.println("File already exists, overwriting!");
+            outputFile.delete();// NOSONAR
+        }
+        try {
+            outputFile.createNewFile();// NOSONAR
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+        try (PrintWriter writer = new PrintWriter(new FileWriter(outputFile))) {
+            for (String line : t.getActualOutput()) {
+                writer.println(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
     // #endregion

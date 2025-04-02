@@ -22,11 +22,13 @@
         "**.map": "steadybit",
         "**.op": "deepsource",
         "**.res": "document",
+        "**.resa": "diff",
     },
     "files.associations": {
         "**.map": "plaintext",
         "**.op": "plaintext",
         "**.res": "plaintext",
+        "**.resa": "plaintext",
     },
     "java.format.settings.url": ".vscode/java-formatter.xml",
     "java.completion.guessMethodArguments": "off",

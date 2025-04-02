@@ -1,24 +1,12 @@
 package proto;
 
-import controller.Controller;
-import controller.RandomProvider;
-import java.util.AbstractMap;
+import java.util.*;
 import java.util.AbstractMap.SimpleEntry;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map.Entry;
-import model.Colony;
-import model.Fungus;
-import model.Insect;
-import model.InsectEffect;
-import model.Mushroom;
-import model.Mycelium;
-import model.SpeedEffect;
-import model.Tecton;
-import static proto.Prototype.*;
 
-import java.util.Map;
-import java.util.Scanner;
+import model.*;
+import controller.*;
+import static proto.Prototype.*;
 
 @java.lang.SuppressWarnings("java:S106") // használható büntetlenül a System IO
 public class Interaction {
@@ -317,7 +305,6 @@ public class Interaction {
 
     public static boolean handleInteractions() {
         String[] input;
-        Scanner scanner = new Scanner(System.in);
         do {
             if (scanner.hasNextLine()) {
                 input = scanner.nextLine().split(" ");
@@ -328,7 +315,6 @@ public class Interaction {
             if (input.length == 0) {
                 // we ignore empty line without using continue
             } else if (input[0].equals("exit")) {
-                scanner.close();
                 return false;
             } else if (input[0].equals("printstate")) {
                 printState();
@@ -336,7 +322,6 @@ public class Interaction {
                 handleTick(input);
             } else if (input[0].equals("reset")) {
                 handleReset();
-                scanner.close();
                 return true;
             } else if (input[0].equals("nextrand")) {
                 handleNextRand(input);

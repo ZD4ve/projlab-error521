@@ -2,6 +2,7 @@ package proto;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 import model.*;
 
@@ -26,13 +27,16 @@ public class Prototype {
                 obj);
     }
 
+    public static Scanner scanner;
+
     public static void main(String[] args) {
+        scanner = new Scanner(System.in);
         boolean reset;
         do {
             MapCreation.createMap();
             reset = Interaction.handleInteractions();
         } while (reset);
-
+        scanner.close();
     }
 
     private Prototype() {
