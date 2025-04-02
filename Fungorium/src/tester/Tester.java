@@ -1,7 +1,6 @@
 package tester;
 
 import java.io.*;
-import java.nio.channels.Pipe.SourceChannel;
 import java.util.*;
 
 @SuppressWarnings("java:S106")
@@ -136,6 +135,7 @@ public class Tester {
         System.out.println("  inp <test num>   - Input");
         System.out.println("  exp <test num>   - Expected output");
         System.out.println("  act <test num>   - Actual output");
+        System.out.println("  save <test num>  - Save actual output to .resa file");
         System.out.println("  exit             - Exit");
     }
 
