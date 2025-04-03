@@ -33,8 +33,6 @@ public class Insect implements IActive {
     private int antiChewCount;
     /** a rovar bénító hatás alatt van-e */
     private boolean isParalysed;
-    /** hány spórát evett meg a rovar */
-    private int score;
     // #endregion
 
     // #region CONSTRUCTORS
@@ -170,15 +168,6 @@ public class Insect implements IActive {
     }
 
     /**
-     * A rovarász pontszámának lekérdezése.
-     * 
-     * @return rovarász jelenlegi pontszáma
-     */
-    public int getScore() {
-        return score;
-    }
-
-    /**
      * A rovar kész-e az akcióra.
      * 
      * @return lejárt-e a várakozási idő
@@ -219,7 +208,7 @@ public class Insect implements IActive {
         if (!isParalysed && ready()) {
             Spore sporeTaken = location.takeSpore();
             if (sporeTaken != null) {
-                score++;
+                colony.addScore();
                 InsectEffect effect = sporeTaken.getEffect();
                 if (effect != null) {
                     effect.applyTo(this);

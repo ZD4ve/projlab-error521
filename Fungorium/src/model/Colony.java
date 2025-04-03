@@ -12,6 +12,39 @@ public class Colony {
     // #region ASSOCIATIONS
     /** A rovarászhoz tartozó rovarok listája */
     private List<Insect> insects = new ArrayList<>();
+    // #endregion
+
+    // #region ATTRIBUTES
+    /** A kolónia pontszáma */
+    private int score;
+    // #endregion
+
+    // #region GETTERS-SETTERS
+    /**
+     * Rovarok lekérdezése.
+     * 
+     * @return a kolónia rovarainak listája
+     */
+    public List<Insect> getInsects() {
+        return insects;
+    }
+
+    /**
+     * Rovarász pontszámának lekérdezése.
+     * 
+     * @return a rovarász pontszáma
+     */
+    public int getScore() {
+        return score;
+    }
+
+    /**
+     * Rovarász pontszámának növelése.
+     */
+    public void addScore() {
+        this.score++;
+    }
+    // #endregion
 
     // #region FUNCTIONS
     /**
@@ -21,14 +54,6 @@ public class Colony {
      */
     public void born(Insect insect) {
         insects.add(insect);
-    }
-
-    public List<Insect> getInsects() {
-        return insects;
-    }
-
-    public int getScore() {
-        return insects.stream().mapToInt(Insect::getScore).sum();
     }
 
     /**
