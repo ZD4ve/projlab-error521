@@ -1,5 +1,7 @@
 package model;
 
+import controller.RandomProvider;
+
 /**
  * <h3>Sebesség változtató hatás</h3>
  * 
@@ -16,8 +18,8 @@ public class SpeedEffect extends InsectEffect {
      * Inicializálja az effektet.
      */
     public SpeedEffect() {
-        // TODO RANDOM
-        this.multiplier = 0.65;
+        double m = RandomProvider.nextRand();
+        this.multiplier = m > 0.5 ? 0.5 : 1 + 2 * m;
     }
     // #endregion
 
