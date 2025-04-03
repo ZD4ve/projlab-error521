@@ -6,7 +6,6 @@ import java.util.*;
 @SuppressWarnings("java:S106")
 public class Tester {
     private static List<Test> tests;
-    private static int passed = 0;
 
     public static void main(String[] args) {
         build();
@@ -117,7 +116,7 @@ public class Tester {
             }
             System.out.format("[%s]  %02d %s%n", t.hasPassed() ? "PASS" : "FAIL", i + 1, t.getName());
         }
-        System.out.println("Passed " + passed + "/" + tests.size() + " tests");
+        System.out.println("Passed " + tests.stream().filter(Test::hasPassed).count() + "/" + tests.size() + " tests");
     }
 
     static void help() {
