@@ -18,7 +18,7 @@ public class MyceliumKeepingTecton extends Tecton {
      * Mindig igaz, hiszen a tekton életben tartja a rajta található gombafonalakat.
      */
     @Override
-    public boolean keepsMyceliumAlive() {
+    public boolean keepsMyceliumAlive(Fungus species) {
         return true;
     }
 }

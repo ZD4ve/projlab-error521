@@ -176,10 +176,10 @@ public class Tecton implements IActive {
     }
 
     /**
-     * Megadja, hogy a tekton életben tartja-e a gombatesthez nem csatlakozó gombafonalakat.
+     * Megadja, hogy a tekton életben tartja-e a fajhoz tartozó gombafonalakat.
      */
-    public boolean keepsMyceliumAlive() {
-        return false;
+    public boolean keepsMyceliumAlive(Fungus species) {
+        return mushroom != null && mushroom.getSpecies() == species;
     }
 
     // #endregion

@@ -160,12 +160,11 @@ public class Insect implements IActive {
         this.location = location;
     }
 
-    // TODO doc
     /**
+     * A rovar helyének lekérdezése.
      * 
-     * @return
+     * @return a Tecton, ahol a rovar áll
      */
-
     public Tecton getLocation() {
         return location;
     }
