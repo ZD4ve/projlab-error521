@@ -246,7 +246,7 @@ public class Insect implements IActive {
      * @return sikeresség
      */
     public boolean chewMycelium(Mycelium mycelium) {
-        if (isParalysed || antiChewCount > 0 || !ready())
+        if (isParalysed || antiChewCount > 0 || !ready() || !getPotentialChewTargets().contains(mycelium))
             return false;
         mycelium.chew();
         setCooldown(ACTION_DURATION);
