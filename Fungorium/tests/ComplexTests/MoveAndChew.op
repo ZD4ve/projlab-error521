@@ -1,6 +1,6 @@
 nextrand 0 1000
 in01 move te02
 tick 100
-in01 chew my01
+in01 chew my02
 tick 100
 printstate
