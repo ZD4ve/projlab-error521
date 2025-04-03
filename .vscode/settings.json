@@ -12,7 +12,8 @@
     "NOSONAR",
     "Paralysed",
     "startuml",
-    "Tecton"
+    "Tecton",
+    "usecase"
   ],
   "cSpell.language": "en,hu",
   "java.completion.guessMethodArguments": "off"
