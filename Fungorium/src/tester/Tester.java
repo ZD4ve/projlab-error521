@@ -42,10 +42,8 @@ public class Tester {
         File testsDir = new File(Test.TESTS_DIR);
         for (File folder : testsDir.listFiles(File::isDirectory)) {
             for (File file : folder.listFiles(f -> f.getName().endsWith(".map"))) {
-                String name = folder.getName() + File.separator
-                        + file.getName().substring(0, file.getName().length() - 4);
                 try {
-                    tests.add(new Test(name));
+                    tests.add(new Test(folder.getName(), file.getName().substring(0, file.getName().length() - 4)));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -66,7 +64,6 @@ public class Tester {
                 break;
             case 1:
                 switch (command) {
-                case "ls" -> ls();
                 case "sum" -> sum();
                 case "help" -> help();
                 case "diff" -> notEnoughArgs();
@@ -111,25 +108,19 @@ public class Tester {
 
     // #region COMMANDS
     static void sum() {
-        for (Test t : tests) {
-            if (t.hasPassed()) {
-                System.out.println("[PASS] " + t.getName());
-                passed++;
-            } else {
-                System.out.println("[FAIL] " + t.getName());
+        String prevDir = "";
+        for (int i = 0; i < tests.size(); i++) {
+            Test t = tests.get(i);
+            if (!t.getDir().equals(prevDir)) {
+                System.out.println("      " + t.getDir());
+                prevDir = t.getDir();
             }
+            System.out.format("[%s]  %02d %s%n", t.hasPassed() ? "PASS" : "FAIL", i + 1, t.getName());
         }
         System.out.println("Passed " + passed + "/" + tests.size() + " tests");
     }
 
-    static void ls() {
-        for (int i = 0; i < tests.size(); i++) {
-            System.out.println((i + 1) + ". " + tests.get(i).getName());
-        }
-    }
-
     static void help() {
-        System.out.println("  ls               - List test numbers");
         System.out.println("  sum              - Summary");
         System.out.println("  diff <test num>  - First difference between expected and actual output");
         System.out.println("  inp <test num>   - Input");
@@ -173,7 +164,7 @@ public class Tester {
     }
 
     static void save(Test t) {
-        File outputFile = new File(Test.TESTS_DIR + File.separator + t.getName() + ".resa");
+        File outputFile = new File(Test.TESTS_DIR + File.separator + t.getPath() + ".resa");
         if (outputFile.exists()) {
             System.out.println("File already exists, overwriting!");
             outputFile.delete();// NOSONAR
