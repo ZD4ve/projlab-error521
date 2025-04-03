@@ -128,9 +128,7 @@ public class Fungus {
 
         HashMap<Tecton, HashSet<Tecton>> adjacencyList = new HashMap<>();
         HashMap<Mycelium, Tecton[]> myceliaEnds = new HashMap<>();
-        HashSet<Tecton> tectons = new HashSet<>(myceliaEnds.entrySet().stream()
-                .flatMap(entry -> Arrays.stream(entry.getValue())).filter(t -> t.keepsMyceliumAlive(this)).toList());
-
+        
         for (Mycelium mycelium : mycelia) {
             var ends = mycelium.getEnds();
             myceliaEnds.put(mycelium, ends);
@@ -139,7 +137,9 @@ public class Fungus {
             adjacencyList.get(ends[0]).add(ends[1]);
             adjacencyList.get(ends[1]).add(ends[0]);
         }
-
+        
+        HashSet<Tecton> tectons = new HashSet<>(myceliaEnds.entrySet().stream()
+                .flatMap(entry -> Arrays.stream(entry.getValue())).filter(t -> t.keepsMyceliumAlive(this)).toList());
         HashSet<Tecton> forest = new HashSet<>();
         var tectonIt = tectons.iterator();
 
