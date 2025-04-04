@@ -10,15 +10,16 @@ te02 -- te03
 te01 -- te03
 te04 -- te03
 
-fungi 1
+fungi 2
 mushrooms
 fu01 te01 true 1
-fu01 te04 true
+fu02 te04 true
 
 mycelia
 te01 .. te02 : fu01
 te01 .. te03 : fu01
 te03 .. te04 : fu01
+te03 .. te04 : fu02
 
 colonies 1
 insects
