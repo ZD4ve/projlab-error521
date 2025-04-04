@@ -60,7 +60,7 @@ public class Interaction {
             long spores = trow.getValue().getSpores().stream().filter(x -> x.getSpecies() == f.getValue()).count();
             var mushroom = trow.getValue().getMushroom();
             char muState = ' ';
-            if (mushroom != null) {
+            if (mushroom != null && mushroom.getSpecies() == f.getValue()) {
                 muState = mushroom.getIsGrown() ? 'M' : 'm';
             }
             System.out.printf("|%s %d %c%n", trow.getKey(), spores, muState);
