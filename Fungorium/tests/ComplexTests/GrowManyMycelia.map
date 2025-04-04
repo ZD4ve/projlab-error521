@@ -1,0 +1,30 @@
+tectons
+tect
+tect
+tect
+tect
+tect
+tect
+
+neighbors
+te01 -- te02
+te02 -- te03
+te01 -- te03
+te02 -- te04
+te03 -- te05
+te03 -- te06
+
+fungi 1
+mushrooms
+fu01 te01 true
+fu01 te02
+fu01 te03
+
+mycelia
+te01 .. te02 : fu01
+te01 .. te03 : fu01
+te02 .. te03 : fu01
+
+colonies 1
+insects
+co01 te03

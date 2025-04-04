@@ -1,0 +1,12 @@
+tectons
+tect
+tect
+tect
+tect
+
+neighbors
+te01 -- te02
+te02 -- te03
+te04 -- te01
+te04 -- te02
+te04 -- te03

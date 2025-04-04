@@ -91,7 +91,7 @@ public class MapCreation {
             return;
         }
 
-        int sporeCountInt; // SoonToBeUpdated
+        int sporeCountInt; // TODO SoonToBeUpdated
         try {
             sporeCountInt = Integer.parseInt(sporeCount);
             if (sporeCountInt < 0) {
@@ -167,7 +167,7 @@ public class MapCreation {
             System.out.println(INVALID_ARG + FUNGUS_INVALID);
             return;
         }
-
+        // TODO mycelia are initialised as growing in ctor -> fungus.growingMycelia is negative after tick
         registerNamedObject(Mycelium.class, new Mycelium(fungus, left, right));
     }
 

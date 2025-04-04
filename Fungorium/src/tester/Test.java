@@ -6,6 +6,7 @@ import java.util.*;
 
 @SuppressWarnings("java:S1104")
 public class Test {
+    private String dir;
     private String name;
     private List<String> map;
     private List<String> operation;
@@ -17,11 +18,20 @@ public class Test {
 
     public static final String TESTS_DIR = "tests";
 
-    public Test(String name) throws IOException {
+    public Test(String dir, String name) throws IOException {
+        this.dir = dir;
         this.name = name;
-        map = Files.readAllLines(new File(TESTS_DIR + File.separator + name + ".map").toPath());
-        operation = Files.readAllLines(new File(TESTS_DIR + File.separator + name + ".op").toPath());
-        result = Files.readAllLines(new File(TESTS_DIR + File.separator + name + ".res").toPath());
+        map = Files.readAllLines(new File(TESTS_DIR + File.separator + getPath() + ".map").toPath());
+        operation = Files.readAllLines(new File(TESTS_DIR + File.separator + getPath() + ".op").toPath());
+        result = Files.readAllLines(new File(TESTS_DIR + File.separator + getPath() + ".res").toPath());
+
+        result = new ArrayList<>(result.stream().map(String::stripTrailing).toList());
+        for (int i = result.size() - 1; i >= 0; i--) {
+            if (!result.get(i).isEmpty()) {
+                break;
+            }
+            result.remove(i);
+        }
     }
 
     public int getDiffLine() {
@@ -32,8 +42,16 @@ public class Test {
         return actualOutput;
     }
 
+    public String getDir() {
+        return dir;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public String getPath() {
+        return dir + File.separator + name;
     }
 
     public List<String> getInput() {
@@ -66,11 +84,17 @@ public class Test {
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
             while ((line = reader.readLine()) != null) {
-                actualOutput.add(line);
+                actualOutput.add(line.stripTrailing());
             }
             process.waitFor();
             writer.close();
             reader.close();
+            for (int i = actualOutput.size() - 1; i >= 0; i--) {
+                if (!actualOutput.get(i).isEmpty()) {
+                    break;
+                }
+                actualOutput.remove(i);
+            }
         } catch (IOException e) {
             e.printStackTrace();
             return false;

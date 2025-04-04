@@ -29,3 +29,6 @@ Fungorium/bin/
 
 # test actual result files
 *.resa
+
+
+Fungorium/rtf/*

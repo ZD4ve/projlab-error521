@@ -68,6 +68,7 @@ public class Fungus {
      */
     public void addMycelium(Mycelium mycelium) {
         mycelia.add(mycelium);
+        growingMycelia++;
     }
 
     /**
@@ -128,9 +129,6 @@ public class Fungus {
 
         HashMap<Tecton, HashSet<Tecton>> adjacencyList = new HashMap<>();
         HashMap<Mycelium, Tecton[]> myceliaEnds = new HashMap<>();
-        HashSet<Tecton> tectons = new HashSet<>(mushrooms.stream().map(x -> x.getLocation()).toList());
-        tectons.addAll(myceliaEnds.entrySet().stream().flatMap(entry -> Arrays.stream(entry.getValue()))
-                .filter(Tecton::keepsMyceliumAlive).toList());
 
         for (Mycelium mycelium : mycelia) {
             var ends = mycelium.getEnds();
@@ -141,6 +139,8 @@ public class Fungus {
             adjacencyList.get(ends[1]).add(ends[0]);
         }
 
+        HashSet<Tecton> tectons = new HashSet<>(myceliaEnds.entrySet().stream()
+                .flatMap(entry -> Arrays.stream(entry.getValue())).filter(t -> t.keepsMyceliumAlive(this)).toList());
         HashSet<Tecton> forest = new HashSet<>();
         var tectonIt = tectons.iterator();
 
@@ -198,11 +198,7 @@ public class Fungus {
      */
     public boolean growMycelium(Tecton source, Tecton target) {
         if (canGrowMycelium()) {
-            boolean success = source.growMycelium(this, target);
-            if (success) {
-                growingMycelia++;
-                return true;
-            }
+            return source.growMycelium(this, target);
         }
         return false;
     }

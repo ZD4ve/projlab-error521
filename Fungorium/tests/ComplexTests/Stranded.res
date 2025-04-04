@@ -1,0 +1,1 @@
+sporecount doesnt work yet

@@ -33,8 +33,6 @@ public class Insect implements IActive {
     private int antiChewCount;
     /** a rovar bénító hatás alatt van-e */
     private boolean isParalysed;
-    /** hány spórát evett meg a rovar */
-    private int score;
     // #endregion
 
     // #region CONSTRUCTORS
@@ -160,23 +158,13 @@ public class Insect implements IActive {
         this.location = location;
     }
 
-    // TODO doc
     /**
+     * A rovar helyének lekérdezése.
      * 
-     * @return
+     * @return a Tecton, ahol a rovar áll
      */
-
     public Tecton getLocation() {
         return location;
-    }
-
-    /**
-     * A rovarász pontszámának lekérdezése.
-     * 
-     * @return rovarász jelenlegi pontszáma
-     */
-    public int getScore() {
-        return score;
     }
 
     /**
@@ -214,13 +202,15 @@ public class Insect implements IActive {
      * A rovar megpróbál elfogyasztani egy spórát azon a tektonon, amelyen áll. A visszatérési érték a művelet
      * sikerességét jelzi.
      * 
+     * Ez hosszú leírás.
+     * 
      * @return sikeresség
      */
     public boolean eatSpore() {
         if (!isParalysed && ready()) {
             Spore sporeTaken = location.takeSpore();
             if (sporeTaken != null) {
-                score++;
+                colony.addScore();
                 InsectEffect effect = sporeTaken.getEffect();
                 if (effect != null) {
                     effect.applyTo(this);
@@ -258,7 +248,7 @@ public class Insect implements IActive {
      * @return sikeresség
      */
     public boolean chewMycelium(Mycelium mycelium) {
-        if (isParalysed || antiChewCount > 0 || !ready())
+        if (isParalysed || antiChewCount > 0 || !ready() || !location.getMycelia().contains(mycelium))
             return false;
         mycelium.chew();
         setCooldown(ACTION_DURATION);

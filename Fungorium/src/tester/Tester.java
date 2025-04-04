@@ -1,19 +1,17 @@
 package tester;
 
 import java.io.*;
-import java.nio.channels.Pipe.SourceChannel;
 import java.util.*;
 
 @SuppressWarnings("java:S106")
 public class Tester {
     private static List<Test> tests;
-    private static int passed = 0;
 
     public static void main(String[] args) {
         build();
         readTests();
         System.out.println("Running tests...");
-        tests.forEach(Test::run);
+        tests.parallelStream().forEach(Test::run);
         System.out.println("Tests finished!");
         sum();
         interact();
@@ -43,10 +41,8 @@ public class Tester {
         File testsDir = new File(Test.TESTS_DIR);
         for (File folder : testsDir.listFiles(File::isDirectory)) {
             for (File file : folder.listFiles(f -> f.getName().endsWith(".map"))) {
-                String name = folder.getName() + File.separator
-                        + file.getName().substring(0, file.getName().length() - 4);
                 try {
-                    tests.add(new Test(name));
+                    tests.add(new Test(folder.getName(), file.getName().substring(0, file.getName().length() - 4)));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -67,7 +63,6 @@ public class Tester {
                 break;
             case 1:
                 switch (command) {
-                case "ls" -> ls();
                 case "sum" -> sum();
                 case "help" -> help();
                 case "diff" -> notEnoughArgs();
@@ -112,30 +107,25 @@ public class Tester {
 
     // #region COMMANDS
     static void sum() {
-        for (Test t : tests) {
-            if (t.hasPassed()) {
-                System.out.println("[PASS] " + t.getName());
-                passed++;
-            } else {
-                System.out.println("[FAIL] " + t.getName());
-            }
-        }
-        System.out.println("Passed " + passed + "/" + tests.size() + " tests");
-    }
-
-    static void ls() {
+        String prevDir = "";
         for (int i = 0; i < tests.size(); i++) {
-            System.out.println((i + 1) + ". " + tests.get(i).getName());
+            Test t = tests.get(i);
+            if (!t.getDir().equals(prevDir)) {
+                System.out.println("      " + t.getDir());
+                prevDir = t.getDir();
+            }
+            System.out.format("[%s]  %02d %s%n", t.hasPassed() ? "PASS" : "FAIL", i + 1, t.getName());
         }
+        System.out.println("Passed " + tests.stream().filter(Test::hasPassed).count() + "/" + tests.size() + " tests");
     }
 
     static void help() {
-        System.out.println("  ls               - List test numbers");
         System.out.println("  sum              - Summary");
         System.out.println("  diff <test num>  - First difference between expected and actual output");
         System.out.println("  inp <test num>   - Input");
         System.out.println("  exp <test num>   - Expected output");
         System.out.println("  act <test num>   - Actual output");
+        System.out.println("  save <test num>  - Save actual output to .resa file");
         System.out.println("  exit             - Exit");
     }
 
@@ -143,6 +133,10 @@ public class Tester {
         int idx = t.getDiffLine();
         if (idx == -1) {
             System.out.println("The actual output is the same as the expected output");
+            return;
+        }
+        if (idx == Math.min(t.getResult().size(), t.getActualOutput().size())) {
+            System.out.println("The actual output is not the same length as the expected output");
             return;
         }
         System.out.println("First difference at line " + (idx + 1));
@@ -169,7 +163,7 @@ public class Tester {
     }
 
     static void save(Test t) {
-        File outputFile = new File(Test.TESTS_DIR + File.separator + t.getName() + ".resa");
+        File outputFile = new File(Test.TESTS_DIR + File.separator + t.getPath() + ".resa");
         if (outputFile.exists()) {
             System.out.println("File already exists, overwriting!");
             outputFile.delete();// NOSONAR

@@ -1,0 +1,31 @@
+nextrand 0 3
+nextrand 1
+tick 1
+nextrand 0 4
+nextrand 1
+tick 1
+nextrand 0 5
+nextrand 1
+tick 1
+nextrand 0 6
+nextrand 1
+tick 1
+nextrand 0 7
+nextrand 1
+tick 1
+nextrand 0 8
+nextrand 1
+tick 1
+nextrand 0 9
+nextrand 1
+tick 1
+nextrand 0 10
+nextrand 1
+tick 1
+nextrand 0 11
+nextrand 1
+tick 1
+nextrand 0 12
+nextrand 1
+tick 1
+printstate
