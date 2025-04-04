@@ -1,1 +1,1 @@
-sporecount doesnt work yet
+ERROR: Mapcreation mushroom sporecount doesnt work yet

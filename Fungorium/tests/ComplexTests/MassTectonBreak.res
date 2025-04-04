@@ -1,1 +1,1 @@
-tecton break doesnt add new tectons yet
+ERROR: tecton break doesnt add new tectons yet
