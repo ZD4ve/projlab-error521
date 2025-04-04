@@ -2,7 +2,6 @@ package proto;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import model.*;
 import static proto.Prototype.*;
 
@@ -91,18 +90,6 @@ public class MapCreation {
             return;
         }
 
-        int sporeCountInt; // TODO SoonToBeUpdated
-        try {
-            sporeCountInt = Integer.parseInt(sporeCount);
-            if (sporeCountInt < 0) {
-                System.out.println(INVALID_ARG + SPORE_INVALID);
-                return;
-            }
-        } catch (NumberFormatException e) {
-            System.out.println(SYNTAX_ERROR + SPORE_INVALID);
-            return;
-        }
-
         var fungus = (Fungus) namedObjects.get(f);
         if (fungus == null) {
             System.out.println(INVALID_ARG + FUNGUS_INVALID);
@@ -115,11 +102,30 @@ public class MapCreation {
             return;
         }
 
-        var mushroom = new Mushroom(fungus, tecton);
+        if (sporeCount == null) {
+            var mushroom = new Mushroom(fungus, tecton);
+            mushroom.setIsGrown(isGrownBoolean);
+            Prototype.registerNamedObject(Mushroom.class, mushroom);
+            return;
+        }
+        
+        int sporeCountInt;
+        try {
+            sporeCountInt = Integer.parseInt(sporeCount);
+            if (sporeCountInt < 0) {
+                System.out.println(INVALID_ARG + SPORE_INVALID);
+                return;
+            }
+        } catch (NumberFormatException e) {
+            System.out.println(SYNTAX_ERROR + SPORE_INVALID);
+            return;
+        }
+
+        var mushroom = new Mushroom(fungus, tecton, sporeCountInt);
         mushroom.setIsGrown(isGrownBoolean);
         Prototype.registerNamedObject(Mushroom.class, mushroom);
     }
-
+    
     private static void mushroomsMenu() {
         do {
             if (!scanner.hasNextLine())
@@ -135,11 +141,11 @@ public class MapCreation {
             }
 
             if (params.size() > 2 && params.size() < 4) {
-                handleMushroom(params.get(0), params.get(1), params.get(2), "1");
+                handleMushroom(params.get(0), params.get(1), params.get(2), null);
             } else if (params.size() > 3) {
                 handleMushroom(params.get(0), params.get(1), params.get(2), params.get(3));
             } else {
-                handleMushroom(params.get(0), params.get(1), "false", "1");
+                handleMushroom(params.get(0), params.get(1), "false", null);
             }
         } while (true);
     }
