@@ -11,7 +11,7 @@ fu01 growmycelium te02 te04
 fu01 growmycelium te03 te05
 fu01 growmycelium te03 te06
 fu01 growmycelium te03 te01
-in01 chew my06
+in01 chew my09
 fu01 growmycelium te03 te01
 tick 100
 printstate

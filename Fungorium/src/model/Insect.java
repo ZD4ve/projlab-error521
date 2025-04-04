@@ -202,6 +202,8 @@ public class Insect implements IActive {
      * A rovar megpróbál elfogyasztani egy spórát azon a tektonon, amelyen áll. A visszatérési érték a művelet
      * sikerességét jelzi.
      * 
+     * Ez hosszú leírás.
+     * 
      * @return sikeresség
      */
     public boolean eatSpore() {
@@ -246,7 +248,7 @@ public class Insect implements IActive {
      * @return sikeresség
      */
     public boolean chewMycelium(Mycelium mycelium) {
-        if (isParalysed || antiChewCount > 0 || !ready() || !getPotentialChewTargets().contains(mycelium))
+        if (isParalysed || antiChewCount > 0 || !ready() || !location.getMycelia().contains(mycelium))
             return false;
         mycelium.chew();
         setCooldown(ACTION_DURATION);
