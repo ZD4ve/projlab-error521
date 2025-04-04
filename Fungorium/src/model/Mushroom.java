@@ -32,7 +32,8 @@ public class Mushroom implements IActive {
     /** Mennyi időnek kell eltelnie, hogy a gomba fejletté váljon. */
     private double growCooldown;
     /** Mennyi spórát szórt eddig a gombafej. */
-    private int burstCount;
+    private int burstsLeft;
+    
     // #endregion
 
     // #region CONSTRUCTORS
@@ -45,6 +46,16 @@ public class Mushroom implements IActive {
     public Mushroom(Fungus fungus, Tecton location) {
         this.species = fungus;
         this.location = location;
+        burstsLeft = MAX_SPORE_BURSTS;
+        fungus.addMushroom(this);
+        location.setMushroom(this);
+    }
+    
+    // TODO: DOC
+    public Mushroom(Fungus fungus, Tecton location, int burstsLeft) {
+        this.species = fungus;
+        this.location = location;
+        this.burstsLeft = burstsLeft;
         fungus.addMushroom(this);
         location.setMushroom(this);
     }
@@ -113,8 +124,8 @@ public class Mushroom implements IActive {
             if (distance <= range) {
                 Spore spo = new Spore(species);
                 target.addSpore(spo);
-                burstCount++;
-                if (burstCount > MAX_SPORE_BURSTS) {
+                burstsLeft--;
+                if (burstsLeft <= 0) {
                     location.removeMushroom();
                     species.removeMushroom(this);
                 }
