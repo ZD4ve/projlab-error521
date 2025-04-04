@@ -5,7 +5,6 @@
   <class>
     <detaileddescription title="Felelősség"/>
     <!--Ősosztályok-->
-    <h3>Ősosztályok</h3>
     <inheritancegraph/>
     <!--Interfészek-->
     <memberdef>
