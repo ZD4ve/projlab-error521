@@ -11,7 +11,7 @@ public class Tester {
         build();
         readTests();
         System.out.println("Running tests...");
-        tests.forEach(Test::run);
+        tests.parallelStream().forEach(Test::run);
         System.out.println("Tests finished!");
         sum();
         interact();
