@@ -16,28 +16,31 @@ public class Insect implements IActive {
     // #endregion
 
     // #region ASSOCIATIONS
-    /** ezen a tektonon áll éppen a rovar. */
+    /** Ezen a tektonon áll éppen a rovar. */
     private Tecton location;
-    /** épp a rovarra ható hatások */
+    /** A rovarra jelenleg ható hatások. */
     private final List<InsectEffect> activeEffects = new ArrayList<>();
-    /** a rovar kolóniája */
+    /** A rovar kolóniája. */
     private final Colony colony;
     // #endregion
 
     // #region ATTRIBUTES
-    /** mennyi idő múlva végezhető a következő akció */
+    /** Mennyi idő múlva végezhető a következő akció. */
     private double cooldown;
-    /** a rovar sebessége a normálishoz képest */
+    /** A rovar sebesség módosítója: az aktuális és alapértelmezett sebesség hányadosa. */
     private double speed = 1;
-    /** hány darab fonalrágás tiltó hatás alatt van a rovar */
+    /** Hány darab fonalrágás tiltó hatás alatt van a rovar. */
     private int antiChewCount;
-    /** a rovar bénító hatás alatt van-e */
+    /** A rovar bénító hatás alatt van-e. */
     private boolean isParalysed;
     // #endregion
 
     // #region CONSTRUCTORS
     /**
      * Rovar létrehozása és elhelyezése egy tektonon.
+     * 
+     * Beállítja a rovar kezdeti pozícióját és kolóniáját, majd a tektonhoz és a kolóniához is hozzáadja a rovart.
+     * Feliratkozik az aktív objektumok közé.
      * 
      * @param location a rovar kezdeti helye
      * @param colony   a rovar kolóniája
@@ -98,7 +101,7 @@ public class Insect implements IActive {
     }
 
     /**
-     * Ha >0, akkor a rovar nem tud fonalat rágni.
+     * Visszaadja, hány fonalrágás tiltó hatás alatt áll a rovar. Ha >0, akkor a rovar nem tud fonalat rágni.
      * 
      * @return hány darab fonalrágás tiltó hatás alatt van a rovar
      */
@@ -125,14 +128,14 @@ public class Insect implements IActive {
     }
 
     /**
-     * A rovar bénító hatás beállítása
+     * A rovar bénító hatás beállítása.
      */
     public void setIsParalysed(boolean isParalysed) {
         this.isParalysed = isParalysed;
     }
 
     /**
-     * Rovarhatás letárolása
+     * Új rovarhatás hozzáadása.
      * 
      * @param effect az új hatás
      */
@@ -141,7 +144,7 @@ public class Insect implements IActive {
     }
 
     /**
-     * Rovarhatás eltávolítása
+     * Rovarhatás eltávolítása.
      * 
      * @param effect a lejárt hatás
      */
@@ -177,7 +180,7 @@ public class Insect implements IActive {
     }
 
     /**
-     * Megkeresi azokat a fonal, amelyeket a rovar elrághat.
+     * Megkeresi azokat a fonal, amelyeket a rovar elrághat, azaz a jelenlegi tektonjáról induló fonalakat.
      * 
      * @return a lehetséges célpontok listája
      */
@@ -202,7 +205,9 @@ public class Insect implements IActive {
      * A rovar megpróbál elfogyasztani egy spórát azon a tektonon, amelyen áll. A visszatérési érték a művelet
      * sikerességét jelzi.
      * 
-     * Ez hosszú leírás.
+     * A művelet sikertelen, ha a rovar bénult, a tektonon nincs spóra, vagy ha a várakozási idő még nem járt le. Siker
+     * esetén a rovar a spórát a tekton takeSpore() metódusa segítségével kapja meg, majd a kolónia pontszáma növekszik.
+     * A spóra hatása a rovarra kerül, ha van ilyen. Siker esetén a rovar a várakozási idejét beállítja.
      * 
      * @return sikeresség
      */
@@ -226,6 +231,10 @@ public class Insect implements IActive {
     /**
      * A rovar megpróbál a target tektonra mozogni. A visszatérési érték a művelet sikerességét jelzi.
      * 
+     * A művelet sikertelen, ha a rovar bénult, a cél tektonra nem vezet gombafonal, vagy ha a várakozási idő még nem
+     * járt le. Siker esetén a rovar a forrás tektonról eltávolítja magát, és hozzáadja magát a cél tektonhoz és
+     * frissíti a saját belső állapotát is. Siker esetén a rovar a várakozási idejét beállítja.
+     * 
      * @param target cél tekton
      * @return sikeresség
      */
@@ -244,6 +253,10 @@ public class Insect implements IActive {
     /**
      * A rovar megpróbálja elrágni a target gombafonalat. A visszatérési érték a művelet sikerességét jelzi.
      * 
+     * A művelet sikertelen, ha a rovar bénult, a gombafonal nem a jelenlegi tektonon van, vagy ha a várakozási idő még
+     * nem járt le. Siker esetén a rovar a gombafonalat a mycelium chew() metódusa segítségével rágja el, majd rovar a
+     * saját várakozási idejét beállítja.
+     * 
      * @param mycelium a fonal, amit el akar rágni
      * @return sikeresség
      */
@@ -259,7 +272,7 @@ public class Insect implements IActive {
      * <p>
      * {@inheritDoc}
      * </p>
-     * Várakozási idő csökkentése.
+     * Várakozási idő csökkentése a jelenlegi sebességgel.
      */
     @Override
     public void tick(double dT) {
@@ -268,14 +281,17 @@ public class Insect implements IActive {
     }
 
     /**
-     * A rovart osztódásra kényszeríti.
+     * A rovart osztódásra kényszeríti: létrejön egy új rovar vele megegyező tektonon és kolóniában.
      */
     public void split() {
         new Insect(location, colony);
     }
 
     /**
-     * A rovar elpusztul. Kilép a kolóniából, eltűnik a tektonról.
+     * A rovar elpusztul.
+     * 
+     * Kilép a kolóniából, eltűnik a tektonról. Leiratkozik az aktív objektumok közül. A rajta lévő hatásokat a
+     * InsectEffect wearOff() metódusával sorra megszünteti.
      */
     public void die() {
         Controller.unregisterActiveObject(this);
