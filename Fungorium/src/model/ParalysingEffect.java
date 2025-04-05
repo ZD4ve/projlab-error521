@@ -10,7 +10,7 @@ public class ParalysingEffect extends InsectEffect {
      * <p>
      * {@inheritDoc}
      * </p>
-     * Mozgásképtelenné teszi a paraméterben kapott rovart.
+     * Mozgásképtelenné teszi a paraméterben kapott rovart. Beállítja a saját rovarát.
      *
      * @param insect a rovar, ami kapja a hatást
      */

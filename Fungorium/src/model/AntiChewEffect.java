@@ -12,6 +12,8 @@ public class AntiChewEffect extends InsectEffect {
      * </p>
      * A paraméterben kapott rovar fonal elrágási képességét megszünteti.
      * 
+     * Megnöveli a rovar antiChewCount-ját 1-el, beállítja saját rovarát.
+     * 
      * @param insect a rovar, ami kapja a hatást
      */
     @Override
@@ -25,7 +27,7 @@ public class AntiChewEffect extends InsectEffect {
      * <p>
      * {@inheritDoc}
      * </p>
-     * Visszaadja a rovar a fonal elrágási képességét.
+     * Visszaadja a rovar a fonal elrágási képességét, azaz csökkenti a rovar antiChewCount-ját 1-el.
      */
     @Override
     protected void remove() {

@@ -29,7 +29,10 @@ public abstract class InsectEffect implements IActive {
 
     // #region FUNCTIONS
     /**
-     * véletlenszerűen választ egy hatást és létrehoz belőle egyet.
+     * Véletlenszerűen választ egy hatást és létrehoz belőle egyet.
+     * 
+     * Létrehozható hatások: ParalysingEffect, SpeedEffect, AntiChewEffect, FissionEffect vagy null (azaz hatás nélküli
+     * hatás).
      * 
      * @return a létrehozott effekt
      */
@@ -55,12 +58,14 @@ public abstract class InsectEffect implements IActive {
     public abstract void applyTo(Insect insect);
 
     /**
-     * Megszünteti a példány hatását.
+     * Visszavonja az adott hatás hatását.
      */
     protected abstract void remove();
 
     /**
      * A hatás megszűnésekor hívódik meg, eltávolítja a hatást a rovarról.
+     * 
+     * Visszavonja a hatás hatását és leiratkoztatja a hatást az aktív objektumok közül.
      */
     public void wearOff() {
         remove();
@@ -73,6 +78,9 @@ public abstract class InsectEffect implements IActive {
      * {@inheritDoc}
      * </p>
      * Hívásakor csökkentjük a hatás hátralévő idejét.
+     * 
+     * Csak akkor hajtódik végre, ha a rovar nem null. Amennyiben a hátrelévő idő 0 vagy kevesebb, akkor a hatás
+     * megszűnik.
      */
     @Override
     public void tick(double dT) {
