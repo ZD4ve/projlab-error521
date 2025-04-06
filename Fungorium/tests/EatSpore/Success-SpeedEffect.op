@@ -3,3 +3,5 @@ nextrand 0.2
 nextrand 0.6
 in01 eat
 printstate
+tick 100
+printstate
