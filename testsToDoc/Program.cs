@@ -25,7 +25,6 @@ Directory
         dir.Item.tests.Index().ToList().ForEach(test => 
         { 
             p = doc.AppendParagraph();
-            //p.style.indent.left = 0.1f;
             p.style.spaceBefore = 240;
             t = p.AppendText($"8.2.{dir.Index+1}.{test.Index+1} {test.Item.Split('\\').Last()}");
             t.style = new RTFTextStyle(false, true, 13, "Arial", Color.black);
@@ -69,21 +68,22 @@ do
 void addUl(string str)
 {
     var p = doc.AppendParagraph();
-    p.style.indent.left = 0.5f - 0.21f;
-    var t = p.AppendText("•  " + str);
+    p.style.indent.left = .375f - .17f;
+    p.AppendText("•  ");
+    var t = p.AppendText(str);
     t.style = new RTFTextStyle(false, true, 12, "Times New Roman", Color.black);
 }
 void addASD()
 {
     var p = doc.AppendParagraph();
-    p.style.indent.left = 0.5f;
+    p.style.indent.left = .375f;
     var t = p.AppendText("asd");
     t.style = new RTFTextStyle(false, false, 12, "Times New Roman", Color.black);
 }
 void addCode(string code)
 {
     var p = doc.AppendParagraph();
-    p.style.indent.left = 0.5f;
+    p.style.indent.left = .375f;
     var t = p.AppendText(code);
     t.style = new RTFTextStyle(false, false, 12, "Consolas", Color.black);
 }
