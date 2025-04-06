@@ -1,0 +1,6 @@
+nextrand 0 2
+nextrand 0.4
+in01 eat
+tick 5
+in01 chew my01
+printstate
