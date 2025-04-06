@@ -1,0 +1,16 @@
+tectons
+tect
+tect
+tect
+
+neighbors
+te01 -- te02
+te02 -- te03
+
+fungi 2
+
+mushrooms
+fu01 te01
+
+mycelia
+te01 .. te02 : fu02

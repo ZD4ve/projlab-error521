@@ -1,0 +1,4 @@
+nextrand 1
+in01 eat
+in01 move te02
+printstate

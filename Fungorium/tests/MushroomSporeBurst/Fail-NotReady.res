@@ -1,0 +1,1 @@
+SporeBurst Failed

@@ -1,0 +1,5 @@
+nextrand 0 3
+in01 eat
+tick 100
+in01 move te02
+printstate
