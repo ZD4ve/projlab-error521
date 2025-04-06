@@ -1,0 +1,4 @@
+nextrand 0
+nextrand 0.6
+in01 eat
+printstate
