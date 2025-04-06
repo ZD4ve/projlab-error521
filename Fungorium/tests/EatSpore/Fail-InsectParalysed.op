@@ -1,0 +1,5 @@
+nextrand 0 2
+in01 eat
+tick 5
+in01 eat
+printstate
