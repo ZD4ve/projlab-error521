@@ -1,0 +1,4 @@
+nextrand 0 3
+in01 chew my01
+tick 100
+printstate
