@@ -414,3 +414,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Fungorium/tests.rtf
