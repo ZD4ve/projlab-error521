@@ -1,10 +1,9 @@
 package proto;
 
+import controller.Controller;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-
-import controller.Controller;
 import model.*;
 
 @SuppressWarnings("rawtypes")
@@ -21,7 +20,7 @@ public class Prototype {
     protected static Map<Class, String> effectTypes = Map.of(AntiChewEffect.class, "anti", FissionEffect.class, "fiss",
             ParalysingEffect.class, "para", SpeedEffect.class, "sped");
 
-    private static Map<Class, Integer> objIds = new HashMap<>();
+    private static final Map<Class, Integer> objIds = new HashMap<>();
 
     public static void registerNamedObject(Class cls, Object obj) {
         namedObjects.put(String.format("%s%02d", Prototype.names.get(cls), objIds.merge(cls, 1, Integer::sum)), obj);

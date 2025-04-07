@@ -7,9 +7,7 @@ import static proto.Prototype.*;
 
 @java.lang.SuppressWarnings("java:S106") // használható büntetlenül a System IO
 public class MapCreation {
-
-    private MapCreation() {
-    }
+    private MapCreation() {}
 
     private static final String SYNTAX_ERROR = "Syntax error";
     private static final String NOT_ENOUGH_ARGS = "Syntax error: not enough args";
@@ -18,14 +16,14 @@ public class MapCreation {
     private static final String TECTON_INVALID = ": invalid tecton name";
     private static final String SPORE_INVALID = ": invalid spore count";
 
-    private static void addTectonObject(String tecton) {
+    private static void handleTecton(String tecton) {
         switch (tecton) {
-        case "tect" -> registerNamedObject(Tecton.class, new Tecton());
-        case "nomu" -> registerNamedObject(Tecton.class, new NoMushroomTecton());
-        case "simy" -> registerNamedObject(Tecton.class, new SingleMyceliumTecton());
-        case "myab" -> registerNamedObject(Tecton.class, new MyceliumAbsorbingTecton());
-        case "myke" -> registerNamedObject(Tecton.class, new MyceliumKeepingTecton());
-        default -> System.out.println(SYNTAX_ERROR + ": invalid tecton type");
+            case "tect" -> registerNamedObject(Tecton.class, new Tecton());
+            case "nomu" -> registerNamedObject(Tecton.class, new NoMushroomTecton());
+            case "simy" -> registerNamedObject(Tecton.class, new SingleMyceliumTecton());
+            case "myab" -> registerNamedObject(Tecton.class, new MyceliumAbsorbingTecton());
+            case "myke" -> registerNamedObject(Tecton.class, new MyceliumKeepingTecton());
+            default -> System.out.println(SYNTAX_ERROR + ": invalid tecton type");
         }
     }
 
@@ -37,7 +35,7 @@ public class MapCreation {
             if (input.isEmpty())
                 return;
 
-            addTectonObject(input);
+            handleTecton(input);
         } while (true);
     }
 
@@ -323,7 +321,6 @@ public class MapCreation {
         }
     }
 
-    // Main menu
     public static void createMap() {
         do {
             if (!scanner.hasNextLine())
@@ -334,34 +331,31 @@ public class MapCreation {
 
             var tokens = new ArrayList<>(Arrays.asList(input.split(" ")));
             var command = tokens.get(0).toLowerCase();
-            var params = new ArrayList<>(tokens.subList(1, tokens.size())); // NotOkay
+            var params = new ArrayList<>(tokens.subList(1, tokens.size()));
 
             switch (command) {
-            case "tectons" -> tectonsMenu();
-            case "neighbors" -> neighborsMenu();
-            case "fungi" -> {
-                if (!params.isEmpty()) {
-                    handleFungi(params.get(0));
-                } else {
-                    System.out.println(NOT_ENOUGH_ARGS);
+                case "tectons" -> tectonsMenu();
+                case "neighbors" -> neighborsMenu();
+                case "fungi" -> {
+                    if (!params.isEmpty()) {
+                        handleFungi(params.get(0));
+                    } else {
+                        System.out.println(NOT_ENOUGH_ARGS);
+                    }
                 }
-            }
-            case "colonies" -> {
-                if (!params.isEmpty()) {
-                    handleColonies(params.get(0));
-                } else {
-                    System.out.println(NOT_ENOUGH_ARGS);
+                case "colonies" -> {
+                    if (!params.isEmpty()) {
+                        handleColonies(params.get(0));
+                    } else {
+                        System.out.println(NOT_ENOUGH_ARGS);
+                    }
                 }
-            }
-            case "mushrooms" -> mushroomsMenu();
-            case "mycelia" -> myceliaMenu();
-            case "insects" -> insectsMenu();
-            case "spores" -> sporesMenu();
-            case "end" -> {
-                // System.out.println("Entering interaction phase.");
-                return;
-            }
-            default -> System.out.println(SYNTAX_ERROR + ": invalid command");
+                case "mushrooms" -> mushroomsMenu();
+                case "mycelia" -> myceliaMenu();
+                case "insects" -> insectsMenu();
+                case "spores" -> sporesMenu();
+                case "end" -> { return; }
+                default -> System.out.println(SYNTAX_ERROR + ": invalid command");
             }
         } while (true);
     }
