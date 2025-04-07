@@ -19,9 +19,6 @@ public class SingleMyceliumTecton extends Tecton {
      */
     @Override
     public boolean canGrowMyceliumFrom(Fungus fungus) {
-        boolean enemyMycelium = mycelia.stream().anyMatch(x -> x.getSpecies() != fungus);
-        boolean enemyMushroom = mushroom != null && mushroom.getSpecies() != fungus;
-
-        return enemyMycelium || enemyMushroom;
+        return mycelia.stream().noneMatch(x -> x.getSpecies() != fungus);
     }
 }
