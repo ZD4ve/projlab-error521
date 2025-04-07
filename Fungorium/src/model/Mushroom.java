@@ -128,8 +128,8 @@ public class Mushroom implements IActive {
     /**
      * Spóraszórást kezdeményező metódus. Hatására a paraméterben kapott tektonra spórát szór a gomba, amennyiben éppen
      * spóraszórásra alkalmas állapotban van (a cooldown lejárt), és a céltekton a gombatest hatókörében található. A spóraszórás hatására a
-     * gombatest meg is halhat, ha már kiszórta minden spóráját, ilyenkor a gombafajból is törlődik, leiratkozik az aktív objektumokról.
-     * A visszatérési érték a spóraszórás sikeressége.
+     * gombatest meg is halhat, ha már kiszórta minden spóráját, ilyenkor a gombafajból és a tektonról is törlődik, 
+     * leiratkozik az aktív objektumokról. A visszatérési érték a spóraszórás sikeressége.
      * 
      * @param target a céltekton, ahova a spóra kerül
      */

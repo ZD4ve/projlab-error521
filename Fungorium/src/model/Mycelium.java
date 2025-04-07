@@ -79,7 +79,9 @@ public class Mycelium implements IActive {
     // #region FUNCTIONS
 
     /**
-     * Megszünteti az egyedet, erről értesíti a gombafaját és végpontjait.
+     * Megszünteti az egyedet, erről értesíti a gombafaját és végpontjait. Ha éppen vastagodott, 
+     * akkor a vastagodás befejeződik (értesíti a gombafajt). Eltávolítja magát a tektonról, valamint a gombafajból.
+     * Leiratkozik az aktív objektumok közül.
      */
     public void die() {
         if (state == State.GROWING) {
