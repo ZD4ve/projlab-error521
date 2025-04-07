@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * <h3>Kolónia</h3>
  * 
- * Egy rovarász által irányított rovarok összessége. Nyilván tartja a rovarok listáját és a rovarász pontszámát.
+ * Egy rovarász által irányított rovarok összessége. Nyilvántartja a rovarok listáját és a rovarász pontszámát.
  */
 public class Colony {
     // #region ASSOCIATIONS
