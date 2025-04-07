@@ -35,7 +35,9 @@ public class Fungus {
     // #region GETTERS-SETTERS
 
     /**
-     * Lekéri a gombafaj pontszámát.
+     * Visszadaja a gombafajhoz tartozó pontszámot.
+     * 
+     * @return a pontszám
      */
     public int getScore() {
         return score;
@@ -82,9 +84,18 @@ public class Fungus {
     }
 
     /**
-     * Megkeresi azokat a tektonokat, ahol a gombafajnak van gombateste vagy gombafonala, vagyis tud onnan gombafonalat
-     * növeszteni.
+     * Megvizsgálja, hogy az adott gombafaj éppen hány gombafonalat növeszt.
      * 
+     * @return Ha ez a szám kisebb mint a fajhoz tartozó gombafejek száma akkor igazat, különben hamisat ad vissza.
+     */
+    public boolean canGrowMycelium() {
+        return growingMycelia < mushrooms.size();
+    }
+
+    /**
+     * Megkeresi azokat a tektonokat, ahol a gombafajnak van gombateste vagy gombafonala, vagyis tud onnan
+     * gombafonalat növeszteni.
+     *
      * @return a lehetséges gombafonal növesztési források egy listában
      */
     public List<Tecton> getPotentialMyceliumSources() {
@@ -105,15 +116,6 @@ public class Fungus {
         HashSet<Tecton> potentialSources = new HashSet<>();
         potentialSources.addAll(mycelia.stream().flatMap(x -> Arrays.stream(x.getEnds())).toList());
         return new ArrayList<>(potentialSources);
-    }
-
-    /**
-     * Megvizsgálja, hogy az adott gombafaj éppen hány gombafonalat növeszt.
-     * 
-     * @return Ha ez a szám kisebb mint a fajhoz tartozó gombafejek száma akkor igazat, különben hamisat ad vissza.
-     */
-    public boolean canGrowMycelium() {
-        return growingMycelia < mushrooms.size();
     }
 
     // #endregion
@@ -173,10 +175,13 @@ public class Fungus {
     }
 
     /**
-     * Jelzi, hogy a gombafonál növekedése befejeződött, ezt kezeli le.
+     * Jelzi, hogy a gombafonál növekedése befejeződött, csökkenti a fajhoz tartozó, növekvő gombafonalak számát.
      */
     public void myceliumGrowthComplete() {
         growingMycelia--;
+        if (growingMycelia < 0) {
+            throw new IllegalStateException("Growing mycelia count is negative!");
+        }
     }
 
     /**
