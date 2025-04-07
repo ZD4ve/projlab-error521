@@ -203,7 +203,7 @@ public class Tecton implements IActive {
         if (mushroom != null)
             mushroom.setLocation(this);
 
-        this.neighbors.addAll(neighbors);
+        neighbors.forEach(this::addNeighbor);
         neighbors.forEach(x -> x.addNeighbor(this));
 
     }
@@ -348,7 +348,6 @@ public class Tecton implements IActive {
         int insectMid = Math.min(insects.size(), Math.max(insects.size() / 2, 1)); // NOSONAR this would throw an
                                                                                    // exception if it was a clamp
         int neighborMid = Math.min(neighbors.size(), Math.max(neighbors.size() / 2, 1)); // NOSONAR this would throw an
-                                                                                         // exception if it was a clamp
 
         var t1Neighbors = new ArrayList<>(neighbors.subList(0, neighborMid));
         t1Neighbors.add(t2);
