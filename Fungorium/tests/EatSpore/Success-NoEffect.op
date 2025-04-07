@@ -1,4 +1,3 @@
-nextrand 0
 nextrand 1
 in01 eat
 printstate

@@ -23,7 +23,7 @@ public class SpeedEffect extends InsectEffect {
      */
     public SpeedEffect() {
         double m = RandomProvider.nextRand();
-        this.multiplier = m > 0.5 ? 0.5 : 1 + 2 * m;
+        this.multiplier = m > 0.5 ? m : 1 + 2 * m;
     }
     // #endregion
 
