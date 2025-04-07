@@ -6,6 +6,11 @@ package model;
  * Olyan speciális tekton, ami nem engedélyezi gombatest növesztését.
  */
 public class NoMushroomTecton extends Tecton {
+    /**
+     * Létrehoz egy új példányt a tektonból.
+     * 
+     * @return az új NoMushroomTecton példány
+     */
     @Override
     public NoMushroomTecton newMe() {
         return new NoMushroomTecton();

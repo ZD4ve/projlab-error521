@@ -26,6 +26,12 @@ public class MyceliumAbsorbingTecton extends Tecton {
     // #endregion
 
     // #region FUNCTIONS
+
+    /**
+     * Létrehoz egy új példányt a tektonból.
+     * 
+     * @return az új MyceliumAbsorbingTecton példány
+     */
     @Override
     public MyceliumAbsorbingTecton newMe() {
         return new MyceliumAbsorbingTecton();
@@ -35,7 +41,9 @@ public class MyceliumAbsorbingTecton extends Tecton {
      * <p>
      * {@inheritDoc}
      * </p>
-     * Ha eltelt adott mennyiségű idő, felszívódnak a fonalak a tektonon.
+     * Csökkenti a gombafonalak felszívódásáig hátralévő időt a paraméterként kapott idővel. Ellenőrzi, hogy
+     * a gombafonalak felszívódásához szükséges idő letelt-e, és ha igen, akkor felszívja a rajta található
+     * gombafonalakat, végül visszaállítja a felszívódási időt az alapértelmezettre.
      */
     @Override
     public void tick(double dT) {
