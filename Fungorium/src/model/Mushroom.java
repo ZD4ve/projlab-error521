@@ -44,7 +44,10 @@ public class Mushroom implements IActive {
 
     // #region CONSTRUCTORS
     /**
-     * Létrehoz egy fungus fajú gombatestet a location tektonon
+     * Létrehoz egy fungus fajú gombatestet a location tektonon. Beállítja a gombatest gombafaját, helyét.
+     * Beállítja, hogy a gombatest mennyi spórát tud lőni, spóraszórás után mennyi ideig nem tud lőni, 
+     * mennyi idő fejletté válnia. Hozzáadja a gombafajhoz és a tektonhoz a gombát.
+     * Feliratkozik az aktív objektumok közé.
      * 
      * @param fungus   a gombatesthez tartozó gombafaj.
      * @param location a tekton, amin található
@@ -53,10 +56,10 @@ public class Mushroom implements IActive {
         this.species = fungus;
         this.location = location;
         burstsLeft = MAX_SPORE_BURSTS;
-        fungus.addMushroom(this);
-        location.setMushroom(this);
         cooldown = SPORE_BURST_DELAY;
         growCooldown = GROW_TIME;
+        fungus.addMushroom(this);
+        location.setMushroom(this);
         Controller.registerActiveObject(this);
     }
     
@@ -123,9 +126,10 @@ public class Mushroom implements IActive {
 
     // #region FUNCTIONS
     /**
-     * spóraszórást kezdeményező metódus. Hatására a paraméterben kapott tektonra spórát szór a gomba, amennyiben éppen
-     * spóraszórásra alkalmas állapotban van, és a céltekton a gombatest hatókörében található. A spóraszórás hatására a
-     * gombatest meg is halhat, ha már kiszórta minden spóráját. A visszatérési érték a spóraszórás sikeressége.
+     * Spóraszórást kezdeményező metódus. Hatására a paraméterben kapott tektonra spórát szór a gomba, amennyiben éppen
+     * spóraszórásra alkalmas állapotban van (a cooldown lejárt), és a céltekton a gombatest hatókörében található. A spóraszórás hatására a
+     * gombatest meg is halhat, ha már kiszórta minden spóráját, ilyenkor a gombafajból is törlődik, leiratkozik az aktív objektumokról.
+     * A visszatérési érték a spóraszórás sikeressége.
      * 
      * @param target a céltekton, ahova a spóra kerül
      */
@@ -154,7 +158,7 @@ public class Mushroom implements IActive {
      * {@inheritDoc}
      * </p>
      * A gombafaj időtől függő fejlődését kezelő metódus. Kezeli a gomba fejlődését, illetve spóraszórások között
-     * eltelendő időt.
+     * eltelendő időt. Ha a gomba fejlődésének cooldownja lejárt, a gomba fejlett lesz, a hatótávja 2-re nő.
      */
     @Override
     public void tick(double dT) {
