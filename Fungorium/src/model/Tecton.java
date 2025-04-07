@@ -53,13 +53,15 @@ public class Tecton implements IActive {
 
     /**
      * Visszaadja a tektonon található spórák listáját.
+     * 
+     * @return a tekton spórái.
      */
     public List<Spore> getSpores() {
         return spores;
     }
 
     /**
-     * Hozzáad egy szomszédot a tektonhoz
+     * Hozzáad egy új szomszédot a tektonhoz
      * 
      * @param tecton az új szomszéd
      */
@@ -148,11 +150,10 @@ public class Tecton implements IActive {
     }
 
     /**
-     * Eltávolítja és visszaadja a legfelső spórát (ha van).
+     * Eltávolítja és visszaadja a legfelső spórát, ha van.
      * 
      * @return az eltávolított spóra vagy null.
      */
-
     public Spore takeSpore() {
         return spores.isEmpty() ? null : spores.remove(spores.size() - 1);
     }
@@ -177,6 +178,8 @@ public class Tecton implements IActive {
 
     /**
      * Megadja, hogy a tekton életben tartja-e a fajhoz tartozó gombafonalakat.
+     * 
+     * @return igaz, ha a tekton életben tartja a gombafonalakat, hamis különben.
      */
     public boolean keepsMyceliumAlive(Fungus species) {
         return mushroom != null && mushroom.getSpecies() == species;
@@ -186,7 +189,8 @@ public class Tecton implements IActive {
     // #region FUNCTIONS
 
     /**
-     * Feltölti a tektont a paraméterként kapott objektumokkal.
+     * Feltölti a tektont a paraméterként kapott objektumokkal. Először hozzáadja a spórákat, majd a gombatestet,
+     * végül a rovarokat és a szomszédokat.
      * 
      * @param spores    a tekton spórái.
      * @param mushroom  a tektonon található gombatest (vagy null).
@@ -205,7 +209,6 @@ public class Tecton implements IActive {
 
         this.neighbors.addAll(neighbors);
         neighbors.forEach(x -> x.addNeighbor(this));
-
     }
 
     /**
