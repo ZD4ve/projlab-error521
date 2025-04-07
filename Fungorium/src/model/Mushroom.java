@@ -17,7 +17,7 @@ public class Mushroom implements IActive {
     /**  Mennyi ideig nem tud újra spórát szórni a gombatest. */
     public static final int SPORE_BURST_DELAY = 3;
     /**  Mennyi idő alatt válik fejletté a gombatest */
-    public static final int GROW_TIME = 3;
+    public static final int GROW_TIME = 30;
 
     // #endregion
 
