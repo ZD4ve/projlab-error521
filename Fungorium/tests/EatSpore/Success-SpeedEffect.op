@@ -1,6 +1,6 @@
-nextrand 0
 nextrand 0.2
 nextrand 0.6
+nextrand 0
 in01 eat
 printstate
 tick 100
