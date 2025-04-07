@@ -1,11 +1,10 @@
 package proto;
 
+import controller.*;
 import java.util.*;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Map.Entry;
-
 import model.*;
-import controller.*;
 import static proto.Prototype.*;
 
 @java.lang.SuppressWarnings("java:S106") // használható büntetlenül a System IO
@@ -96,7 +95,7 @@ public class Interaction {
                     String effectType = Prototype.effectTypes.get(effect.getClass());
                     System.out.printf("    %s", effectType);
                     if (effectType.equals(Prototype.effectTypes.get(SpeedEffect.class))) {
-                        System.out.printf("-%.1f", ((SpeedEffect) effect).getMultiplier());
+                        System.out.print(String.format("-%.1f", ((SpeedEffect) effect).getMultiplier()).replace(',', '.'));
                     }
                     System.out.print(' ');
                 }
