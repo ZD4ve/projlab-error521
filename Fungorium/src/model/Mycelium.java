@@ -41,7 +41,8 @@ public class Mycelium implements IActive {
 
     /**
      * Konstruktor, létrehozza a paraméterként kapott gombafajhoz tartozó gombafonalat, a két paraméterként kapott
-     * tekton közé.
+     * tekton közé. Beállítja a faját és a végeit. A két tektonhoz és a gombafajhoz hozzáadja magát, beállítja az 
+     * állapotát növekvőbe és ennek megfelelően állítja be a cooldownt. Regisztrálja magát az aktív objektumok közé.
      */
     public Mycelium(Fungus fungus, Tecton end1, Tecton end2) {
         this.species = fungus;
@@ -78,7 +79,9 @@ public class Mycelium implements IActive {
     // #region FUNCTIONS
 
     /**
-     * Megszünteti az egyedet, erről értesíti a gombafaját és végpontjait.
+     * Megszünteti az egyedet, erről értesíti a gombafaját és végpontjait. Ha éppen vastagodott, 
+     * akkor a vastagodás befejeződik (értesíti a gombafajt). Eltávolítja magát a tektonról, valamint a gombafajból.
+     * Leiratkozik az aktív objektumok közül.
      */
     public void die() {
         if (state == State.GROWING) {
@@ -92,7 +95,8 @@ public class Mycelium implements IActive {
     }
 
     /**
-     * Elindítja a gombafonal elrágásának folyamatát.
+     * Elindítja a gombafonal elrágásának folyamatát, beállítja az állapotát
+     * elrágottra és beállítja a cooldownt az elrágási időre.
      */
     public void chew() {
         if (state == State.GROWING) {
@@ -103,7 +107,12 @@ public class Mycelium implements IActive {
     }
 
     /**
-     * A cooldown csökkentése és gombafonal állapotának frissítése, ha szükséges.
+     * <p>
+     * {@inheritDoc}
+     * </p>
+     * A cooldown csökkentése. Amennyiben a cooldown lejárt, 
+     * növekvőből normál állapotba kerül, erről értesíti a gombafajt is.
+     * Ha a fonal elrágott volt és a cooldown lejárt, meghal.
      */
     @Override
     public void tick(double dT) {
