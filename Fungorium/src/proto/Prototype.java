@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import controller.Controller;
 import model.*;
 
 @SuppressWarnings("rawtypes")
@@ -20,20 +21,23 @@ public class Prototype {
     protected static Map<Class, String> effectTypes = Map.of(AntiChewEffect.class, "anti", FissionEffect.class, "fiss",
             ParalysingEffect.class, "para", SpeedEffect.class, "sped");
 
+    private static Map<Class, Integer> objIds = new HashMap<>();
+
     public static void registerNamedObject(Class cls, Object obj) {
-        namedObjects.put(String.format("%s%02d", Prototype.names.get(cls),
-                namedObjects.keySet().stream().filter(x -> x.startsWith(Prototype.names.get(cls)))
-                        .mapToInt(x -> Integer.parseInt(x.substring(2))).max().orElse(0) + 1),
-                obj);
+        namedObjects.put(String.format("%s%02d", Prototype.names.get(cls), objIds.merge(cls, 1, Integer::sum)), obj);
+
     }
 
-    public static Scanner scanner;
+    protected static Scanner scanner;
 
     public static void main(String[] args) {
+        Controller.addTectonEventHandler(Interaction::objectEvent);
         scanner = new Scanner(System.in);
         boolean reset;
         do {
+            Interaction.ignoreEvents = true;
             MapCreation.createMap();
+            Interaction.ignoreEvents = false;
             reset = Interaction.handleInteractions();
         } while (reset);
         scanner.close();

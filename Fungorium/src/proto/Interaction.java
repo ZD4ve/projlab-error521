@@ -14,6 +14,8 @@ public class Interaction {
     private static final String NOT_ENOUGH_ARGS = "Syntax error: not enough args";
     private static final String INVALID_ARG = "Syntax error: invalid argument";
 
+    protected static boolean ignoreEvents;
+
     private Interaction() {
     }
 
@@ -146,8 +148,6 @@ public class Interaction {
 
             if (!f.growMushroom(target)) {
                 System.out.println("growmushroom failed");
-            } else {
-                Prototype.registerNamedObject(Mushroom.class, target.getMushroom());
             }
         } else if (input[1].equals("growmycelium")) {
             handleFungusGrowMycelium(f, input);
@@ -174,9 +174,6 @@ public class Interaction {
 
         if (!f.growMycelium(t1, t2)) {
             System.out.println("growmycelium failed");
-        } else {
-            var mycelia = t1.getMycelia().get(t1.getMycelia().size() - 1);
-            Prototype.registerNamedObject(Mycelium.class, mycelia);
         }
     }
 
@@ -335,5 +332,26 @@ public class Interaction {
                 System.out.println(SYNTAX_ERROR);
             }
         } while (true);
+    }
+
+    public static void objectEvent(Object o, boolean added) {
+        if (ignoreEvents || !names.containsKey(o.getClass())) {
+            return;
+        }
+
+        if (added) {
+            registerNamedObject(o.getClass(), o);
+        } else {
+            String keyToremove = null;
+            for (var entry : namedObjects.entrySet()) {
+                if (entry.getValue() == o) {
+                    keyToremove = entry.getKey();
+                    break;
+                }
+            }
+            if (keyToremove != null) {
+                namedObjects.remove(keyToremove);
+            }
+        }
     }
 }
