@@ -130,6 +130,7 @@ public class Tester {
         System.out.println("  exp <test num>   - Expected output");
         System.out.println("  act <test num>   - Actual output");
         System.out.println("  save <test num>  - Save actual output to .resa file");
+        System.out.println("  rerun            - Rebuild and rerun tests");
         System.out.println("  exit             - Exit");
     }
 
