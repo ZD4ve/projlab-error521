@@ -17,8 +17,6 @@ public class Tester {
         interact();
     }
 
-    // TODO: remove this method
-    // ONLY FOR DEVELOPMENT
     static void build() {
         System.out.println("Building...");
         String os = System.getProperty("os.name").toLowerCase();
@@ -48,6 +46,7 @@ public class Tester {
                 }
             }
         }
+        tests.sort(Comparator.comparing(Test::getDir).thenComparing(Test::getName));
     }
 
     static void interact() {
