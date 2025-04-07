@@ -93,8 +93,8 @@ public class Fungus {
     }
 
     /**
-     * Megkeresi azokat a tektonokat, ahol a gombafajnak van gombateste vagy gombafonala, vagyis tud onnan
-     * gombafonalat növeszteni.
+     * Megkeresi azokat a tektonokat, ahol a gombafajnak van gombateste vagy gombafonala, vagyis tud onnan gombafonalat
+     * növeszteni.
      *
      * @return a lehetséges gombafonal növesztési források egy listában
      */
@@ -144,11 +144,8 @@ public class Fungus {
         HashSet<Tecton> tectons = new HashSet<>(myceliaEnds.entrySet().stream()
                 .flatMap(entry -> Arrays.stream(entry.getValue())).filter(t -> t.keepsMyceliumAlive(this)).toList());
         HashSet<Tecton> forest = new HashSet<>();
-        var tectonIt = tectons.iterator();
 
-        while (tectonIt.hasNext()) {
-            Tecton tecton = tectonIt.next();
-
+        for (Tecton tecton : tectons) {
             if (!adjacencyList.containsKey(tecton))
                 continue;
 
