@@ -7,10 +7,10 @@ import java.util.*;
 /**
  * <h3>Tekton</h3>
  * 
- * Felelőssége a saját szomszédainak, valamint a rajta található további objektumok nyilvántartása. Felelőssége a
+ * Felelősségei: a saját szomszédainak, valamint a rajta található további objektumok nyilvántartása, a
  * gombatestek, gombafonalak növesztéséhez szükséges ellenőrzések elvégzése, valamint ezek halálakor azon objektumok
- * törlése. Felelőssége a rovarokkal való kapcsolatának karbantartása, azok hozzáadása, valamint törlése, spóra
- * hozzáadásának kezelése, spóra átadása az azt megevő rovarnak. Felelőssége a tekton törésének kezdeményezése és
+ * törlése, a rovarokkal való kapcsolatának karbantartása, azok hozzáadása, valamint törlése, spóra
+ * hozzáadásának kezelése, spóra átadása az azt megevő rovarnak, a tekton törésének kezdeményezése és
  * kezelése, ezalatt a rajta található objektumok elosztása, valamint saját tulajdonságainak lemásolása a keletkező új
  * tektonokra.
  */
@@ -229,11 +229,10 @@ public class Tecton implements IActive {
     }
 
     /**
-     * Ellenőrzi, hogy a kapott gombafaj tud-e gombafonalat növeszteni a tektonról vagy a tektonra.
+     * Ellenőrzi, hogy a kapott gombafaj tud-e gombafonalat növeszteni a tektonról vagy a tektonra, pusztán faji szempontból.
      * 
      * @param fungus a szóban forgó gombafaj.
-     * @return Igazat ad vissza, amennyiben a paraméterként kapott gombafajhoz lehet újabb gombafonalat növeszteni a
-     *         gombafajtól.
+     * @return {@code true}
      */
     public boolean canGrowMyceliumFrom(Fungus fungus) { // NOSONAR this param is needed in the specialized classes
         return true;
@@ -280,7 +279,7 @@ public class Tecton implements IActive {
 
     /**
      * Visszaadja a tektonon található, paraméterül kapott gombafajhoz tartozó spórákat. Kiválogatja az adott fajhoz
-     * tartozó spórákat, és összegűjti azokat egy listába.
+     * tartozó spórákat, és összegyűjti azokat egy listába.
      * 
      * @return a fajhoz tartozó spórák listája
      */
@@ -317,7 +316,7 @@ public class Tecton implements IActive {
     }
 
     /**
-     * Gombafonalat növeszt a megadott cél tektonra, ha lehetséges. Ellenőrzi, hogy a gombafonal növesztésé a faj és
+     * Gombafonalat növeszt a megadott cél tektonra, ha lehetséges. Ellenőrzi, hogy a gombafonal növesztése a faj és
      * céltekton által engedélyezett-e. Ezt követően ellenőrzi, hogy a tekton szomszédja-e a céltektonnak, és hogy van-e
      * már rajta, a fajhoz tartozó, gombafonal, végül a céltektonnal valóban szomszédosak-e. Ha minden feltétel
      * teljesül, akkor létrehozza a gombafonalat. Jelzi a művelet sikerességét.
@@ -338,7 +337,10 @@ public class Tecton implements IActive {
     }
 
     /**
-     * Levezényli a tekton törési folyamatát.
+     * Levezényli a tekton törési folyamatát: A tektont eltávolítja az aktív objektumok közül. A tektonhoz kapcsolódó
+     * összes gombafonalat megszünteti. A tekton összes szomszédjainak listájából eltávolítja a tektont. Létrehoz 2 új
+     * tektont az eredeti tekton hatásával. Elosztja az új tektonok között a rajta található objektumokat, lehetőleg
+     * egyenletesen, de az első tektont előnyben részesítve. A tektonon található gombatestet a második tekton kapja.
      */
     private void tectonBreak() {
         Controller.unregisterActiveObject(this);
