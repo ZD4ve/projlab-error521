@@ -6,15 +6,22 @@ import java.util.*;
 @SuppressWarnings("java:S106")
 public class Tester {
     private static List<Test> tests;
+    private static boolean rerun = false;
+    private static Scanner scanner;
 
     public static void main(String[] args) {
-        build();
-        readTests();
-        System.out.println("Running tests...");
-        tests.parallelStream().forEach(Test::run);
-        System.out.println("Tests finished!");
-        sum();
-        interact();
+        scanner = new Scanner(System.in);
+        do {
+            rerun = false;
+            build();
+            readTests();
+            System.out.println("Running tests...");
+            tests.parallelStream().forEach(Test::run);
+            System.out.println("Tests finished!");
+            sum();
+            interact();
+        } while (rerun);
+        scanner.close();
     }
 
     static void build() {
@@ -50,7 +57,7 @@ public class Tester {
     }
 
     static void interact() {
-        Scanner scanner = new Scanner(System.in);
+        boolean exit = false;
         String command;
         do {
             System.out.print("> ");
@@ -68,7 +75,8 @@ public class Tester {
                 case "inp" -> notEnoughArgs();
                 case "exp" -> notEnoughArgs();
                 case "act" -> notEnoughArgs();
-                case "exit" -> System.out.println("Exiting...");
+                case "exit" -> exit = true;
+                case "rerun" -> rerun = exit = true;
                 default -> System.out.println("Unknown command: " + command);
                 }
                 break;
@@ -86,7 +94,6 @@ public class Tester {
                 case "exp" -> exp(t);
                 case "act" -> act(t);
                 case "save" -> save(t);
-                case "exit" -> System.out.println("Exiting...");
                 default -> System.out.println("Unknown command: " + command);
                 }
                 break;
@@ -95,9 +102,7 @@ public class Tester {
                 break;
             }
 
-        } while (!command.equals("exit"));
-        scanner.close();
-
+        } while (!exit);
     }
 
     static void notEnoughArgs() {
@@ -125,6 +130,7 @@ public class Tester {
         System.out.println("  exp <test num>   - Expected output");
         System.out.println("  act <test num>   - Actual output");
         System.out.println("  save <test num>  - Save actual output to .resa file");
+        System.out.println("  rerun            - Rebuild and rerun tests");
         System.out.println("  exit             - Exit");
     }
 
