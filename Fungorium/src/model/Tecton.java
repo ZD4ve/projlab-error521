@@ -7,12 +7,11 @@ import java.util.*;
 /**
  * <h3>Tekton</h3>
  * 
- * Felelősségei: a saját szomszédainak, valamint a rajta található további objektumok nyilvántartása, a
- * gombatestek, gombafonalak növesztéséhez szükséges ellenőrzések elvégzése, valamint ezek halálakor azon objektumok
- * törlése, a rovarokkal való kapcsolatának karbantartása, azok hozzáadása, valamint törlése, spóra
- * hozzáadásának kezelése, spóra átadása az azt megevő rovarnak, a tekton törésének kezdeményezése és
- * kezelése, ezalatt a rajta található objektumok elosztása, valamint saját tulajdonságainak lemásolása a keletkező új
- * tektonokra.
+ * Felelősségei: a saját szomszédainak, valamint a rajta található további objektumok nyilvántartása, a gombatestek,
+ * gombafonalak növesztéséhez szükséges ellenőrzések elvégzése, valamint ezek halálakor azon objektumok törlése, a
+ * rovarokkal való kapcsolatának karbantartása, azok hozzáadása, valamint törlése, spóra hozzáadásának kezelése, spóra
+ * átadása az azt megevő rovarnak, a tekton törésének kezdeményezése és kezelése, ezalatt a rajta található objektumok
+ * elosztása, valamint saját tulajdonságainak lemásolása a keletkező új tektonokra.
  */
 public class Tecton implements IActive {
     // #region CONSTANTS
@@ -229,7 +228,8 @@ public class Tecton implements IActive {
     }
 
     /**
-     * Ellenőrzi, hogy a kapott gombafaj tud-e gombafonalat növeszteni a tektonról vagy a tektonra, pusztán faji szempontból.
+     * Ellenőrzi, hogy a kapott gombafaj tud-e gombafonalat növeszteni a tektonról vagy a tektonra, pusztán faji
+     * szempontból.
      * 
      * @param fungus a szóban forgó gombafaj.
      * @return {@code true}
@@ -300,14 +300,13 @@ public class Tecton implements IActive {
     public boolean growMushroom(Fungus fungus) {
         if (mushroom == null && mycelia.stream().anyMatch(x -> x.getSpecies() == fungus)) {
             var paralysed = insects.stream().filter(Insect::isParalysed).findFirst();
+            var speciesSpores = getSporesForSpecies(fungus);
             if (paralysed.isPresent()) {
                 paralysed.get().die();
-            }
-            var speciesSpores = getSporesForSpecies(fungus);
-            if (speciesSpores.size() >= Mushroom.GROW_SPORES_REQUIRED) {
+                mushroom = new Mushroom(fungus, this);
+                return true;
+            } else if (speciesSpores.size() >= Mushroom.GROW_SPORES_REQUIRED) {
                 spores.removeAll(speciesSpores.subList(0, Mushroom.GROW_SPORES_REQUIRED));
-            }
-            if (paralysed.isPresent() || speciesSpores.size() >= Mushroom.GROW_SPORES_REQUIRED) {
                 mushroom = new Mushroom(fungus, this);
                 return true;
             }
