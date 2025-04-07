@@ -154,13 +154,11 @@ public class Fungus {
             stack.add(tecton);
             forest.add(tecton);
             while (!stack.isEmpty()) {
-                var neighbor = adjacencyList.get(stack.peek()).stream().filter(nb -> !forest.contains(nb)).findFirst();
-                if (neighbor.isPresent()) {
-                    forest.add(neighbor.get());
-                    stack.push(neighbor.get());
-                } else {
+                var neighbor = adjacencyList.get(stack.peek()).stream().filter(nb -> !forest.contains(nb)).toList();
+                forest.addAll(neighbor);
+                neighbor.forEach(stack::push);
+                if (neighbor.isEmpty())
                     stack.pop();
-                }
             }
         }
 
