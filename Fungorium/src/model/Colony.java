@@ -48,7 +48,7 @@ public class Colony {
 
     // #region FUNCTIONS
     /**
-     * Rovar felvétel a kolóniába.
+     * Rovar felvétele a kolóniába.
      * 
      * @param insect új rovar
      */
