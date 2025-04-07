@@ -190,7 +190,7 @@ public class Tecton implements IActive {
 
     /**
      * Feltölti a tektont a paraméterként kapott objektumokkal. Először hozzáadja a spórákat, majd a gombatestet,
-     * végül a rovarokat és a szomszédokat.
+     * végül a rovarokat és a szomszédokat. Ezeket a beállításokat elvégzi a paraméterként kapott objektumokon is.
      * 
      * @param spores    a tekton spórái.
      * @param mushroom  a tektonon található gombatest (vagy null).
@@ -212,10 +212,11 @@ public class Tecton implements IActive {
     }
 
     /**
-     * Ellenőrzi, hogy a paraméterként kapott tektonra vezet-e gombafonal.
+     * Ellenőrzi, hogy a paraméterként kapott tektonra vezet-e gombafonal. Végig megy a tektonon lévő gombafonalokon,
+     * és ellenőrzi, hogy a gombafonal valamely végpontja a paraméterként kapott tekton.
      * 
      * @param tecton a cél tekton, amihez képest ellenőrzünk.
-     * @return az ellenőrzés eredménye.
+     * @return igaz, ha vezet rá gombafonal, hamis különben.
      */
     public boolean hasMyceliumTo(Tecton tecton) {
         for (Mycelium m : mycelia) {
@@ -281,17 +282,23 @@ public class Tecton implements IActive {
     }
 
     /**
-     * Kiválogatja az adott fajhoz tartozó spórákat
+     * Visszaadja a tektonon található, paraméterül kapott gombafajhoz tartozó spórákat.
+     * Kiválogatja az adott fajhoz tartozó spórákat, és összegűjti azokat egy listába.
+     * 
+     * @return a fajhoz tartozó spórák listája
      */
     private List<Spore> getSporesForSpecies(Fungus species) {
         return spores.stream().filter(x -> x.getSpecies() == species).toList();
     }
 
     /**
-     * Lehetőség szerint növeszt egy gombatestet a tektonon.
+     * Lehetőség szerint növeszt egy, paraméterül kapott fajhoz tartozó, gombatestet a tektonon. Ellenőrzi, hogy a tektonon van-e már gombatest,
+     * illetve hogy van-e a fajhoz tartozó gombafonal a tektonon. Először azt vizsgálja, hogy van-e a tektonon bénító hatás alatt lévő rovar,
+     * ha igen, akkor abból növeszt gombatestet, ha nem, akkor ellenőrzi, hogy van-e elég, a fajhoz tartozó, spóra a tektonon, és ha igen, kinöveszti.
+     * Jelzi a művelet sikerességét.
      * 
      * @param fungus a gombatestet növesztő gombafaj.
-     * @return az új gombatest, vagy null ha nem lehetséges a művelet.
+     * @return igaz, ha a művelet sikeres, hamis különben.
      */
     public boolean growMushroom(Fungus fungus) {
         if (mushroom == null && mycelia.stream().anyMatch(x -> x.getSpecies() == fungus)) {
@@ -312,11 +319,14 @@ public class Tecton implements IActive {
     }
 
     /**
-     * Gombafonalat növeszt a megadott cél tektonra, ha lehetséges.
+     * Gombafonalat növeszt a megadott cél tektonra, ha lehetséges. Ellenőrzi, hogy a gombafonal növesztésé a faj és céltekton által engedélyezett-e.
+     * Ezt követően ellenőrzi, hogy a tekton szomszédja-e a céltektonnak, és hogy van-e már rajta, a fajhoz tartozó, gombafonal, végül a céltektonnal valóban szomszédosak-e.
+     * Ha minden feltétel teljesül, akkor létrehozza a gombafonalat.
+     * Jelzi a művelet sikerességét.
      * 
      * @param fungus a gombafonalhoz tartozó faj.
      * @param target a cél tekton.
-     * @return a keletkezett gombafonal vagy null.
+     * @return igaz, ha a művelet sikeres, hamis különben.
      */
     public boolean growMycelium(Fungus fungus, Tecton target) {
         if (canGrowMyceliumFrom(fungus) && target.canGrowMyceliumFrom(fungus)
