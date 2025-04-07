@@ -15,7 +15,7 @@ public abstract class InsectEffect implements IActive {
 
     // #region ATTRIBUTES
     /** A hatás hátralévő ideje. */
-    protected double timeLeft = 0.5;
+    protected double timeLeft = 15;
     // #endregion
 
     // #region CONSTRUCTORS

@@ -1,3 +1,4 @@
 nextrand 0 2
 in01 chew my01
+tick 50
 printstate

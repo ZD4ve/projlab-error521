@@ -17,4 +17,4 @@ ee
 co01 1
   in01
     te01
-    para
+    anti
