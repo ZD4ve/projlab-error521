@@ -1,3 +1,5 @@
+nextrand 0 2
+tick 5
 mu01 burst te02
 mu01 burst te02
 printstate

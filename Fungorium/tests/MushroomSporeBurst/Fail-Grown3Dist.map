@@ -4,6 +4,11 @@ tect
 tect
 tect
 
+neighbors
+te01 -- te02
+te02 -- te03
+te03 -- te04
+
 fungi 1
 
 mushrooms

@@ -1,4 +1,5 @@
 package model;
+import controller.Controller;
 
 /**
  * <h3>Gombatest</h3>
@@ -13,6 +14,9 @@ public class Mushroom implements IActive {
     public static final int GROW_SPORES_REQUIRED = 3;
     /** Mennyi spórát tud szórni a gombafej. */
     public static final int MAX_SPORE_BURSTS = 10;
+    /**  Mennyi ideig nem tud újra spórát szórni a gombatest. */
+    public static final int SPORE_BURST_DELAY = 3;
+
     // #endregion
 
     // #region ASSOCIATIONS
@@ -49,6 +53,8 @@ public class Mushroom implements IActive {
         burstsLeft = MAX_SPORE_BURSTS;
         fungus.addMushroom(this);
         location.setMushroom(this);
+        cooldown = SPORE_BURST_DELAY;
+        Controller.registerActiveObject(this);
     }
     
     // TODO: DOC
@@ -58,6 +64,8 @@ public class Mushroom implements IActive {
         this.burstsLeft = burstsLeft;
         fungus.addMushroom(this);
         location.setMushroom(this);
+        cooldown = SPORE_BURST_DELAY;
+        Controller.registerActiveObject(this);
     }
     // #endregion
 
@@ -119,15 +127,17 @@ public class Mushroom implements IActive {
      */
     public boolean burstSpore(Tecton target) {
 
-        if (cooldown == 0) {
+        if (cooldown <= 0) {
             int distance = location.distanceTo(target);
             if (distance <= range) {
                 Spore spo = new Spore(species);
                 target.addSpore(spo);
                 burstsLeft--;
+                cooldown = SPORE_BURST_DELAY;
                 if (burstsLeft <= 0) {
                     location.removeMushroom();
                     species.removeMushroom(this);
+                    Controller.unregisterActiveObject(this);
                 }
                 return true;
             }
