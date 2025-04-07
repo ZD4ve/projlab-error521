@@ -56,7 +56,7 @@ public class Tester {
         tests.sort(Comparator.comparing(Test::getDir).thenComparing(Test::getName));
     }
 
-    static void interact() {
+    static void interact() {// NOSONAR cognitive complexity ekkora kell hogy legyen
         boolean exit = false;
         String command;
         do {
@@ -81,7 +81,12 @@ public class Tester {
                 }
                 break;
             case 2:
-                int testIndex = Integer.parseInt(line[1]) - 1;
+                int testIndex;
+                try {
+                    testIndex = Integer.parseInt(line[1]) - 1;
+                } catch (NumberFormatException e) {
+                    testIndex = -1;
+                }
                 if (testIndex < 0 || testIndex >= tests.size()) {
                     System.out.println("Invalid test number");
                     continue;
