@@ -6,10 +6,10 @@ ee
  X|te01 tect
 X |te02 tect
 
-fu01 2
+fu01 1
 tt
 ee
 00
 12
-01|te01 0 m
+01|te01 0
 10|te02 10 m
