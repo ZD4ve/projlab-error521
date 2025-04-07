@@ -35,7 +35,7 @@ public class Fungus {
     // #region GETTERS-SETTERS
 
     /**
-     * Visszadaja a gombafajhoz tartozó pontszámot.
+     * Visszaadja a gombafajhoz tartozó pontszámot.
      * 
      * @return a pontszám
      */

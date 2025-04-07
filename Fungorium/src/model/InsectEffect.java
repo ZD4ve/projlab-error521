@@ -79,7 +79,7 @@ public abstract class InsectEffect implements IActive {
      * </p>
      * Hívásakor csökkentjük a hatás hátralévő idejét.
      * 
-     * Csak akkor hajtódik végre, ha a rovar nem null. Amennyiben a hátrelévő idő 0 vagy kevesebb, akkor a hatás
+     * Csak akkor hajtódik végre, ha a rovar nem null. Amennyiben a hátralévő idő 0 vagy kevesebb, akkor a hatás
      * megszűnik.
      */
     @Override
