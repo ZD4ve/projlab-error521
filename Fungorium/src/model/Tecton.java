@@ -374,11 +374,11 @@ public class Tecton implements IActive {
      * <p>
      * {@inheritDoc}
      * </p>
-     * Időnként a tekton eltörik.
+     * Időnként a tekton eltörik. Ez minden hívásnál 1 - (1 - BREAK_CHANCE_PER_SEC)^dT eséllyel történik.
      */
     @Override
     public void tick(double dT) {
-        if (RandomProvider.nextRand() > 1.0 - Math.pow((1 - BREAK_CHANCE_PER_SEC), dT)) {
+        if (RandomProvider.nextRand() > Math.pow((1 - BREAK_CHANCE_PER_SEC), dT)) {
             tectonBreak();
         }
     }
