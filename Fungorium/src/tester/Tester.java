@@ -123,7 +123,7 @@ public class Tester {
                 System.out.println("      " + t.getDir());
                 prevDir = t.getDir();
             }
-            System.out.format("[%s]  %02d %s%n", t.hasPassed() ? "PASS" : "FAIL", i + 1, t.getName());
+            System.out.format("%s %02d %s%n", t.hasPassed() ? "[PASS]  " : "[FAIL] X", i + 1, t.getName());
         }
         System.out.println("Passed " + tests.stream().filter(Test::hasPassed).count() + "/" + tests.size() + " tests");
     }
