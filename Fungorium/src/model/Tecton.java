@@ -342,7 +342,7 @@ public class Tecton implements IActive {
      * tektont az eredeti tekton hatásával. Elosztja az új tektonok között a rajta található objektumokat, lehetőleg
      * egyenletesen, de az első tektont előnyben részesítve. A tektonon található gombatestet a második tekton kapja.
      */
-    private void tectonBreak() {
+    private void breakApart() {
         Controller.unregisterActiveObject(this);
         Controller.unregisterTecton(this);
 
@@ -381,7 +381,7 @@ public class Tecton implements IActive {
     @Override
     public void tick(double dT) {
         if (RandomProvider.nextRand() > Math.pow((1 - BREAK_CHANCE_PER_SEC), dT)) {
-            tectonBreak();
+            breakApart();
         }
     }
     // #endregion
