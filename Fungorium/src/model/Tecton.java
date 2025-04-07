@@ -378,7 +378,7 @@ public class Tecton implements IActive {
      */
     @Override
     public void tick(double dT) {
-        if (RandomProvider.nextRand() > 1.0 - dT * BREAK_CHANCE_PER_SEC) {
+        if (RandomProvider.nextRand() > 1.0 - Math.pow((1 - BREAK_CHANCE_PER_SEC), dT)) {
             tectonBreak();
         }
     }
