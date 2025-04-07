@@ -53,13 +53,15 @@ public class Tecton implements IActive {
 
     /**
      * Visszaadja a tektonon található spórák listáját.
+     * 
+     * @return a tekton spórái.
      */
     public List<Spore> getSpores() {
         return spores;
     }
 
     /**
-     * Hozzáad egy szomszédot a tektonhoz
+     * Hozzáad egy új szomszédot a tektonhoz
      * 
      * @param tecton az új szomszéd
      */
@@ -148,11 +150,10 @@ public class Tecton implements IActive {
     }
 
     /**
-     * Eltávolítja és visszaadja a legfelső spórát (ha van).
+     * Eltávolítja és visszaadja a legfelső spórát, ha van.
      * 
      * @return az eltávolított spóra vagy null.
      */
-
     public Spore takeSpore() {
         return spores.isEmpty() ? null : spores.remove(spores.size() - 1);
     }
@@ -177,6 +178,8 @@ public class Tecton implements IActive {
 
     /**
      * Megadja, hogy a tekton életben tartja-e a fajhoz tartozó gombafonalakat.
+     * 
+     * @return igaz, ha a tekton életben tartja a gombafonalakat, hamis különben.
      */
     public boolean keepsMyceliumAlive(Fungus species) {
         return mushroom != null && mushroom.getSpecies() == species;
@@ -186,7 +189,8 @@ public class Tecton implements IActive {
     // #region FUNCTIONS
 
     /**
-     * Feltölti a tektont a paraméterként kapott objektumokkal.
+     * Feltölti a tektont a paraméterként kapott objektumokkal. Először hozzáadja a spórákat, majd a gombatestet,
+     * végül a rovarokat és a szomszédokat.
      * 
      * @param spores    a tekton spórái.
      * @param mushroom  a tektonon található gombatest (vagy null).
@@ -203,9 +207,8 @@ public class Tecton implements IActive {
         if (mushroom != null)
             mushroom.setLocation(this);
 
-        this.neighbors.addAll(neighbors);
+        neighbors.forEach(this::addNeighbor);
         neighbors.forEach(x -> x.addNeighbor(this));
-
     }
 
     /**
@@ -348,7 +351,6 @@ public class Tecton implements IActive {
         int insectMid = Math.min(insects.size(), Math.max(insects.size() / 2, 1)); // NOSONAR this would throw an
                                                                                    // exception if it was a clamp
         int neighborMid = Math.min(neighbors.size(), Math.max(neighbors.size() / 2, 1)); // NOSONAR this would throw an
-                                                                                         // exception if it was a clamp
 
         var t1Neighbors = new ArrayList<>(neighbors.subList(0, neighborMid));
         t1Neighbors.add(t2);
