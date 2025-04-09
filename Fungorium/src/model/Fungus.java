@@ -180,7 +180,8 @@ public class Fungus {
     }
 
     /**
-     * A gombatest növesztését kezdeményezi a paraméterként kapott tektonra.
+     * A gombatest növesztését kezdeményezi a paraméterként kapott tektonra. A paraméterben kapott céltektonon meghívja
+     * a growMushroom(Fungus fungus) függvényt. Paraméternek a példányt adja át.
      * 
      * @param tecton az új gombatest tektonja
      * @return true ha a művelet sikeres, false egyébként
@@ -190,7 +191,9 @@ public class Fungus {
     }
 
     /**
-     * A paraméterként kapott két tekton közé gombafonal építését kezdeményezi.
+     * A paraméterként kapott két tekton közé gombafonal építését kezdeményezi. Ellenőrzésképpen meghívja a
+     * canGrowMycelium() függvényt. Ezt követően, ha a canGrowMycelium() true-t ad vissza, akkor a forrástekton
+     * growMycelium(Fungus fungus, Tecton target) függvényét hívja, átadva neki a példányt és a céltekton-t.
      * 
      * @param source a forrástekton
      * @param target a céltekton
