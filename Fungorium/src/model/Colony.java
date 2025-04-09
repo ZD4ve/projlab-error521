@@ -48,7 +48,7 @@ public class Colony {
 
     // #region FUNCTIONS
     /**
-     * Rovar felvétele a kolóniába.
+     * Rovar felvétele a kolóniába (vagyis a listába).
      * 
      * @param insect új rovar
      */
@@ -57,7 +57,7 @@ public class Colony {
     }
 
     /**
-     * Rovar eltávolítása a kolóniából.
+     * Rovar eltávolítása a kolóniából (vagyis a listából).
      * 
      * @param insect elpusztult rovar
      */
