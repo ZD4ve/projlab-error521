@@ -39,8 +39,8 @@ public class Insect implements IActive {
     /**
      * Rovar létrehozása és elhelyezése egy tektonon.
      * 
-     * Beállítja a rovar kezdeti pozícióját és kolóniáját, majd a tektonhoz és a kolóniához is hozzáadja a rovart.
-     * Feliratkozik az aktív objektumok közé.
+     * Beállítja a rovar kezdeti pozícióját és kolóniáját, majd a tektonhoz és a kolóniához is hozzáadja a rovart, a
+     * Tecton::addInsect és a Colony::born metódusok segítségével. Feliratkozik az aktív objektumok közé.
      * 
      * @param location a rovar kezdeti helye
      * @param colony   a rovar kolóniája
@@ -206,8 +206,10 @@ public class Insect implements IActive {
      * sikerességét jelzi.
      * 
      * A művelet sikertelen, ha a rovar bénult, a tektonon nincs spóra, vagy ha a várakozási idő még nem járt le. Siker
-     * esetén a rovar a spórát a tekton takeSpore() metódusa segítségével kapja meg, majd a kolónia pontszáma növekszik.
-     * A spóra hatása a rovarra kerül, ha van ilyen. Siker esetén a rovar a várakozási idejét beállítja.
+     * esetén a rovar a spórát a Tecton::takeSpore metódus segítségével kapja meg, majd a kolónia pontszáma növekszik a
+     * Colony::addScore metódus segítségével. A spóra hatását a Spore::getEffect metódussal lekéri, majd a kapott hatás
+     * a rovarra kerül (ha a spórának van hatása), illetve meghívódik az InsectEffect::applyTo metódus is. Siker esetén
+     * a rovar a várakozási idejét beállítja.
      * 
      * @return sikeresség
      */
@@ -232,8 +234,9 @@ public class Insect implements IActive {
      * A rovar megpróbál a target tektonra mozogni. A visszatérési érték a művelet sikerességét jelzi.
      * 
      * A művelet sikertelen, ha a rovar bénult, a cél tektonra nem vezet gombafonal, vagy ha a várakozási idő még nem
-     * járt le. Siker esetén a rovar a forrás tektonról eltávolítja magát, és hozzáadja magát a cél tektonhoz és
-     * frissíti a saját belső állapotát is. Siker esetén a rovar a várakozási idejét beállítja.
+     * járt le. Siker esetén a rovar a forrás tektonról eltávolítja magát (Tecton::removeInsect), és hozzáadja magát
+     * (Tecton::addInsect) a cél tektonhoz és frissíti a saját belső állapotát is. Siker esetén a rovar a várakozási
+     * idejét beállítja.
      * 
      * @param target cél tekton
      * @return sikeresség
@@ -254,7 +257,8 @@ public class Insect implements IActive {
      * A rovar megpróbálja elrágni a target gombafonalat. A visszatérési érték a művelet sikerességét jelzi.
      * 
      * A művelet sikertelen, ha a rovar bénult, a gombafonal nem a jelenlegi tektonon van, vagy ha a várakozási idő még
-     * nem járt le. Siker esetén a rovar a gombafonalat a mycelium chew() metódusa segítségével rágja el, majd rovar a
+     * nem járt le. Azt, hogy a gombafonal a jelenlegi tektonon van-e, a Tecton::getMycelia metódus segítségével
+     * határozza meg. Siker esetén a rovar a gombafonalat a Mycelium::chew metódus segítségével rágja el, majd rovar a
      * saját várakozási idejét beállítja.
      * 
      * @param mycelium a fonal, amit el akar rágni
@@ -290,8 +294,8 @@ public class Insect implements IActive {
     /**
      * A rovar elpusztul.
      * 
-     * Kilép a kolóniából, eltűnik a tektonról. Leiratkozik az aktív objektumok közül. A rajta lévő hatásokat a
-     * InsectEffect wearOff() metódusával sorra megszünteti.
+     * Kilép a kolóniából (Colony::died), eltűnik a tektonról (Tecton::removeInsect). Leiratkozik az aktív objektumok
+     * közül. A rajta lévő hatásokat a InsectEffect::wearOff metódussal sorra megszünteti.
      */
     public void die() {
         Controller.unregisterActiveObject(this);
