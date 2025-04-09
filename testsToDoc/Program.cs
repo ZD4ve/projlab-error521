@@ -77,6 +77,7 @@ void addASD()
 {
     var p = doc.AppendParagraph();
     p.style.indent.left = .375f;
+    p.style.alignment = Alignment.Justified;
     var t = p.AppendText("asd");
     t.style = new RTFTextStyle(false, false, 12, "Times New Roman", Color.black);
 }
@@ -85,5 +86,5 @@ void addCode(string code)
     var p = doc.AppendParagraph();
     p.style.indent.left = .375f;
     var t = p.AppendText(code);
-    t.style = new RTFTextStyle(false, false, 12, "Consolas", Color.black);
+    t.style = new RTFTextStyle(false, false, 8, "Consolas", Color.black);
 }
