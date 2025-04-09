@@ -24,7 +24,8 @@ public class Spore {
 
     // #region GETTERS-SETTERS
     /**
-     * Visszaadja a spórához tartozó effektet
+     * Visszaadja a spórához tartozó effektet.
+     * Meghívja az InsectEffect osztály statikus createEffect() metódusát.
      * 
      * @return a spórához tartozó effekt
      */
