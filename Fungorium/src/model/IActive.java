@@ -1,6 +1,6 @@
 package model;
 
-/*
+/**
  * <h3>Aktív interfész</h3>
  * 
  * Olyan objektumok közös kezelésére szolgál, melyekre hatással van az idő.

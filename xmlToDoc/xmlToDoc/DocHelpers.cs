@@ -1,16 +1,23 @@
 ﻿using RTFExporter;
 using System.Text;
 using System.Xml.Linq;
+using System.Xml.Schema;
 
-class DocClass(XElement file)
+class DocClass
 {
+    private readonly XElement file;
+
+    public DocClass(XElement file)
+    {
+        this.file = file;
+
+    }
     List<DocItem> items => file.Descendants("memberdef").Select(x => new DocItem(x)).ToList();
-    string Description => new TextBlock(file.Element("detaileddescription")!).Text;
-    string Name => file.Element("compoundname")!.Value.Split("::")[1];
+    string Description => new Paragraph(file.Element("detaileddescription")!).Print();
+    string Name => file.Element("compoundname")!.Value.Substring(7);
     XElement? inh => file.Element("inheritancegraph");
     bool IsActive => inh?.Descendants("label").Any(x => x.Value == "IActive") ?? false;
-    string AncestorID => inh?.Element("node")!.Element("childnode")?.Attribute("refid")!.Value ?? "";
-    string Ancestor => AncestorID == "" ? "" : inh?.Elements("node")!.Single(x => x.Attribute("id")!.Value == AncestorID).Element("label")!.Value ?? "";
+    string Ancestor => InheritanceNode.Ancestor(inh, Name);
 
     List <DocItem> Attr => items.Where(x => x.MemberType == DocItem.Type.ATTR).ToList();
     List<DocItem> Func => items.Where(x => x.MemberType == DocItem.Type.FUNC).ToList();
@@ -23,25 +30,17 @@ class DocClass(XElement file)
         t.style.bold = true;
         t.style.fontSize = 13;
         t.style.fontFamily = "Arial";
-        p = doc.AppendParagraph();
-        p.AppendText("•  ");
-        t = p.AppendText("Felelősségek");
-        t.style.bold = true;
-        t.style.fontSize = 12;
-        t.style.fontFamily = "Times New Roman";
+
+        PrintHeading(doc, "Felelősségek");
         p = doc.AppendParagraph();
         p.style.indent.left = .17f;
         t = p.AppendText(Description);
         t.style.fontSize = 12;
         t.style.fontFamily = "Times New Roman";
+
         if(Ancestor != "")
         {
-            p = doc.AppendParagraph();
-            p.AppendText("•  ");
-            t = p.AppendText("Ősosztályok");
-            t.style.bold = true;
-            t.style.fontSize = 12;
-            t.style.fontFamily = "Times New Roman";
+            PrintHeading(doc, "Ősosztályok");
             p = doc.AppendParagraph();
             p.style.indent.left = .17f;
             t = p.AppendText(Ancestor);
@@ -50,12 +49,7 @@ class DocClass(XElement file)
         }
         if (IsActive)
         {
-            p = doc.AppendParagraph();
-            p.AppendText("•  ");
-            t = p.AppendText("Interfészek");
-            t.style.bold = true;
-            t.style.fontSize = 12;
-            t.style.fontFamily = "Times New Roman";
+            PrintHeading(doc, "Interfészek");
             p = doc.AppendParagraph();
             p.style.indent.left = .17f;
             t = p.AppendText("IActive");
@@ -65,24 +59,22 @@ class DocClass(XElement file)
 
         if (Attr.Count != 0)
         {
-            p = doc.AppendParagraph();
-            p.AppendText("•  ");
-            t = p.AppendText("Attribútumok");
-            t.style.bold = true;
-            t.style.fontSize = 12;
-            t.style.fontFamily = "Times New Roman";
+            PrintHeading(doc, "Attribútumok");
             Attr.ForEach(x => x.Print(doc));
         }
         if (Func.Count != 0)
         {
-            p = doc.AppendParagraph();
-            p.AppendText("•  ");
-            t = p.AppendText("Metódusok");
-            t.style.bold = true;
-            t.style.fontSize = 12;
-            t.style.fontFamily = "Times New Roman";
+            PrintHeading(doc, "Metódusok");
             Func.ForEach(x => x.Print(doc));
         }
+    }
+    
+    void PrintHeading(RTFDocument doc, string title)
+    {
+        var p = doc.AppendParagraph();
+        p.AppendText("•  ");
+        var t = p.AppendText(title);
+        t.style = new RTFTextStyle(false, true, 12, "Times New Roman", Color.black);
     }
 }
 class DocItem(XElement member)
@@ -92,7 +84,7 @@ class DocItem(XElement member)
     string TypeStr => member.Ancestors("sectiondef").Single().Attribute("kind")!.Value;
     string DefinitionStr => member.Element("definition")!.Value;
     string ArgStr => member.Element("argsstring")!.Value;
-    string Description => new TextBlock(member.Element("detaileddescription")!).Text;
+    string Description => new Paragraph(member.Element("detaileddescription")!).Print();
     string Visibility => new Dictionary<string, string>() { { "public", "+" }, { "protected", "#" }, { "private", "-" } }[TypeStr.Split('-')[0]];
     string Definition => DefinitionStr.Replace("abstract ","").Replace("static ","");
     string Name => $"{Visibility}{Definition}{ArgStr}";
@@ -116,37 +108,61 @@ class DocItem(XElement member)
     }
 }
 
-class TextBlock(XElement desc)
+struct Paragraph(XElement para)
 {
-    List<string> text = desc.Elements("para").Where(x => x.Element("parameterlist") is null && x.Element("simplesect") is null).Select(x => x.Value).ToList();
-    List<string>? parameters = desc.Elements("para")
-        .Select(x => x.Element("parameterlist"))
-        .FirstOrDefault(x => x is not null)
-        ?.Elements("parameteritem")
-        .Select(x => $"{x.Element("parameternamelist")!.Value}: {x.Element("parameterdescription")!.Value}").ToList();
-    XElement? ret = desc.Elements("para")
-        .Select(x => x.Element("simplesect"))
-        .FirstOrDefault(x => x is not null);
-    public string? retStr => ret is not null ? $"return: {ret.Value}" : null;
-
-    public string Text
+    public string Print()
     {
-        get
+        if(para.Elements().Count(x=>x.Name!="ref") == 0) return para.Value;
+        if(para.Name == "parameterlist")
         {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine(string.Join("\n", text));
-            if (parameters is not null)
-            {
-                sb.AppendLine(string.Join("\n", parameters));
-            }
-            if (retStr is not null)
-            {
-                sb.AppendLine(retStr);
-            }
-            return sb.ToString().TrimEnd();
-
+            return string.Join("\n",
+                para
+                .Elements("parameteritem")
+                .Select(x => $"{x.Element("parameternamelist")!.Value}: {x.Element("parameterdescription")!.Value}")
+                );
         }
-
+        if (para.Name == "simplesect")
+        {
+            return $"return: {para.Value}";
+        }
+        return string.Join("\n",
+            para
+            .Elements()
+            .Select(x => new Paragraph(x).Print())
+            .Where(x => x != "")
+            );
     }
+}
 
+
+class InheritanceNode(XElement node)
+{
+    public int ID => int.Parse(node.Attribute("id")!.Value);
+    public string Name => node.Element("label")!.Value;
+    public int ParentID => int.Parse(node.Element("childnode")?.Attribute("refid")!.Value ?? "-1");
+    InheritanceNode? Parent { get; set; }
+
+    public static List<InheritanceNode> GetNodes(XElement inh)
+    {
+        var nodes = inh.Elements("node").Select(x => new InheritanceNode(x)).ToList();
+        foreach (var node in nodes)
+        {
+            node.Parent = nodes.SingleOrDefault(x => x.ID == node.ParentID);
+        }
+        return nodes;
+    }
+    public static string Ancestor(XElement? inh, string name)
+    {
+        if (inh is null) return "";
+        var nodes = GetNodes(inh);
+        var node = nodes.SingleOrDefault(x => x.Name == name);
+        if (node is null) return "";
+        List<string> names = new List<string>();
+        while (node.Parent is not null)
+        {
+            names.Add(node.Parent.Name);
+            node = node.Parent;
+        }
+        return string.Join(" --> ", names.Where(x => x != "IActive").Reverse());
+    }
 }

@@ -16,14 +16,26 @@ RTFDocument doc = new RTFDocument();
 all.Index().ToList().ForEach(x => x.Item.Print(doc,x.Index+1));
 doc.paragraphs.ForEach(p => p.style.indent.firstLine = 0);
 bool saved = false;
+Dictionary<char, char> change = new Dictionary<char, char>
+{
+    { 'Ő', 'Ö' },
+    { 'ő', 'ö' },
+    { 'Ű', 'Ü' },
+    { 'ű', 'ü' }
+};
+string output = RTFParser.ToString(doc);
+foreach (var item in change)
+{
+    output = output.Replace(item.Key.ToString(), $"\\u{(uint)item.Key}{item.Value}");
+}
 do
 {
     try
     {
-        File.WriteAllText(outputFile, RTFParser.ToString(doc), CodePagesEncodingProvider.Instance.GetEncoding("iso-8859-2")!);
+        File.WriteAllText(outputFile, output, CodePagesEncodingProvider.Instance.GetEncoding("iso-8859-2")!);
         saved = true;
     }
-    catch (Exception)
+    catch (IOException)
     {
         Console.WriteLine("Close Word!");
         Console.ReadKey();
