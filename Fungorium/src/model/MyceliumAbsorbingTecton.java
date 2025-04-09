@@ -18,7 +18,7 @@ public class MyceliumAbsorbingTecton extends Tecton {
 
     // #region CONSTRUCTORS
     /**
-     * Létrehoz egy új példányt alapértelmezett beállításokkal.
+     * Létrehoz egy új példányt alapértelmezett beállításokkal, a timeUntilAbsorption mezőt az ABSORPTION_TIME_SECONDS értékére állítva.
      */
     public MyceliumAbsorbingTecton() {
         timeUntilAbsorption = ABSORPTION_TIME_SECONDS;

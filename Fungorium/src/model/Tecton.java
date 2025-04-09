@@ -34,7 +34,7 @@ public class Tecton implements IActive {
 
     // #region CONSTRUCTORS
     /**
-     * Létrehoz egy új példányt alapértelmezett beállításokkal.
+     * Létrehoz egy új példányt, amely nem tartalmaz asszociációkat. Regisztrálja a tektont aktív objektumként.
      */
     public Tecton() {
         neighbors = new ArrayList<>();
@@ -60,7 +60,7 @@ public class Tecton implements IActive {
     }
 
     /**
-     * Hozzáad egy új szomszédot a tektonhoz
+     * Hozzáad egy új szomszédot a tektonhoz, ha még nem tartalmazza.
      * 
      * @param tecton az új szomszéd
      */
@@ -70,7 +70,7 @@ public class Tecton implements IActive {
     }
 
     /**
-     * Lekéri a tekton szomszédait
+     * Visszaadja a tekton szomszédait
      * 
      * @return a szomszédok egy listában
      */
@@ -124,7 +124,7 @@ public class Tecton implements IActive {
     }
 
     /**
-     * Eltávolítja a tektonról a gombatestet.
+     * Eltávolítja a tektonról az esetlegesen rajta található gombatestet.
      */
     public void removeMushroom() {
         mushroom = null;
@@ -140,7 +140,8 @@ public class Tecton implements IActive {
     }
 
     /**
-     * A paraméterként kapott spórát hozzáadja a tektonhoz.
+     * A paraméterként kapott spórát hozzáadja a tektonhoz, felülre. (Vagyis ezt fogja először megenni egy arra járó
+     * rovar.)
      * 
      * @param spore a hozzáadandó rovar.
      */
@@ -151,14 +152,14 @@ public class Tecton implements IActive {
     /**
      * Eltávolítja és visszaadja a legfelső spórát, ha van.
      * 
-     * @return az eltávolított spóra vagy null.
+     * @return az eltávolított spóra vagy {@code null}.
      */
     public Spore takeSpore() {
         return spores.isEmpty() ? null : spores.remove(spores.size() - 1);
     }
 
     /**
-     * Beállítja a tektonon lévő gombatestet.
+     * Beállítja a tektonon lévő gombatestet, felülírva az esetlegesen már ott lévő gombatestet.
      * 
      * @param mushroom a gombatest.
      */
@@ -176,7 +177,8 @@ public class Tecton implements IActive {
     }
 
     /**
-     * Megadja, hogy a tekton életben tartja-e a fajhoz tartozó gombafonalakat.
+     * Megadja, hogy a tekton életben tartja-e a fajhoz tartozó gombafonalakat. Ezt a tektonon található gombatest
+     * fajának vizsgálatával teszi, ha az létezik, a Mushroom::getSpecies függvény használatával.
      * 
      * @return igaz, ha a tekton életben tartja a gombafonalakat, hamis különben.
      */
@@ -189,7 +191,9 @@ public class Tecton implements IActive {
 
     /**
      * Feltölti a tektont a paraméterként kapott objektumokkal. Először hozzáadja a spórákat, majd a gombatestet, végül
-     * a rovarokat és a szomszédokat. Ezeket a beállításokat elvégzi a paraméterként kapott objektumokon is.
+     * a rovarokat és a szomszédokat. Ezeket a beállításokat elvégzi a paraméterként kapott objektumokon is: a rovarok
+     * és a gombatest esetén az Insect::setLocation ill. a Mushroom::setLocation, tektonok esetén pedig a
+     * Tecton::addNeighbor metódus segítségével.
      * 
      * @param spores    a tekton spórái.
      * @param mushroom  a tektonon található gombatest (vagy null).
@@ -211,8 +215,9 @@ public class Tecton implements IActive {
     }
 
     /**
-     * Ellenőrzi, hogy a paraméterként kapott tektonra vezet-e gombafonal. Végig megy a tektonon lévő gombafonalokon, és
-     * ellenőrzi, hogy a gombafonal valamely végpontja a paraméterként kapott tekton.
+     * Ellenőrzi, hogy a paraméterként kapott tektonra vezet-e gombafonal. Végigmegy a tektonon lévő gombafonalokon, és
+     * ellenőrzi, hogy a gombafonal valamely végpontja a paraméterként kapott tekton-e. Ezt a gombafonalak
+     * Mycelium::getEnds függvényének segítségével oldja meg.
      * 
      * @param tecton a cél tekton, amihez képest ellenőrzünk.
      * @return igaz, ha vezet rá gombafonal, hamis különben.
@@ -239,7 +244,7 @@ public class Tecton implements IActive {
     }
 
     /**
-     * Kiszámolja, hogy a paraméterként kapott tekton mekkora távolságra van.
+     * Kiszámolja, hogy a paraméterként kapott tekton mekkora távolságra van. Nem hív függvényt másik modell osztályon.
      * 
      * @param tecton a távolság szempontból vizsgált tekton.
      * @return a távolság ugrásszámban, vagy {@link Integer.MAX_VALUE} ha nem elérhető.
@@ -279,7 +284,7 @@ public class Tecton implements IActive {
 
     /**
      * Visszaadja a tektonon található, paraméterül kapott gombafajhoz tartozó spórákat. Kiválogatja az adott fajhoz
-     * tartozó spórákat, és összegyűjti azokat egy listába.
+     * tartozó spórákat (Spore::getSpecies), és összegyűjti azokat egy listába.
      * 
      * @return a fajhoz tartozó spórák listája
      */
@@ -289,10 +294,11 @@ public class Tecton implements IActive {
 
     /**
      * Lehetőség szerint növeszt egy, paraméterül kapott fajhoz tartozó, gombatestet a tektonon. Ellenőrzi, hogy a
-     * tektonon van-e már gombatest, illetve hogy van-e a fajhoz tartozó gombafonal a tektonon. Először azt vizsgálja,
-     * hogy van-e a tektonon bénító hatás alatt lévő rovar, ha igen, akkor abból növeszt gombatestet, ha nem, akkor
-     * ellenőrzi, hogy van-e elég, a fajhoz tartozó, spóra a tektonon, és ha igen, kinöveszti. Jelzi a művelet
-     * sikerességét.
+     * tektonon van-e már gombatest, illetve hogy van-e a fajhoz tartozó gombafonal a tektonon (Mycelium::getSpecies).
+     * Először azt vizsgálja, hogy van-e a tektonon bénító hatás alatt (Insect::isParalysed) lévő rovar, ha igen, akkor
+     * az első ilyenből (Insect::die) növeszt gombatestet, ha nem, akkor ellenőrzi, hogy van-e elég, a fajhoz tartozó
+     * spóra (Tecton::getSporesForSpecies) a tektonon, és ha igen, ezeket eltávolítja (a legrégebben ott lévőket), ma d
+     * létrehozza a gombatestet. Jelzi a művelet sikerességét.
      * 
      * @param fungus a gombatestet növesztő gombafaj.
      * @return igaz, ha a művelet sikeres, hamis különben.
@@ -315,10 +321,10 @@ public class Tecton implements IActive {
     }
 
     /**
-     * Gombafonalat növeszt a megadott cél tektonra, ha lehetséges. Ellenőrzi, hogy a gombafonal növesztése a faj és
-     * céltekton által engedélyezett-e. Ezt követően ellenőrzi, hogy a tekton szomszédja-e a céltektonnak, és hogy van-e
-     * már rajta, a fajhoz tartozó, gombafonal, végül a céltektonnal valóban szomszédosak-e. Ha minden feltétel
-     * teljesül, akkor létrehozza a gombafonalat. Jelzi a művelet sikerességét.
+     * Gombafonalat növeszt a megadott cél tektonra, ha lehetséges. Ellenőrzi, hogy a gombafonal növesztése a forrás-
+     * (Tecton::canGrowMyceliumFrom, Mushroom::getSpecies, Mycelium::getSpecies) és céltekton
+     * (Tecton::canGrowMyceliumFrom) által engedélyezett-e . Ezt követően ellenőrzi, hogy a céltektonnal valóban
+     * szomszédosak-e. Ha minden feltétel teljesül, akkor létrehozza a gombafonalat. Jelzi a művelet sikerességét.
      * 
      * @param fungus a gombafonalhoz tartozó faj.
      * @param target a cél tekton.
@@ -337,9 +343,11 @@ public class Tecton implements IActive {
 
     /**
      * Levezényli a tekton törési folyamatát: A tektont eltávolítja az aktív objektumok közül. A tektonhoz kapcsolódó
-     * összes gombafonalat megszünteti. A tekton összes szomszédjainak listájából eltávolítja a tektont. Létrehoz 2 új
-     * tektont az eredeti tekton hatásával. Elosztja az új tektonok között a rajta található objektumokat, lehetőleg
-     * egyenletesen, de az első tektont előnyben részesítve. A tektonon található gombatestet a második tekton kapja.
+     * összes gombafonalat megszünteti (Mycelium::die). A tekton összes szomszédjainak listájából eltávolítja a tektont
+     * (Tecton::removeNeighbor). Létrehoz 2 új tektont az eredeti tekton hatásával (Tecton::newMe). Elosztja
+     * (Tecton::fillWithStuff) az új tektonok között a rajta található objektumokat, lehetőleg egyenletesen, de az első
+     * tektont előnyben részesítve. (első: [0;min(darab, max(darab / 2, 1))[, második: maradék) A tektonon található
+     * gombatestet a második tekton kapja. A két új tekton szomszédos lesz.
      */
     private void breakApart() {
         Controller.unregisterActiveObject(this);
@@ -375,7 +383,8 @@ public class Tecton implements IActive {
      * <p>
      * {@inheritDoc}
      * </p>
-     * Időnként a tekton eltörik. Ez minden hívásnál 1 - (1 - BREAK_CHANCE_PER_SEC)^dT eséllyel történik.
+     * Időnként a tekton eltörik. Ez minden hívásnál 1 - (1 - BREAK_CHANCE_PER_SEC)^dT eséllyel történik (ehhez a
+     * RandomProvider::nextRand függvényt használja), ilyenkor meghívjuk a breakApart privát metódust.
      */
     @Override
     public void tick(double dT) {

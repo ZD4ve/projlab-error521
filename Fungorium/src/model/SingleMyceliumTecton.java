@@ -3,7 +3,7 @@ package model;
 /**
  * <h3>Egy gombafonalat engedő tekton</h3>
  * 
- * Olyan speciális tekton, melyen csak csak egy gombafajnak lehet gombafonala.
+ * Olyan speciális tekton, melyen csak csak egy gombafajnak lehet gombafonala és gombateste.
  */
 public class SingleMyceliumTecton extends Tecton {
     /**
@@ -20,12 +20,14 @@ public class SingleMyceliumTecton extends Tecton {
      * <p>
      * {@inheritDoc}
      * </p>
-     * Ez akkor teljesül, ha nincs másik fajnak gombateste vagy gombafonala a tektonon.
+     * Ez akkor teljesül, ha nincs másik fajnak gombateste (Mushroom::getSpecies) vagy gombafonala
+     * (Mycelium::getSpecies) a tektonon.
      * 
-     * @return igaz, ha a tektonon csak egy fajnak van gombafonala/gombateste, hamis különben
+     * @return igaz, ha nincs másik gombafajnak gombateste vagy gombafonala a tektonon, hamis különben.
      */
     @Override
     public boolean canGrowMyceliumFrom(Fungus fungus) {
-        return mycelia.stream().noneMatch(x -> x.getSpecies() != fungus);
+        return mycelia.stream().noneMatch(x -> x.getSpecies() != fungus)
+                && (mushroom == null || mushroom.getSpecies() == fungus);
     }
 }
