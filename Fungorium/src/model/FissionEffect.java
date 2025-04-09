@@ -10,7 +10,8 @@ public class FissionEffect extends InsectEffect {
      * <p>
      * {@inheritDoc}
      * </p>
-     * A paraméterben kapott rovar osztódását idézi elő. Beállítja a saját rovarát.
+     * A paraméterben kapott rovar osztódását idézi elő az Insect::split metódus meghívásával. Beállítja a saját
+     * rovarát.
      * 
      * @param insect a rovar, ami osztódik
      */

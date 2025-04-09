@@ -65,7 +65,8 @@ public abstract class InsectEffect implements IActive {
     /**
      * A hatás megszűnésekor hívódik meg, eltávolítja a hatást a rovarról.
      * 
-     * Visszavonja a hatás hatását és leiratkoztatja a hatást az aktív objektumok közül.
+     * Visszavonja a hatás hatását, leveszi magát a rovarról (Insect::removeEffect) és leiratkoztatja a hatást az aktív
+     * objektumok közül.
      */
     public void wearOff() {
         remove();
