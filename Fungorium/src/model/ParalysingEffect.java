@@ -10,7 +10,8 @@ public class ParalysingEffect extends InsectEffect {
      * <p>
      * {@inheritDoc}
      * </p>
-     * Mozgásképtelenné teszi a paraméterben kapott rovart. Beállítja a saját rovarát.
+     * Mozgásképtelenné teszi a paraméterben kapott rovart az Insect::setIsParalysed metódus segítségével. Beállítja a
+     * saját rovarát.
      *
      * @param insect a rovar, ami kapja a hatást
      */
@@ -24,7 +25,7 @@ public class ParalysingEffect extends InsectEffect {
      * <p>
      * {@inheritDoc}
      * </p>
-     * Visszaadja a rovarnak a mozgás képességét.
+     * Visszaadja a rovarnak a mozgás képességét az Insect::setIsParalysed metódus segítségével.
      */
     @Override
     protected void remove() {

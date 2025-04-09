@@ -45,8 +45,9 @@ public class SpeedEffect extends InsectEffect {
      * </p>
      * A paraméterben kapott rovar sebességét állítja.
      * 
-     * A beállítandó sebességet az alábbi képlet alapján határozza meg: [rovar jelenlegi sebessége] * multiplier.
-     * Beállítja a saját rovarát.
+     * A sebesség beállításához a rovar Insect::getSpeed és Insect::setSpeed metódusait használja. A beállítandó
+     * sebességet az alábbi képlet alapján határozza meg: [rovar jelenlegi sebessége] * multiplier. Beállítja a saját
+     * rovarát.
      * 
      * @param insect a rovar, ami kapja a hatást
      */
@@ -63,7 +64,8 @@ public class SpeedEffect extends InsectEffect {
      * </p>
      * Visszaállítja a rovar sebességét.
      * 
-     * A beállítandó sebességet az alábbi képlet alapján határozza meg: [rovar jelenlegi sebessége] / multiplier.
+     * A sebesség beállításához a rovar Insect::getSpeed és Insect::setSpeed metódusait használja. A beállítandó
+     * sebességet az alábbi képlet alapján határozza meg: [rovar jelenlegi sebessége] / multiplier.
      */
     @Override
     protected void remove() {
