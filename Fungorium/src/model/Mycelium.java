@@ -41,8 +41,12 @@ public class Mycelium implements IActive {
 
     /**
      * Konstruktor, létrehozza a paraméterként kapott gombafajhoz tartozó gombafonalat, a két paraméterként kapott
-     * tekton közé. Beállítja a faját és a végeit. A két tektonhoz és a gombafajhoz hozzáadja magát, beállítja az 
+     * tekton közé. Beállítja a faját és két végét. A két tektonhoz és a gombafajhoz hozzáadja magát (Tecton::addMycelium, Fungus:: addMycelium), beállítja az 
      * állapotát növekvőbe és ennek megfelelően állítja be a cooldownt. Regisztrálja magát az aktív objektumok közé.
+     * 
+     * @param fungus   a gombafonalhoz tartozó gombafaj.
+     * @param end1  tekton, a gombafonal egyik vége
+     * @param end2  tekton, a gombafonal másik vége
      */
     public Mycelium(Fungus fungus, Tecton end1, Tecton end2) {
         this.species = fungus;
@@ -63,6 +67,7 @@ public class Mycelium implements IActive {
 
     /**
      * Visszaadja a gombafonal két végpontját.
+     * @return a gombafonal végpontjainak tektonjai.
      */
     public Tecton[] getEnds() {
         return ends;
@@ -70,6 +75,7 @@ public class Mycelium implements IActive {
 
     /**
      * Visszaadja a gombafajt, amelyhez a gombafonal tartozik.
+     * @return a gombfonal gombafaja.
      */
     public Fungus getSpecies() {
         return species;
@@ -80,7 +86,8 @@ public class Mycelium implements IActive {
 
     /**
      * Megszünteti az egyedet, erről értesíti a gombafaját és végpontjait. Ha éppen vastagodott, 
-     * akkor a vastagodás befejeződik (értesíti a gombafajt). Eltávolítja magát a tektonról, valamint a gombafajból.
+     * akkor a vastagodás befejeződik (értesíti a gombafajt) (Fungus::myceliumGrowthComplete). 
+     * Eltávolítja magát a tektonokról (Tecton::removeMycelium), valamint a gombafajból (Fungus::removeMycelium).
      * Leiratkozik az aktív objektumok közül.
      */
     public void die() {
@@ -95,8 +102,8 @@ public class Mycelium implements IActive {
     }
 
     /**
-     * Elindítja a gombafonal elrágásának folyamatát, beállítja az állapotát
-     * elrágottra és beállítja a cooldownt az elrágási időre.
+     * Elindítja a gombafonal elrágásának folyamatát. Amennyiben még vastagodott, a vastagodás befejeződik (Fungus::myceliumGrowthComplete).
+     * Beállítja az állapotát elrágottra és beállítja a cooldownt az elrágási időre.
      */
     public void chew() {
         if (state == State.GROWING) {
@@ -111,8 +118,8 @@ public class Mycelium implements IActive {
      * {@inheritDoc}
      * </p>
      * A cooldown csökkentése. Amennyiben a cooldown lejárt, 
-     * növekvőből normál állapotba kerül, erről értesíti a gombafajt is.
-     * Ha a fonal elrágott volt és a cooldown lejárt, meghal.
+     * növekvőből normál állapotba kerül, erről értesíti a gombafajt is (Fungus::myceliumGrowthComplete).
+     * Ha a fonal elrágott volt és a cooldown lejárt, meghal (Mycelium::die).
      */
     @Override
     public void tick(double dT) {
