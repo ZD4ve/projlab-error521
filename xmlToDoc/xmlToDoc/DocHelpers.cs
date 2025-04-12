@@ -1,17 +1,8 @@
 ﻿using RTFExporter;
-using System.Text;
 using System.Xml.Linq;
-using System.Xml.Schema;
 
-class DocClass
+class DocClass(XElement file)
 {
-    private readonly XElement file;
-
-    public DocClass(XElement file)
-    {
-        this.file = file;
-
-    }
     List<DocItem> items => file.Descendants("memberdef").Select(x => new DocItem(x)).ToList();
     string Description => new Paragraph(file.Element("detaileddescription")!).Print();
     string Name => file.Element("compoundname")!.Value.Substring(7);
