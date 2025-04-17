@@ -1,4 +1,5 @@
 package model;
+
 import controller.Controller;
 
 /**
@@ -14,9 +15,9 @@ public class Mushroom implements IActive {
     public static final int GROW_SPORES_REQUIRED = 3;
     /** Mennyi spórát tud szórni a gombafej. */
     public static final int MAX_SPORE_BURSTS = 10;
-    /**  Mennyi ideig nem tud újra spórát szórni a gombatest. */
+    /** Mennyi ideig nem tud újra spórát szórni a gombatest. */
     public static final int SPORE_BURST_DELAY = 3;
-    /**  Mennyi idő alatt válik fejletté a gombatest */
+    /** Mennyi idő alatt válik fejletté a gombatest */
     public static final int GROW_TIME = 30;
 
     // #endregion
@@ -39,18 +40,18 @@ public class Mushroom implements IActive {
     private double growCooldown;
     /** Mennyi spórát szórt eddig a gombafej. */
     private int burstsLeft;
-    
+
     // #endregion
 
     // #region CONSTRUCTORS
     /**
-     * Létrehoz egy fungus fajú gombatestet a location tektonon. Beállítja a gombatest gombafaját, helyét.
-     * Beállítja, hogy a gombatest mennyi spórát tud lőni, spóraszórás után mennyi ideig nem tud lőni, 
-     * mennyi idő fejletté válnia. Hozzáadja a gombafajhoz és a tektonhoz a gombát (Fungus::addMushroom, Tecton::setMushroom).
-     * Feliratkozik az aktív objektumok közé.
+     * Létrehoz egy fungus fajú gombatestet a location tektonon. Beállítja a gombatest gombafaját, helyét. Beállítja,
+     * hogy a gombatest mennyi spórát tud lőni, spóraszórás után mennyi ideig nem tud lőni, mennyi idő fejletté válnia.
+     * Hozzáadja a gombafajhoz és a tektonhoz a gombát (Fungus::addMushroom, Tecton::setMushroom). Feliratkozik az aktív
+     * objektumok közé.
      * 
      * @param fungus   a gombatesthez tartozó gombafaj.
-     * @param location a tekton, amin található
+     * @param location a tekton, amin található.
      */
     public Mushroom(Fungus fungus, Tecton location) {
         this.species = fungus;
@@ -62,8 +63,14 @@ public class Mushroom implements IActive {
         location.setMushroom(this);
         Controller.registerActiveObject(this);
     }
-    
-    // TODO: DOC
+
+    /**
+     * Megegyezik a másik konstruktorral, de felülírja a gombatest lehetséges spóraszórásainak számát.
+     * 
+     * @param fungus     a gombatesthez tartozó gombafaj.
+     * @param location   a tekton, amin található.
+     * @param burstsLeft a lehetséges spóraszórások száma.
+     */
     public Mushroom(Fungus fungus, Tecton location, int burstsLeft) {
         this.species = fungus;
         this.location = location;
@@ -126,11 +133,11 @@ public class Mushroom implements IActive {
 
     // #region FUNCTIONS
     /**
-     * Spóraszórást kezdeményező metódus. Hatására a paraméterben kapott tektonra spórát szór a gomba (Tecton::addSpore) a gombatest gombafajával,
-     * amennyiben éppen spóraszórásra alkalmas állapotban van (a cooldown lejárt), és a céltekton a gombatest hatókörében (Tecton::distanceTo) található. 
-     * A spóraszórás hatására a gombatest meg is halhat (Tecton::removeMushroom, Fungus::removeMushroom), ha már kiszórta minden spóráját,
-     * ilyenkor a gombafajból és a tektonról is törlődik, leiratkozik az aktív objektumokról. 
-     * A visszatérési érték a spóraszórás sikeressége.
+     * Spóraszórást kezdeményező metódus. Hatására a paraméterben kapott tektonra spórát szór a gomba (Tecton::addSpore)
+     * a gombatest gombafajával, amennyiben éppen spóraszórásra alkalmas állapotban van (a cooldown lejárt), és a
+     * céltekton a gombatest hatókörében (Tecton::distanceTo) található. A spóraszórás hatására a gombatest meg is
+     * halhat (Tecton::removeMushroom, Fungus::removeMushroom), ha már kiszórta minden spóráját, ilyenkor a gombafajból
+     * és a tektonról is törlődik, leiratkozik az aktív objektumokról. A visszatérési érték a spóraszórás sikeressége.
      * 
      * @param target a céltekton, ahova a spóra kerül
      */

@@ -4,20 +4,37 @@ import java.io.*;
 import java.nio.file.Files;
 import java.util.*;
 
-@SuppressWarnings("java:S1104")
+/**
+ * Egy konkrét tesztet reprezentáló osztály.
+ */
 public class Test {
-    private String dir;
-    private String name;
-    private List<String> map;
-    private List<String> operation;
-    private List<String> result;
-
-    private boolean passed = false;
-    private int diffLine = -1;
-    private List<String> actualOutput = new ArrayList<>();
-
+    /** Teszt fájlok könyvtára */
     public static final String TESTS_DIR = "tests";
 
+    /** Tesztcsoport neve */
+    private String dir;
+    /** Teszt neve */
+    private String name;
+    /** Teszt térkép bemenete */
+    private List<String> map;
+    /** Teszt műveletek bemenete */
+    private List<String> operation;
+    /** Teszt elvárt kimenete */
+    private List<String> result;
+    /** Teszt tényleges kimenete */
+    private List<String> actualOutput = new ArrayList<>();
+    /** Teszt sikeressége */
+    private boolean passed = false;
+    /** Első eltérő sor sorszáma */
+    private int diffLine = -1;
+
+    /**
+     * Konstruktor, amely beolvassa a teszt fájlokat.
+     *
+     * @param dir  a teszt könyvtár neve
+     * @param name a teszt fájl neve
+     * @throws IOException ha a fájlok beolvasása nem sikerül
+     */
     public Test(String dir, String name) throws IOException {
         this.dir = dir;
         this.name = name;
@@ -34,26 +51,11 @@ public class Test {
         }
     }
 
-    public int getDiffLine() {
-        return diffLine;
-    }
-
-    public List<String> getActualOutput() {
-        return actualOutput;
-    }
-
-    public String getDir() {
-        return dir;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getPath() {
-        return dir + File.separator + name;
-    }
-
+    /**
+     * Összefűzi a bemeneti térképet és a műveleteket.
+     * 
+     * @return a teszthez tartozó bemenet.
+     */
     public List<String> getInput() {
         List<String> input = new ArrayList<>();
         input.addAll(map);
@@ -64,14 +66,13 @@ public class Test {
         return input;
     }
 
-    public List<String> getResult() {
-        return result;
-    }
-
-    public boolean hasPassed() {
-        return passed;
-    }
-
+    /**
+     * Elindít egy új folyamatot, amely a Fungorium programot futtatja. Bemenetként a teszt bemeneti térképét és
+     * műveleteit adja meg. Vár, amíg a folyamat befejeződik, majd ellenőrzi a kimenetet. Soronként összehasonlítja a
+     * várt és a tényleges kimenetet. Ha eltérés van, akkor a diffLine változóban tárolja az eltérő sor sorszámát.
+     * 
+     * @return true, ha a teszt sikeres, false, ha nem.
+     */
     public boolean run() {
         actualOutput = new ArrayList<>();
         try {
@@ -116,4 +117,43 @@ public class Test {
         passed = true;
         return true;
     }
+
+    // #region GETTERS
+
+    /** Visszaadja az első eltérő sor sorszámát. */
+    public int getDiffLine() {
+        return diffLine;
+    }
+
+    /** Visszaadja az aktuális kimenetet. */
+    public List<String> getActualOutput() {
+        return actualOutput;
+    }
+
+    /** Visszaadja a teszt csoportnevét. */
+    public String getDir() {
+        return dir;
+    }
+
+    /** Visszaadja a teszt nevét. */
+    public String getName() {
+        return name;
+    }
+
+    /** Visszaadja a teszt fájlok teljes elérési útját. */
+    public String getPath() {
+        return dir + File.separator + name;
+    }
+
+    /** Visszaadja a várt kimenetet */
+    public List<String> getResult() {
+        return result;
+    }
+
+    /** Visszaadja a teszt sikerességét. */
+    public boolean hasPassed() {
+        return passed;
+    }
+
+    // #endregion
 }
