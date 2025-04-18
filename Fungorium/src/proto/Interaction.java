@@ -95,7 +95,8 @@ public class Interaction {
                     String effectType = Prototype.effectTypes.get(effect.getClass());
                     System.out.printf("    %s", effectType);
                     if (effectType.equals(Prototype.effectTypes.get(SpeedEffect.class))) {
-                        System.out.print(String.format("-%.1f", ((SpeedEffect) effect).getMultiplier()).replace(',', '.'));
+                        System.out.print(
+                                String.format("-%.1f", ((SpeedEffect) effect).getMultiplier()).replace(',', '.'));
                     }
                     System.out.print(' ');
                 }
@@ -289,7 +290,7 @@ public class Interaction {
         }
 
         for (int i = 0; i < n; i++) {
-            double next = RandomProvider.RandomConstants.getOrDefault(input[1], Double.parseDouble(input[1]));
+            double next = Double.parseDouble(input[1]);
             RandomProvider.addNext(next);
         }
     }
