@@ -46,7 +46,7 @@ public class Prototype {
 
     
     public static void main(String[] args) {
-        Controller.addTectonEventHandler(Interaction::objectEvent);
+        Controller.addObjectEventHandler(Interaction::objectEvent);
         scanner = new Scanner(System.in);
         boolean reset;
         do {
