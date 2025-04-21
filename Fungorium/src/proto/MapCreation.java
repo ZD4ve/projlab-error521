@@ -9,7 +9,7 @@ import static proto.Prototype.*;
  * <h3>MapCreation</h3>
  * 
  * A térkép létrehozásáért felelős osztály. A felhasználó a parancssorban adhatja meg a tektonok, gombafonalak, gombatestek,
- * spórák és rovarok létrehozásához szükséges adatokat.
+ * spórák, kolóniák és rovarok létrehozásához szükséges adatokat.
  */
 @java.lang.SuppressWarnings("java:S106") // használható büntetlenül a System IO
 public class MapCreation {
