@@ -44,7 +44,10 @@ public class Prototype {
     /** A felhasználó parancssori bementét olvasó változó. */
     protected static Scanner scanner;
 
-    
+    /**
+     * A prototípus belépési pontja.
+     * Pálya készítésért és interakcióért felelős osztályokat hozza össze.
+     */
     public static void main(String[] args) {
         Controller.addObjectEventHandler(Interaction::objectEvent);
         scanner = new Scanner(System.in);
