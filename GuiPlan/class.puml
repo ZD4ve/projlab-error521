@@ -1,0 +1,50 @@
+@startuml class
+class Cell{
+    draw()
+}
+class Map{
+    Cell[][]
+    draw()
+    getNeighbors(Cell cell) : cell[]
+}
+
+class VTecton{
+    Tecton tecton
+    breaking(Tecton a, Tecton b)
+}
+
+interface Ikonos{
+    getIcon() : icon or null if dead
+}
+class VMycelium{
+    Mycelium mycelium
+}
+class VInsect{
+    Insect insect
+    move(Cell cell)
+    eat(Cell cell)
+    chew(Cell cell)
+}
+class VSpore{
+    Spore spore
+}
+class VMushroom{
+    Mushroom mushroom
+}
+
+class View{
+    Cell selected
+    redraw()
+}
+
+View -- Map
+
+Cell -- Map
+Cell -- Ikonos
+Cell -- VTecton
+
+Ikonos <|-- VMycelium
+Ikonos <|-- VInsect
+Ikonos <|-- VSpore
+Ikonos <|-- VMushroom
+@enduml
