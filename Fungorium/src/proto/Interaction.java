@@ -7,17 +7,30 @@ import java.util.Map.Entry;
 import model.*;
 import static proto.Prototype.*;
 
+/**
+ * <h3>Interaction</h3>
+ * 
+ * Pályán lévő objektumok befolyásolásáért felelős osztály. A felhasználó a parancssorban adhatja meg a tektonok,
+ * gombafonalak, gombatestek, spórák, kolóniák és rovarok befolyásolásához szükséges parancsokat.
+ */
 @java.lang.SuppressWarnings("java:S106") // használható büntetlenül a System IO
 public class Interaction {
+    /** Gyakran használt hiba üzenetek, amik a kód többi részében is előfordulnak. */
     private static final String SYNTAX_ERROR = "Syntax error";
     private static final String NOT_ENOUGH_ARGS = "Syntax error: not enough args";
     private static final String INVALID_ARG = "Syntax error: invalid argument";
 
+    /** Az események figyelmen kívül hagyásáért felelős változó. */
     protected static boolean ignoreEvents;
 
     private Interaction() {
     }
 
+    /**
+     * Tektonok adatainak oszlopfolytonos kiírásáért felelős metódus.
+     * 
+     * @param tectons a kiírandó tektonok
+     */
     private static void printTectonNamesVertically(List<SimpleEntry<String, Tecton>> tectons) {
         for (int i = 0; i < 4; i++) {
             for (Entry<String, Tecton> t : tectons) {
@@ -27,6 +40,11 @@ public class Interaction {
         }
     }
 
+    /**
+     * A tektonok szomszédossági mátrixának megjelenítéséért felelős metódus.
+     * 
+     * @param tectons a szomszédossági mátrixban szereplő tektonok
+     */
     private static void printNeighborMatrix(List<SimpleEntry<String, Tecton>> tectons) {
 
         // header
@@ -44,6 +62,12 @@ public class Interaction {
         }
     }
 
+    /**
+     * Adott fajhoz, a gombafonalak tektonok közötti szomszédossági mátrixának megjelenítéséért felelős metódus.
+     * 
+     * @param tectons a relevánse tektonok
+     * @param f       az adott gombafaj
+     */
     private static void printMyceliumMatrix(List<SimpleEntry<String, Tecton>> tectons, SimpleEntry<String, Fungus> f) {
         System.out.printf("%s %d%n", f.getKey(), f.getValue().getScore());
         // header
@@ -68,6 +92,11 @@ public class Interaction {
         }
     }
 
+    /**
+     * A rovarok adatait megjelenítéséért felelős metódus.
+     * 
+     * @param map a pálya amit bejár, hogy megszerezze a kellő adatokat
+     */
     private static void printInsects(Map<String, Object> map) {
         var colonies = namedObjects.entrySet().stream().filter(x -> x.getKey().startsWith(names.get(Colony.class)))
                 .map(x -> new AbstractMap.SimpleEntry<>(x.getKey(), (Colony) x.getValue()))
@@ -95,7 +124,8 @@ public class Interaction {
                     String effectType = Prototype.effectTypes.get(effect.getClass());
                     System.out.printf("    %s", effectType);
                     if (effectType.equals(Prototype.effectTypes.get(SpeedEffect.class))) {
-                        System.out.print(String.format("-%.1f", ((SpeedEffect) effect).getMultiplier()).replace(',', '.'));
+                        System.out.print(
+                                String.format("-%.1f", ((SpeedEffect) effect).getMultiplier()).replace(',', '.'));
                     }
                     System.out.print(' ');
                 }
@@ -105,6 +135,9 @@ public class Interaction {
         }
     }
 
+    /**
+     * A pálya jelenlegi állapotának megjelenítéséért felelős metódus.
+     */
     private static void printState() {
         var tectons = namedObjects.entrySet().stream().filter(x -> x.getKey().startsWith(names.get(Tecton.class)))
                 .map(x -> new AbstractMap.SimpleEntry<>(x.getKey(), (Tecton) x.getValue()))
@@ -121,6 +154,12 @@ public class Interaction {
         printInsects(namedObjects);
     }
 
+    /**
+     * Gombafajok befolyásolásáért felelős metódus. Lehet, a gombafajhoz tartozó, gombatestet vagy gombafonalat
+     * növeszteni.
+     * 
+     * @param input a konzol parancsok, melyeket a metódus ellenőriz
+     */
     private static void handleFungus(String[] input) {
         if (input.length < 3) {
             System.out.println(NOT_ENOUGH_ARGS);
@@ -153,6 +192,12 @@ public class Interaction {
         }
     }
 
+    /**
+     * Adott gombafajhoz tartozó gombatest növesztéséért felelős metódus.
+     * 
+     * @param f     a gombfaj, amelyik növeszt
+     * @param input a konzol parancsok, melyeket a metódus ellenőriz
+     */
     private static void handleFungusGrowMycelium(Fungus f, String[] input) {
         if (input.length < 4) {
             System.out.println(SYNTAX_ERROR + ": 4 args needed.");
@@ -176,6 +221,11 @@ public class Interaction {
         }
     }
 
+    /**
+     * Gombatestek befolyásolásáért felelős metódus. A gombatest tud spórát szórni, vagy meghalni.
+     * 
+     * @param input a konzol parancsok, melyeket a metódus ellenőriz
+     */
     private static void handleMushroom(String[] input) {
         Mushroom m = (Mushroom) namedObjects.get(input[0]);
         if (m == null) {
@@ -209,6 +259,11 @@ public class Interaction {
         }
     }
 
+    /**
+     * Rovarok befolyásolásáért felelős metódus. A rovarok tudnak mozogni, gombafonalat rágni és spórát enni.
+     * 
+     * @param input a konzol parancsok, melyeket a metódus ellenőriz
+     */
     private static void handleInsect(String[] input) {
         if (input.length < 2) {
             System.out.println(NOT_ENOUGH_ARGS);
@@ -242,6 +297,12 @@ public class Interaction {
         }
     }
 
+    /**
+     * Rovar gombafonal rágásáért felelős metódus.
+     * 
+     * @param in    rovar, mely rág
+     * @param input a konzol parancsok, melyeket a metódus ellenőriz
+     */
     private static void handleInsectChew(Insect in, String[] input) {
         if (input.length < 3) {
             System.out.println(NOT_ENOUGH_ARGS);
@@ -259,6 +320,11 @@ public class Interaction {
         }
     }
 
+    /**
+     * IActive interfészt megvalósító osztályok Tick metódusának kezelésért felelős metódus.
+     * 
+     * @param input a konzol parancsok, melyeket a metódus ellenőriz
+     */
     private static void handleTick(String[] input) {
         if (input.length < 2) {
             System.out.println(SYNTAX_ERROR);
@@ -268,6 +334,12 @@ public class Interaction {
         Controller.onTimeElapsed(dT);
     }
 
+    /**
+     * Következő random kezeléséért felelős metódus. A paraméterek között szereplő számokből kiválaszott n egész darab
+     * randomot fog következőnek kezelni.
+     * 
+     * @param input a konzol parancsok, melyeket a metódus ellenőriz
+     */
     private static void handleNextRand(String[] input) {
         if (input.length < 2) {
             System.out.println(SYNTAX_ERROR);
@@ -289,16 +361,24 @@ public class Interaction {
         }
 
         for (int i = 0; i < n; i++) {
-            double next = RandomProvider.RandomConstants.getOrDefault(input[1], Double.parseDouble(input[1]));
+            double next = Double.parseDouble(input[1]);
             RandomProvider.addNext(next);
         }
     }
 
+    /**
+     * A reset parancs kezeléséért felelős metódus.
+     */
     private static void handleReset() {
         Controller.reset();
         namedObjects.clear();
     }
 
+    /**
+     * A pályán történő változások megvalósításáért és kezeléséért felelős metódus.
+     * 
+     * @return exit parancs kiadásakor false, true különben
+     */
     public static boolean handleInteractions() {
         String[] input;
         do {
@@ -333,6 +413,12 @@ public class Interaction {
         } while (true);
     }
 
+    /**
+     * Objektumok kezeléséért felelős metódus.
+     * 
+     * @param o     a releváns objektum
+     * @param added dönt arról, hogy törölni vagy hozzáadni kell az objektumot
+     */
     public static void objectEvent(Object o, boolean added) {
         if (ignoreEvents || !names.containsKey(o.getClass())) {
             return;

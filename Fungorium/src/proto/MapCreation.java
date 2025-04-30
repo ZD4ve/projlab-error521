@@ -5,10 +5,17 @@ import java.util.Arrays;
 import model.*;
 import static proto.Prototype.*;
 
+/**
+ * <h3>MapCreation</h3>
+ * 
+ * A térkép létrehozásáért felelős osztály. A felhasználó a parancssorban adhatja meg a tektonok, gombafonalak, gombatestek,
+ * spórák, kolóniák és rovarok létrehozásához szükséges adatokat.
+ */
 @java.lang.SuppressWarnings("java:S106") // használható büntetlenül a System IO
 public class MapCreation {
     private MapCreation() {}
 
+    /** Gyakran használt hiba üzenetek, amik a kód többi részében is előfordulnak. */
     private static final String SYNTAX_ERROR = "Syntax error";
     private static final String NOT_ENOUGH_ARGS = "Syntax error: not enough args";
     private static final String INVALID_ARG = "Syntax error: invalid argument";
@@ -16,6 +23,12 @@ public class MapCreation {
     private static final String TECTON_INVALID = ": invalid tecton name";
     private static final String SPORE_INVALID = ": invalid spore count";
 
+    /**
+     * Egy új tekton létrehozása. A tekton típusa a paraméter alapján kerül meghatározásra.
+     * Ha nem megfelelő a tekton típusa, akkor hibaüzenetet ír ki.
+     * 
+     * @param tecton a tekton típusa
+     */
     private static void handleTecton(String tecton) {
         switch (tecton) {
             case "tect" -> registerNamedObject(Tecton.class, new Tecton());
@@ -27,6 +40,12 @@ public class MapCreation {
         }
     }
 
+    /**
+     * A tektonok létrehozásáért felelős almenüt megvalósító metódus. 
+     * A felhasználó a parancssorban adhatja meg a tekton típusát.
+     * 
+     * @param input a felhasználó által megadott bemenet
+     */
     private static void tectonsMenu() {
         do {
             if (!scanner.hasNextLine())
@@ -39,6 +58,14 @@ public class MapCreation {
         } while (true);
     }
 
+    /**
+     * Két tekton szomszédosságának létrehozásáért felelős metódus.
+     * A paraméterek alapján ellenőrzi, hogy a második paraméter az előírtaknak megfelelő-e, továbbá léteznek-e a tektonok, és ha igen, akkor létrehozza a szomszédosságot.
+     * 
+     * @param t1    a bal oldali tekton neve
+     * @param check a szomszédság jelölését ellenőrző szöveg
+     * @param t2    a jobb oldali tekton neve
+     */
     private static void handleNeighbor(String t1, String check, String t2) {
         if (!check.equals("--")) {
             System.out.println(SYNTAX_ERROR + ": invalid neighbor definition");
@@ -61,6 +88,10 @@ public class MapCreation {
         right.addNeighbor(left);
     }
 
+    /**
+     * A tektonok szomszédosságának beállításáért felelős almenüt megvalósító metódus.
+     * A felhasználó a parancssorban adhatja meg a tektonok nevét az előírt szintaktika alapján.
+     */
     private static void neighborsMenu() {
         do {
             if (!scanner.hasNextLine())
@@ -79,6 +110,16 @@ public class MapCreation {
         } while (true);
     }
 
+    /**
+     * Gombatest létrehozásáért felelős metódus.
+     * A paraméterek alapján ellenőrzi, hogy a gombafaj és a tekton létezik-e, és ha igen, akkor létrehozza a gombatestet,
+     * illetve beállítja az opcionális paraméteret, ha azok adottak.
+     * 
+     * @param f        a gombafaj neve
+     * @param t        a tekton neve
+     * @param isGrown  a gombatest növekedésének állapota
+     * @param sporeCount a gombatest spóráinak száma
+     */
     private static void handleMushroom(String f, String t, String isGrown, String sporeCount) { // NOSONAR
         boolean isGrownBoolean = false;
         if (isGrown.equals("true")) {
@@ -124,6 +165,10 @@ public class MapCreation {
         Prototype.registerNamedObject(Mushroom.class, mushroom);
     }
     
+    /**
+     * A gombatestek létrehozásáért felelős almenüt megvalósító metódus.
+     * A felhasználó a parancssorban adhatja meg a gombafaj nevét, a tekton nevét, a gombatest növekedésének állapotát és az opcionális spóraszámot.
+     */
     private static void mushroomsMenu() {
         do {
             if (!scanner.hasNextLine())
@@ -148,6 +193,16 @@ public class MapCreation {
         } while (true);
     }
 
+    /**
+     * Gombafonal létrehozásáért felelős metódus.
+     * A paraméterek alapján ellenőrzi, hogy a gombafonalak és a gombatest léteznek-e, és ha igen, akkor létrehozza a gombafonalat.
+     * 
+     * @param t1      a bal oldali tekton neve
+     * @param check1  a tektonok közötti kapcsolat jelölése
+     * @param t2      a jobb oldali tekton neve
+     * @param check2  a gombafajhoz való tartozás jelölése
+     * @param f       a gombafaj neve
+     */
     private static void handleMycelium(String t1, String check1, String t2, String check2, String f) {
         if (!check1.equals("..") || !check2.equals(":")) {
             System.out.println(SYNTAX_ERROR + ": invalid mycelium definition");
@@ -178,6 +233,10 @@ public class MapCreation {
 
     }
 
+    /**
+     * A gombafonalak létrehozásáért felelős almenüt megvalósító metódus.
+     * A felhasználó a parancssorban adhatja meg a tektonok nevét, a gombafaj nevét és az opcionális paramétereket.
+     */
     private static void myceliaMenu() {
         do {
             if (!scanner.hasNextLine())
@@ -196,6 +255,15 @@ public class MapCreation {
         } while (true);
     }
 
+    /**
+     * Spóra létrehozásáért felelős metódus.
+     * A paraméterek alapján ellenőrzi, hogy a gombafaj és a tekton léteznek-e, és ha igen, akkor létrehozza a spórát,
+     * illetve spórákat, ha darabszám is meg lett adva.
+     * 
+     * @param f a gombafaj neve
+     * @param t a tekton neve
+     * @param db a létrehozandó spórák száma
+     */
     private static void handleSpore(String f, String t, String db) {
         var fungus = (Fungus) namedObjects.get(f);
         if (fungus == null) {
@@ -226,6 +294,10 @@ public class MapCreation {
         }
     }
 
+    /**
+     * A spórák létrehozásáért felelős almenüt megvalósító metódus.
+     * A felhasználó a parancssorban adhatja meg a gombafaj nevét, a tekton nevét és az opcionális darabszámot.
+     */
     private static void sporesMenu() {
         do {
             if (!scanner.hasNextLine())
@@ -248,6 +320,15 @@ public class MapCreation {
         } while (true);
     }
 
+    /**
+     * Rovar létrehozásáért felelős metódus.
+     * A paraméterek alapján ellenőrzi, hogy a kolónia és a tekton léteznek-e, és ha igen, akkor létrehozza a rovart,
+     * illetve beállítja a sebességét.
+     * 
+     * @param c a kolónia neve
+     * @param t a tekton neve
+     * @param s a rovar sebessége
+     */
     private static void handleInsect(String c, String t, String s) {
         var colony = (Colony) namedObjects.get(c);
         if (colony == null) {
@@ -278,6 +359,10 @@ public class MapCreation {
         registerNamedObject(Insect.class, insect);
     }
 
+    /**
+     * A rovarok létrehozásáért felelős almenüt megvalósító metódus.
+     * A felhasználó a parancssorban adhatja meg a kolónia nevét, a tekton nevét és az opcionális sebességet.
+     */
     private static void insectsMenu() {
         do {
             if (!scanner.hasNextLine())
@@ -299,6 +384,13 @@ public class MapCreation {
         } while (true);
     }
 
+    /**
+     * Gombafaj létrehozásáért felelős metódus.
+     * A paraméterek alapján ellenőrzi, hogy a darabszám helyes formátumú-e,
+     * és ha igen, akkor létrehozz cnt darabszámú a gombafajt,
+     * 
+     * @param cnt a darabszám
+     */
     private static void handleFungi(String cnt) {
         try {
             int count = Integer.parseInt(cnt);
@@ -310,6 +402,13 @@ public class MapCreation {
         }
     }
 
+    /**
+     * Kolónia létrehozásáért felelős metódus.
+     * A paraméterek alapján ellenőrzi, hogy a darabszám helyes formátumú-e,
+     * és ha igen, akkor létrehozz cnt darabszámú kolóniát.
+     * 
+     * @param cnt a darabszám
+     */
     private static void handleColonies(String cnt) {
         try {
             int count = Integer.parseInt(cnt);
@@ -321,6 +420,10 @@ public class MapCreation {
         }
     }
 
+    /**
+     * A főmenüt megvalósító metódus.
+     * A felhasználó a parancssorban adhatja meg az előírt szintaktika alapján a parancsokat.
+     */
     public static void createMap() {
         do {
             if (!scanner.hasNextLine())
