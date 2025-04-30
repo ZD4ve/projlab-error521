@@ -34,6 +34,8 @@ class VMushroom{
 
 class View{
     Cell selected
+    Fungus selectedFungus
+    Colony selectedColony
     redraw()
 }
 
