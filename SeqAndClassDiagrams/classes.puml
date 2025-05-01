@@ -47,7 +47,6 @@ class Insect {
     speed
     antiChewCount
     isParalysed
-    score
     Insect(Tecton)
     eatSpore() : boolean
     getPotentialMoveTargets() : Tecton[]
@@ -88,4 +87,16 @@ Insect ..> Mycelium
 Insect ..> Spore
 Mushroom ..> Spore
 
+
+
+'Added after view design
+'TODO fix this diagram, add missing stuff
+class Colony{
+    score
+    addScore()
+    born(Insect)
+    died(Insect)
+}
+
+Colony "colony 1" -- "insects *" Insect
 @enduml
