@@ -1,0 +1,81 @@
+@startuml click
+hide footbox
+participant "view:View" as view
+participant "selected.item:Iicon" as selectedItem
+participant "c.item:Iicon" as cItem
+participant "selectedFungus:VFungus" as selectedFungus
+participant "selected:Cell" as selected
+participant "c:Cell" as c
+participant "map:Map" as map
+
+
+-> view : click(x, y)
+activate view
+view -> map : cellAt(x, y)
+activate map
+return c
+alt selected is null
+    note over view : set selected to c
+else selected is not null
+    view -> selected : getItem()
+    activate selected
+    return selected.item
+    view -> selectedItem : getType()
+    activate selectedItem
+    return type1
+    view -> c : getItem()
+    activate c
+    return c.item
+    view -> cItem : getType()
+    activate cItem
+    return type2
+    alt selectedColony is not null
+        opt type1 == VInsect
+            note over view : cast selected.item to VInsect 
+            ' itt néhány hívást lespóroltam, de be lehet rakni ha muszáj
+            opt selected.item.insect.colony == selectedColony.colony
+                alt type2 is null
+                    view -> selectedItem : move(c)
+                    activate selectedItem
+                    note over selectedItem : see insectMove
+                    return
+                else type2 == VSpore
+                    view -> selectedItem : eat(c)
+                    activate selectedItem
+                    note over selectedItem : see insectEat
+                    return
+                else type2 == VMycelium
+                    view -> selectedItem : chew(c)
+                    activate selectedItem
+                    note over selectedItem : see insectChew
+                    return
+                end
+            end
+        end
+    else selectedFungus is not null
+        alt type1 is null and type2 is null
+            alt selected == c
+                view -> selectedFungus : growMushroom(c)
+                activate selectedFungus
+                note over selectedFungus : see fungusGrowMushroom
+                return
+            else selected != c
+                view -> selectedFungus : growMycelium(c, selected)
+                activate selectedFungus
+                note over selectedFungus : see fungusGrowMycelium
+                return
+            end
+        else type1 == VMushroom and type2 is null
+            note over view : cast selected.item to VMushroom
+            opt selected.item.mushroom.fungus == selectedFungus.fungus
+                view -> selectedFungus : burst(c)
+                activate selectedFungus
+                note over selectedFungus : see fungusBurst
+                return
+            end
+        end
+    end
+    note over view : set selected to null
+end
+return
+@enduml

@@ -14,6 +14,7 @@ class Cell{
 class Map{
     draw()
     getNeighbors(Cell cell) : cell[]
+    cellAt(int x, int y) : Cell
 }
 
 class VTecton{
@@ -24,6 +25,7 @@ VTecton "1" --> "tecton 1" Tecton
 
 interface Iicon{
     {abstract} getIcon() : icon or null if dead
+    {abstract} getType() : Class
 }
 class VMycelium{}
 VMycelium "1" --> "mycelium 1" Mycelium
