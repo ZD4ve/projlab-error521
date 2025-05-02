@@ -1,0 +1,52 @@
+@startuml rendering
+hide footbox
+
+participant "view:View" as view
+participant "map:Map" as map
+collections "cells:Cell" as cells
+participant "tecton:VTecton" as tecton
+participant "item:Iicon" as item
+collections "neighbors:Cell" as neighbors
+
+-> view : redraw()
+activate view
+view -> map : draw()
+activate map
+map -> cells : draw()
+activate cells
+cells -> tecton : getColor()
+activate tecton
+return color
+note over cells : fill background with color
+opt item is not null
+    cells -> item : getIcon()
+    activate item
+    return icon
+    alt icon is not null
+        note over cells : draw icon
+    else icon is null
+        note over cells : set item to null
+    end
+end
+cells -> map : getNeighbors(cell)
+activate map
+return neighbors
+cells -> neighbors : getTecton()
+activate neighbors
+return neighborVTectons
+loop nbT in neighborVTectons
+    opt nbT != tecton
+        note over cells : draw edge between them
+    end
+end
+cells -> view : getSelected()
+activate view
+return selected
+opt selected == this
+    note over cells : draw border
+end
+return
+return
+return
+
+@enduml

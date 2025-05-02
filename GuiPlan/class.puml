@@ -22,7 +22,7 @@ class VTecton{
 }
 VTecton "1" --> "tecton 1" Tecton
 
-interface Ikonos{
+interface Iicon{
     {abstract} getIcon() : icon or null if dead
 }
 class VMycelium{}
@@ -65,11 +65,11 @@ View --> "map 1" Map
 View --> "tectons *" VTecton
 
 Cell "cells *" <-- "1" Map
-Cell "cell 1" -- "item 1" Ikonos
-Cell "cells *" -- "tecton *" VTecton
+Cell "cell 1" -- "item 1" Iicon
+Cell "cells *" -- "tecton 1" VTecton
 
-Ikonos <|-- VMycelium
-Ikonos <|-- VInsect
-Ikonos <|-- VSpore
-Ikonos <|-- VMushroom
+Iicon <|-- VMycelium
+Iicon <|-- VInsect
+Iicon <|-- VSpore
+Iicon <|-- VMushroom
 @enduml
