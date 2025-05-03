@@ -1,8 +1,8 @@
 @startuml click
 hide footbox
 participant "view:View" as view
-participant "selected.item:Iicon" as selectedItem
-participant "c.item:Iicon" as cItem
+participant "selected.item:IIcon" as selectedItem
+participant "c.item:IIcon" as cItem
 participant "selectedFungus:VFungus" as selectedFungus
 participant "selected:Cell" as selected
 participant "c:Cell" as c
@@ -68,9 +68,9 @@ else selected is not null
         else type1 == VMushroom and type2 is null
             note over view : cast selected.item to VMushroom
             opt selected.item.mushroom.fungus == selectedFungus.fungus
-                view -> selectedFungus : burst(c)
-                activate selectedFungus
-                note over selectedFungus : see fungusBurst
+                view -> selectedItem : burst(c)
+                activate selectedItem
+                note over selectedItem : see fungusBurst
                 return
             end
         end

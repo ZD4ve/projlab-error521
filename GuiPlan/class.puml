@@ -23,12 +23,12 @@ class VTecton{
 }
 VTecton "1" --> "tecton 1" Tecton
 
-interface Iicon{
+interface IIcon{
     {abstract} getIcon() : icon or null if dead
     {abstract} getType() : Class
 }
 class VMycelium{}
-VMycelium "1" --> "mycelium 1" Mycelium
+VMycelium "2" --> "mycelium 1" Mycelium
 class VInsect{
     move(Cell cell)
     eat(Cell cell)
@@ -67,11 +67,11 @@ View --> "map 1" Map
 View --> "tectons *" VTecton
 
 Cell "cells *" <-- "1" Map
-Cell "cell 1" -- "item 1" Iicon
+Cell "cell 1" -- "item 1" IIcon
 Cell "cells *" -- "tecton 1" VTecton
 
-Iicon <|-- VMycelium
-Iicon <|-- VInsect
-Iicon <|-- VSpore
-Iicon <|-- VMushroom
+IIcon <|-- VMycelium
+IIcon <|-- VInsect
+IIcon <|-- VSpore
+IIcon <|-- VMushroom
 @enduml

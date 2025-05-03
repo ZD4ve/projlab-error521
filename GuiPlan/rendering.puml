@@ -5,7 +5,7 @@ participant "view:View" as view
 participant "map:Map" as map
 collections "cells:Cell" as cells
 participant "tecton:VTecton" as tecton
-participant "item:Iicon" as item
+participant "item:IIcon" as item
 collections "neighbors:Cell" as neighbors
 
 -> view : redraw()
