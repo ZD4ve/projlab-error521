@@ -6,7 +6,7 @@ actor User
 participant "view:View" as view
 participant "selected.item:IIcon" as selectedItem
 participant "c.item:IIcon" as cItem
-participant "selectedFungus:VFungus" as selectedFungus
+participant "selectedPlayer:VFungus" as selectedFungus
 participant "selected:Cell" as selected
 participant "c:Cell" as c
 participant "map:Map" as map
@@ -34,7 +34,10 @@ else selected is not null
     view -> cItem : getType()
     activate cItem
     return type2
-    alt selectedColony is not null
+    view -> selectedFungus : getType()
+    activate selectedFungus
+    return playertype
+    alt playertype == VColony
         opt type1 == VInsect
             note over view : cast selected.item to VInsect 
             ' itt néhány hívást lespóroltam, de be lehet rakni ha muszáj
@@ -57,7 +60,8 @@ else selected is not null
                 end
             end
         end
-    else selectedFungus is not null
+    else playertype == VFungus
+        note over view : cast selectedPlayer to VFungus
         alt type1 is null and type2 is null
             alt selected == c
                 view -> selectedFungus : growMushroom(c)

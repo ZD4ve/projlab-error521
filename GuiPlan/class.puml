@@ -35,7 +35,8 @@ VMycelium "2" --> "mycelium 1" Mycelium
 abstract VPlayer
 {
     color: Color
-    {abstract} selectPlayer()
+    selectPlayer()
+    {abstract} getType() : Class
 }
 
 class VInsect{
