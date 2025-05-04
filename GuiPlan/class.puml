@@ -8,7 +8,7 @@ package view{
 class Cell{
     int x
     int y
-    Cell(int x, int y, int size)
+    Cell(int x, int y)
     {static} int size
     draw()
 }
