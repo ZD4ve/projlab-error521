@@ -47,7 +47,7 @@ class Insect {
     speed
     antiChewCount
     isParalysed
-    Insect(Tecton)
+    Insect(Colony,Tecton)
     eatSpore() : boolean
     getPotentialMoveTargets() : Tecton[]
     getPotencialChewTargets() : Mycelium[]

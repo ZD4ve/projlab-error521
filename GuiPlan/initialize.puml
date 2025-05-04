@@ -1,0 +1,108 @@
+@startuml init
+hide footbox
+
+participant "view:View" as view
+
+
+participant "map:Map" as map
+participant "cell:Cell" as cell
+collections "cells:Cell" as cells
+
+participant "tecton:Tecton" as tecton
+participant "vtecton:VTecton" as vtecton
+
+participant "fungi:Fungus" as fungus
+participant "vfungus:VFungus" as vfungus
+collections "allFungi:VFungus" as allFungi
+participant "mushroom:Mushroom" as mushroom
+participant "vmushroom:VMushroom" as vmushroom
+
+participant "colony:Colony" as col
+participant "vcolony:VColony" as vcol
+collections "allColonies:VColony" as allCol
+participant "insect:Insect" as insect
+participant "vinsect:VInsect" as vinsect
+
+
+activate view
+--> view : create(tecNum, fungiNum, colNum)
+view --> map : createCells(n, m)
+activate map
+
+loop
+    create cell
+        map --> cell: new(x,y,size)
+    activate cell
+    return
+    map --> cells : add(cell)
+    activate cells
+    return
+end
+
+return
+
+loop
+    create tecton
+        view --> tecton : new()
+    activate tecton
+    return
+    note over view : generate tectonCells
+    create vtecton
+        view --> vtecton : new(tectonCells, tecton)
+    activate vtecton
+    return
+end
+
+loop
+    create fungus
+        view --> fungus : new()
+    activate fungus
+    return
+    create vfungus
+        view --> vfungus : new(fungus)
+    activate vfungus
+    return
+    view --> allFungi : add(vfungus)
+    activate allFungi
+    return
+    note over view : determine mushroom tecton and cell
+    create mushroom
+        view --> mushroom : new(fungus, tecton)
+    activate mushroom
+    return
+    create vmushroom
+        view --> vmushroom : new(cell, mushroom)
+    activate vmushroom
+    return
+end
+
+loop
+    create col
+        view --> col : new()
+    activate col
+    return
+    create vcol
+        view --> vcol : new(colony)
+    activate vcol
+    return
+    view --> allCol : add(vcolony)
+    activate allCol
+    return
+    note over view : determine insect tecton and cell
+    create insect
+        view --> insect : new(colony, tecton)
+    activate insect
+    return
+    create vinsect
+        view --> vinsect : new(cell, insect)
+    activate vinsect
+    return
+end
+
+
+
+
+
+
+
+@enduml

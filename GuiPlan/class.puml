@@ -36,6 +36,7 @@ VMycelium "2" --> "mycelium 1" Mycelium
 abstract VPlayer
 {
     color: Color
+    VPlayer()
     selectPlayer()
     {abstract} getType() : Class
 }
@@ -60,17 +61,21 @@ class VMushroom{
 VMushroom "1" --> "mushroom 1" Mushroom 
 
 class VFungus{
+    VFungus(Fungus)
     growMushroom(Cell cell)
     growMycelium(Cell cella, Cell cellb)
 }
 VFungus "1" --> "fungus 1" Fungus
 
-class VColony{}
+class VColony{
+    VColony(Colony)
+}
 VColony "1" --> "colony 1" Colony
 
 class View{
     remainingTime : double
     'called by clock
+    View()
     redraw()
     'sound effect
     {static} notifyUser()
