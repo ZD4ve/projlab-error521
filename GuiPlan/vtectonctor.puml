@@ -12,7 +12,7 @@ collections "insects:VInsect" as insects
 participant "tecton:Tecton" as tecton
 
 create vtecton
-dying -> vtecton : new( cells, tecton)
+dying -> vtecton : new(cells, tecton)
 activate vtecton
 
 loop cell in cells
