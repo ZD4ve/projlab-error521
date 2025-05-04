@@ -9,7 +9,7 @@ class Tecton {
     addSpore(Spore)
     removeNeighbor(Tecton)
     removeInsect(Insect)
-    fillWithStuff(Spore[], Mushroom, Insect[], Tecton[])
+    fillWithStuff(Spore[], Mushroom, Insect[], Tecton[], ITectonFiller)
     hasMyceliumTo(Tecton) : boolean
     canGrowMyceliumFrom(Fungus) : boolean
     keepsMyceliumAlive() : boolean
