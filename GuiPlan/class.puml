@@ -8,11 +8,13 @@ package view{
 class Cell{
     int x
     int y
+    Cell(int x, int y, int size)
     {static} int size
     draw()
 }
 class Map{
     draw()
+    Map(int n, int m)
     getNeighbors(Cell cell) : cell[]
     cellAt(int x, int y) : Cell
 }
