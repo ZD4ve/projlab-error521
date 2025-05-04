@@ -85,7 +85,6 @@ Controller "1" --> "view 1" View
 }
 
 View --> "map 1" Map
-View --> "tectons *" VTecton
 
 Cell "cells *" <-- "1" Map
 Cell "cell 1" -- "item 1" IIcon
