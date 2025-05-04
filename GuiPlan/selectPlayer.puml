@@ -1,0 +1,17 @@
+@startuml selectPlayer
+hide footbox
+
+
+actor User
+participant "clickedPlayer:VPlayer" as player
+participant "view:View" as view
+
+User -> player : selectPlayer()
+activate player
+
+player -> view : setSelectedPlayer()
+activate view
+return
+
+return
+@enduml
