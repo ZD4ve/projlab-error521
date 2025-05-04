@@ -65,7 +65,7 @@ end
 
 note over vtecton : remove tecton from neighborTectons
 
-vtecton -> tecton : fillWithStuff(spores, mushroom, insects, neighborTectons)
+vtecton -> tecton : fillWithStuff(spores, mushroom, insects, neighborTectons, vtecton)
 activate tecton
 return
 

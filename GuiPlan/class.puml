@@ -60,8 +60,8 @@ VFungus "1" --> "fungus 1" Fungus
 class VColony{}
 VColony "1" --> "colony 1" Colony
 
-
 class View{
+    remainingTime : double
     'called by clock
     redraw()
     'sound effect
