@@ -50,6 +50,7 @@ class VInsect{
     chew(Cell cell)
 }
 VInsect "1" --> "insect 1" Insect
+VInsect ..> InsectEffect : <<use>>
 
 class VSpore{
     VSpore(Cell cell, Spore spore)
@@ -68,6 +69,7 @@ class VFungus{
     growMycelium(Cell cella, Cell cellb)
 }
 VFungus "1" --> "fungus 1" Fungus
+VFungus ..> Cell : <<use>>
 
 class VColony{
     VColony(Colony)
@@ -107,4 +109,5 @@ VPlayer <|-- VColony
 VPlayer <|-- VFungus
 
 VTecton --|> ITectonFiller
+
 @enduml
