@@ -1,14 +1,17 @@
-@startuml
-hide footbox
+@startuml breaking
+hide footbox 
 
-participant "vtecton:VTecton" as vtecton
+participant "dying:Tecton" as dying
+
+participant "filler:VTecton" as vtecton
 participant "map:Map" as map
 participant "a:Tecton" as a
 participant "b:Tecton" as b
 participant "newvtecton1:VTecton" as newvtecton1
 participant "newvtecton2:VTecton" as newvtecton2
 
--> vtecton : breaking(a, b)
+note over dying : if dying is breaking
+dying -> vtecton : breaking(tecton, a, b)
 activate vtecton
 
 note over vtecton : split cells between a and b

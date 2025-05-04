@@ -99,4 +99,10 @@ class Colony{
 }
 
 Colony "colony 1" -- "insects *" Insect
+
+interface ITectonFiller{
+    breaking(Tecton?, Tecton, Tecton)
+} 
+ITectonFiller "filler 1" <-- "1" Tecton
+
 @enduml

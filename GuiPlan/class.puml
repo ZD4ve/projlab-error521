@@ -18,7 +18,6 @@ class Map{
 }
 
 class VTecton{
-    breaking(Tecton a, Tecton b)
     getColor() : color
 }
 VTecton "1" --> "tecton 1" Tecton
@@ -50,7 +49,7 @@ class VMushroom{
     VMushroom(Cell cell, Mushroom mushroom)
     burst(Cell cell)
 }
-VMushroom "1" --> "mushroom 1" Mushroom
+VMushroom "1" --> "mushroom 1" Mushroom 
 
 class VFungus{
     growMushroom(Cell cell)
@@ -86,4 +85,6 @@ IIcon <|-- VMycelium
 IIcon <|-- VInsect
 IIcon <|-- VSpore
 IIcon <|-- VMushroom
+
+VTecton --|> ITectonFiller
 @enduml

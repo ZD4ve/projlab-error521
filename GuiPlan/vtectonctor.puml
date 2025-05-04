@@ -1,6 +1,7 @@
-@startuml
+@startuml VTectonCtor
 hide footbox
 
+participant "dying:VTecton" as dying
 participant "vtecton:VTecton" as vtecton
 participant "map:Map" as map
 collections "spores:VSpore" as spores
@@ -11,7 +12,7 @@ collections "insects:VInsect" as insects
 participant "tecton:Tecton" as tecton
 
 create vtecton
--> vtecton : new(cells, tecton)
+dying -> vtecton : new( cells, tecton)
 activate vtecton
 
 loop cell in cells
