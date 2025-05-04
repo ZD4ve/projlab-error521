@@ -71,6 +71,8 @@ class View{
 View "1" --> "selected 1" Cell
 View "1" --> "selectedFungus 1" VFungus
 View "1" --> "selectedColony 1" VColony
+View "1" --> "allFungi *" VFungus
+View "1" --> "allColonies *" VColony
 Controller "1" --> "view 1" View
 }
 

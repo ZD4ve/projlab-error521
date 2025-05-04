@@ -1,0 +1,38 @@
+ha fut korábbi checkConnectivity:
+    vége
+
+kiindulóTektonok = { azon tektonok, amelyekre keepsMyceliumAlive(gombafaj) igaz }
+élőErdő = {}
+
+minden tekton elemére a kiindulóTektonok halmaznak:
+    sor = [tekton]
+    élőErdő += tekton
+    amíg sor nem üres:
+        start = sor[1]
+        töröl sor 1. eleme 
+        szomszédok = { azon tektonok, amelyek össze vannak kötve start-al fonál által}
+        sor = szomszédok + sor
+        élőErdő += szomszédok
+
+minden fonál elemére a mycelium tömbnek:
+    ha fonál nem eleme az élőErdő-nek:
+        fonál.die()
+
+
+--------------
+
+kész = {}
+sor = [jelenlegi tekton]
+tav = 0
+amíg sor nem üres:
+  szomszedsag = []
+  minden t elemére a sor listának:
+    ha t == jelenlegi tekton:
+        visszatér tav
+    minden szomszéd elemére a t.neighbors listának:
+      ha szomszéd nincs a kész halmazban:
+        kész += szomszéd
+        szomszédság += szomszéd
+  sor = szomszedsag
+  tav += 1
+visszatér végtelen
