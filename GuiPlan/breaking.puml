@@ -20,17 +20,17 @@ loop cell in vtecton.cells
     vtecton -> map : getNeighbors(cell)
     activate map
 
-    return getNeighbors
+    return neighbors
 end
 
 create newvtecton1
-vtecton -> newvtecton1 : new(acells)
+vtecton -> newvtecton1 : new(acells, a)
 activate newvtecton1
 
 return
 
 create newvtecton2
-vtecton -> newvtecton2 : new(acells)
+vtecton -> newvtecton2 : new(bcells, b)
 activate newvtecton2
 
 return
