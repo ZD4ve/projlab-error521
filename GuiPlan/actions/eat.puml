@@ -5,7 +5,14 @@ participant "insect:Insect" as insect
 participant "cell:Cell" as cell
 participant "target:Cell" as target
 
+participant "colony:Colony" as colony
+participant "newinsect:Insect" as newinsect
+participant "newvinsect:VInsect" as newvinsect
 
+participant "vtecton:VTecton" as vtecton
+collections "cells:Cell" as cells
+collections "items:IIcon" as items
+participant "empty:Cell" as empty
 
 participant "view:View" as view
 
@@ -17,17 +24,50 @@ return vtecton1
 vinsect -> target : getTecton()
 activate target
 return vtecton2
-opt vtecton1 == vtecton2
+alt vtecton1 == vtecton2
+    vinsect -> insect : getColony()
+    activate insect
+    return colony
+    vinsect -> colony : getInsects()
+    activate colony
+    return insects1
     vinsect -> insect : eatSpore()
     activate insect
     return success
-    'TODO rovar osztódásnál meg kell keresni, h melyik spóra tűnt el és oda rakni az új rovart
-    'vagy átírni az Insect-et úgy, hogy a rovar konrét spórát eszik meg
+    alt success
+        vinsect -> colony : getInsects()
+        activate colony
+        return insects2
+        opt insects1 != insects2
+            note over vinsect : last item of insects2 is newinsect
+            vinsect -> cell : getTecton()
+            activate cell
+            return vtecton
+            vinsect -> vtecton : getCells()
+            activate vtecton
+            return cells
+            vinsect -> cells : getItem()
+            activate cells
+            return items
+            vinsect -> items : getIcon()
+            activate items
+            return icon
+            note over vinsect : empty = cell where icon is null
+            create newvinsect
+            vinsect -> newvinsect : new(empty, newinsect)
+            activate newvinsect
+                newvinsect -> empty : setItem(newvinsect)
+                activate empty
+                return
+            return
+        end
 
-    'ez feltételen kell? kifelejtjük? és majd megoldjuk kódban?
-end
-note right : dead item removal is handled by rendering()
-opt vtecton1 != vtecton2 || !success
+    else 
+        vinsect -> view : notifyUser()
+        activate view
+        return
+    end
+else 
     vinsect -> view : notifyUser()
     activate view
     return
