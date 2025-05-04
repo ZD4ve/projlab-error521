@@ -79,6 +79,7 @@ class View{
     'called by clock
     View()
     redraw()
+    create(int tecNum, int fungiNum, int colNum)
     'sound effect
     {static} notifyUser()
     click(int x, int y)
