@@ -1,0 +1,37 @@
+@startuml
+hide footbox
+
+participant "vtecton:VTecton" as vtecton
+participant "map:Map" as map
+participant "a:Tecton" as a
+participant "b:Tecton" as b
+participant "newvtecton1:VTecton" as newvtecton1
+participant "newvtecton2:VTecton" as newvtecton2
+
+-> vtecton : breaking(a, b)
+activate vtecton
+
+note over vtecton : split cells between a and b
+
+loop cell in vtecton.cells
+    vtecton -> map : getNeighbors(cell)
+    activate map
+
+    return getNeighbors
+end
+
+create newvtecton1
+vtecton -> newvtecton1 : new(acells)
+activate newvtecton1
+
+return
+
+create newvtecton2
+vtecton -> newvtecton2 : new(acells)
+activate newvtecton2
+
+return
+
+return
+
+@enduml

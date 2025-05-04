@@ -1,0 +1,72 @@
+@startuml
+hide footbox
+
+participant "vtecton:VTecton" as vtecton
+participant "map:Map" as map
+collections "spores:VSpore" as spores
+collections "icons:IIcon" as icons
+participant "mushroom:VMushroom" as mushroom
+collections "neighbors:Cell" as neighbors
+collections "insects:VInsect" as insects
+participant "tecton:Tecton" as tecton
+
+create vtecton
+-> vtecton : new(cells, tecton)
+activate vtecton
+
+loop cell in cells
+    vtecton -> icons : getType()
+    activate icons
+
+    return type
+
+    alt type == VSpore
+        vtecton -> spores : getSpore()
+        activate spores
+
+        return spore
+
+        note over vtecton : collect in spores set
+    
+
+    else type == VMushroom
+        vtecton -> mushroom : getMushroom()
+        activate mushroom
+
+        return mushroom
+        
+        note over vtecton : collect in mushroom 
+    
+
+    else type == VInsect
+        vtecton -> insects : getInsect()
+        activate insects
+
+        return insect
+
+        note over vtecton : collect in insects set
+    end
+
+    vtecton -> map : getNeighbors(cell)
+    activate map
+
+    return neighbors
+
+    loop neighbor in neighbors
+        vtecton -> neighbors : getTecton()
+        activate neighbors
+
+        return neighborTecton
+    
+        note over vtecton : collect in neighborTectons set
+    end
+end
+
+note over vtecton : remove tecton from neighborTectons
+
+vtecton -> tecton : fillWithStuff(spores, mushroom, insects, neighborTectons)
+activate tecton
+return
+
+return
+@enduml
