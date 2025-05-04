@@ -10,6 +10,30 @@ participant "target:Cell" as target
 participant "view:View" as view
 
 -> vinsect : eat(target)
+activate vinsect
+vinsect -> cell : getTecton()
+activate cell
+return vtecton1
+vinsect -> target : getTecton()
+activate target
+return vtecton2
+opt vtecton1 == vtecton2
+    vinsect -> insect : eatSpore()
+    activate insect
+    return success
+    'TODO rovar osztódásnál meg kell keresni, h melyik spóra tűnt el és oda rakni az új rovart
+    'vagy átírni az Insect-et úgy, hogy a rovar konrét spórát eszik meg
 
+    'ez feltételen kell? kifelejtjük? és majd megoldjuk kódban?
+end
+note right : dead item removal is handled by rendering()
+opt vtecton1 != vtecton2 || !success
+    vinsect -> view : notifyUser()
+    activate view
+    return
+end
+
+
+return
 
 @enduml

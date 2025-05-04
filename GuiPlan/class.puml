@@ -27,25 +27,37 @@ interface IIcon{
     {abstract} getIcon() : icon or null if dead
     {abstract} getType() : Class
 }
-class VMycelium{}
+
+class VMycelium{
+    VMycelium(Cell cell, Mycelium mycelium, Cell neighbor)
+}
 VMycelium "2" --> "mycelium 1" Mycelium
+
 class VInsect{
+    VInsect(Cell cell, Insect insect)
     move(Cell cell)
     eat(Cell cell)
     chew(Cell cell)
 }
 VInsect "1" --> "insect 1" Insect
-class VSpore{}
+
+class VSpore{
+    VSpore(Cell cell, Spore spore)
+}
 VSpore "1" --> "spore 1" Spore
+
 class VMushroom{
+    VMushroom(Cell cell, Mushroom mushroom)
     burst(Cell cell)
 }
 VMushroom "1" --> "mushroom 1" Mushroom
+
 class VFungus{
     growMushroom(Cell cell)
-    growMycelium(Cell cell, Cell cell)
+    growMycelium(Cell cella, Cell cellb)
 }
 VFungus "1" --> "fungus 1" Fungus
+
 class VColony{}
 VColony "1" --> "colony 1" Colony
 

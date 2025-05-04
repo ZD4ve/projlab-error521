@@ -1,0 +1,24 @@
+@startuml chew
+hide footbox
+participant "vinsect:VInsect" as vinsect
+participant "insect:Insect" as insect
+participant "target:Cell" as target
+
+participant "view:View" as view
+
+-> vinsect : chew(target)
+activate vinsect
+vinsect -> target : getItem()
+activate target
+return item
+note over vinsect : cast item to VMycelium
+vinsect -> insect : chewMycelium(item.mycelium)
+activate insect
+return success
+opt !success
+    vinsect -> view : notifyUser()
+    activate view
+    return
+end
+return
+@enduml

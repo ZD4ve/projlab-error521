@@ -1,0 +1,62 @@
+@startuml growMycelium
+hide footbox
+participant "vfungus:VFungus" as vfungus
+participant "fungus:Fungus" as fungus
+
+participant "cella:Cell" as cella
+participant "cellb:Cell" as cellb
+
+participant "vmyceliuma:VMycelium" as vmyceliuma
+participant "vmyceliumb:VMycelium" as vmyceliumb
+
+participant "view:View" as view
+participant "map:Map" as map
+
+-> vfungus : growMycelium(cella, cellb)
+activate vfungus
+    vfungus -> view : getMap()
+    activate view
+    return map
+    vfungus -> map : getNeighbors(cella)
+    activate map
+    return neighbors
+    alt cellb is in neighbors
+        vfungus -> cella : getTecton()
+        activate cella
+        return vtecton1
+        vfungus -> cellb : getTecton()
+        activate cellb
+        return vtecton2
+        vfungus -> fungus : growMycelium(vtecton1.tecton, vtecton2.tecton)
+        activate fungus
+        return success
+        alt success
+            vfungus -> fungus : getMycelium()
+            activate fungus
+            return mycelium
+            create vmyceliuma
+            vfungus -> vmyceliuma : new(cella, last item of mycelium, cellb)
+            activate vmyceliuma
+                vmyceliuma -> cella : setItem(vmyceliuma)
+                activate cella
+                return
+            return
+            create vmyceliumb
+            vfungus -> vmyceliumb : new(cellb, last item of mycelium, cella)
+            activate vmyceliumb
+                vmyceliumb -> cellb : setItem(vmyceliumb)
+                activate cellb
+                return
+            return
+        else !success
+            vfungus -> view : notifyUser()
+            activate view
+            return
+        end
+    else
+        vfungus -> view : notifyUser()
+        activate view
+        return
+    end
+return
+@enduml
