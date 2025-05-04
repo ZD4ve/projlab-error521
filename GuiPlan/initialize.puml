@@ -26,7 +26,8 @@ participant "vinsect:VInsect" as vinsect
 
 activate view
 --> view : create(tecNum, fungiNum, colNum)
-view --> map : createCells(n, m)
+create map
+    view --> map : new(n, m)
 activate map
 
 loop
