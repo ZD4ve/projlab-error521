@@ -11,9 +11,6 @@ participant "selected:Cell" as selected
 participant "c:Cell" as c
 participant "map:Map" as map
 
-'TODO add notifyUser when nothing happens
-
-'TODO ez a hívás honnan jön?
 User -> view : click(x, y)
 activate view
 view -> map : cellAt(x, y)

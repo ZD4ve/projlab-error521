@@ -4,26 +4,29 @@ hide footbox
 participant "dying:VTecton" as dying
 participant "vtecton:VTecton" as vtecton
 participant "map:Map" as map
-collections "spores:VSpore" as spores
-collections "icons:IIcon" as icons
-participant "mushroom:VMushroom" as mushroom
+collections "cells:Cell" as cells
+collections "items:IIcon" as items
 collections "neighbors:Cell" as neighbors
-collections "insects:VInsect" as insects
 participant "tecton:Tecton" as tecton
+participant "view:View" as view
 
 create vtecton
 dying -> vtecton : new(cells, tecton)
 activate vtecton
 
 loop cell in cells
-    vtecton -> icons : getType()
-    activate icons
 
+    vtecton -> cells : getItem()
+    activate cells
+    return item
+    vtecton -> items : getType()
+    activate items
     return type
 
     alt type == VSpore
-        vtecton -> spores : getSpore()
-        activate spores
+        note over vtecton : cast item to VSpore
+        vtecton -> items : getSpore()
+        activate items
 
         return spore
 
@@ -31,8 +34,9 @@ loop cell in cells
     
 
     else type == VMushroom
-        vtecton -> mushroom : getMushroom()
-        activate mushroom
+        note over vtecton : cast item to VMushroom
+        vtecton -> items : getMushroom()
+        activate items
 
         return mushroom
         
@@ -40,17 +44,20 @@ loop cell in cells
     
 
     else type == VInsect
-        vtecton -> insects : getInsect()
-        activate insects
+        note over vtecton : cast item to VInsect
+        vtecton -> items : getInsect()
+        activate items
 
         return insect
 
         note over vtecton : collect in insects set
     end
 
+    vtecton -> view : getMap()
+    activate view
+    return map
     vtecton -> map : getNeighbors(cell)
     activate map
-
     return neighbors
 
     loop neighbor in neighbors
