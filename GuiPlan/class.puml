@@ -18,6 +18,7 @@ class Map{
 }
 
 class VTecton{
+    VTecton(Cell[] cells, Tecton tecton)
     getColor() : color
 }
 VTecton "1" --> "tecton 1" Tecton
