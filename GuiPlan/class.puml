@@ -74,6 +74,7 @@ class View{
     'sound effect
     {static} notifyUser()
     click(int x, int y)
+    endGame()
 }
 View "1" --> "selected 1" Cell
 View "1" --> "selectedPlayer" VPlayer
