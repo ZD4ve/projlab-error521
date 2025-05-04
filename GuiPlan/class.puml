@@ -32,6 +32,12 @@ class VMycelium{
 }
 VMycelium "2" --> "mycelium 1" Mycelium
 
+abstract VPlayer
+{
+    color: Color
+    {abstract} selectPlayer()
+}
+
 class VInsect{
     VInsect(Cell cell, Insect insect)
     move(Cell cell)
@@ -60,8 +66,8 @@ VFungus "1" --> "fungus 1" Fungus
 class VColony{}
 VColony "1" --> "colony 1" Colony
 
-
 class View{
+    remainingTime : double
     'called by clock
     redraw()
     'sound effect
@@ -69,8 +75,9 @@ class View{
     click(int x, int y)
 }
 View "1" --> "selected 1" Cell
-View "1" --> "selectedFungus 1" VFungus
-View "1" --> "selectedColony 1" VColony
+View "1" --> "selectedPlayer" VPlayer
+View "1" --> "allFungi *" VFungus
+View "1" --> "allColonies *" VColony
 Controller "1" --> "view 1" View
 }
 
@@ -85,6 +92,9 @@ IIcon <|-- VMycelium
 IIcon <|-- VInsect
 IIcon <|-- VSpore
 IIcon <|-- VMushroom
+
+VPlayer <|-- VColony
+VPlayer <|-- VFungus
 
 VTecton --|> ITectonFiller
 @enduml
