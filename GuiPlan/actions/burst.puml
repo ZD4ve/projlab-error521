@@ -28,11 +28,11 @@ activate vmushroom
         activate tecton
         return spores
         create vspore
-        vmushroom -> vspore : VSpore(target, last item of spores)
+        vmushroom -> vspore : new(target, last item of spores)
         activate vspore
-        return
-        vmushroom -> target : setItem(vspore)
-        activate target
+            vspore -> target : setItem(vspore)
+            activate target
+            return
         return
     else !success
         vmushroom -> view : notifyUser()

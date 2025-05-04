@@ -21,11 +21,11 @@ activate vfungus
         activate fungus
         return mushrooms
         create vmushroom
-        vfungus -> vmushroom : VMushroom(target, last item of mushrooms)
+        vfungus -> vmushroom : new(target, last item of mushrooms)
         activate vmushroom
-        return
-        vfungus -> target : setItem(vmushroom)
-        activate target
+            vmushroom -> target : setItem(vmushroom)
+            activate target
+            return
         return
     else !success
         vfungus -> view : notifyUser()

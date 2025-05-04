@@ -81,6 +81,11 @@ else selected is not null
         end
     end
     note over view : set selected to null
+    opt no action performed
+        view -> view : notifyUser()
+        activate view
+        return
+    end
 end
 return
 @enduml

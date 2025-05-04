@@ -5,6 +5,7 @@
   "git.autofetch": true,
   "cSpell.enabled": true,
   "cSpell.words": [
+    "cellb",
     "cooldown",
     "enduml",
     "footbox",
@@ -17,7 +18,14 @@
     "startuml",
     "Tecton",
     "tectons",
-    "usecase"
+    "usecase",
+    "vfungus",
+    "vinsect",
+    "vmushroom",
+    "vmyceliuma",
+    "vmyceliumb",
+    "vspore",
+    "vtecton"
   ],
   "cSpell.language": "en,hu",
   "java.completion.guessMethodArguments": "off"
