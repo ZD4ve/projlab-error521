@@ -32,7 +32,7 @@ activate map
 
 loop
     create cell
-        map --> cell: new(x,y,size)
+        map --> cell: new(x,y)
     activate cell
     return
     map --> cells : add(cell)
@@ -42,7 +42,7 @@ end
 
 return
 
-loop
+loop tecNum times
     create tecton
         view --> tecton : new()
     activate tecton
@@ -54,7 +54,7 @@ loop
     return
 end
 
-loop
+loop fungiNum times
     create fungus
         view --> fungus : new()
     activate fungus
@@ -77,7 +77,7 @@ loop
     return
 end
 
-loop
+loop colNum times
     create col
         view --> col : new()
     activate col
