@@ -1,0 +1,43 @@
+@startuml burst
+hide footbox
+
+participant "vmushroom:VMushroom" as vmushroom
+participant "mushroom:Mushroom" as mushroom
+participant "target:Cell" as target
+
+participant "tecton:VTecton" as vtecton
+participant "tecton.tecton:Tecton" as tecton
+
+participant "vspore:VSpore" as vspore
+
+participant "view:View" as view
+
+-> vmushroom : burst(target)
+activate vmushroom
+    vmushroom -> target : getTecton()
+    activate target
+    return tecton
+    vmushroom -> vtecton : getTecton()
+    activate vtecton
+    return tecton.tecton
+    vmushroom -> mushroom : burstSpore(tecton.tecton)
+    activate mushroom
+    return success
+    alt success
+        vmushroom -> tecton : getSpores()
+        activate tecton
+        return spores
+        create vspore
+        vmushroom -> vspore : VSpore(target, last item of spores)
+        activate vspore
+        return
+        vmushroom -> target : setItem(vspore)
+        activate target
+        return
+    else !success
+        vmushroom -> view : notifyUser()
+        activate view
+        return
+    end
+return
+@enduml

@@ -1,0 +1,36 @@
+@startuml growMushroom
+hide footbox
+
+participant "vfungus:VFungus" as vfungus
+participant "fungus:Fungus" as fungus
+participant "target:Cell" as target
+
+participant "vmushroom:VMushroom" as vmushroom
+participant "view:View" as view
+
+-> vfungus : growMushroom(target)
+activate vfungus
+    vfungus -> target : getTecton()
+    activate target
+    return vtecton
+    vfungus -> fungus : growMushroom(vtecton.tecton)
+    activate fungus
+    return success
+    alt success
+        vfungus -> fungus : getMushrooms()
+        activate fungus
+        return mushrooms
+        create vmushroom
+        vfungus -> vmushroom : VMushroom(target, last item of mushrooms)
+        activate vmushroom
+        return
+        vfungus -> target : setItem(vmushroom)
+        activate target
+        return
+    else !success
+        vfungus -> view : notifyUser()
+        activate view
+        return
+    end
+return
+@enduml

@@ -1,5 +1,8 @@
 @startuml click
 hide footbox
+
+
+actor User 
 participant "view:View" as view
 participant "selected.item:IIcon" as selectedItem
 participant "c.item:IIcon" as cItem
@@ -8,8 +11,10 @@ participant "selected:Cell" as selected
 participant "c:Cell" as c
 participant "map:Map" as map
 
+'TODO add notifyUser when nothing happens
 
--> view : click(x, y)
+'TODO ez a hívás honnan jön?
+User -> view : click(x, y)
 activate view
 view -> map : cellAt(x, y)
 activate map
@@ -37,17 +42,17 @@ else selected is not null
                 alt type2 is null
                     view -> selectedItem : move(c)
                     activate selectedItem
-                    note over selectedItem : see insectMove
+                    note over selectedItem : see move
                     return
                 else type2 == VSpore
                     view -> selectedItem : eat(c)
                     activate selectedItem
-                    note over selectedItem : see insectEat
+                    note over selectedItem : see eat
                     return
                 else type2 == VMycelium
                     view -> selectedItem : chew(c)
                     activate selectedItem
-                    note over selectedItem : see insectChew
+                    note over selectedItem : see chew
                     return
                 end
             end
@@ -57,12 +62,12 @@ else selected is not null
             alt selected == c
                 view -> selectedFungus : growMushroom(c)
                 activate selectedFungus
-                note over selectedFungus : see fungusGrowMushroom
+                note over selectedFungus : see growMushroom
                 return
             else selected != c
                 view -> selectedFungus : growMycelium(c, selected)
                 activate selectedFungus
-                note over selectedFungus : see fungusGrowMycelium
+                note over selectedFungus : see growMycelium
                 return
             end
         else type1 == VMushroom and type2 is null
@@ -70,7 +75,7 @@ else selected is not null
             opt selected.item.mushroom.fungus == selectedFungus.fungus
                 view -> selectedItem : burst(c)
                 activate selectedItem
-                note over selectedItem : see fungusBurst
+                note over selectedItem : see burst
                 return
             end
         end

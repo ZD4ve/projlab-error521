@@ -1,0 +1,15 @@
+@startuml eat
+hide footbox
+participant "vinsect:VInsect" as vinsect
+participant "insect:Insect" as insect
+participant "cell:Cell" as cell
+participant "target:Cell" as target
+
+
+
+participant "view:View" as view
+
+-> vinsect : eat(target)
+
+
+@enduml

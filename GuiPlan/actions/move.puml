@@ -1,0 +1,32 @@
+@startuml insectMove
+hide footbox
+
+participant "vinsect:VInsect" as vinsect
+participant "insect:Insect" as insect
+participant "cell:Cell" as cell
+participant "target:Cell" as target
+
+participant "view:View" as view
+
+-> vinsect : move(target)
+activate vinsect
+    vinsect -> target : getTecton()
+    activate target
+    return vtecton
+    vinsect -> insect : moveTo(vtecton.tecton)
+    activate insect
+    return success
+    alt success
+        vinsect -> cell : setItem(null)
+        activate cell
+        return
+        vinsect -> target : setItem(vinsect)
+        activate target
+        return
+    else !success
+        vinsect -> view : notifyUser()
+        activate view
+        return
+    end 
+return
+@enduml
