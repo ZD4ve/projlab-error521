@@ -30,6 +30,8 @@ public class Tecton implements IActive {
     private List<Insect> insects;
     /** A tektonon található gombatestet tárolja. */
     protected Mushroom mushroom;
+    /** TODO DOC */
+    private ITectonFiller filler;
     // #endregion
 
     // #region CONSTRUCTORS
@@ -42,6 +44,7 @@ public class Tecton implements IActive {
         spores = new ArrayList<>();
         insects = new ArrayList<>();
         mushroom = null;
+        filler = new BasicTectonFiller();
 
         Controller.registerActiveObject(this);
         Controller.registerTecton(this);
@@ -65,6 +68,8 @@ public class Tecton implements IActive {
      * @param tecton az új szomszéd
      */
     public void addNeighbor(Tecton tecton) {
+        if (tecton == this)
+            return;
         if (!neighbors.contains(tecton))
             neighbors.add(tecton);
     }
@@ -121,6 +126,11 @@ public class Tecton implements IActive {
      */
     public void removeInsect(Insect insect) {
         insects.remove(insect);
+    }
+
+    // TODO DOC
+    public List<Insect> getInsects() {
+        return insects;
     }
 
     /**
@@ -200,7 +210,8 @@ public class Tecton implements IActive {
      * @param insects   a tektonon álló rovarok.
      * @param neighbors a tekton szomszédai.
      */
-    public void fillWithStuff(List<Spore> spores, Mushroom mushroom, List<Insect> insects, List<Tecton> neighbors) {
+    public void fillWithStuff(List<Spore> spores, Mushroom mushroom, List<Insect> insects, List<Tecton> neighbors,
+            ITectonFiller filler) {
         this.spores.addAll(spores);
 
         this.insects.addAll(insects);
@@ -212,6 +223,7 @@ public class Tecton implements IActive {
 
         neighbors.forEach(this::addNeighbor);
         neighbors.forEach(x -> x.addNeighbor(this));
+        this.filler = filler;
     }
 
     /**
@@ -341,6 +353,7 @@ public class Tecton implements IActive {
         return false;
     }
 
+    // TODO DOC changed, move this to BasicTectonFiller
     /**
      * Levezényli a tekton törési folyamatát: A tektont eltávolítja az aktív objektumok közül. A tektonhoz kapcsolódó
      * összes gombafonalat megszünteti (Mycelium::die). A tekton összes szomszédjainak listájából eltávolítja a tektont
@@ -359,24 +372,7 @@ public class Tecton implements IActive {
         for (Tecton n : neighbors) {
             n.removeNeighbor(this);
         }
-        var t1 = newMe();
-        var t2 = newMe();
-
-        // weird solution to handle the case when there is only 1 element
-        int sporeMid = Math.min(spores.size(), Math.max(spores.size() / 2, 1)); // NOSONAR this would throw an exception
-                                                                                // if it was a clamp
-        int insectMid = Math.min(insects.size(), Math.max(insects.size() / 2, 1)); // NOSONAR this would throw an
-                                                                                   // exception if it was a clamp
-        int neighborMid = Math.min(neighbors.size(), Math.max(neighbors.size() / 2, 1)); // NOSONAR this would throw an
-
-        var t1Neighbors = new ArrayList<>(neighbors.subList(0, neighborMid));
-        t1Neighbors.add(t2);
-        t1.fillWithStuff(spores.subList(0, sporeMid), null, insects.subList(0, insectMid), t1Neighbors);
-
-        var t2Neighbors = new ArrayList<>(neighbors.subList(neighborMid, neighbors.size()));
-        t2Neighbors.add(t1);
-        t2.fillWithStuff(spores.subList(sporeMid, spores.size()), mushroom, insects.subList(insectMid, insects.size()),
-                t2Neighbors);
+        filler.breaking(this, newMe(), newMe());
     }
 
     /**

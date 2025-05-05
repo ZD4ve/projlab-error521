@@ -8,7 +8,7 @@ package view{
 class Cell{
     int x
     int y
-    Cell(int x, int y, int size)
+    Cell(int x, int y)
     {static} int size
     draw()
 }
@@ -50,6 +50,7 @@ class VInsect{
     chew(Cell cell)
 }
 VInsect "1" --> "insect 1" Insect
+VInsect ..> InsectEffect : <<use>>
 
 class VSpore{
     VSpore(Cell cell, Spore spore)
@@ -68,6 +69,7 @@ class VFungus{
     growMycelium(Cell cella, Cell cellb)
 }
 VFungus "1" --> "fungus 1" Fungus
+VFungus ..> Cell : <<use>>
 
 class VColony{
     VColony(Colony)
@@ -79,6 +81,7 @@ class View{
     'called by clock
     View()
     redraw()
+    create(int tecNum, int fungiNum, int colNum)
     'sound effect
     {static} notifyUser()
     click(int x, int y)
@@ -106,4 +109,5 @@ VPlayer <|-- VColony
 VPlayer <|-- VFungus
 
 VTecton --|> ITectonFiller
+
 @enduml
