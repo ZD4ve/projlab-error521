@@ -2,8 +2,6 @@
 
 package "controller" {
   class Controller {
-    {static} registerTecton(Tecton t)
-    {static} unregisterTecton(Tecton t)
     {static} addObjectEventHandler(ObjectEventHandler handler)
     {static} registerActiveObject(IActive object)
     {static} unregisterActiveObject(IActive object)
@@ -15,11 +13,10 @@ package "controller" {
   }
   
   class RandomProvider {
-    + {static} nextRand() : double
+    {static} nextRand() : double
   }
 }
 Controller "1" --> "activeObjects *" IActive
-Controller "1" --> "tectons *" Tecton
 Controller "1" --> "objectEventHandlers *" ObjectEventHandler
 
 @enduml

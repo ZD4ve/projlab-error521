@@ -1,0 +1,37 @@
+@startuml loop
+
+participant GraphicsProgram as gp
+participant Controller as ctrl
+participant View as v
+
+-> gp
+activate gp
+note over gp: get number of tectons, fungi and colonies from user
+
+gp -> v : create(tectons, fungi, colonies)
+activate v
+return
+
+loop remainingTime > 0
+
+    note over gp: delta is a suitable constant for target frame rate
+
+    gp -> ctrl : onTimeElapsed(delta)
+    activate ctrl
+        note over ctrl: process model
+        ctrl -> v : redraw()
+        activate v
+        return
+    return
+
+end loop
+
+gp -> v : endGame()
+activate v
+return
+
+return
+destroy gp
+
+
+@enduml
