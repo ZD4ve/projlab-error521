@@ -1,23 +1,21 @@
 package view;
 
 import model.Insect;
-import model.Colony;
-import model.Tecton;
+
+import java.util.List;
 
 public class VInsect implements IIcon {
     private Insect insect;
-
-    public VInsect(Insect insect) {
-        this.insect = insect;
-    }
+    private Cell cell;
 
     public VInsect(Cell cell, Insect insect) {
-        // Constructor implementation
+        this.cell = cell;
+        this.insect = insect;
+        cell.setItem(this);
     }
 
     public void move(Cell target) {
-        Tecton vtecton = target.getTecton();
-        boolean success = insect.moveTo(vtecton);
+        boolean success = insect.moveTo(target.getTecton().getTecton());
         if (success) {
             cell.setItem(null);
             target.setItem(this);
@@ -27,13 +25,19 @@ public class VInsect implements IIcon {
     }
 
     public void eat(Cell target) {
-        Object vtecton1 = cell.getTecton();
-        Object vtecton2 = target.getTecton();
-        if (vtecton1.equals(vtecton2)) {
-            Colony colony = insect.getColony();
+        if (cell.getTecton() == target.getTecton()) {
+            List<Insect> allInsects = insect.getColony().getInsects();
+            int numberOfInsects = allInsects.size();
             boolean success = insect.eatSpore();
             if (success) {
-                // Handle new insect creation logic
+                if (numberOfInsects < allInsects.size()) {
+                    Insect newInsect = allInsects.get(numberOfInsects);
+                    var eaten = cell.getTecton().getCells().stream()
+                            .filter(c -> c.getItem() != null && c.getItem().getIcon() == null).findFirst();
+                    if (eaten.isEmpty())
+                        throw new IllegalStateException("No eaten spore found");
+                    new VInsect(eaten.get(), newInsect);
+                }
             } else {
                 View.notifyUser();
             }
@@ -44,22 +48,20 @@ public class VInsect implements IIcon {
 
     public void chew(Cell target) {
         IIcon item = target.getItem();
-        if (item instanceof VMycelium) {
-            boolean success = insect.chewMycelium(((VMycelium) item).getMycelium());
-            if (!success) {
-                View.notifyUser();
-            }
+        boolean success = insect.chewMycelium(((VMycelium) item).getMycelium());
+        if (!success) {
+            View.notifyUser();
         }
+
     }
 
     @Override
     public Object getIcon() {
-        // Return the icon representation of the insect
+        // TODO @Panni
         return null;
     }
 
-    @Override
-    public Class<?> getType() {
-        return Insect.class;
+    public Insect getInsect() {
+        return insect;
     }
 }

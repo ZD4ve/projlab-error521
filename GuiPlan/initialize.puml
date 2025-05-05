@@ -23,9 +23,8 @@ collections "allColonies:VColony" as allCol
 participant "insect:Insect" as insect
 participant "vinsect:VInsect" as vinsect
 
-
-activate view
 --> view : create(tecNum, fungiNum, colNum)
+activate view
 create map
     view --> map : new(n, m)
 activate map
@@ -99,11 +98,7 @@ loop colNum times
     activate vinsect
     return
 end
-
-
-
-
-
+return
 
 
 @enduml

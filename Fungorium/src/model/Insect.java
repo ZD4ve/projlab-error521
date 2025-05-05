@@ -170,6 +170,11 @@ public class Insect implements IActive {
         return location;
     }
 
+    // TODO DOC
+    public Colony getColony() {
+        return colony;
+    }
+
     /**
      * A rovar kész-e az akcióra.
      * 

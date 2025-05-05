@@ -3,23 +3,25 @@ package view;
 import model.Mycelium;
 
 public class VMycelium implements IIcon {
-
-    public VMycelium(Mycelium mycelium) {
-        // Constructor implementation
-    }
+    private Mycelium mycelium;
+    private Cell cell;
 
     public VMycelium(Cell cell, Mycelium mycelium, Cell neighbor) {
-        // Constructor implementation
+        this.cell = cell;
+        this.mycelium = mycelium;
+        cell.setItem(this);
+        // neighbor az ikon miatt lasz majd hasznos
     }
 
     @Override
     public Object getIcon() {
-        // Return the icon representation of the mycelium
+        // TODO @Panni
         return null;
     }
 
-    @Override
-    public Class<?> getType() {
-        return Mycelium.class;
+    
+    public Mycelium getMycelium() {
+        return mycelium;
     }
+
 }

@@ -3,18 +3,13 @@ package view;
 import model.Colony;
 
 public class VColony extends VPlayer {
+    private Colony colony;
 
     public VColony(Colony colony) {
-        super();
+        this.colony = colony;
     }
 
-    @Override
-    public Class<?> getType() {
-        return Colony.class;
-    }
-
-    @Override
-    public void selectPlayer() {
-        // Implementation for selecting a colony player
+    public Colony getColony() {
+        return colony;
     }
 }

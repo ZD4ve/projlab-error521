@@ -54,8 +54,8 @@ public class Fungus {
     }
 
     /**
-     * Kiveszi a paraméterként kapott gombatestet a gombafajban tároltakból.
-     * Ezt követően ellenőrzi a gombafonalak összekötöttségét (Fungus::checkConnectivity).
+     * Kiveszi a paraméterként kapott gombatestet a gombafajban tároltakból. Ezt követően ellenőrzi a gombafonalak
+     * összekötöttségét (Fungus::checkConnectivity).
      * 
      * @param mushroom a gombatest, amelyet kiveszünk
      */
@@ -75,14 +75,19 @@ public class Fungus {
     }
 
     /**
-     * Kiveszi a paraméterként kapott gombafonalat a gombafajban tároltakból.
-     * Ezt követően ellenőrzi a gombafonalak összekötöttségét (Fungus::checkConnectivity).
+     * Kiveszi a paraméterként kapott gombafonalat a gombafajban tároltakból. Ezt követően ellenőrzi a gombafonalak
+     * összekötöttségét (Fungus::checkConnectivity).
      * 
      * @param mycelium a gombafonal, amelyet kiveszünk
      */
     public void removeMycelium(Mycelium mycelium) {
         mycelia.remove(mycelium);
         checkConnectivity();
+    }
+
+    // TODO DOC
+    public List<Mycelium> getMycelia() {
+        return mycelia;
     }
 
     /**
@@ -96,9 +101,8 @@ public class Fungus {
 
     /**
      * Megkeresi azokat a tektonokat, ahol a gombafajnak van gombateste vagy gombafonala, vagyis tud onnan gombafonalat
-     * növeszteni.
-     * A művelet során a függvény lekérdezi a fajhoz tartozó gombatestek tartózkodási helyét (Mushroom::getLocation)
-     * és a gombafonalak végpontját (Mycelium::getEnds), majd egy listába összegyűjti ezeket.
+     * növeszteni. A művelet során a függvény lekérdezi a fajhoz tartozó gombatestek tartózkodási helyét
+     * (Mushroom::getLocation) és a gombafonalak végpontját (Mycelium::getEnds), majd egy listába összegyűjti ezeket.
      *
      * @return a lehetséges gombafonal növesztési források egy listában
      */
@@ -112,8 +116,9 @@ public class Fungus {
     }
 
     /**
-     * Megkeresi azokat a tektonokat, ahol a gombafajnak van fonala, vagyis lehet gombatestet növeszteni rajta.
-     * A műveletet a fajhoz tartozó gombafonalak végpontjainak lekérdezésével (Mycelium::getEnds), majd egy listába való összegyűjtésével végzi el.
+     * Megkeresi azokat a tektonokat, ahol a gombafajnak van fonala, vagyis lehet gombatestet növeszteni rajta. A
+     * műveletet a fajhoz tartozó gombafonalak végpontjainak lekérdezésével (Mycelium::getEnds), majd egy listába való
+     * összegyűjtésével végzi el.
      * 
      * @return Minden olyan tekton, ahova lehet gombafonalat növeszteni, listában
      */
@@ -195,10 +200,10 @@ public class Fungus {
     }
 
     /**
-     * A paraméterként kapott két tekton közé gombafonal építését kezdeményezi.
-     * Ellenőrzi önmagán, hogy jelenleg növeszthet-e gombafonalat (Fungus::canGrowMycelium).
-     * Ha igen, akkor a forrástektonon (source) elindítja a gombafonal növesztését a céltektonra (target) (Tecton::growMycelium), és visszaadja a művelet sikerességét.
-     * Ha sikertelen a művelet, akkor false-t ad vissza.
+     * A paraméterként kapott két tekton közé gombafonal építését kezdeményezi. Ellenőrzi önmagán, hogy jelenleg
+     * növeszthet-e gombafonalat (Fungus::canGrowMycelium). Ha igen, akkor a forrástektonon (source) elindítja a
+     * gombafonal növesztését a céltektonra (target) (Tecton::growMycelium), és visszaadja a művelet sikerességét. Ha
+     * sikertelen a művelet, akkor false-t ad vissza.
      * 
      * @param source a forrástekton
      * @param target a céltekton

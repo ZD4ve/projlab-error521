@@ -5,20 +5,19 @@ import model.Tecton;
 
 public class VMushroom implements IIcon {
     private Mushroom mushroom;
-
-    public VMushroom(Mushroom mushroom) {
-        this.mushroom = mushroom;
-    }
+    private Cell cell;
 
     public VMushroom(Cell cell, Mushroom mushroom) {
-        // Constructor implementation
+        this.mushroom = mushroom;
+        this.cell = cell;
+        cell.setItem(this);
     }
 
     public void burst(Cell target) {
-        Tecton tecton = target.getTecton();
+        Tecton tecton = target.getTecton().getTecton();
         boolean success = mushroom.burstSpore(tecton);
         if (success) {
-            // Handle spore creation logic
+            new VSpore(target, tecton.getSpores().get(tecton.getSpores().size() - 1));
         } else {
             View.notifyUser();
         }
@@ -26,12 +25,11 @@ public class VMushroom implements IIcon {
 
     @Override
     public Object getIcon() {
-        // Return the icon representation of the mushroom
+        // TODO @Panni
         return null;
     }
 
-    @Override
-    public Class<?> getType() {
-        return Mushroom.class;
+    public Mushroom getMushroom() {
+        return mushroom;
     }
 }

@@ -1,6 +1,7 @@
 package view;
 
 import model.Fungus;
+import model.Mycelium;
 import model.Tecton;
 import java.util.List;
 
@@ -8,38 +9,39 @@ public class VFungus extends VPlayer {
     private Fungus fungus;
 
     public VFungus(Fungus fungus) {
-        super();
         this.fungus = fungus;
     }
 
-    @Override
-    public Class<?> getType() {
-        return Fungus.class;
-    }
-
-    @Override
-    public void selectPlayer() {
-        // Implementation for selecting a fungus player
-    }
-
     public void growMushroom(Cell cell) {
-        // Implementation for growing a mushroom
+        Tecton tecton = cell.getTecton().getTecton();
+        boolean success = fungus.growMushroom(tecton);
+        if (success) {
+            new VMushroom(cell, tecton.getMushroom());
+        } else {
+            View.notifyUser();
+        }
     }
 
     public void growMycelium(Cell cellA, Cell cellB) {
         Map map = View.getMap();
         List<Cell> neighbors = map.getNeighbors(cellA);
         if (neighbors.contains(cellB)) {
-            Tecton vtecton1 = cellA.getTecton();
-            Tecton vtecton2 = cellB.getTecton();
-            boolean success = fungus.growMycelium(vtecton1, vtecton2);
+            Tecton tecton1 = cellA.getTecton().getTecton();
+            Tecton tecton2 = cellB.getTecton().getTecton();
+            boolean success = fungus.growMycelium(tecton1, tecton2);
             if (success) {
-                // Handle mycelium creation logic
+                Mycelium mycelium = fungus.getMycelia().get(fungus.getMycelia().size() - 1);
+                new VMycelium(cellA, mycelium, cellB);
+                new VMycelium(cellB, mycelium, cellA);
             } else {
                 View.notifyUser();
             }
         } else {
             View.notifyUser();
         }
+    }
+
+    public Fungus getFungus() {
+        return fungus;
     }
 }

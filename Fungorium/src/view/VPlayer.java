@@ -1,18 +1,14 @@
 package view;
 
-// Fixed missing import
 import java.awt.Color;
 
 public abstract class VPlayer {
-    protected Color color;
-
-    public VPlayer() {
-        // Default constructor implementation
+    public Color getColor() {
+        // TODO @Panni
+        return null;
     }
 
-    public abstract Class<?> getType();
-
     public void selectPlayer() {
-        // Implementation for selecting a player
+        View.setSelectedPlayer(this);
     }
 }

@@ -4,23 +4,21 @@ import model.Spore;
 
 public class VSpore implements IIcon {
     private Spore spore;
-
-    public VSpore(Spore spore) {
-        this.spore = spore;
-    }
+    private Cell cell;
 
     public VSpore(Cell cell, Spore spore) {
-        // Constructor implementation
+        this.spore = spore;
+        this.cell = cell;
+        cell.setItem(this);
     }
 
     @Override
     public Object getIcon() {
-        // Return the icon representation of the spore
+        // TODO @Panni
         return null;
     }
 
-    @Override
-    public Class<?> getType() {
-        return Spore.class;
+    public Spore getSpore() {
+        return spore;
     }
 }
