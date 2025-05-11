@@ -76,4 +76,12 @@ public class View {
     public static Map getMap() {
         return map;
     }
+
+    public static List<VColony> getAllColonies() {
+        return allColonies;
+    }
+
+    public static List<VFungus> getAllFungi() {
+        return allFungi;
+    }
 }
