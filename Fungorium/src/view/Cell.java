@@ -48,7 +48,7 @@ public class Cell {
         if (item != null) {
             BufferedImage icon = item.getIcon();
             if (icon == null) {
-                item = null; // TODO: @Panni return null when dead
+                item = null;
             } else {
                 g.drawImage(item.getIcon(), x, y, size, size, null);
             }

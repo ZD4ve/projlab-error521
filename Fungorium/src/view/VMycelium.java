@@ -1,10 +1,10 @@
 package view;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.awt.*;
 
 import model.Mycelium;
+import model.Tecton;
 
 public class VMycelium implements IIcon {
     private Mycelium mycelium;
@@ -48,6 +48,9 @@ public class VMycelium implements IIcon {
 
     @Override
     public BufferedImage getIcon() {
+        Tecton[] ends = mycelium.getEnds();
+        if (ends[0] == null && ends[1] == null)
+            return null;
         return cachedIcon;
     }
 

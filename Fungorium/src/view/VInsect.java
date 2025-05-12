@@ -124,6 +124,8 @@ public class VInsect implements IIcon {
 
     @Override
     public BufferedImage getIcon() {
+        if (insect.getLocation() == null)
+            return null;
         List<InsectEffect> effs = insect.getActiveEffects();
         if (effs.isEmpty()) {
             return cachedIcon;
