@@ -10,6 +10,14 @@ public class VSpore implements IIcon {
     private Cell cell;
     private BufferedImage cachedIcon;
 
+    // #region GETTERS SETTERS
+
+    public Spore getSpore() {
+        return spore;
+    }
+
+    // #endregion
+
     // #region ICON GENERATION
     private Color getColor() {
         for (VFungus vf : View.getAllFungi()) {
@@ -34,6 +42,13 @@ public class VSpore implements IIcon {
         return img;
     }
 
+    @Override
+    public Object getIcon() {
+        return cachedIcon;
+    }
+
+    // #endregion
+
     public VSpore(Cell cell, Spore spore) {
         this.spore = spore;
         this.cell = cell;
@@ -41,12 +56,4 @@ public class VSpore implements IIcon {
         cachedIcon = sporeIcon();
     }
 
-    @Override
-    public Object getIcon() {
-        return cachedIcon;
-    }
-
-    public Spore getSpore() {
-        return spore;
-    }
 }

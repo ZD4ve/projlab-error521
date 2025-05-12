@@ -12,6 +12,14 @@ public class VMushroom implements IIcon {
     private BufferedImage cachedIcon;
     private boolean isCachedGrown = false;
 
+    // #region GETTERS SETTERS
+
+    public Mushroom getMushroom() {
+        return mushroom;
+    }
+
+    // #endregion
+
     // #region ICON GENERATION
     private Color getColor() {
         for (VFungus vf : View.getAllFungi()) {
@@ -49,6 +57,19 @@ public class VMushroom implements IIcon {
         return img;
     }
 
+    @Override
+    public Object getIcon() {
+        if (mushroom.getIsGrown() != isCachedGrown) {
+            if (mushroom.getIsGrown()) {
+                cachedIcon = mushroomBigIcon();
+            } else {
+                cachedIcon = mushroomSmallIcon();
+            }
+            isCachedGrown = mushroom.getIsGrown();
+        }
+        return cachedIcon;
+    }
+
     // #endregion
 
     public VMushroom(Cell cell, Mushroom mushroom) {
@@ -66,22 +87,5 @@ public class VMushroom implements IIcon {
         } else {
             View.notifyUser();
         }
-    }
-
-    @Override
-    public Object getIcon() {
-        if (mushroom.getIsGrown() != isCachedGrown) {
-            if (mushroom.getIsGrown()) {
-                cachedIcon = mushroomBigIcon();
-            } else {
-                cachedIcon = mushroomSmallIcon();
-            }
-            isCachedGrown = mushroom.getIsGrown();
-        }
-        return cachedIcon;
-    }
-
-    public Mushroom getMushroom() {
-        return mushroom;
     }
 }
