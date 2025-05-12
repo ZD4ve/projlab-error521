@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -10,6 +11,10 @@ import model.Insect;
 import model.Mushroom;
 import model.Spore;
 import model.Tecton;
+import model.MyceliumAbsorbingTecton;
+import model.MyceliumKeepingTecton;
+import model.NoMushroomTecton;
+import model.SingleMyceliumTecton;
 
 public class VTecton implements ITectonFiller {
     private Tecton tecton;
@@ -47,8 +52,19 @@ public class VTecton implements ITectonFiller {
         // ref: breaking.puml
     }
 
-    public Object getColor() {
-        // TODO @Panni
+    public Color getColor() {
+        if (tecton.getClass() == Tecton.class)
+            return new Color(239, 239, 239, 255);
+        else if (tecton.getClass() == MyceliumAbsorbingTecton.class)
+            return new Color(217, 234, 211, 255);
+        else if (tecton.getClass() == MyceliumKeepingTecton.class)
+            return new Color(201, 218, 248, 255);
+        else if (tecton.getClass() == NoMushroomTecton.class)
+            return new Color(244, 204, 204, 255);
+        else if (tecton.getClass() == SingleMyceliumTecton.class)
+            return new Color(255, 242, 204, 255);
+        else
+            throw new IllegalArgumentException("Unknown class: " + tecton.getClass().getSimpleName());
         return null;
     }
 
