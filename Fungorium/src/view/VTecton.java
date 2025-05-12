@@ -65,7 +65,6 @@ public class VTecton implements ITectonFiller {
             return new Color(255, 242, 204, 255);
         else
             throw new IllegalArgumentException("Unknown class: " + tecton.getClass().getSimpleName());
-        return null;
     }
 
     public List<Cell> getCells() {
