@@ -24,10 +24,7 @@ public class View {
     private static Color backgroundColor = new Color(60, 120, 216, 255);
 
     public static void redraw() {
-        if (map != null)
-            map.draw(canvas);
-        else
-            System.out.println("Map is null");
+        map.draw(canvas);
     }
 
     public static void create(int tecNum, int fungiNum, int colNum) {

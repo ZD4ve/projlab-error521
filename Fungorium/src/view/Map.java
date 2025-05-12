@@ -25,13 +25,14 @@ public class Map {
         Graphics2D g = canvas.createGraphics();
         g.setColor(View.getBackgroundColor());
         g.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-
-        // TODO offset
+        int size = Cell.getSize();
+        g.translate(size, size);
         for (List<Cell> row : cells) {
             for (Cell cell : row) {
                 cell.draw(g);
             }
         }
+        g.translate(-size, -size);
         g.dispose();
     }
 
