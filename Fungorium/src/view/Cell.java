@@ -45,6 +45,9 @@ public class Cell {
         Color background = tecton.getColor();
         g.setColor(background);
         g.fillRect(x, y, size, size);
+        g.setStroke(new BasicStroke(size * 0.01f));
+        g.setColor(new Color(220, 220, 220, 255));
+        g.drawRect(x, y, size, size);
         if (item != null) {
             BufferedImage icon = item.getIcon();
             if (icon == null) {
@@ -54,10 +57,11 @@ public class Cell {
             }
         }
         java.util.List<Cell> neighbors = View.getMap().getNeighbors(this);
-        g.setColor(Color.BLUE); // TODO @Panni background color
+        g.setColor(View.getBackgroundColor());
         for (Cell neighbor : neighbors) {
             drawEdge(g, neighbor);
         }
+        g.setStroke(new BasicStroke(size * 0.05f));
         if (View.getSelected() == this) {
             g.setColor(Color.BLACK);
             g.drawRect(x, y, size, size);

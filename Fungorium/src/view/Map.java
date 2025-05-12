@@ -23,7 +23,7 @@ public class Map {
 
     public void draw(BufferedImage canvas) {
         Graphics2D g = canvas.createGraphics();
-        g.setColor(Color.RED); // TODO @Panni background color
+        g.setColor(View.getBackgroundColor());
         g.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         // TODO offset

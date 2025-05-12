@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.Console;
@@ -20,6 +21,7 @@ public class View {
     private static List<VFungus> allFungi;
     private static BufferedImage canvas = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB); // TODO @Panni not
                                                                                                     // hardcoded w/h
+    private static Color backgroundColor = new Color(60, 120, 216, 255);
 
     public static void redraw() {
         if (map != null)
@@ -33,7 +35,7 @@ public class View {
         // ref: initialize.puml
 
         // for testing:
-        map = new Map(10, 10, 60);
+        map = new Map(10, 10, 50);
         allColonies = new ArrayList<>();
         allFungi = new ArrayList<>();
         Tecton t1 = new Tecton();
@@ -121,5 +123,9 @@ public class View {
 
     public static BufferedImage getCanvas() {
         return canvas;
+    }
+
+    public static Color getBackgroundColor() {
+        return backgroundColor;
     }
 }
