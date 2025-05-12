@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,10 +19,10 @@ public class Map {
         }
     }
 
-    public void draw() {
+    public void draw(Graphics2D g) {
         for (List<Cell> row : cells) {
             for (Cell cell : row) {
-                cell.draw();
+                cell.draw(g);
             }
         }
     }

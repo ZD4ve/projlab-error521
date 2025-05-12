@@ -19,6 +19,14 @@ public class VInsect implements IIcon {
     private BufferedImage speedImage;
     private BufferedImage slowImage;
 
+    // #region GETTERS SETTERS
+
+    public Insect getInsect() {
+        return insect;
+    }
+
+    // #endregion
+
     // #region ICON GENERATION
     private Color getColor() {
         for (VColony vc : View.getAllColonies()) {
@@ -114,6 +122,42 @@ public class VInsect implements IIcon {
         slowImage = slowIcon(size / 4, color);
     }
 
+    @Override
+    public BufferedImage getIcon() {
+        List<InsectEffect> effs = insect.getActiveEffects();
+        if (effs.isEmpty()) {
+            return cachedIcon;
+        }
+        int n = effs.size();
+        BufferedImage img = new BufferedImage(cachedIcon.getWidth(), cachedIcon.getHeight(),
+                BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = img.createGraphics();
+        g.drawImage(cachedIcon, 0, 0, null);
+        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+        int cellSize = cachedIcon.getWidth();
+        int size = Math.min(cellSize / 4, cellSize / (n + 1));
+        int x = (cellSize - n * size) / 2;
+        int y = size / 4;
+        for (int i = 0; i < n; i++) {
+            InsectEffect effect = effs.get(i);
+            BufferedImage icon = null;
+            if (effect.getClass() == SpeedEffect.class) {
+                if (((SpeedEffect) effect).getMultiplier() > 1) {
+                    icon = speedImage;
+                } else {
+                    icon = slowImage;
+                }
+            } else if (effect.getClass() == AntiChewEffect.class) {
+                icon = antiChewImage;
+            } else if (effect.getClass() == ParalysingEffect.class) {
+                icon = paraImage;
+            }
+            g.drawImage(icon, x, y, size, size, null);
+            x += size;
+        }
+        return null;
+    }
+
     // #endregion
 
     public VInsect(Cell cell, Insect insect) {
@@ -167,44 +211,4 @@ public class VInsect implements IIcon {
     }
 
     // #endregion
-
-    @Override
-    public Object getIcon() {
-        List<InsectEffect> effs = insect.getActiveEffects();
-        if (effs.isEmpty()) {
-            return cachedIcon;
-        }
-        int n = effs.size();
-        BufferedImage img = new BufferedImage(cachedIcon.getWidth(), cachedIcon.getHeight(),
-                BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g = img.createGraphics();
-        g.drawImage(cachedIcon, 0, 0, null);
-        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
-        int cellSize = cachedIcon.getWidth();
-        int size = Math.min(cellSize / 4, cellSize / (n + 1));
-        int x = (cellSize - n * size) / 2;
-        int y = size / 4;
-        for (int i = 0; i < n; i++) {
-            InsectEffect effect = effs.get(i);
-            BufferedImage icon = null;
-            if (effect.getClass() == SpeedEffect.class) {
-                if (((SpeedEffect) effect).getMultiplier() > 1) {
-                    icon = speedImage;
-                } else {
-                    icon = slowImage;
-                }
-            } else if (effect.getClass() == AntiChewEffect.class) {
-                icon = antiChewImage;
-            } else if (effect.getClass() == ParalysingEffect.class) {
-                icon = paraImage;
-            }
-            g.drawImage(icon, x, y, size, size, null);
-            x += size;
-        }
-        return null;
-    }
-
-    public Insect getInsect() {
-        return insect;
-    }
 }

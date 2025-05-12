@@ -13,7 +13,7 @@ public class View {
     private static List<VFungus> allFungi;
 
     public static void redraw() {
-        map.draw();
+        map.draw(); // TODO @Panni grarphics2d valahonnan
     }
 
     public static void create(int tecNum, int fungiNum, int colNum) {
