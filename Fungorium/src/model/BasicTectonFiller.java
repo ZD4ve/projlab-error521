@@ -21,12 +21,12 @@ public class BasicTectonFiller implements ITectonFiller {
 
         var t1Neighbors = new ArrayList<>(neighbors.subList(0, neighborMid));
         t1Neighbors.add(t2);
-        t1.fillWithStuff(spores.subList(0, sporeMid), null, insects.subList(0, insectMid), t1Neighbors);
+        t1.fillWithStuff(spores.subList(0, sporeMid), null, insects.subList(0, insectMid), t1Neighbors, new BasicTectonFiller());
 
         var t2Neighbors = new ArrayList<>(neighbors.subList(neighborMid, neighbors.size()));
         t2Neighbors.add(t1);
-        t2.fillWithStuff(spores.subList(sporeMid, spores.size()), mushroom, insects.subList(insectMid, insects.size()),
-                t2Neighbors);
+        t2.fillWithStuff(spores.subList(sporeMid, spores.size()), mushroom, insects.subList(insectMid, insects.size() ),
+                t2Neighbors, new BasicTectonFiller());
     }
 
 }

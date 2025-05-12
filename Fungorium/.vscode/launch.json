@@ -3,6 +3,12 @@
     "configurations": [
         {
             "type": "java",
+            "name": "GUI",
+            "request": "launch",
+            "mainClass": "gui.Main"
+        },
+        {
+            "type": "java",
             "name": "Proto",
             "request": "launch",
             "mainClass": "proto.Prototype"
