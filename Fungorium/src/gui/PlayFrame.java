@@ -16,12 +16,10 @@ public class PlayFrame extends JFrame {
         sidePanel.setLayout(new BoxLayout(sidePanel, BoxLayout.Y_AXIS));
         sidePanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
-
         fungusLabel = new JLabel("Gombászok:");
-        fungusLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
+        fungusLabel.setFont(new Font("Arial", Font.BOLD, 14));
         sidePanel.add(fungusLabel);
         sidePanel.add(Box.createVerticalStrut(5));
-
 
         sidePanel.add(createColorPointRow(Color.RED, "pont: 2"));
         sidePanel.add(Box.createVerticalStrut(5));
@@ -29,12 +27,10 @@ public class PlayFrame extends JFrame {
 
         sidePanel.add(Box.createVerticalStrut(20));
 
-
         colonyLabel = new JLabel("Rovarászok:");
         colonyLabel.setFont(new Font("Arial", Font.BOLD, 14));
         sidePanel.add(colonyLabel);
         sidePanel.add(Box.createVerticalStrut(5));
-
 
         sidePanel.add(createColorPointRow(Color.YELLOW, "pont: 5"));
         sidePanel.add(Box.createVerticalStrut(5));
@@ -69,7 +65,7 @@ public class PlayFrame extends JFrame {
 
     public void initFrame() {
         setLocation(200, 200);
-        setMinimumSize(new Dimension(600,500));
+        setMinimumSize(new Dimension(600, 500));
         setSize(600, 500);
         setVisible(true);
         setLayout(new BorderLayout());
