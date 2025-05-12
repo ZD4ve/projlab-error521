@@ -1,5 +1,8 @@
 package view;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
 public class Cell {
     // #region ASSOCIATIONS
     private IIcon item;
@@ -20,9 +23,45 @@ public class Cell {
     // #endregion
 
     // #region FUNCTIONS
-    public void draw() {
-        // TODO @Panni
-        // ref: rendering.puml
+    private void drawEdge(Graphics2D g, Cell n) {
+        if (n.getTecton() == tecton)
+            return;
+        int dx = n.getX() - x;
+        int dy = n.getY() - y;
+        if (dx == 0) {
+            if (dy > 0) // down
+                g.drawLine(x, y + size, x + size, y + size);
+            else // up
+                g.drawLine(x, y, x + size, y);
+        } else {
+            if (dx > 0) // right
+                g.drawLine(x + size, y, x + size, y + size);
+            else // left
+                g.drawLine(x, y, x, y + size);
+        }
+    }
+
+    public void draw(Graphics2D g) {
+        Color background = tecton.getColor();
+        g.setColor(background);
+        g.fillRect(x, y, size, size);
+        if (item != null) {
+            BufferedImage icon = item.getIcon();
+            if (icon == null) {
+                item = null; // TODO: @Panni return null when dead
+            } else {
+                g.drawImage(item.getIcon(), x, y, size, size, null);
+            }
+        }
+        java.util.List<Cell> neighbors = View.getMap().getNeighbors(this);
+        g.setColor(Color.BLUE); // TODO @Panni background color
+        for (Cell neighbor : neighbors) {
+            drawEdge(g, neighbor);
+        }
+        if (View.getSelected() == this) {
+            g.setColor(Color.BLACK);
+            g.drawRect(x, y, size, size);
+        }
     }
     // #endregion
 

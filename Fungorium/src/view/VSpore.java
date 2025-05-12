@@ -43,7 +43,7 @@ public class VSpore implements IIcon {
     }
 
     @Override
-    public Object getIcon() {
+    public BufferedImage getIcon() {
         return cachedIcon;
     }
 

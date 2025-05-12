@@ -1,5 +1,7 @@
 package view;
 
+import java.awt.image.BufferedImage;
+
 public interface IIcon {
-    Object getIcon(); // Returns an icon or null if dead
+    BufferedImage getIcon(); // Returns an icon or null if dead
 }

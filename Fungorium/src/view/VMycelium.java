@@ -47,7 +47,7 @@ public class VMycelium implements IIcon {
     }
 
     @Override
-    public Object getIcon() {
+    public BufferedImage getIcon() {
         return cachedIcon;
     }
 

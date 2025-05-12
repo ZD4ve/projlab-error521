@@ -123,7 +123,7 @@ public class VInsect implements IIcon {
     }
 
     @Override
-    public Object getIcon() {
+    public BufferedImage getIcon() {
         List<InsectEffect> effs = insect.getActiveEffects();
         if (effs.isEmpty()) {
             return cachedIcon;

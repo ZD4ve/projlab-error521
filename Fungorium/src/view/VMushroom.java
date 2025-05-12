@@ -58,7 +58,7 @@ public class VMushroom implements IIcon {
     }
 
     @Override
-    public Object getIcon() {
+    public BufferedImage getIcon() {
         if (mushroom.getIsGrown() != isCachedGrown) {
             if (mushroom.getIsGrown()) {
                 cachedIcon = mushroomBigIcon();
