@@ -1,6 +1,8 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,12 +21,18 @@ public class Map {
         }
     }
 
-    public void draw(Graphics2D g) {
+    public void draw(BufferedImage canvas) {
+        Graphics2D g = canvas.createGraphics();
+        g.setColor(Color.RED); // TODO @Panni background color
+        g.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
+        // TODO offset
         for (List<Cell> row : cells) {
             for (Cell cell : row) {
                 cell.draw(g);
             }
         }
+        g.dispose();
     }
 
     public List<Cell> getNeighbors(Cell cell) {

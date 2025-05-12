@@ -1,15 +1,18 @@
 package gui;
 
 import javax.swing.*;
+
+import view.View;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class StartFrame extends JFrame{
+public class StartFrame extends JFrame {
 
     JPanel topPanel, bottomPanel, middlePanel, mid1, mid2, mid3;
     JButton start;
-    JLabel label1,label2,label3,titleLabel;
+    JLabel label1, label2, label3, titleLabel;
     JSpinner spinner1, spinner2, spinner3;
 
     public StartFrame() {
@@ -48,9 +51,10 @@ public class StartFrame extends JFrame{
 
         start = new JButton("Kezdés");
         start.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e)
-            {
+            public void actionPerformed(ActionEvent e) {
                 PlayFrame pf = new PlayFrame();
+                View.create((Integer) spinner1.getValue(), (Integer) spinner2.getValue(),
+                        (Integer) spinner3.getValue());
             }
         });
 
@@ -63,8 +67,6 @@ public class StartFrame extends JFrame{
         topPanel.add(titleLabel, BorderLayout.NORTH);
         bottomPanel.add(start);
 
-
-
         add(topPanel, BorderLayout.NORTH);
         add(middlePanel, BorderLayout.CENTER);
         add(bottomPanel, BorderLayout.SOUTH);
@@ -76,7 +78,7 @@ public class StartFrame extends JFrame{
 
     public void initFrame() {
         setLocation(200, 200);
-        setMinimumSize(new Dimension(320,250));
+        setMinimumSize(new Dimension(320, 250));
         setSize(320, 250);
         setVisible(true);
         setLayout(new BorderLayout());

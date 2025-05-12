@@ -1,6 +1,13 @@
 package view;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.Console;
+import java.util.ArrayList;
 import java.util.List;
+
+import model.MyceliumAbsorbingTecton;
+import model.Tecton;
 
 public class View {
     private View() {
@@ -11,14 +18,41 @@ public class View {
     private static VPlayer selectedPlayer;
     private static List<VColony> allColonies;
     private static List<VFungus> allFungi;
+    private static BufferedImage canvas = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB); // TODO @Panni not
+                                                                                                    // hardcoded w/h
 
     public static void redraw() {
-        map.draw(); // TODO @Panni grarphics2d valahonnan
+        if (map != null)
+            map.draw(canvas);
+        else
+            System.out.println("Map is null");
     }
 
     public static void create(int tecNum, int fungiNum, int colNum) {
         // TODO @Márton @Vazul
         // ref: initialize.puml
+
+        // for testing:
+        map = new Map(10, 10, 60);
+        allColonies = new ArrayList<>();
+        allFungi = new ArrayList<>();
+        Tecton t1 = new Tecton();
+        List<Cell> cells1 = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 10; j++) {
+                cells1.add(map.cellAt(i * Cell.getSize(), j * Cell.getSize()));
+            }
+        }
+        new VTecton(cells1, t1);
+        Tecton t2 = new MyceliumAbsorbingTecton();
+        List<Cell> cells2 = new ArrayList<>();
+        for (int i = 5; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                cells2.add(map.cellAt(i * Cell.getSize(), j * Cell.getSize()));
+            }
+        }
+        new VTecton(cells2, t2);
+
     }
 
     public static void notifyUser() {
@@ -83,5 +117,9 @@ public class View {
 
     public static List<VFungus> getAllFungi() {
         return allFungi;
+    }
+
+    public static BufferedImage getCanvas() {
+        return canvas;
     }
 }
