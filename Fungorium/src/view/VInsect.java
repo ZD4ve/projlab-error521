@@ -137,7 +137,7 @@ public class VInsect implements IIcon {
         g.drawImage(cachedIcon, 0, 0, null);
         g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
         int cellSize = cachedIcon.getWidth();
-        int size = Math.min(cellSize / 4, cellSize / (n + 1));
+        int size = Math.min(cellSize / 3, cellSize / (n + 1));
         int x = (cellSize - n * size) / 2;
         int y = size / 4;
         for (int i = 0; i < n; i++) {
@@ -157,7 +157,7 @@ public class VInsect implements IIcon {
             g.drawImage(icon, x, y, size, size, null);
             x += size;
         }
-        return null;
+        return img;
     }
 
     // #endregion

@@ -44,7 +44,7 @@ public class VSpore implements IIcon {
 
     @Override
     public BufferedImage getIcon() {
-        if (cell.getTecton().getTecton().getSpores().contains(spore)) {
+        if (!cell.getTecton().getTecton().getSpores().contains(spore)) {
             return null;
         }
         return cachedIcon;

@@ -3,6 +3,8 @@ package gui;
 import java.awt.*;
 import javax.swing.*;
 
+import view.View;
+
 public class PlayFrame extends JFrame {
 
     JPanel sidePanel;
@@ -46,7 +48,7 @@ public class PlayFrame extends JFrame {
 
         JPanel canvas = new CanvasPanel();
         canvas.setPreferredSize(new Dimension(600, 600));
-        canvas.setBackground(Color.BLUE);
+        canvas.setBackground(View.getBackgroundColor());
         add(canvas, BorderLayout.CENTER);
 
         pack();

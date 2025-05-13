@@ -7,8 +7,7 @@ import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.MyceliumAbsorbingTecton;
-import model.Tecton;
+import model.*;
 
 public class View {
     private View() {
@@ -33,8 +32,14 @@ public class View {
 
         // for testing:
         map = new Map(10, 10, 50);
+        Fungus f = new Fungus();
+        Colony c = new Colony();
+        VColony vColony = new VColony(c);
+        VFungus vFungus = new VFungus(f);
         allColonies = new ArrayList<>();
+        allColonies.add(vColony);
         allFungi = new ArrayList<>();
+        allFungi.add(vFungus);
         Tecton t1 = new Tecton();
         List<Cell> cells1 = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
@@ -50,7 +55,27 @@ public class View {
                 cells2.add(map.cellAt(i * Cell.getSize(), j * Cell.getSize()));
             }
         }
+        // model is probably inconsistent here
         new VTecton(cells2, t2);
+        new VInsect(map.cellAt(0, 0), new Insect(t1, c));
+        Insect i = new Insect(t2, c);
+        new VInsect(map.cellAt(9 * Cell.getSize(), 0), i);
+        i.addEffect(new SpeedEffect());
+        i.addEffect(new ParalysingEffect());
+        i.addEffect(new AntiChewEffect());
+        new VMushroom(map.cellAt(0, Cell.getSize()), new Mushroom(f, t1));
+        Mushroom mush = new Mushroom(f, t1);
+        mush.setIsGrown(true);
+        new VMushroom(map.cellAt(Cell.getSize(), Cell.getSize()), mush);
+        Spore spore = new Spore(f);
+        t1.addSpore(spore);
+        new VSpore(map.cellAt(0, 2 * Cell.getSize()), spore);
+        spore = new Spore(f);
+        t2.addSpore(spore);
+        new VSpore(map.cellAt(7 * Cell.getSize(), 2 * Cell.getSize()), spore);
+        Mycelium m = new Mycelium(f, t1, t2);
+        new VMycelium(map.cellAt(4 * Cell.getSize(), 0), m, map.cellAt(5 * Cell.getSize(), 0));
+        new VMycelium(map.cellAt(5 * Cell.getSize(), 0), m, map.cellAt(4 * Cell.getSize(), 0));
 
     }
 

@@ -5,7 +5,7 @@ import java.awt.Color;
 public abstract class VPlayer {
     public Color getColor() {
         // TODO @Panni
-        return null;
+        return Color.RED;
     }
 
     public void selectPlayer() {
