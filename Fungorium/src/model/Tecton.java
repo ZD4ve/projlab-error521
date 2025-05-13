@@ -373,6 +373,9 @@ public class Tecton implements IActive {
             n.removeNeighbor(this);
         }
         filler.breaking(this, newMe(), newMe());
+        for (Tecton n : neighbors) {
+            n.removeNeighbor(this);
+        }
     }
 
     /**
