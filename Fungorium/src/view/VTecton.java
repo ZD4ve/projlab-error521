@@ -5,16 +5,15 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import model.ITectonFiller;
 import model.Insect;
 import model.Mushroom;
-import model.Spore;
-import model.Tecton;
 import model.MyceliumAbsorbingTecton;
 import model.MyceliumKeepingTecton;
 import model.NoMushroomTecton;
 import model.SingleMyceliumTecton;
+import model.Spore;
+import model.Tecton;
 
 public class VTecton implements ITectonFiller {
     private Tecton tecton;
@@ -48,8 +47,47 @@ public class VTecton implements ITectonFiller {
 
     @Override
     public void breaking(Tecton dying, Tecton t1, Tecton t2) {
-        // TODO @Márton @Vazul
-        // ref: breaking.puml
+        double centerX = 0;
+        double centerY = 0;
+
+        for (Cell cell : cells) {
+            centerX += cell.getX();
+            centerY += cell.getY();
+        }
+        centerX /= cells.size();
+        centerY /= cells.size();
+
+        double sxx = 0;
+        double syy = 0;
+        double sxy = 0;
+
+        for (Cell cell : cells) {
+            double dx = cell.getX() - centerX;
+            double dy = cell.getY() - centerY;
+            sxx += dx * dx;
+            syy += dy * dy;
+            sxy += dx * dy;
+        }
+
+        double theta = 0.5 * Math.atan2(2 * sxy, sxx - syy);
+        double ux = Math.cos(theta);
+        double uy = Math.sin(theta);
+
+        List<Cell> t1Cells = new ArrayList<>();
+        List<Cell> t2Cells = new ArrayList<>();
+
+        for (Cell cell : cells) {
+            double dx = cell.getX() - centerX;
+            double dy = cell.getY() - centerY;
+            if (ux * dy + uy * dx > 0) {
+                t1Cells.add(cell);
+            } else {
+                t2Cells.add(cell);
+            }
+        }
+
+        new VTecton(t1Cells, t1);
+        new VTecton(t2Cells, t2);
     }
 
     public Color getColor() {
