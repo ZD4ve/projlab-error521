@@ -64,7 +64,7 @@ public class Cell {
         g.setStroke(new BasicStroke(size * 0.05f));
         if (View.getSelected() == this) {
             g.setColor(Color.BLACK);
-            g.drawRect(x, y, size, size);
+            g.drawRect(x, y, size - 1, size - 1);
         }
     }
     // #endregion
