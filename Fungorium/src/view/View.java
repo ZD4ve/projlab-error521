@@ -120,9 +120,8 @@ public class View {
             }
             if (item1 instanceof VMushroom mushroom && mushroom.getMushroom().getSpecies() == fungus.getFungus())
                 mushroom.burst(clicked);
-
         }
-
+        selected = null;
     }
 
     public static void endGame() {
