@@ -52,6 +52,7 @@ public class VTecton implements ITectonFiller {
         Mushroom mushroom = null;
         List<Insect> insects = new ArrayList<>();
         Set<Tecton> neighbors = new HashSet<>();
+        Map map = View.getMap();
 
         for (Cell cell : cells) {
             cell.setTecton(this);
@@ -64,8 +65,7 @@ public class VTecton implements ITectonFiller {
                 mushroom = vmushroom.getMushroom();
             if (item instanceof VInsect vinsect)
                 insects.add(vinsect.getInsect());
-            if (item instanceof VTecton vneighbor)
-                neighbors.add(vneighbor.getTecton());
+            map.getNeighbors(cell).forEach(n -> neighbors.add(n.getTecton().getTecton()));
         }
         tecton.fillWithStuff(spores, mushroom, insects, new ArrayList<>(neighbors), this);
     }
