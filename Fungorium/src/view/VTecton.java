@@ -135,15 +135,15 @@ public class VTecton implements ITectonFiller {
     }
 
     public Color getColor() {
-        if (tecton instanceof Tecton)
+        if (tecton.getClass() == Tecton.class)
             return new Color(239, 239, 239, 255);
-        else if (tecton instanceof MyceliumAbsorbingTecton)
+        else if (tecton.getClass() == MyceliumAbsorbingTecton.class)
             return new Color(217, 234, 211, 255);
-        else if (tecton instanceof MyceliumKeepingTecton)
+        else if (tecton.getClass() == MyceliumKeepingTecton.class)
             return new Color(201, 218, 248, 255);
-        else if (tecton instanceof NoMushroomTecton)
+        else if (tecton.getClass() == NoMushroomTecton.class)
             return new Color(244, 204, 204, 255);
-        else if (tecton instanceof SingleMyceliumTecton)
+        else if (tecton.getClass() == SingleMyceliumTecton.class)
             return new Color(255, 242, 204, 255);
         else
             throw new IllegalArgumentException("Unknown class: " + tecton.getClass().getSimpleName());
