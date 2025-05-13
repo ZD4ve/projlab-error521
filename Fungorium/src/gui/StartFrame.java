@@ -1,31 +1,22 @@
 package gui;
 
-import javax.swing.*;
-
 import view.View;
-
+import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class StartFrame extends JFrame {
 
-    JPanel topPanel, bottomPanel, middlePanel, mid1, mid2, mid3;
-    JButton start;
-    JLabel label1, label2, label3, titleLabel;
-    JSpinner spinner1, spinner2, spinner3;
-
+    
     public StartFrame() {
-
-        super("Fungorium");
+        super("Fungorium");        
         initFrame();
 
-        topPanel = new JPanel();
-        middlePanel = new JPanel();
-        mid1 = new JPanel();
-        mid2 = new JPanel();
-        mid3 = new JPanel();
-        bottomPanel = new JPanel();
+        JPanel topPanel = new JPanel();
+        JPanel middlePanel = new JPanel();
+        JPanel mid1 = new JPanel();
+        JPanel mid2 = new JPanel();
+        JPanel mid3 = new JPanel();
+        JPanel bottomPanel = new JPanel();
 
         middlePanel.add(mid1);
         middlePanel.add(mid2);
@@ -35,27 +26,24 @@ public class StartFrame extends JFrame {
         bottomPanel.setPreferredSize(new Dimension(150, 50));
         topPanel.setPreferredSize(new Dimension(150, 40));
 
-        spinner1 = new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
-        spinner2 = new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
-        spinner3 = new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
+        JSpinner spinner1 = new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
+        JSpinner spinner2 = new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
+        JSpinner spinner3 = new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
         spinner1.setPreferredSize(new Dimension(50, 20));
         spinner2.setPreferredSize(new Dimension(50, 20));
         spinner3.setPreferredSize(new Dimension(50, 20));
 
-        titleLabel = new JLabel("Új játék");
+        JLabel titleLabel = new JLabel("Új játék");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
 
-        label1 = new JLabel("Tektonok:");
-        label2 = new JLabel("Gombászok:");
-        label3 = new JLabel("Rovarászok:");
+        JLabel label1 = new JLabel("Tektonok:");
+        JLabel label2 = new JLabel("Gombászok:");
+        JLabel label3 = new JLabel("Rovarászok:");
 
-        start = new JButton("Kezdés");
-        start.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                PlayFrame pf = new PlayFrame();
-                View.create((Integer) spinner1.getValue(), (Integer) spinner2.getValue(),
-                        (Integer) spinner3.getValue());
-            }
+        JButton start = new JButton("Kezdés");
+        start.addActionListener(e -> {
+            new PlayFrame();
+            View.create((Integer) spinner1.getValue(), (Integer) spinner2.getValue(), (Integer) spinner3.getValue());
         });
 
         mid1.add(label1);
@@ -82,6 +70,6 @@ public class StartFrame extends JFrame {
         setSize(320, 250);
         setVisible(true);
         setLayout(new BorderLayout());
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 }
