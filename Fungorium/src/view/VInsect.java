@@ -41,6 +41,7 @@ public class VInsect implements IIcon {
         BufferedImage img = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = img.createGraphics();
         g.setColor(color);
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         int d = size / 4;
         int y = size / 2 - d / 2;
         int startX = d / 2;
@@ -56,15 +57,19 @@ public class VInsect implements IIcon {
         Graphics2D g = img.createGraphics();
         g.setColor(color);
         g.setStroke(new BasicStroke(size * 0.05f));
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         double angle = Math.PI / 8;
-        g.translate(0, size / 5.0);
+        g.scale(1.8, 1.8);
+        g.translate(-size / 4.0, -size / 1000.0);
         g.rotate(-Math.PI / 2 - angle, size / 2.0, size / 2.0);
         g.fillArc(size / 2, size / 2 - size / 8, size / 2, size / 4, 0, 180);
         g.rotate(Math.PI + 2 * angle, size / 2.0, size / 2.0);
         g.fillArc(0, size / 2 - size / 8, size / 2, size / 4, 0, 180);
         g.rotate(-Math.PI / 2 - angle, size / 2.0, size / 2.0);
-        g.translate(0, -size / 5.0);
-        g.drawLine(size / 5, size * 4 / 5, size * 4 / 5, size / 5); // cross-out
+        g.translate(size / 4.0, size / 1000.0);
+        g.scale(1 / 1.8, 1 / 1.8);
+        g.setStroke(new BasicStroke(size * 0.08f));
+        g.drawLine(0, size * 4 / 5, size, 0); // cross-out
         g.dispose();
         return img;
     }
@@ -73,9 +78,10 @@ public class VInsect implements IIcon {
         BufferedImage img = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = img.createGraphics();
         g.setColor(color);
+        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        g.setFont(new Font("SansSerif", Font.BOLD, size * 2 / 3));
+        g.drawString("Z", size / 5, size * 4 / 5);
         g.setFont(new Font("SansSerif", Font.BOLD, size / 2));
-        g.drawString("Z", size / 4, size * 3 / 4);
-        g.setFont(new Font("SansSerif", Font.BOLD, size / 3));
         g.drawString("Z", 2 * size / 3, size / 3);
         g.dispose();
         return img;
@@ -84,10 +90,11 @@ public class VInsect implements IIcon {
     private BufferedImage speedIcon(int size, Color color) {
         BufferedImage img = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = img.createGraphics();
-        g.setStroke(new BasicStroke(size * 0.03f));
+        g.setStroke(new BasicStroke(size * 0.05f));
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setColor(color);
-        int[] x = { size / 2, size * 35 / 100, size * 55 / 100, size * 2 / 5, size / 3, size * 2 / 5, size / 2 };
-        int[] y = { size / 5, size * 3 / 5, size * 2 / 5, size * 4 / 5, size * 7 / 10, size * 4 / 5, size * 3 / 4 };
+        int[] x = { size / 2, size / 5, size * 6 / 10, size * 2 / 5, size / 3, size * 2 / 5, size * 3 / 5 };
+        int[] y = { 0, size * 3 / 5, size * 2 / 5, size, size * 7 / 10, size, size * 3 / 4 };
         g.drawPolyline(x, y, x.length);
         g.dispose();
         return img;
@@ -98,16 +105,16 @@ public class VInsect implements IIcon {
         Graphics2D g = img.createGraphics();
         g.setColor(color);
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.translate(-size / 6.0, 0);
-        g.scale(1.2, 1.2);
+        g.translate(-size * 0.35, -size * 0.1);
+        g.scale(1.5, 1.5);
         int headSize = size / 5;
         g.fillArc(size / 4, size / 4, size / 2, size / 2, 0, 180);
         g.fillArc(size * 3 / 4 - headSize / 4, size / 2 - headSize / 2, headSize, headSize, 0, 180);
         int legSize = size / 10;
         g.fillRect(size / 4, size / 2, legSize, legSize);
         g.fillRect(size * 3 / 4 - legSize, size / 2, legSize, legSize);
-        g.scale(1 / 1.2, 1 / 1.2);
-        g.translate(size / 6.0, 0);
+        g.scale(1 / 1.5, 1 / 1.5);
+        g.translate(size * 0.35, size * 0.1);
         g.dispose();
         return img;
     }
@@ -135,7 +142,6 @@ public class VInsect implements IIcon {
                 BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = img.createGraphics();
         g.drawImage(cachedIcon, 0, 0, null);
-        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
         int cellSize = cachedIcon.getWidth();
         int size = Math.min(cellSize / 3, cellSize / (n + 1));
         int x = (cellSize - n * size) / 2;

@@ -35,6 +35,7 @@ public class VSpore implements IIcon {
         Graphics2D g = img.createGraphics();
         int sporeSize = size / 5;
         int startPos = size / 2 - sporeSize / 2;
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setColor(color);
         g.setStroke(new BasicStroke(size * 0.05f));
         g.drawOval(startPos, startPos, sporeSize, sporeSize);

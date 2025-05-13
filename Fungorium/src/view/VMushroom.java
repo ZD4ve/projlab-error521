@@ -38,7 +38,8 @@ public class VMushroom implements IIcon {
         g.setColor(color);
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.fillArc(size / 8, size / 4, size * 3 / 4, size * 3 / 4, 0, 180); // cap
-        g.fillRect(size * 3 / 8, 5 * size / 8, size / 4, size / 8); // small trunk
+        g.fillRect(size * 3 / 8, 5 * size / 8 - 1, size / 4, size / 8); // small trunk
+        // -1 at y coordinate is to avoid gap
         g.dispose();
         return img;
     }
@@ -52,7 +53,8 @@ public class VMushroom implements IIcon {
         g.setColor(color);
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.fillArc(size / 8, size / 8, size * 3 / 4, size * 3 / 4, 0, 180); // cap
-        g.fillRect(size * 3 / 8, size / 2, size / 4, size / 3); // large trunk
+        g.fillRect(size * 3 / 8, size / 2 - 1, size / 4, size / 3); // large trunk
+        // -1 at y coordinate is to avoid gap
         g.dispose();
         return img;
     }
