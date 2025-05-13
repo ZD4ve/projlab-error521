@@ -48,7 +48,6 @@ public class PlayFrame extends JFrame {
 
         JPanel canvas = new CanvasPanel();
         canvas.setPreferredSize(new Dimension(600, 600));
-        canvas.setBackground(View.getBackgroundColor());
         add(canvas, BorderLayout.CENTER);
 
         pack();

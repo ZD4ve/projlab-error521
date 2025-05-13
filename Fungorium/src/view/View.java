@@ -23,7 +23,14 @@ public class View {
     private static Color backgroundColor = new Color(60, 120, 216, 255);
 
     public static void redraw() {
-        map.draw(canvas);
+        Graphics2D g = canvas.createGraphics();
+        g.setColor(View.getBackgroundColor());
+        g.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        int size = Cell.getSize();
+        g.translate(size, size);
+        map.draw(g);
+        g.translate(-size, -size);
+        g.dispose();
     }
 
     public static void create(int tecNum, int fungiNum, int colNum) {
@@ -84,7 +91,7 @@ public class View {
     }
 
     public static void click(int x, int y) {// NOSONAR complexity, így olvashatóbb
-        Cell clicked = map.cellAt(x, y);
+        Cell clicked = map.cellAt(x - Cell.getSize(), y - Cell.getSize()); // compensate for the offset
         if (selected == null) {
             selected = clicked;
             return;
