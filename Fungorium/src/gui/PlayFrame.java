@@ -3,8 +3,6 @@ package gui;
 import java.awt.*;
 import javax.swing.*;
 
-import view.View;
-
 public class PlayFrame extends JFrame {
 
     JPanel sidePanel;
