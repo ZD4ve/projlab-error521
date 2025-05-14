@@ -85,8 +85,8 @@ public class View {
             Point p;
             do {
                 p = Point.random(mcols, mrows);
-                p.X *= minDst;
-                p.Y *= minDst;
+                p.X = p.X * minDst + 1;
+                p.Y = p.Y * minDst + 1;
             } while (controlPoints.contains(p));
             controlPoints.add(p);
         }
