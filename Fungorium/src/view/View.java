@@ -139,7 +139,7 @@ public class View {
 
         Set<Point> controlPoints = createControlPoints(tecNum, minUnitCols, minUnitRows, minDst);
 
-        map = new Map(cols, rows, canvas.getWidth() / cols);
+        map = new Map(cols, rows, Math.min(canvas.getWidth() / cols, canvas.getHeight() / rows));
 
         HashMap<Point, List<Cell>> tectonsCells = calculateTectonCells(rows, cols, controlPoints);
 
