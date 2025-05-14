@@ -19,6 +19,8 @@ public class VTecton implements ITectonFiller {
     private Tecton tecton;
     private List<Cell> cells;
 
+    private static final int MIN_CELLS = 15;
+
     private static class Vec2 {
         double x;
         double y;
@@ -97,7 +99,7 @@ public class VTecton implements ITectonFiller {
     }
 
     private boolean canBreak() {
-        return cells.size() >= 15;
+        return cells.size() >= MIN_CELLS;
     }
 
     /**
