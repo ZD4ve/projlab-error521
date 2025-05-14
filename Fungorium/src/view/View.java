@@ -127,8 +127,10 @@ public class View {
 
     // TODO tecNum must be greater than fungiNum + colNum @Tamasz
     public static void create(int tecNum, int fungiNum, int colNum) {
-        allFungi = IntStream.range(0, fungiNum).mapToObj(x -> new VFungus(new Fungus())).toList();
-        allColonies = IntStream.range(0, colNum).mapToObj(x -> new VColony(new Colony())).toList();
+        List<Color> colors = VPlayer.generateColors(fungiNum + colNum);
+        allFungi = IntStream.range(0, fungiNum).mapToObj(x -> new VFungus(new Fungus(), colors.get(x))).toList();
+        allColonies = IntStream.range(0, colNum).mapToObj(x -> new VColony(new Colony(), colors.get(fungiNum + x)))
+                .toList();
 
         final int minDst = 3;
         final int rows = (int) Math.ceil(4 * Math.sqrt((tecNum * minDst * minDst)));

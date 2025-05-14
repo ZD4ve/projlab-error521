@@ -3,12 +3,15 @@ package view;
 import model.Fungus;
 import model.Mycelium;
 import model.Tecton;
+
+import java.awt.Color;
 import java.util.List;
 
 public class VFungus extends VPlayer {
     private Fungus fungus;
 
-    public VFungus(Fungus fungus) {
+    public VFungus(Fungus fungus, Color color) {
+        super(color);
         this.fungus = fungus;
     }
 
