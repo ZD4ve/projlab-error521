@@ -19,6 +19,8 @@ public class VTecton implements ITectonFiller {
     private Tecton tecton;
     private List<Cell> cells;
 
+    private static final int MIN_CELLS = 15;
+
     private static class Vec2 {
         double x;
         double y;
@@ -75,6 +77,9 @@ public class VTecton implements ITectonFiller {
      */
     @Override
     public void breaking(Tecton dying, Tecton t1, Tecton t2) {
+        if (!canBreak())
+            return;
+
         Line mainAxis = getMainAxis();
         List<Cell> t1Cells = new ArrayList<>();
         List<Cell> t2Cells = new ArrayList<>();
@@ -91,6 +96,10 @@ public class VTecton implements ITectonFiller {
 
         new VTecton(t1Cells, t1);
         new VTecton(t2Cells, t2);
+    }
+
+    private boolean canBreak() {
+        return cells.size() >= MIN_CELLS;
     }
 
     /**
