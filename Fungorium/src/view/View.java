@@ -54,15 +54,13 @@ public class View {
     private static VPlayer selectedPlayer;
     private static List<VColony> allColonies;
     private static List<VFungus> allFungi;
-    private static BufferedImage canvas = new BufferedImage(1500, 1000, BufferedImage.TYPE_INT_ARGB); // TODO @Panni not
-                                                                                                      // hardcoded w/h
     private static Color backgroundColor = new Color(60, 120, 216, 255);
 
-    public static void redraw() {
-        Graphics2D g = canvas.createGraphics();
-        g.setColor(View.getBackgroundColor());
-        g.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+    public static void redraw(Graphics2D g) {
         int size = Cell.getSize();
+        // @Panni ez így, hogy van pan+zoom kell még, vagy már nincs rá szükség?
+        // ha akarunk offsetet kezdésnél, akkor azt ott is be lehet állítani
+        // - Dávid
         g.translate(size, size);
         map.draw(g);
         g.translate(-size, -size);
@@ -141,7 +139,7 @@ public class View {
 
         Set<Point> controlPoints = createControlPoints(tecNum, minUnitCols, minUnitRows, minDst);
 
-        map = new Map(cols, rows, Math.min(canvas.getWidth() / cols, canvas.getHeight() / rows));
+        map = new Map(cols, rows, 256);
 
         HashMap<Point, List<Cell>> tectonsCells = calculateTectonCells(rows, cols, controlPoints);
 
@@ -239,10 +237,6 @@ public class View {
 
     public static List<VFungus> getAllFungi() {
         return allFungi;
-    }
-
-    public static BufferedImage getCanvas() {
-        return canvas;
     }
 
     public static Color getBackgroundColor() {

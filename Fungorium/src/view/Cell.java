@@ -45,7 +45,7 @@ public class Cell {
         Color background = tecton.getColor();
         g.setColor(background);
         g.fillRect(x, y, size, size);
-        g.setStroke(new BasicStroke(size * 0.01f));
+        g.setStroke(new BasicStroke(size * 0.02f));
         g.setColor(new Color(220, 220, 220, 255));
         g.drawRect(x, y, size, size);
         if (item != null) {
@@ -61,7 +61,7 @@ public class Cell {
         for (Cell neighbor : neighbors) {
             drawEdge(g, neighbor);
         }
-        g.setStroke(new BasicStroke(size * 0.05f));
+        g.setStroke(new BasicStroke(size * 0.1f));
         if (View.getSelected() == this) {
             g.setColor(Color.BLACK);
             g.drawRect(x, y, size - 1, size - 1);

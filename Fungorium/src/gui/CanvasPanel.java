@@ -10,7 +10,7 @@ import java.awt.event.MouseWheelEvent;
 import javax.swing.JPanel;
 
 public class CanvasPanel extends JPanel {
-    private double scale = 1;
+    private double scale = 0.1;
     private int lastX = 0;
     private int lastY = 0;
     private int offsetX = 0;
@@ -71,17 +71,18 @@ public class CanvasPanel extends JPanel {
         addMouseListener(mouseHandler);
         addMouseMotionListener(mouseHandler);
         addMouseWheelListener(mouseHandler);
+        setBackground(View.getBackgroundColor());
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        View.redraw();
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING, java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setRenderingHint(java.awt.RenderingHints.KEY_RENDERING, java.awt.RenderingHints.VALUE_RENDER_QUALITY);
         g2d.scale(scale, scale);
         g2d.translate(offsetX / scale, offsetY / scale);
-        g2d.drawImage(View.getCanvas(), 0, 0, null);
+        View.redraw(g2d);
+        // g2d.drawImage(View.getCanvas(), 0, 0, null);
     }
 }
