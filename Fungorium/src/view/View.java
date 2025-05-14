@@ -71,14 +71,11 @@ public class View {
 
     // TODO tecNum must be greater than fungiNum + colNum
     public static void create(int tecNum, int fungiNum, int colNum) {
-        // TODO @Márton @Vazul
-        // ref: initialize.puml
 
         allFungi = IntStream.range(0, fungiNum).mapToObj(x -> new VFungus(new Fungus())).collect(Collectors.toList());
         allColonies = IntStream.range(0, colNum).mapToObj(x -> new VColony(new Colony())).collect(Collectors.toList());
 
         final int minDst = 3;
-        // TODO calculate these values instead
         final int rows = (int) Math.ceil(1.5 * Math.sqrt(tecNum * minDst * minDst)), cols = rows;
 
         final int mrows = rows / minDst, mcols = cols / minDst;
