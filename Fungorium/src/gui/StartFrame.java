@@ -6,9 +6,8 @@ import java.awt.*;
 
 public class StartFrame extends JFrame {
 
-    
     public StartFrame() {
-        super("Fungorium");        
+        super("Fungorium");
         initFrame();
 
         JPanel topPanel = new JPanel();
@@ -42,8 +41,8 @@ public class StartFrame extends JFrame {
 
         JButton start = new JButton("Kezdés");
         start.addActionListener(e -> {
-            new PlayFrame();
             View.create((Integer) spinner1.getValue(), (Integer) spinner2.getValue(), (Integer) spinner3.getValue());
+            new PlayFrame();
         });
 
         mid1.add(label1);
