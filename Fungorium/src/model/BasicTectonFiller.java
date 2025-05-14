@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 // TODO DOC
 public class BasicTectonFiller implements ITectonFiller {
-
     @Override
     public void breaking(Tecton dying, Tecton t1, Tecton t2) {
         var spores = dying.getSpores();
@@ -29,4 +28,8 @@ public class BasicTectonFiller implements ITectonFiller {
                 t2Neighbors, new BasicTectonFiller());
     }
 
+    @Override
+    public boolean canBreak() {
+        return true;
+    }
 }

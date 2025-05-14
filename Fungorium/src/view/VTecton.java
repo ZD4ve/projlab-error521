@@ -77,9 +77,6 @@ public class VTecton implements ITectonFiller {
      */
     @Override
     public void breaking(Tecton dying, Tecton t1, Tecton t2) {
-        if (!canBreak())
-            return;
-
         Line mainAxis = getMainAxis();
         List<Cell> t1Cells = new ArrayList<>();
         List<Cell> t2Cells = new ArrayList<>();
@@ -98,7 +95,12 @@ public class VTecton implements ITectonFiller {
         new VTecton(t2Cells, t2);
     }
 
-    private boolean canBreak() {
+    @Override
+    /**
+     * Visszaadja, hogy a tekton képes-e törni.
+     * @return true, ha a tekton képes nagyobb, mint a minimális méret, false egyébként
+     */
+    public boolean canBreak() {
         return cells.size() >= MIN_CELLS;
     }
 
