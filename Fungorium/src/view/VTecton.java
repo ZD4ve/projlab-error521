@@ -85,7 +85,7 @@ public class VTecton implements ITectonFiller {
             double dx = cell.getX() - mainAxis.point.x;
             double dy = cell.getY() - mainAxis.point.y;
 
-            if (mainAxis.direction.x * dy + mainAxis.direction.y * dx > 0)
+            if (mainAxis.direction.x * dx + mainAxis.direction.y * dy > 0)
                 t1Cells.add(cell);
             else
                 t2Cells.add(cell);
@@ -124,7 +124,7 @@ public class VTecton implements ITectonFiller {
         }
 
         double theta = 0.5 * Math.atan2(2 * sxy, sxx - syy);
-        return new Line(center, new Vec2(-Math.sin(theta), Math.cos(theta)));
+        return new Line(center, new Vec2(Math.cos(theta), Math.sin(theta)));
     }
 
     /**
