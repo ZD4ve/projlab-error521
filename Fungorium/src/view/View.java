@@ -8,11 +8,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import controller.RandomProvider;
 import model.*;
 
 class Point {
@@ -22,10 +22,6 @@ class Point {
     }
 
     public int X, Y;
-
-    static Point random(int xbound, int ybound) {
-        return new Point(RandomProvider.nextInt(xbound), RandomProvider.nextInt(ybound));
-    }
 
     public double distanceTo(Point p) {
         return Math.sqrt(Math.pow(X - p.X, 2) + Math.pow(Y - p.Y, 2));
@@ -58,6 +54,8 @@ public class View {
                                                                                                     // hardcoded w/h
     private static Color backgroundColor = new Color(60, 120, 216, 255);
 
+    private static Random R = new Random();
+
     public static void redraw() {
         Graphics2D g = canvas.createGraphics();
         g.setColor(View.getBackgroundColor());
@@ -72,6 +70,9 @@ public class View {
     // TODO tecNum must be greater than fungiNum + colNum
     public static void create(int tecNum, int fungiNum, int colNum) {
 
+        tecNum = 50;
+        R = new Random(69420); // seed for testing purposes
+
         allFungi = IntStream.range(0, fungiNum).mapToObj(x -> new VFungus(new Fungus())).collect(Collectors.toList());
         allColonies = IntStream.range(0, colNum).mapToObj(x -> new VColony(new Colony())).collect(Collectors.toList());
 
@@ -84,9 +85,7 @@ public class View {
         for (int i = 0; i < tecNum; i++) {
             Point p;
             do {
-                p = Point.random(mcols, mrows);
-                p.X = p.X * minDst + 1;
-                p.Y = p.Y * minDst + 1;
+                p = new Point(R.nextInt(mcols) * minDst + 1, R.nextInt(mrows) * minDst + 1);
             } while (controlPoints.contains(p));
             controlPoints.add(p);
         }
@@ -106,7 +105,7 @@ public class View {
         List<VTecton> vtectons = new ArrayList<>();
         for (var entry : tectonsCells.entrySet()) {
             Tecton tecton;
-            double rand = RandomProvider.nextRand();
+            double rand = R.nextDouble();
             if (rand < 0.2) {
                 tecton = new Tecton();
             } else if (rand < 0.4) {
@@ -124,21 +123,21 @@ public class View {
         for (VFungus f : allFungi) {
             VTecton targetTecton;
             do {
-                targetTecton = vtectons.get(RandomProvider.nextInt(tecNum));
+                targetTecton = vtectons.get(R.nextInt(tecNum));
             } while (targetTecton.getTecton().getMushroom() != null
                     || !targetTecton.getTecton().getInsects().isEmpty());
 
-            Cell targetCell = targetTecton.getCells().get(RandomProvider.nextInt(targetTecton.getCells().size()));
+            Cell targetCell = targetTecton.getCells().get(R.nextInt(targetTecton.getCells().size()));
             new VMushroom(targetCell, new Mushroom(f.getFungus(), targetTecton.getTecton()));
         }
 
         for (VColony c : allColonies) {
             VTecton targetTecton;
             do {
-                targetTecton = vtectons.get(RandomProvider.nextInt(tecNum));
+                targetTecton = vtectons.get(R.nextInt(tecNum));
             } while (targetTecton.getTecton().getMushroom() != null
                     || !targetTecton.getTecton().getInsects().isEmpty());
-            Cell targetCell = targetTecton.getCells().get(RandomProvider.nextInt(targetTecton.getCells().size()));
+            Cell targetCell = targetTecton.getCells().get(R.nextInt(targetTecton.getCells().size()));
             new VInsect(targetCell, new Insect(targetTecton.getTecton(), c.getColony()));
         }
 
@@ -170,37 +169,21 @@ public class View {
 
     public static void click(int x, int y) {// NOSONAR complexity, így olvashatóbb
         Cell clicked = map.cellAt(x - Cell.getSize(), y - Cell.getSize()); // compensate for the offset
-        if (selected == null) {
-            selected = clicked;
-            return;
-        }
-        IIcon item1 = selected.getItem();
-        IIcon item2 = clicked.getItem();
-
-        if (selectedPlayer instanceof VColony colony && item1 instanceof VInsect insect) {
-            if (insect.getInsect().getColony() != colony.getColony())
-                return;
-            if (item2 == null)
-                insect.move(clicked);
-            if (item2 instanceof VSpore)
-                insect.eat(clicked);
-            if (item2 instanceof VMycelium)
-                insect.chew(clicked);
-        }
-
-        if (selectedPlayer instanceof VFungus fungus) {
-            if (item2 != null)
-                return;
-            if (item1 == null) {
-                if (selected == clicked)
-                    fungus.growMushroom(clicked);
-                if (selected != clicked)
-                    fungus.growMycelium(selected, clicked);
-            }
-            if (item1 instanceof VMushroom mushroom && mushroom.getMushroom().getSpecies() == fungus.getFungus())
-                mushroom.burst(clicked);
-        }
-        selected = null;
+        clicked.getTecton().getTecton().breakApart();
+        return;
+        /*
+         * if (selected == null) { selected = clicked; return; } IIcon item1 = selected.getItem(); IIcon item2 =
+         * clicked.getItem();
+         * 
+         * if (selectedPlayer instanceof VColony colony && item1 instanceof VInsect insect) { if
+         * (insect.getInsect().getColony() != colony.getColony()) return; if (item2 == null) insect.move(clicked); if
+         * (item2 instanceof VSpore) insect.eat(clicked); if (item2 instanceof VMycelium) insect.chew(clicked); }
+         * 
+         * if (selectedPlayer instanceof VFungus fungus) { if (item2 != null) return; if (item1 == null) { if (selected
+         * == clicked) fungus.growMushroom(clicked); if (selected != clicked) fungus.growMycelium(selected, clicked); }
+         * if (item1 instanceof VMushroom mushroom && mushroom.getMushroom().getSpecies() == fungus.getFungus())
+         * mushroom.burst(clicked); } selected = null;
+         */
     }
 
     public static void endGame() {

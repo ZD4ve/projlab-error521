@@ -98,6 +98,7 @@ public class VTecton implements ITectonFiller {
     @Override
     /**
      * Visszaadja, hogy a tekton képes-e törni.
+     * 
      * @return true, ha a tekton képes nagyobb, mint a minimális méret, false egyébként
      */
     public boolean canBreak() {
@@ -106,6 +107,7 @@ public class VTecton implements ITectonFiller {
 
     /**
      * Visszaadja a tekton főtengelyét.
+     * 
      * @return a tekton főtengelye
      */
     private Line getMainAxis() {
@@ -129,6 +131,7 @@ public class VTecton implements ITectonFiller {
 
     /**
      * Visszaadja a tekton középpontját.
+     * 
      * @return a tekton középpontja
      */
     private Vec2 getCenterPoint() {

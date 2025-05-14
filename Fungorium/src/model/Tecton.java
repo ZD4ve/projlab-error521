@@ -362,17 +362,17 @@ public class Tecton implements IActive {
      * tektont előnyben részesítve. (első: [0;min(darab, max(darab / 2, 1))[, második: maradék) A tektonon található
      * gombatestet a második tekton kapja. A két új tekton szomszédos lesz.
      */
-    private void breakApart() {
+    public void breakApart() {
         if (!filler.canBreak())
             return;
-        
+
         Controller.unregisterActiveObject(this);
         Controller.unregisterTecton(this);
 
         while (!mycelia.isEmpty()) {
             mycelia.get(0).die();
         }
-        
+
         filler.breaking(this, newMe(), newMe());
         for (Tecton n : neighbors) {
             n.removeNeighbor(this);
