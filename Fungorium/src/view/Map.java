@@ -1,7 +1,6 @@
 package view;
 
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +33,7 @@ public class Map {
         int y = cell.getY() / Cell.getSize();
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                if (i == 0 && j == 0)
+                if (Math.abs(i) == Math.abs(j))
                     continue;
                 int newX = x + i;
                 int newY = y + j;
@@ -44,6 +43,10 @@ public class Map {
             }
         }
         return neighbors;
+    }
+
+    public Cell getCellByIndex(int col, int row) {
+        return cells.get(col).get(row);
     }
 
     public Cell cellAt(int x, int y) {

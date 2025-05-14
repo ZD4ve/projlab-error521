@@ -19,6 +19,10 @@ public class RandomProvider {
         return r.nextDouble();
     }
 
+    public static int nextInt(int maxExcl) {
+        return r.nextInt(maxExcl);
+    }
+
     /** Felülírja a következő lekért szám értékét. FIFO jelleggel működik, tehát több szám is sorba állítható. */
     public static void addNext(double next) {
         nextRandoms.add(next);
