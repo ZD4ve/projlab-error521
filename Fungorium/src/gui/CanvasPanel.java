@@ -83,6 +83,5 @@ public class CanvasPanel extends JPanel {
         g2d.scale(scale, scale);
         g2d.translate(offsetX / scale, offsetY / scale);
         View.redraw(g2d);
-        // g2d.drawImage(View.getCanvas(), 0, 0, null);
     }
 }

@@ -1,26 +1,32 @@
 package view;
 
+import model.*;
+import java.util.*;
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import model.ITectonFiller;
-import model.Insect;
-import model.Mushroom;
-import model.MyceliumAbsorbingTecton;
-import model.MyceliumKeepingTecton;
-import model.NoMushroomTecton;
-import model.SingleMyceliumTecton;
-import model.Spore;
-import model.Tecton;
 
+/**
+ * Becsomagol egy tektont, nyilvántartja celláit. Elérhetővé teszi a színét a típusának megfelelően. Kezeli a
+ * tekton törését, az új tektonok feltöltését a megfelelő elemekkel.
+ */
 public class VTecton implements ITectonFiller {
+    // #region ASSOCIATIONS
+    /** Becsomagolt tekton */
     private Tecton tecton;
+    /** A tektonon található cellák */
     private List<Cell> cells;
+    // #endregion
 
+    // #region CONSTANTS
     private static final int MIN_CELLS = 15;
+    private static final java.util.Map<Class<? extends Tecton>, Color> TECTON_COLORS = Map.of(Tecton.class,
+            new Color(239, 239, 239, 255), MyceliumAbsorbingTecton.class, new Color(217, 234, 211, 255),
+            MyceliumKeepingTecton.class, new Color(201, 218, 248, 255), NoMushroomTecton.class,
+            new Color(244, 204, 204, 255), SingleMyceliumTecton.class, new Color(255, 242, 204, 255),
+            SingleMyceliumTecton.class, new Color(255, 242, 204, 255), SingleMyceliumTecton.class,
+            new Color(255, 242, 204, 255));
+    // #endregion
 
+    // TODO DOC @Vazul
     private static class Vec2 {
         double x;
         double y;
@@ -31,6 +37,7 @@ public class VTecton implements ITectonFiller {
         }
     }
 
+    // TODO DOC @Vazul
     private static class Line {
         Vec2 point;
         Vec2 direction;
@@ -41,10 +48,13 @@ public class VTecton implements ITectonFiller {
         }
     }
 
+    // #region CONSTRUCTORS
     /**
-     * 
-     * @param cells
-     * @param tecton
+     * Létrehoz egy új VTecton példányt, beállítja a tekton referenciát és a cellákat. A becsomagolt tektont feltölti a
+     * cellákban található elemekkel.
+     *
+     * @param cells  cellák, amik a tektonhoz tartoznak
+     * @param tecton tekton
      */
     public VTecton(List<Cell> cells, Tecton tecton) {
         this.tecton = tecton;
@@ -54,7 +64,7 @@ public class VTecton implements ITectonFiller {
         Mushroom mushroom = null;
         List<Insect> insects = new ArrayList<>();
         Set<Tecton> neighbors = new HashSet<>();
-        Map map = View.getMap();
+        VMap map = View.getMap();
 
         for (Cell cell : cells) {
             cell.setTecton(this);
@@ -71,10 +81,9 @@ public class VTecton implements ITectonFiller {
         }
         tecton.fillWithStuff(spores, mushroom, insects, new ArrayList<>(neighbors), this);
     }
+    // #endregion
 
-    /**
-     * 
-     */
+    // TODO DOC @Vazul
     @Override
     public void breaking(Tecton dying, Tecton t1, Tecton t2) {
         Line mainAxis = getMainAxis();
@@ -95,17 +104,19 @@ public class VTecton implements ITectonFiller {
         new VTecton(t2Cells, t2);
     }
 
-    @Override
     /**
      * Visszaadja, hogy a tekton képes-e törni.
-     * @return true, ha a tekton képes nagyobb, mint a minimális méret, false egyébként
+     * 
+     * @return true, ha a tekton nagyobb, mint a minimális méret, false egyébként
      */
+    @Override
     public boolean canBreak() {
         return cells.size() >= MIN_CELLS;
     }
 
     /**
      * Visszaadja a tekton főtengelyét.
+     * 
      * @return a tekton főtengelye
      */
     private Line getMainAxis() {
@@ -129,6 +140,7 @@ public class VTecton implements ITectonFiller {
 
     /**
      * Visszaadja a tekton középpontját.
+     * 
      * @return a tekton középpontja
      */
     private Vec2 getCenterPoint() {
@@ -145,21 +157,20 @@ public class VTecton implements ITectonFiller {
         return new Vec2(centerX, centerY);
     }
 
+    /**
+     * Visszaadja a tekton színét a tekton típusának megfelelően.
+     * 
+     * @return a tekton színe
+     */
     public Color getColor() {
-        if (tecton.getClass() == Tecton.class)
-            return new Color(239, 239, 239, 255);
-        else if (tecton.getClass() == MyceliumAbsorbingTecton.class)
-            return new Color(217, 234, 211, 255);
-        else if (tecton.getClass() == MyceliumKeepingTecton.class)
-            return new Color(201, 218, 248, 255);
-        else if (tecton.getClass() == NoMushroomTecton.class)
-            return new Color(244, 204, 204, 255);
-        else if (tecton.getClass() == SingleMyceliumTecton.class)
-            return new Color(255, 242, 204, 255);
-        else
-            throw new IllegalArgumentException("Unknown class: " + tecton.getClass().getSimpleName());
+        Color color = TECTON_COLORS.get(tecton.getClass());
+        if (color != null) {
+            return color;
+        }
+        throw new IllegalArgumentException("Unknown class: " + tecton.getClass().getSimpleName());
     }
 
+    // #region GETTERS-SETTERS
     public List<Cell> getCells() {
         return cells;
     }
@@ -167,4 +178,5 @@ public class VTecton implements ITectonFiller {
     public Tecton getTecton() {
         return tecton;
     }
+    // #endregion
 }

@@ -2,7 +2,6 @@ package view;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -14,6 +13,7 @@ import java.util.stream.IntStream;
 import controller.RandomProvider;
 import model.*;
 
+// TODO DOC @Márton
 class Point {
     public Point(int x, int y) {
         this.x = x;
@@ -41,21 +41,35 @@ class Point {
     }
 }
 
+// TODO DOC @Márton
 interface GameElementCreator<T> {
     void create(Cell cell, T instance);
 }
 
 public class View {
+    /** Rejtett konstruktor */
     private View() {
     }
 
-    private static Cell selected;
-    private static Map map;
-    private static VPlayer selectedPlayer;
-    private static List<VColony> allColonies;
-    private static List<VFungus> allFungi;
-    private static Color backgroundColor = new Color(60, 120, 216, 255);
+    // #region CONSTANTS
+    /** Háttérszín */
+    private static final Color BACKGROUND_COLOR = new Color(60, 120, 216, 255);
+    // #endregion
 
+    // #region ASSOCIATIONS
+    /** Kiválasztott cella */
+    private static Cell selected;
+    /** Térkép */
+    private static VMap map;
+    /** Kiválasztott játékos */
+    private static VPlayer selectedPlayer;
+    /** Kolónia játékosok listája */
+    private static List<VColony> allColonies;
+    /** Gombafaj játékosok listája */
+    private static List<VFungus> allFungi;
+    // #endregion
+
+    // TODO DOC @Panni
     public static void redraw(Graphics2D g) {
         int size = Cell.getSize();
         // @Panni ez így, hogy van pan+zoom kell még, vagy már nincs rá szükség?
@@ -67,6 +81,7 @@ public class View {
         g.dispose();
     }
 
+    // TODO DOC @Márton
     private static Set<Point> createControlPoints(int tecNum, int minUnitCols, int minUnitRows, int minDst) {
         Set<Point> controlPoints = new HashSet<>();
         for (int i = 0; i < tecNum; i++) {
@@ -80,6 +95,7 @@ public class View {
         return controlPoints;
     }
 
+    // TODO DOC @Márton
     private static HashMap<Point, List<Cell>> calculateTectonCells(final int rows, final int cols,
             Set<Point> controlPoints) {
         HashMap<Point, List<Cell>> tectonsCells = new HashMap<>();
@@ -96,6 +112,7 @@ public class View {
         return tectonsCells;
     }
 
+    // TODO DOC @Márton
     private static Tecton createRandomTypeTecton() {
         Tecton tecton;
         double rand = RandomProvider.nextRand();
@@ -113,6 +130,7 @@ public class View {
         return tecton;
     }
 
+    // TODO DOC @Márton
     private static <T> void putStuffOnEmptyTectons(List<VTecton> emptyVTectons, List<T> all,
             GameElementCreator<T> creator) {
         for (T f : all) {
@@ -123,9 +141,10 @@ public class View {
         }
     }
 
+    // TODO DOC @Márton
     // TODO tecNum must be greater than fungiNum + colNum @Tamasz
     public static void create(int tecNum, int fungiNum, int colNum) {
-        List<Color> colors = VPlayer.generateColors(fungiNum + colNum);
+        List<Color> colors = generateColors(fungiNum + colNum);
         allFungi = IntStream.range(0, fungiNum).mapToObj(x -> new VFungus(new Fungus(), colors.get(x))).toList();
         allColonies = IntStream.range(0, colNum).mapToObj(x -> new VColony(new Colony(), colors.get(fungiNum + x)))
                 .toList();
@@ -139,7 +158,8 @@ public class View {
 
         Set<Point> controlPoints = createControlPoints(tecNum, minUnitCols, minUnitRows, minDst);
 
-        map = new Map(cols, rows, 256);
+        Cell.setSize(256);
+        map = new VMap(cols, rows);
 
         HashMap<Point, List<Cell>> tectonsCells = calculateTectonCells(rows, cols, controlPoints);
 
@@ -154,34 +174,45 @@ public class View {
         putStuffOnEmptyTectons(vtectons, allColonies,
                 (cell, vf) -> new VInsect(cell, new Insect(cell.getTecton().getTecton(), vf.getColony())));
 
-        // for testing:
-        /*
-         * map = new Map(10, 10, 50); Fungus f = new Fungus(); Colony c = new Colony(); VColony vColony = new
-         * VColony(c); VFungus vFungus = new VFungus(f); allColonies = new ArrayList<>(); allColonies.add(vColony);
-         * allFungi = new ArrayList<>(); allFungi.add(vFungus); Tecton t1 = new Tecton(); List<Cell> cells1 = new
-         * ArrayList<>(); for (int i = 0; i < 5; i++) { for (int j = 0; j < 10; j++) { cells1.add(map.cellAt(i *
-         * Cell.getSize(), j * Cell.getSize())); } } new VTecton(cells1, t1); Tecton t2 = new MyceliumAbsorbingTecton();
-         * List<Cell> cells2 = new ArrayList<>(); for (int i = 5; i < 10; i++) { for (int j = 0; j < 10; j++) {
-         * cells2.add(map.cellAt(i * Cell.getSize(), j * Cell.getSize())); } } // model is probably inconsistent here
-         * new VTecton(cells2, t2); new VInsect(map.cellAt(0, 0), new Insect(t1, c)); Insect i = new Insect(t2, c); new
-         * VInsect(map.cellAt(9 * Cell.getSize(), 0), i); i.addEffect(new SpeedEffect()); i.addEffect(new
-         * ParalysingEffect()); i.addEffect(new AntiChewEffect()); new VMushroom(map.cellAt(0, Cell.getSize()), new
-         * Mushroom(f, t1)); Mushroom mush = new Mushroom(f, t1); mush.setIsGrown(true); new
-         * VMushroom(map.cellAt(Cell.getSize(), Cell.getSize()), mush); Spore spore = new Spore(f); t1.addSpore(spore);
-         * new VSpore(map.cellAt(0, 2 * Cell.getSize()), spore); spore = new Spore(f); t2.addSpore(spore); new
-         * VSpore(map.cellAt(7 * Cell.getSize(), 2 * Cell.getSize()), spore); Mycelium m = new Mycelium(f, t1, t2); new
-         * VMycelium(map.cellAt(4 * Cell.getSize(), 0), m, map.cellAt(5 * Cell.getSize(), 0)); new
-         * VMycelium(map.cellAt(5 * Cell.getSize(), 0), m, map.cellAt(4 * Cell.getSize(), 0));
-         */
-
     }
 
+    /**
+     * A játékosok színeit generálja. A színek egyenlő távolságra vannak egymástól a színkörön, telítettségük és
+     * fényességük állandó.
+     * 
+     * @param playerCount a játékosok száma
+     * @return a játékosok színei
+     */
+    private static List<Color> generateColors(int playerCount) {
+        List<Color> colors = new ArrayList<>();
+        final float saturation = 0.9f;
+        final float brightness = 0.6f;
+        for (int i = 0; i < playerCount; i++) {
+            float hue = (float) i / playerCount;
+            colors.add(Color.getHSBColor(hue, saturation, brightness));
+        }
+        return colors;
+    }
+
+    // TODO DOC @Tamás
     public static void notifyUser() {
         // TODO @Tamás
     }
 
+    /**
+     * Kattintás eseménykezelő.
+     * 
+     * Ha nincs kiválasztva cella, akkor a kattintott cellát választja ki. Ha van kiválasztva cella, akkor végrehajtja a
+     * megfelelő műveletet. Ezt a kiválasztott játékos és a két cellán szereplő elem típusa határozza meg. Ha nincs a
+     * típusoknak megfelelő művelet, akkor értesíti a felhasználót.
+     * 
+     * @param x egér x koordinátája
+     * @param y egér y koordinátája
+     */
     public static void click(int x, int y) {// NOSONAR complexity, így olvashatóbb
         Cell clicked = map.cellAt(x - Cell.getSize(), y - Cell.getSize()); // compensate for the offset
+        if (clicked == null)
+            return;
         if (selected == null) {
             selected = clicked;
             return;
@@ -215,10 +246,12 @@ public class View {
         selected = null;
     }
 
+    // TODO DOC aki megcsinálja
     public static void endGame() {
         // TODO @Márton @Vazul @Tamás
     }
 
+    // #region GETTERS-SETTERS
     public static Cell getSelected() {
         return selected;
     }
@@ -227,7 +260,7 @@ public class View {
         View.selectedPlayer = selectedPlayer;
     }
 
-    public static Map getMap() {
+    public static VMap getMap() {
         return map;
     }
 
@@ -240,6 +273,7 @@ public class View {
     }
 
     public static Color getBackgroundColor() {
-        return backgroundColor;
+        return BACKGROUND_COLOR;
     }
+    // #endregion
 }

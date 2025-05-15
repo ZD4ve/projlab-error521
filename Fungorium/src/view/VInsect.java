@@ -10,21 +10,42 @@ import java.util.List;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+//TODO DOC maradék (get-set kívételével) @Panni
+
+/**
+ * Becsomagol egy rovart, nyilvántartja annak a helyét és kezeli kirajzolását. A rovar akcióit elérhetővé teszi cellákat
+ * használva.
+ */
 public class VInsect implements IIcon {
+    // #region ASSOCIATIONS
+    /** Becsomagolt rovar */
     private Insect insect;
+    /** Cella, amin a rovar tartózkodik */
     private Cell cell;
+    // #endregion
+
+    // #region ATTRIBUTES
     private BufferedImage cachedIcon;
     private BufferedImage antiChewImage;
     private BufferedImage paraImage;
     private BufferedImage speedImage;
     private BufferedImage slowImage;
+    // #endregion
 
-    // #region GETTERS SETTERS
-
-    public Insect getInsect() {
-        return insect;
+    // #region CONSTRUCTORS
+    /**
+     * Létrehoz egy új VInsect példányt, beállítja a cellát és a rovar referenciát. A cella tartalmát beállítja a
+     * VInsect példányra.
+     *
+     * @param cell   cella, amin a rovar tartózkodik
+     * @param insect rovar
+     */
+    public VInsect(Cell cell, Insect insect) {
+        this.cell = cell;
+        this.insect = insect;
+        cell.setItem(this);
+        generateImages();
     }
-
     // #endregion
 
     // #region ICON GENERATION
@@ -165,18 +186,16 @@ public class VInsect implements IIcon {
         }
         return img;
     }
-
     // #endregion
 
-    public VInsect(Cell cell, Insect insect) {
-        this.cell = cell;
-        this.insect = insect;
-        cell.setItem(this);
-        generateImages();
-    }
-
     // #region ACTIONS
-
+    /**
+     * Megpróbálja a rovarral elmenni a megadott cellára. Ha sikerül, átállítja az eredeti és a célcella tartalmát. Ha
+     * nem sikerül, értesíti a felhasználót.
+     *
+     * @param target célcella
+     * @see Insect#moveTo(model.Tecton)
+     */
     public void move(Cell target) {
         boolean success = insect.moveTo(target.getTecton().getTecton());
         if (success) {
@@ -187,6 +206,14 @@ public class VInsect implements IIcon {
         }
     }
 
+    /**
+     * Megpróbálja a rovarral megenni a megadott cellán lévő spórát. Ellenőrzi, hogy a rovar és a célcella ugyanazon a
+     * tektonon van. Ha sikerül, és a rovar osztódik, akkor létrehoz egy új csomagoló VInsect példányt a spóra helyén.
+     * Ha nem sikerül, értesíti a felhasználót.
+     *
+     * @param target cél spóra cellája
+     * @see Insect#eatSpore()
+     */
     public void eat(Cell target) {
         if (cell.getTecton() == target.getTecton()) {
             List<Insect> allInsects = insect.getColony().getInsects();
@@ -209,6 +236,12 @@ public class VInsect implements IIcon {
         }
     }
 
+    /**
+     * Megpróbálja elrágni a megadott cellán lévő fonalat. Ha nem sikerül, akkor értesíti a felhasználót.
+     * 
+     * @param target cél fonal cellája.
+     * @see Insect#chewMycelium(model.Mycelium)
+     */
     public void chew(Cell target) {
         IIcon item = target.getItem();
         boolean success = insect.chewMycelium(((VMycelium) item).getMycelium());
@@ -217,6 +250,11 @@ public class VInsect implements IIcon {
         }
 
     }
+    // #endregion
 
+    // #region GETTERS-SETTERS
+    public Insect getInsect() {
+        return insect;
+    }
     // #endregion
 }

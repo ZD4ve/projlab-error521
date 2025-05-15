@@ -5,17 +5,34 @@ import model.Spore;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+//TODO DOC maradék (get-set kívételével) @Panni
+
 public class VSpore implements IIcon {
+    // #region ASSOCIATIONS
+    /** Becsomagolt spóra */
     private Spore spore;
+    /** Cella, amin a spóra tartózkodik */
     private Cell cell;
+    // #endregion
+
+    // #region ATTRIBUTES
     private BufferedImage cachedIcon;
+    // #endregion
 
-    // #region GETTERS SETTERS
-
-    public Spore getSpore() {
-        return spore;
+    // #region CONSTRUCTORS
+    /**
+     * Létrehoz egy új VSpore példányt, beállítja a cellát és a spóra referenciát. A cella tartalmát beállítja a VSpore
+     * példányra.
+     *
+     * @param cell  cella, amire a spórát tesszük
+     * @param spore spóra
+     */
+    public VSpore(Cell cell, Spore spore) {
+        this.spore = spore;
+        this.cell = cell;
+        cell.setItem(this);
+        cachedIcon = sporeIcon();
     }
-
     // #endregion
 
     // #region ICON GENERATION
@@ -50,14 +67,11 @@ public class VSpore implements IIcon {
         }
         return cachedIcon;
     }
-
     // #endregion
 
-    public VSpore(Cell cell, Spore spore) {
-        this.spore = spore;
-        this.cell = cell;
-        cell.setItem(this);
-        cachedIcon = sporeIcon();
+    // #region GETTERS SETTERS
+    public Spore getSpore() {
+        return spore;
     }
-
+    // #endregion
 }

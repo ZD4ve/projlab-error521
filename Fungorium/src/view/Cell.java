@@ -5,17 +5,23 @@ import java.awt.image.BufferedImage;
 
 public class Cell {
     // #region ASSOCIATIONS
+    /** Becsomagolt modell objektum a Cellán */
     private IIcon item;
+    /** Melyik Tektonhoz tartozik a Cella */
     private VTecton tecton;
     // #endregion
 
     // #region ATTRIBUTES
+    /** X koordináta a képernyőn */
     private int x;
+    /** Y koordináta a képernyőn */
     private int y;
+    /** Cellák mérete a képernyőn */
     private static int size = -1;
     // #endregion
 
     // #region CONSTRUCTOR
+    /** Konstruál egy Cellát a megadott képernyőbeli koordinátákkal. */
     public Cell(int x, int y) {
         this.x = x;
         this.y = y;
@@ -23,6 +29,7 @@ public class Cell {
     // #endregion
 
     // #region FUNCTIONS
+    // TODO DOC @Panni
     private void drawEdge(Graphics2D g, Cell n) {
         if (n.getTecton() == tecton)
             return;
@@ -41,6 +48,7 @@ public class Cell {
         }
     }
 
+    // TODO DOC @Panni
     public void draw(Graphics2D g) {
         Color background = tecton.getColor();
         g.setColor(background);
@@ -74,6 +82,12 @@ public class Cell {
         return size;
     }
 
+    /**
+     * Setter a cellák méretére. A méretet csak egyszer lehet beállítani.
+     *
+     * @param cellSize a cellák mérete
+     * @throws IllegalStateException ha a méret már be van állítva
+     */
     public static void setSize(int cellSize) {
         if (size != -1)
             throw new IllegalStateException("Cell size is already set.");

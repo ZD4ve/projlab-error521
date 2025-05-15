@@ -6,18 +6,23 @@ import model.Tecton;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+//TODO DOC maradék (get-set kívételével) @Panni
+
+/**
+ * Becsomagol egy gombatestet, nyilvántartja annak a helyét és kezeli kirajzolását. A gombatest akcióit elérhetővé teszi
+ * cellákat használva.
+ */
 public class VMushroom implements IIcon {
+    // #region ASSOCIATIONS
+    /** Becsomagolt gombatest */
     private Mushroom mushroom;
+    /** Cella, amin a gombatest tartózkodik */
     private Cell cell;
+    // #endregion
+
+    // #region ATTRIBUTES
     private BufferedImage cachedIcon;
     private boolean isCachedGrown = false;
-
-    // #region GETTERS SETTERS
-
-    public Mushroom getMushroom() {
-        return mushroom;
-    }
-
     // #endregion
 
     // #region ICON GENERATION
@@ -73,16 +78,32 @@ public class VMushroom implements IIcon {
         }
         return cachedIcon;
     }
-
     // #endregion
 
+    // #region CONSTRUCTORS
+    /**
+     * Létrehoz egy új VMushroom példányt, beállítja a cellát és a gombatest referenciát. A cella tartalmát beállítja a
+     * VMushroom példányra.
+     *
+     * @param cell   cella, amin a gombatest van
+     * @param insect gombatest
+     */
     public VMushroom(Cell cell, Mushroom mushroom) {
         this.mushroom = mushroom;
         this.cell = cell;
         cell.setItem(this);
         cachedIcon = mushroomSmallIcon();
     }
+    // #endregion
 
+    // #region ACTIONS
+    /**
+     * Megpróbál spórát szórni a gombatestből a cellára. Ha sikerül, létrehoz egy új VSpore példányt a cellán. Ha nem,
+     * akkor értesíti a felhasználót.
+     * 
+     * @param target cella, amire a spórát szórni szeretnénk
+     * @see Mushroom#burstSpore(Tecton)
+     */
     public void burst(Cell target) {
         Tecton tecton = target.getTecton().getTecton();
         boolean success = mushroom.burstSpore(tecton);
@@ -92,4 +113,15 @@ public class VMushroom implements IIcon {
             View.notifyUser();
         }
     }
+    // #endregion
+
+    // #region GETTERS SETTERS
+    public Mushroom getMushroom() {
+        return mushroom;
+    }
+
+    public Cell getCell() {
+        return cell;
+    }
+    // #endregion
 }
