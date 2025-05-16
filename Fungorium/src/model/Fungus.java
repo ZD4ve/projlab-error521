@@ -85,7 +85,11 @@ public class Fungus {
         checkConnectivity();
     }
 
-    // TODO DOC
+    /**
+     * Visszaadja a gombafajhoz tartozó gombafonalakat.
+     * 
+     * @return a gombafonalak listája
+     */
     public List<Mycelium> getMycelia() {
         return mycelia;
     }
