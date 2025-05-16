@@ -43,6 +43,12 @@ public class PlayFrame extends JFrame {
         sidePanel.add(timeLabel);
 
         add(sidePanel, BorderLayout.WEST);
+
+        JPanel canvas = new CanvasPanel();
+        canvas.setPreferredSize(new Dimension(1500, 1000));
+        add(canvas, BorderLayout.CENTER);
+
+        pack();
         setVisible(true);
     }
 
