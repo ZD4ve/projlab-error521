@@ -71,13 +71,12 @@ public class View {
 
     // TODO DOC @Panni
     public static void redraw(Graphics2D g) {
-        int size = Cell.getSize();
         // @Panni ez így, hogy van pan+zoom kell még, vagy már nincs rá szükség?
         // ha akarunk offsetet kezdésnél, akkor azt ott is be lehet állítani
         // - Dávid
-        g.translate(size, size);
+        g.translate(Cell.SIZE, Cell.SIZE);
         map.draw(g);
-        g.translate(-size, -size);
+        g.translate(-Cell.SIZE, -Cell.SIZE);
         g.dispose();
     }
 
@@ -158,7 +157,6 @@ public class View {
 
         Set<Point> controlPoints = createControlPoints(tecNum, minUnitCols, minUnitRows, minDst);
 
-        Cell.setSize(256);
         map = new VMap(cols, rows);
 
         HashMap<Point, List<Cell>> tectonsCells = calculateTectonCells(rows, cols, controlPoints);
@@ -210,7 +208,7 @@ public class View {
      * @param y egér y koordinátája
      */
     public static void click(int x, int y) {// NOSONAR complexity, így olvashatóbb
-        Cell clicked = map.cellAt(x - Cell.getSize(), y - Cell.getSize()); // compensate for the offset
+        Cell clicked = map.cellAt(x - Cell.SIZE, y - Cell.SIZE); // compensate for the offset
         if (clicked == null)
             return;
         if (selected == null) {
