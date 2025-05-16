@@ -32,7 +32,7 @@ public class CanvasPanel extends JPanel {
 
             @Override
             public void mousePressed(MouseEvent evt) {
-                if (evt.getButton() == MouseEvent.BUTTON3) {
+                if (evt.getButton() == MouseEvent.BUTTON1) {
                     dragging = true;
                     lastX = evt.getX();
                     lastY = evt.getY();
@@ -41,7 +41,7 @@ public class CanvasPanel extends JPanel {
 
             @Override
             public void mouseReleased(MouseEvent evt) {
-                if (evt.getButton() == MouseEvent.BUTTON3) {
+                if (evt.getButton() == MouseEvent.BUTTON1) {
                     dragging = false;
                 }
             }

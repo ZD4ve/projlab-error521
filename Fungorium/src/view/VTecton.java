@@ -17,7 +17,9 @@ public class VTecton implements ITectonFiller {
     // #endregion
 
     // #region CONSTANTS
+    /** TODO DOC @Vazul */
     private static final int MIN_CELLS = 15;
+    /** Tekton típusokhoz tartozó színek */
     private static final java.util.Map<Class<? extends Tecton>, Color> TECTON_COLORS = Map.of(Tecton.class,
             new Color(239, 239, 239, 255), MyceliumAbsorbingTecton.class, new Color(217, 234, 211, 255),
             MyceliumKeepingTecton.class, new Color(201, 218, 248, 255), NoMushroomTecton.class,

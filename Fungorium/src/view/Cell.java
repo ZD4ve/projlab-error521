@@ -16,8 +16,11 @@ public class Cell {
     private int x;
     /** Y koordináta a képernyőn */
     private int y;
+    // #endregion
+
+    // #region CONSTANTS
     /** Cellák mérete a képernyőn */
-    private static int size = -1;
+    public static final int SIZE = 256;
     // #endregion
 
     // #region CONSTRUCTOR
@@ -37,14 +40,14 @@ public class Cell {
         int dy = n.getY() - y;
         if (dx == 0) {
             if (dy > 0) // down
-                g.drawLine(x, y + size, x + size, y + size);
+                g.drawLine(x, y + SIZE, x + SIZE, y + SIZE);
             else // up
-                g.drawLine(x, y, x + size, y);
+                g.drawLine(x, y, x + SIZE, y);
         } else {
             if (dx > 0) // right
-                g.drawLine(x + size, y, x + size, y + size);
+                g.drawLine(x + SIZE, y, x + SIZE, y + SIZE);
             else // left
-                g.drawLine(x, y, x, y + size);
+                g.drawLine(x, y, x, y + SIZE);
         }
     }
 
@@ -52,16 +55,16 @@ public class Cell {
     public void draw(Graphics2D g) {
         Color background = tecton.getColor();
         g.setColor(background);
-        g.fillRect(x, y, size, size);
-        g.setStroke(new BasicStroke(size * 0.02f));
+        g.fillRect(x, y, SIZE, SIZE);
+        g.setStroke(new BasicStroke(SIZE * 0.02f));
         g.setColor(new Color(220, 220, 220, 255));
-        g.drawRect(x, y, size, size);
+        g.drawRect(x, y, SIZE, SIZE);
         if (item != null) {
             BufferedImage icon = item.getIcon();
             if (icon == null) {
                 item = null;
             } else {
-                g.drawImage(item.getIcon(), x, y, size, size, null);
+                g.drawImage(item.getIcon(), x, y, SIZE, SIZE, null);
             }
         }
         java.util.List<Cell> neighbors = View.getMap().getNeighbors(this);
@@ -69,30 +72,13 @@ public class Cell {
         for (Cell neighbor : neighbors) {
             drawEdge(g, neighbor);
         }
-        g.setStroke(new BasicStroke(size * 0.1f));
+        g.setStroke(new BasicStroke(SIZE * 0.1f));
         if (View.getSelected() == this) {
             g.setColor(Color.BLACK);
-            g.drawRect(x, y, size - 1, size - 1);
+            g.drawRect(x, y, SIZE - 1, SIZE - 1);
         }
     }
     // #endregion
-
-    // #region GETTERS-SETTERS
-    public static int getSize() {
-        return size;
-    }
-
-    /**
-     * Setter a cellák méretére. A méretet csak egyszer lehet beállítani.
-     *
-     * @param cellSize a cellák mérete
-     * @throws IllegalStateException ha a méret már be van állítva
-     */
-    public static void setSize(int cellSize) {
-        if (size != -1)
-            throw new IllegalStateException("Cell size is already set.");
-        size = cellSize;
-    }
 
     public IIcon getItem() {
         return item;
