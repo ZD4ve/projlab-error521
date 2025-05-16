@@ -1,6 +1,8 @@
 package gui;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.*;
 import view.VColony;
 import view.VFungus;
@@ -8,15 +10,16 @@ import view.VFungus;
 
 public class PlayFrame extends JFrame {
 
-    
+    List<ColorPanel> fungusColorPanels, colonyColorPanels;
     JPanel sidePanel;
     JLabel fungusLabel, colonyLabel, timeLabel;
 
     public PlayFrame() {
         super("Fungorium");
         initFrame();
-
         sidePanel = new JPanel();
+        fungusColorPanels = new ArrayList<>();
+        colonyColorPanels = new ArrayList<>();
         sidePanel.setLayout(new BoxLayout(sidePanel, BoxLayout.Y_AXIS));
         sidePanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
@@ -26,8 +29,18 @@ public class PlayFrame extends JFrame {
         sidePanel.add(Box.createVerticalStrut(5));
 
         for (VFungus fungus : view.View.getAllFungi()) {
-            sidePanel.add(createColorPointRow(fungus.getColor() , "pont: "+fungus.getFungus().getScore()));
-            sidePanel.add(Box.createVerticalStrut(5));
+            ColorPanel colorPanel = new ColorPanel(fungus.getColor() , "pont: "+fungus.getFungus().getScore());
+            colorPanel.addMouseListener( new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
+                        fungus.selectPlayer();
+                        colorPanel.colorBox.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.black));
+                    }
+                }
+            });
+            fungusColorPanels.add(colorPanel);
+            sidePanel.add(colorPanel);
         }
 
         sidePanel.add(Box.createVerticalStrut(20));
@@ -39,8 +52,18 @@ public class PlayFrame extends JFrame {
 
         for (VColony colony : view.View.getAllColonies()) {
             
-            sidePanel.add(createColorPointRow(colony.getColor() , "pont: "+colony.getColony().getScore()));
-            sidePanel.add(Box.createVerticalStrut(5));
+            ColorPanel colorPanel = new ColorPanel(colony.getColor() , "pont: "+colony.getColony().getScore());
+            colorPanel.addMouseListener( new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
+                        colony.selectPlayer();
+                        colorPanel.colorBox.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.black));
+                    }
+                }
+            });
+            fungusColorPanels.add(colorPanel);
+            sidePanel.add(colorPanel);
         }
 
         sidePanel.add(Box.createVerticalGlue());
@@ -57,23 +80,6 @@ public class PlayFrame extends JFrame {
 
         pack();
         setVisible(true);
-    }
-
-    private static JPanel createColorPointRow(Color color, String text) {
-        JPanel row = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
-        row.setAlignmentX(Component.LEFT_ALIGNMENT);
-        row.setPreferredSize(new Dimension(200, 50));
-        row.setMaximumSize(new Dimension(200, 50));
-
-        JPanel colorBox = new JPanel();
-        colorBox.setBackground(color);
-        colorBox.setPreferredSize(new Dimension(50, 30));
-
-        JLabel label = new JLabel(text);
-
-        row.add(colorBox);
-        row.add(label);
-        return row;
     }
 
     public void initFrame() {

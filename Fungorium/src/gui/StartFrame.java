@@ -26,9 +26,9 @@ public class StartFrame extends JFrame {
         bottomPanel.setPreferredSize(new Dimension(150, 50));
         topPanel.setPreferredSize(new Dimension(150, 40));
 
-        JSpinner spinner1 = new JSpinner(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
-        JSpinner spinner2 = new JSpinner(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
-        JSpinner spinner3 = new JSpinner(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
+        JSpinner spinner1 = new JSpinner(new SpinnerNumberModel(10, 1, Integer.MAX_VALUE, 1));
+        JSpinner spinner2 = new JSpinner(new SpinnerNumberModel(4, 1, Integer.MAX_VALUE, 1));
+        JSpinner spinner3 = new JSpinner(new SpinnerNumberModel(4, 1, Integer.MAX_VALUE, 1));
         spinner1.setPreferredSize(new Dimension(50, 20));
         spinner2.setPreferredSize(new Dimension(50, 20));
         spinner3.setPreferredSize(new Dimension(50, 20));
