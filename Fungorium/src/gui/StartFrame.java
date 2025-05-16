@@ -59,20 +59,7 @@ public class StartFrame extends JFrame {
             this.setVisible(false);
             View.create(sp1, sp2, sp3);
             pf = new PlayFrame();
-            try {
-                FileInputStream fis = new FileInputStream("resources/start.wav");
-                BufferedInputStream bis = new BufferedInputStream(fis);
-                AudioInputStream audioStream = AudioSystem.getAudioInputStream(bis);
-                Clip clip = AudioSystem.getClip();
-
-                clip.open(audioStream);
-                clip.start();
-                
-                audioStream.close();
-                bis.close();
-            } catch (Exception a) {
-                a.printStackTrace();
-            }
+            playStartSound();
         });
 
         mid1.add(label1);
@@ -91,6 +78,23 @@ public class StartFrame extends JFrame {
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+    }
+
+    private void playStartSound() {
+        try {
+            FileInputStream fis = new FileInputStream("resources/start.wav");
+            BufferedInputStream bis = new BufferedInputStream(fis);
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(bis);
+            Clip clip = AudioSystem.getClip();
+
+            clip.open(audioStream);
+            clip.start();
+            
+            audioStream.close();
+            bis.close();
+        } catch (Exception a) {
+            a.printStackTrace();
+        }
     }
 
     public void initFrame() {
