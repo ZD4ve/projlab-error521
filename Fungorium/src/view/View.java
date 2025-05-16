@@ -95,14 +95,11 @@ public class View {
     private static List<VFungus> allFungi;
     // #endregion
 
-    // TODO DOC @Panni
+    /**
+     * Újrarajzolja a térképet a megadott Graphics2D objektumra.
+     */
     public static void redraw(Graphics2D g) {
-        // @Panni ez így, hogy van pan+zoom kell még, vagy már nincs rá szükség?
-        // ha akarunk offsetet kezdésnél, akkor azt ott is be lehet állítani
-        // - Dávid
-        g.translate(Cell.SIZE, Cell.SIZE);
         map.draw(g);
-        g.translate(-Cell.SIZE, -Cell.SIZE);
         g.dispose();
     }
 
@@ -249,17 +246,12 @@ public class View {
     }
 
     public static void notifyUser() {
-        try {
-            FileInputStream fis = new FileInputStream("resources/error.wav");
-            BufferedInputStream bis = new BufferedInputStream(fis);
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(bis);
-            Clip clip = AudioSystem.getClip();
+        try (AudioInputStream audioStream = AudioSystem
+                .getAudioInputStream(new BufferedInputStream(new FileInputStream("resources/error.wav")))) {
 
+            Clip clip = AudioSystem.getClip();
             clip.open(audioStream);
             clip.start();
-            
-            audioStream.close();
-            bis.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -276,7 +268,7 @@ public class View {
      * @param y egér y koordinátája
      */
     public static void click(int x, int y) {// NOSONAR complexity, így olvashatóbb
-        Cell clicked = map.cellAt(x - Cell.SIZE, y - Cell.SIZE); // compensate for the offset
+        Cell clicked = map.cellAt(x, y);
         if (clicked == null)
             return;
         if (selected == null) {
@@ -315,7 +307,7 @@ public class View {
     // TODO DOC aki megcsinálja
     public static void endGame() {
         // TODO @Márton @Vazul @Tamás
-        
+
     }
 
     // #region GETTERS-SETTERS

@@ -11,7 +11,6 @@ import view.View;
 
 public class StartFrame extends JFrame {
 
-    PlayFrame pf = null;
     public StartFrame() {
         super("Fungorium");
         initFrame();
@@ -50,12 +49,11 @@ public class StartFrame extends JFrame {
             int sp1 = (Integer) spinner1.getValue();
             int sp2 = (Integer) spinner2.getValue();
             int sp3 = (Integer) spinner3.getValue();
-            if(sp1< sp2+sp3)
-            {
+            if (sp1 < sp2 + sp3) {
                 JOptionPane.showMessageDialog(null, "Több a játékos, mint a tektonok száma!");
                 return;
             }
-            
+
             this.setVisible(false);
             View.create(sp1, sp2, sp3);
             pf = new PlayFrame();

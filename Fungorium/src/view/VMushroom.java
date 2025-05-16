@@ -6,8 +6,6 @@ import model.Tecton;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-//TODO DOC maradék (get-set kívételével) @Panni
-
 /**
  * Becsomagol egy gombatestet, nyilvántartja annak a helyét és kezeli kirajzolását. A gombatest akcióit elérhetővé teszi
  * cellákat használva.
@@ -35,6 +33,7 @@ public class VMushroom implements IIcon {
         throw new IllegalStateException("Fungus not found");
     }
 
+    /** Megrajzolja a fejletlen gombatest ikonját. */
     private BufferedImage mushroomSmallIcon() {
         int size = Cell.SIZE;
         Color color = getColor();
@@ -49,6 +48,7 @@ public class VMushroom implements IIcon {
         return img;
     }
 
+    /** Megrajzolja a fejlett gombatest ikonját. */
     private BufferedImage mushroomBigIcon() {
         int size = Cell.SIZE;
         Color color = getColor();

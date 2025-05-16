@@ -2,28 +2,33 @@ package gui;
 
 import java.awt.*;
 import javax.swing.*;
+import view.VPlayer;
 
-public class ColorPanel extends JPanel{
+public class ColorPanel extends JPanel {
 
     JPanel colorBox;
     JLabel label;
-    Color color;
-    String text;
-    public ColorPanel(Color c, String t) {
+    transient VPlayer player;
+
+    public ColorPanel(VPlayer player) {
         super(new FlowLayout(FlowLayout.LEFT, 10, 0));
-        color = c;
-        text = t;
         setAlignmentX(Component.LEFT_ALIGNMENT);
         setPreferredSize(new Dimension(200, 50));
         setMaximumSize(new Dimension(200, 50));
 
         colorBox = new JPanel();
-        colorBox.setBackground(color);
+        colorBox.setBackground(player.getColor());
         colorBox.setPreferredSize(new Dimension(50, 30));
 
-        label = new JLabel(text);
+        label = new JLabel("pont: " + player.getScore());
+
+        this.player = player;
 
         add(colorBox);
         add(label);
+    }
+
+    public void update() {
+        label.setText("pont: " + player.getScore());
     }
 }

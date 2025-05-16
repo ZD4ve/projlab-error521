@@ -5,8 +5,6 @@ import model.Spore;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-//TODO DOC maradék (get-set kívételével) @Panni
-
 public class VSpore implements IIcon {
     // #region ASSOCIATIONS
     /** Becsomagolt spóra */
@@ -45,6 +43,7 @@ public class VSpore implements IIcon {
         throw new IllegalStateException("Fungus not found");
     }
 
+    /** Megrajzolja a spóra ikonját. */
     private BufferedImage sporeIcon() {
         int size = Cell.SIZE;
         Color color = getColor();

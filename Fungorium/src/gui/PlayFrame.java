@@ -4,22 +4,29 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
+
+import controller.Controller;
 import view.VColony;
 import view.VFungus;
-
+import view.View;
 
 public class PlayFrame extends JFrame {
 
-    List<ColorPanel> fungusColorPanels, colonyColorPanels;
+    private List<ColorPanel> colorPanels;
     JPanel sidePanel;
-    JLabel fungusLabel, colonyLabel, timeLabel;
+    JLabel fungusLabel;
+    JLabel colonyLabel;
+    JLabel timeLabel;
+    JPanel canvas;
+    Timer gameTimer;
+    static final int UPDATE_INTERVAL = 100;
+    int playTime = 5 * 60 * 1000; // 5 mins
 
     public PlayFrame() {
         super("Fungorium");
-        initFrame();
+        iniFrame();
         sidePanel = new JPanel();
-        fungusColorPanels = new ArrayList<>();
-        colonyColorPanels = new ArrayList<>();
+        colorPanels = new ArrayList<>();
         sidePanel.setLayout(new BoxLayout(sidePanel, BoxLayout.Y_AXIS));
         sidePanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
@@ -29,21 +36,21 @@ public class PlayFrame extends JFrame {
         sidePanel.add(Box.createVerticalStrut(5));
 
         for (VFungus fungus : view.View.getAllFungi()) {
-            ColorPanel colorPanel = new ColorPanel(fungus.getColor() , "pont: "+fungus.getFungus().getScore());
-            colorPanel.addMouseListener( new java.awt.event.MouseAdapter() {
+            ColorPanel colorPanel = new ColorPanel(fungus);
+            colorPanel.addMouseListener(new java.awt.event.MouseAdapter() {
                 @Override
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
                     if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
-                        for (ColorPanel colorPanel : fungusColorPanels) {
+                        for (ColorPanel colorPanel : colorPanels) {
                             colorPanel.colorBox.setBorder(BorderFactory.createEmptyBorder());
                         }
                         fungus.selectPlayer();
-                        colorPanel.colorBox.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.black));
-                        
+                        colorPanel.colorBox.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.orange));
+
                     }
                 }
             });
-            fungusColorPanels.add(colorPanel);
+            colorPanels.add(colorPanel);
             sidePanel.add(colorPanel);
         }
 
@@ -55,21 +62,21 @@ public class PlayFrame extends JFrame {
         sidePanel.add(Box.createVerticalStrut(5));
 
         for (VColony colony : view.View.getAllColonies()) {
-            
-            ColorPanel colorPanel = new ColorPanel(colony.getColor() , "pont: "+colony.getColony().getScore());
-            colorPanel.addMouseListener( new java.awt.event.MouseAdapter() {
+
+            ColorPanel colorPanel = new ColorPanel(colony);
+            colorPanel.addMouseListener(new java.awt.event.MouseAdapter() {
                 @Override
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
                     if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
-                        for (ColorPanel colorPanel : colonyColorPanels) {
+                        for (ColorPanel colorPanel : colorPanels) {
                             colorPanel.colorBox.setBorder(BorderFactory.createEmptyBorder());
                         }
                         colony.selectPlayer();
-                        colorPanel.colorBox.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.black));
+                        colorPanel.colorBox.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.orange));
                     }
                 }
             });
-            colonyColorPanels.add(colorPanel);
+            colorPanels.add(colorPanel);
             sidePanel.add(colorPanel);
         }
 
@@ -80,21 +87,40 @@ public class PlayFrame extends JFrame {
         sidePanel.add(timeLabel);
 
         add(sidePanel, BorderLayout.WEST);
-
-        JPanel canvas = new CanvasPanel();
+        canvas = new CanvasPanel();
         canvas.setPreferredSize(new Dimension(1500, 1000));
         add(canvas, BorderLayout.CENTER);
 
         pack();
         setVisible(true);
+
+        gameTimer = new Timer(UPDATE_INTERVAL, e -> refresh());
+        gameTimer.start();
     }
 
-    public void initFrame() {
+    private void refresh() {
+        Controller.onTimeElapsed(UPDATE_INTERVAL / 1000d);
+        canvas.repaint();
+        for (ColorPanel colorPanel : colorPanels) {
+            colorPanel.update();
+        }
+        playTime -= UPDATE_INTERVAL;
+        int mins = playTime / 1000 / 60;
+        int secs = playTime / 1000 % 60;
+        timeLabel.setText(
+                "Hátralévő idő: " + mins + ":" + (secs >= 10 ? Integer.toString(secs) : "0" + Integer.toString(secs)));
+        if (playTime <= 0) {
+            gameTimer.stop();
+            View.endGame();
+        }
+    }
+
+    public final void iniFrame() {
         setLocation(200, 200);
         setMinimumSize(new Dimension(600, 500));
         setSize(600, 500);
         setVisible(true);
         setLayout(new BorderLayout());
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 }

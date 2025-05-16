@@ -356,7 +356,7 @@ public class Tecton implements IActive {
         }
         return false;
     }
-    
+
     /**
      * Ellenőrzi, hogy a tekton képes-e eltörni, majd azt is, hogy van-e rajta gombafonal, ha igen, azok elszakadnak.
      * Ezt követően elindítja a törési folyamatot (ITectonFiller::breaking). Végül végigmegy a tekton szomszédain, és
@@ -365,14 +365,14 @@ public class Tecton implements IActive {
     private void breakApart() {
         if (!filler.canBreak())
             return;
-        
+
         Controller.unregisterActiveObject(this);
         Controller.unregisterTecton(this);
 
         while (!mycelia.isEmpty()) {
             mycelia.get(0).die();
         }
-        
+
         filler.breaking(this, newMe(), newMe());
         for (Tecton n : neighbors) {
             n.removeNeighbor(this);
