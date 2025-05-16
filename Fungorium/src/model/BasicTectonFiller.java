@@ -2,8 +2,21 @@ package model;
 
 import java.util.ArrayList;
 
-// TODO DOC
+/**
+ * <h3>BasicTectonFiller</h3>
+ * 
+ * Egy alapértelmezett implementációja az ITectonFiller interfésznek.
+ */
 public class BasicTectonFiller implements ITectonFiller {
+    /**
+     * {@inheritDoc}
+     * Levezényli a tekton törési folyamatát: A tektont eltávolítja az aktív objektumok közül. A tektonhoz kapcsolódó
+     * összes gombafonalat megszünteti (Mycelium::die). A tekton összes szomszédjainak listájából eltávolítja a tektont
+     * (Tecton::removeNeighbor). Létrehoz 2 új tektont az eredeti tekton hatásával (Tecton::newMe). Elosztja
+     * (Tecton::fillWithStuff) az új tektonok között a rajta található objektumokat, lehetőleg egyenletesen, de az első
+     * tektont előnyben részesítve. (első: [0;min(darab, max(darab / 2, 1))[, második: maradék) A tektonon található
+     * gombatestet a második tekton kapja. A két új tekton szomszédos lesz.
+     */
     @Override
     public void breaking(Tecton dying, Tecton t1, Tecton t2) {
         var spores = dying.getSpores();
@@ -28,6 +41,10 @@ public class BasicTectonFiller implements ITectonFiller {
                 t2Neighbors, new BasicTectonFiller());
     }
 
+    /**
+     * {@inheritDoc }
+     * @return mindig igaz, mivel jelen esetben a tektonok mindig törhetők.
+     */
     @Override
     public boolean canBreak() {
         return true;

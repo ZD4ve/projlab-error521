@@ -1,8 +1,8 @@
 package view;
 
-import model.*;
-import java.util.*;
 import java.awt.Color;
+import java.util.*;
+import model.*;
 
 /**
  * Becsomagol egy tektont, nyilvántartja celláit. Elérhetővé teszi a színét a típusának megfelelően. Kezeli a tekton
@@ -12,13 +12,15 @@ public class VTecton implements ITectonFiller {
     // #region ASSOCIATIONS
     /** Becsomagolt tekton */
     private Tecton tecton;
+
     /** A tektonon található cellák */
     private List<Cell> cells;
     // #endregion
 
     // #region CONSTANTS
-    /** TODO DOC @Vazul */
+    /** A töréshez szükséges minimális cellaszám */
     private static final int MIN_CELLS = 15;
+
     /** Tekton típusokhoz tartozó színek */
     private static final java.util.Map<Class<? extends Tecton>, Color> TECTON_COLORS = Map.of(Tecton.class,
             new Color(239, 239, 239, 255), MyceliumAbsorbingTecton.class, new Color(217, 234, 211, 255),
@@ -26,7 +28,9 @@ public class VTecton implements ITectonFiller {
             new Color(244, 204, 204, 255), SingleMyceliumTecton.class, new Color(255, 242, 204, 255));
     // #endregion
 
-    // TODO DOC @Vazul
+    /**
+     * 2D Vektorokat és Pontokat reprezentáló osztály.
+     */
     private static class Vec2 {
         double x;
         double y;
@@ -37,7 +41,9 @@ public class VTecton implements ITectonFiller {
         }
     }
 
-    // TODO DOC @Vazul
+    /**
+     * Egyenesek reprezentálására szolgáló osztály.
+     */
     private static class Line {
         Vec2 point;
         Vec2 direction;
@@ -83,7 +89,11 @@ public class VTecton implements ITectonFiller {
     }
     // #endregion
 
-    // TODO DOC @Vazul
+    /**
+     * Törés esemény kezelése. A tekton törésekor két új tekton jön létre, amelyek a
+     * törés helyén keletkeznek. A törés helyét a tekton főtengelyére merőleges egyenes határozza meg. Az új tektonok
+     * celláit Az egyenes két oldalán levő cellahalmazok határozzák meg.
+     */
     @Override
     public void breaking(Tecton dying, Tecton t1, Tecton t2) {
         Line mainAxis = getMainAxis();
