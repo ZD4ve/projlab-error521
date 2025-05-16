@@ -11,7 +11,6 @@ import view.View;
 
 public class StartFrame extends JFrame {
 
-    PlayFrame pf = null;
     public StartFrame() {
         super("Fungorium");
         initFrame();
@@ -46,33 +45,29 @@ public class StartFrame extends JFrame {
         JLabel label3 = new JLabel("Rovarászok:");
 
         JButton start = new JButton("Kezdés");
-        start.addActionListener(e -> {
+        start.addActionListener(_ -> {
             int sp1 = (Integer) spinner1.getValue();
             int sp2 = (Integer) spinner2.getValue();
             int sp3 = (Integer) spinner3.getValue();
-            if(sp1< sp2+sp3)
-            {
+            if (sp1 < sp2 + sp3) {
                 JOptionPane.showMessageDialog(null, "Több a játékos, mint a tektonok száma!");
                 return;
             }
-            
+
             this.setVisible(false);
             View.create(sp1, sp2, sp3);
-            pf = new PlayFrame();
-            try {
-                FileInputStream fis = new FileInputStream("resources/start.wav");
-                BufferedInputStream bis = new BufferedInputStream(fis);
-                AudioInputStream audioStream = AudioSystem.getAudioInputStream(bis);
+            PlayFrame pf = new PlayFrame();
+            try (AudioInputStream audioStream = AudioSystem
+                    .getAudioInputStream(new BufferedInputStream(new FileInputStream("resources/start.wav")))) {
                 Clip clip = AudioSystem.getClip();
 
                 clip.open(audioStream);
                 clip.start();
-                
-                audioStream.close();
-                bis.close();
+
             } catch (Exception a) {
                 a.printStackTrace();
             }
+
         });
 
         mid1.add(label1);
@@ -93,7 +88,7 @@ public class StartFrame extends JFrame {
         this.setVisible(true);
     }
 
-    public void initFrame() {
+    public final void initFrame() {
         setLocation(200, 200);
         setMinimumSize(new Dimension(320, 250));
         setSize(320, 250);

@@ -10,13 +10,16 @@ import view.VFungus;
 
 public class PlayFrame extends JFrame {
 
-    List<ColorPanel> fungusColorPanels, colonyColorPanels;
+    private List<ColorPanel> fungusColorPanels;
+    private List<ColorPanel>  colonyColorPanels;
     JPanel sidePanel;
-    JLabel fungusLabel, colonyLabel, timeLabel;
+    JLabel fungusLabel;
+    JLabel  colonyLabel;
+    JLabel  timeLabel;
 
     public PlayFrame() {
         super("Fungorium");
-        initFrame();
+        iniFrame();
         sidePanel = new JPanel();
         fungusColorPanels = new ArrayList<>();
         colonyColorPanels = new ArrayList<>();
@@ -89,12 +92,12 @@ public class PlayFrame extends JFrame {
         setVisible(true);
     }
 
-    public void initFrame() {
+    public final void iniFrame() {
         setLocation(200, 200);
         setMinimumSize(new Dimension(600, 500));
         setSize(600, 500);
         setVisible(true);
         setLayout(new BorderLayout());
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 }

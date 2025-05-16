@@ -249,17 +249,12 @@ public class View {
     }
 
     public static void notifyUser() {
-        try {
-            FileInputStream fis = new FileInputStream("resources/error.wav");
-            BufferedInputStream bis = new BufferedInputStream(fis);
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(bis);
-            Clip clip = AudioSystem.getClip();
+        try (AudioInputStream audioStream = AudioSystem
+                .getAudioInputStream(new BufferedInputStream(new FileInputStream("resources/error.wav")))) {
 
+            Clip clip = AudioSystem.getClip();
             clip.open(audioStream);
             clip.start();
-            
-            audioStream.close();
-            bis.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -315,7 +310,7 @@ public class View {
     // TODO DOC aki megcsinálja
     public static void endGame() {
         // TODO @Márton @Vazul @Tamás
-        
+
     }
 
     // #region GETTERS-SETTERS
