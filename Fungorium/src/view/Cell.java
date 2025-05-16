@@ -95,6 +95,7 @@ public class Cell {
 
     public void setTecton(VTecton tecton) {
         this.tecton = tecton;
+        
     }
 
     public int getX() {

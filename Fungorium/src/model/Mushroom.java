@@ -59,6 +59,7 @@ public class Mushroom implements IActive {
         burstsLeft = MAX_SPORE_BURSTS;
         cooldown = SPORE_BURST_DELAY;
         growCooldown = GROW_TIME;
+        setIsGrown(false);
         fungus.addMushroom(this);
         location.setMushroom(this);
         Controller.registerActiveObject(this);
@@ -79,6 +80,7 @@ public class Mushroom implements IActive {
         location.setMushroom(this);
         cooldown = SPORE_BURST_DELAY;
         growCooldown = GROW_TIME;
+        setIsGrown(false);
         Controller.registerActiveObject(this);
     }
     // #endregion

@@ -151,8 +151,11 @@ public class VInsect implements IIcon {
 
     @Override
     public BufferedImage getIcon() {
-        if (insect.getLocation() == null)
+        if (insect.getLocation() == null) {
+            cell.setItem(null);
             return null;
+        }
+
         List<InsectEffect> effs = insect.getActiveEffects();
         if (effs.isEmpty()) {
             return cachedIcon;
@@ -197,7 +200,7 @@ public class VInsect implements IIcon {
      */
     public void move(Cell target) {
         boolean success = insect.moveTo(target.getTecton().getTecton());
-        if (success) {
+        if (success || target.getTecton().getTecton() == insect.getLocation()) {
             cell.setItem(null);
             target.setItem(this);
         } else {

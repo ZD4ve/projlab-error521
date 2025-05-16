@@ -75,24 +75,23 @@ public class VTecton implements ITectonFiller {
         for (Cell cell : cells) {
             cell.setTecton(this);
             IIcon item = cell.getItem();
-            if (item == null)
-                continue;
             if (item instanceof VSpore vspore)
                 spores.add(vspore.getSpore());
             if (item instanceof VMushroom vmushroom)
                 mushroom = vmushroom.getMushroom();
             if (item instanceof VInsect vinsect)
                 insects.add(vinsect.getInsect());
-            map.getNeighbors(cell).forEach(n -> neighbors.add(n.getTecton().getTecton()));
+            map.getNeighbors(cell).stream().map(Cell::getTecton).filter(x -> x != null).distinct()
+                    .forEach(n -> neighbors.add(n.getTecton()));
         }
         tecton.fillWithStuff(spores, mushroom, insects, new ArrayList<>(neighbors), this);
     }
     // #endregion
 
     /**
-     * Törés esemény kezelése. A tekton törésekor két új tekton jön létre, amelyek a
-     * törés helyén keletkeznek. A törés helyét a tekton főtengelyére merőleges egyenes határozza meg. Az új tektonok
-     * celláit Az egyenes két oldalán levő cellahalmazok határozzák meg.
+     * Törés esemény kezelése. A tekton törésekor két új tekton jön létre, amelyek a törés helyén keletkeznek. A törés
+     * helyét a tekton főtengelyére merőleges egyenes határozza meg. Az új tektonok celláit Az egyenes két oldalán levő
+     * cellahalmazok határozzák meg.
      */
     @Override
     public void breaking(Tecton dying, Tecton t1, Tecton t2) {
