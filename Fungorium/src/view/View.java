@@ -99,12 +99,7 @@ public class View {
      * Újrarajzolja a térképet a megadott Graphics2D objektumra.
      */
     public static void redraw(Graphics2D g) {
-        // @Panni ez így, hogy van pan+zoom kell még, vagy már nincs rá szükség?
-        // ha akarunk offsetet kezdésnél, akkor azt ott is be lehet állítani
-        // - Dávid
-        g.translate(Cell.SIZE, Cell.SIZE);
         map.draw(g);
-        g.translate(-Cell.SIZE, -Cell.SIZE);
         g.dispose();
     }
 
