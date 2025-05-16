@@ -2,6 +2,8 @@ package gui;
 
 import java.awt.*;
 import javax.swing.*;
+import view.VFungus;
+
 
 public class PlayFrame extends JFrame {
 
@@ -21,9 +23,11 @@ public class PlayFrame extends JFrame {
         sidePanel.add(fungusLabel);
         sidePanel.add(Box.createVerticalStrut(5));
 
-        sidePanel.add(createColorPointRow(Color.RED, "pont: 2"));
-        sidePanel.add(Box.createVerticalStrut(5));
-        sidePanel.add(createColorPointRow(new Color(150, 150, 255), "pont: 1"));
+        for (VFungus fungus : view.View.getAllFungi()) {
+            sidePanel.add(createColorPointRow(fungus.getColor() , "pont: "+fungus.getFungus().getScore()));
+            sidePanel.add(Box.createVerticalStrut(5));
+            
+        }
 
         sidePanel.add(Box.createVerticalStrut(20));
 
