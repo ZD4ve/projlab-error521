@@ -251,6 +251,8 @@ public class Insect implements IActive {
      * @return sikeresség
      */
     public boolean moveTo(Tecton target) {
+        if (target == location)
+            return false;
         if (isParalysed || !ready())
             return false;
         if (!location.hasMyceliumTo(target))

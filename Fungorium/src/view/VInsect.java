@@ -233,10 +233,10 @@ public class VInsect implements IIcon {
      * @see Insect#moveTo(model.Tecton)
      */
     public void move(Cell target) {
-        boolean success = insect.moveTo(target.getTecton().getTecton());
-        if (success || target.getTecton().getTecton() == insect.getLocation()) {
+        if (target.getTecton().getTecton() == insect.getLocation() || insect.moveTo(target.getTecton().getTecton())) {
             cell.setItem(null);
             target.setItem(this);
+            cell = target;
         } else {
             View.notifyUser();
         }

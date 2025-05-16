@@ -81,8 +81,8 @@ public class VTecton implements ITectonFiller {
                 mushroom = vmushroom.getMushroom();
             if (item instanceof VInsect vinsect)
                 insects.add(vinsect.getInsect());
-            map.getNeighbors(cell).stream().map(Cell::getTecton).filter(x -> x != null).distinct()
-                    .forEach(n -> neighbors.add(n.getTecton()));
+            neighbors.addAll(map.getNeighbors(cell).stream().map(Cell::getTecton).filter(x -> x != null)
+                    .map(VTecton::getTecton).toList());
         }
         tecton.fillWithStuff(spores, mushroom, insects, new ArrayList<>(neighbors), this);
     }
@@ -110,7 +110,7 @@ public class VTecton implements ITectonFiller {
         }
 
         new VTecton(t1Cells, t1);
-        new VTecton(t2Cells, t2);
+        new VTecton(t2Cells, t2);        
     }
 
     /**
