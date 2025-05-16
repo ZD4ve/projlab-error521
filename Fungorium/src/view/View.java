@@ -95,7 +95,9 @@ public class View {
     private static List<VFungus> allFungi;
     // #endregion
 
-    // TODO DOC @Panni
+    /**
+     * Újrarajzolja a térképet a megadott Graphics2D objektumra.
+     */
     public static void redraw(Graphics2D g) {
         // @Panni ez így, hogy van pan+zoom kell még, vagy már nincs rá szükség?
         // ha akarunk offsetet kezdésnél, akkor azt ott is be lehet állítani

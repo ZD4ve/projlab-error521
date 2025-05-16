@@ -45,7 +45,7 @@ public class StartFrame extends JFrame {
         JLabel label3 = new JLabel("Rovarászok:");
 
         JButton start = new JButton("Kezdés");
-        start.addActionListener(_ -> {
+        start.addActionListener(e -> {
             int sp1 = (Integer) spinner1.getValue();
             int sp2 = (Integer) spinner2.getValue();
             int sp3 = (Integer) spinner3.getValue();
