@@ -29,5 +29,7 @@ public abstract class VPlayer {
     public Color getColor() {
         return color;
     }
+
+    public abstract int getScore();
     // #endregion
 }

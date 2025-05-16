@@ -25,5 +25,10 @@ public class VColony extends VPlayer {
     public Colony getColony() {
         return colony;
     }
+
+    @Override
+    public int getScore() {
+        return colony.getScore();
+    }
     // #endregion
 }
