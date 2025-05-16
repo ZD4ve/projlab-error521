@@ -72,10 +72,11 @@ public class Cell {
         for (Cell neighbor : neighbors) {
             drawEdge(g, neighbor);
         }
-        g.setStroke(new BasicStroke(SIZE * 0.1f));
+        int strokeSize = (int) (SIZE * 0.05f);
+        g.setStroke(new BasicStroke(strokeSize));
         if (View.getSelected() == this) {
             g.setColor(Color.BLACK);
-            g.drawRect(x, y, SIZE - 1, SIZE - 1);
+            g.drawRect(x + strokeSize / 2, y + strokeSize / 2, SIZE - strokeSize, SIZE - strokeSize);
         }
     }
     // #endregion
