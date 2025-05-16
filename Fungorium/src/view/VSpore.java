@@ -46,7 +46,7 @@ public class VSpore implements IIcon {
     }
 
     private BufferedImage sporeIcon() {
-        int size = Cell.getSize();
+        int size = Cell.SIZE;
         Color color = getColor();
         BufferedImage img = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = img.createGraphics();

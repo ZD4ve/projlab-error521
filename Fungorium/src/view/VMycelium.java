@@ -51,7 +51,7 @@ public class VMycelium implements IIcon {
         int dx = neighbor.getX() - cell.getX();
         int dy = neighbor.getY() - cell.getY();
         int orientation = (dx == 0) ? (dy > 0 ? 1 : 3) : (dx > 0 ? 0 : 2); // NOSONAR right, down, left, up
-        int size = Cell.getSize();
+        int size = Cell.SIZE;
         Color color = getColor();
         BufferedImage img = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = img.createGraphics();

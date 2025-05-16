@@ -36,7 +36,7 @@ public class VMushroom implements IIcon {
     }
 
     private BufferedImage mushroomSmallIcon() {
-        int size = Cell.getSize();
+        int size = Cell.SIZE;
         Color color = getColor();
         BufferedImage img = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = img.createGraphics();
@@ -50,7 +50,7 @@ public class VMushroom implements IIcon {
     }
 
     private BufferedImage mushroomBigIcon() {
-        int size = Cell.getSize();
+        int size = Cell.SIZE;
         Color color = getColor();
         BufferedImage img = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = img.createGraphics();

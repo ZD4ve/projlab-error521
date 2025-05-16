@@ -1,11 +1,12 @@
 package gui;
 
-import view.View;
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
+import view.View;
 
 public class StartFrame extends JFrame {
 
+    PlayFrame pf = null;
     public StartFrame() {
         super("Fungorium");
         initFrame();
@@ -25,9 +26,9 @@ public class StartFrame extends JFrame {
         bottomPanel.setPreferredSize(new Dimension(150, 50));
         topPanel.setPreferredSize(new Dimension(150, 40));
 
-        JSpinner spinner1 = new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
-        JSpinner spinner2 = new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
-        JSpinner spinner3 = new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
+        JSpinner spinner1 = new JSpinner(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
+        JSpinner spinner2 = new JSpinner(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
+        JSpinner spinner3 = new JSpinner(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
         spinner1.setPreferredSize(new Dimension(50, 20));
         spinner2.setPreferredSize(new Dimension(50, 20));
         spinner3.setPreferredSize(new Dimension(50, 20));
@@ -41,8 +42,18 @@ public class StartFrame extends JFrame {
 
         JButton start = new JButton("Kezdés");
         start.addActionListener(e -> {
-            View.create((Integer) spinner1.getValue(), (Integer) spinner2.getValue(), (Integer) spinner3.getValue());
-            new PlayFrame();
+            int sp1 = (Integer) spinner1.getValue();
+            int sp2 = (Integer) spinner2.getValue();
+            int sp3 = (Integer) spinner3.getValue();
+            if(sp1< sp2+sp3)
+            {
+                JOptionPane.showMessageDialog(null, "Több a játékos, mint a tektonok száma!");
+                return;
+            }
+            
+            View.create(sp1, sp2, sp3);
+            pf = new PlayFrame();
+            this.setVisible(false);
         });
 
         mid1.add(label1);
