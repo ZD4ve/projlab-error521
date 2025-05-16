@@ -268,7 +268,7 @@ public class View {
      * @param y egér y koordinátája
      */
     public static void click(int x, int y) {// NOSONAR complexity, így olvashatóbb
-        Cell clicked = map.cellAt(x - Cell.SIZE, y - Cell.SIZE); // compensate for the offset
+        Cell clicked = map.cellAt(x, y);
         if (clicked == null)
             return;
         if (selected == null) {
