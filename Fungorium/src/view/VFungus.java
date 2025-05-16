@@ -75,5 +75,10 @@ public class VFungus extends VPlayer {
     public Fungus getFungus() {
         return fungus;
     }
+
+    @Override
+    public int getScore() {
+        return fungus.getScore();
+    }
     // #endregion
 }

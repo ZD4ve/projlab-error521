@@ -29,5 +29,11 @@ public abstract class VPlayer {
     public Color getColor() {
         return color;
     }
+
+    public boolean isSelected() {
+        return View.getSelectedPlayer() == this;
+    }
+
+    public abstract int getScore();
     // #endregion
 }

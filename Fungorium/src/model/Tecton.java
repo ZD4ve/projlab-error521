@@ -30,7 +30,7 @@ public class Tecton implements IActive {
     private List<Insect> insects;
     /** A tektonon található gombatestet tárolja. */
     protected Mushroom mushroom;
-    /** TODO DOC */
+    /** A tektonok feltöltéséhez használt ITectonFiller implementáció. */
     private ITectonFiller filler;
     // #endregion
 
@@ -128,7 +128,11 @@ public class Tecton implements IActive {
         insects.remove(insect);
     }
 
-    // TODO DOC
+    /**
+     * Visszaadja a tektonon található rovarokat.
+     * 
+     * @return a tekton rovarai.
+     */
     public List<Insect> getInsects() {
         return insects;
     }
@@ -352,15 +356,11 @@ public class Tecton implements IActive {
         }
         return false;
     }
-
-    // TODO DOC changed, move this to BasicTectonFiller
+    
     /**
-     * Levezényli a tekton törési folyamatát: A tektont eltávolítja az aktív objektumok közül. A tektonhoz kapcsolódó
-     * összes gombafonalat megszünteti (Mycelium::die). A tekton összes szomszédjainak listájából eltávolítja a tektont
-     * (Tecton::removeNeighbor). Létrehoz 2 új tektont az eredeti tekton hatásával (Tecton::newMe). Elosztja
-     * (Tecton::fillWithStuff) az új tektonok között a rajta található objektumokat, lehetőleg egyenletesen, de az első
-     * tektont előnyben részesítve. (első: [0;min(darab, max(darab / 2, 1))[, második: maradék) A tektonon található
-     * gombatestet a második tekton kapja. A két új tekton szomszédos lesz.
+     * Ellenőrzi, hogy a tekton képes-e eltörni, majd azt is, hogy van-e rajta gombafonal, ha igen, azok elszakadnak.
+     * Ezt követően elindítja a törési folyamatot (ITectonFiller::breaking). Végül végigmegy a tekton szomszédain, és
+     * eltávolítja a tekton szomszédságából.
      */
     private void breakApart() {
         if (!filler.canBreak())
