@@ -50,10 +50,6 @@ public class StartFrame extends JFrame {
                 JOptionPane.showMessageDialog(null, "Több a játékos, mint a tektonok száma!");
                 return;
             }
-            if(pf != null)
-            {
-                return;
-            }
             
             View.create(sp1, sp2, sp3);
             pf = new PlayFrame();
