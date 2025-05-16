@@ -306,6 +306,10 @@ public class View {
         return selected;
     }
 
+    public static VPlayer getSelectedPlayer() {
+        return selectedPlayer;
+    }
+
     public static void setSelectedPlayer(VPlayer selectedPlayer) {
         View.selectedPlayer = selectedPlayer;
     }
