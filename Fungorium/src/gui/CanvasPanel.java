@@ -13,8 +13,8 @@ public class CanvasPanel extends JPanel {
     private double scale = 0.1;
     private int lastX = 0;
     private int lastY = 0;
-    private int offsetX = 0;
-    private int offsetY = 0;
+    private int offsetX = Cell.SIZE / 10;
+    private int offsetY = Cell.SIZE / 10;
     private boolean dragging = false;
 
     public CanvasPanel() {

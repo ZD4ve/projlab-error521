@@ -32,7 +32,7 @@ public class Cell {
     // #endregion
 
     // #region FUNCTIONS
-    // TODO DOC @Panni
+    /** Segédfüggvény a cella határainak kirajzolására */
     private void drawEdge(Graphics2D g, Cell n) {
         if (n.getTecton() == tecton)
             return;
@@ -51,7 +51,7 @@ public class Cell {
         }
     }
 
-    // TODO DOC @Panni
+    /** Kirajzolja a cellát a megadott Graphics2D objektumra a megfelelő helyre */
     public void draw(Graphics2D g) {
         Color background = tecton.getColor();
         g.setColor(background);

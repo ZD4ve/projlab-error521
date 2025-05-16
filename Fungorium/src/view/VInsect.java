@@ -10,8 +10,6 @@ import java.util.List;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-//TODO DOC maradék (get-set kívételével) @Panni
-
 /**
  * Becsomagol egy rovart, nyilvántartja annak a helyét és kezeli kirajzolását. A rovar akcióit elérhetővé teszi cellákat
  * használva.
@@ -58,6 +56,12 @@ public class VInsect implements IIcon {
         throw new IllegalStateException("Colony not found");
     }
 
+    /**
+     * Megrajzolja a rovar ikonját.
+     *
+     * @param size  az ikon mérete
+     * @param color az ikon színe
+     */
     private BufferedImage insectIcon(int size, Color color) {
         BufferedImage img = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = img.createGraphics();
@@ -73,6 +77,12 @@ public class VInsect implements IIcon {
         return img;
     }
 
+    /**
+     * Megrajzolja a rágást tiltó hatás ikonját.
+     *
+     * @param size  az ikon mérete
+     * @param color az ikon színe
+     */
     private BufferedImage antiChewIcon(int size, Color color) {
         BufferedImage img = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = img.createGraphics();
@@ -95,6 +105,12 @@ public class VInsect implements IIcon {
         return img;
     }
 
+    /**
+     * Megrajzolja a bénító hatás ikonját.
+     *
+     * @param size  az ikon mérete
+     * @param color az ikon színe
+     */
     private BufferedImage paraIcon(int size, Color color) {
         BufferedImage img = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = img.createGraphics();
@@ -108,6 +124,12 @@ public class VInsect implements IIcon {
         return img;
     }
 
+    /**
+     * Megrajzolja a gyorsító hatás ikonját.
+     *
+     * @param size  az ikon mérete
+     * @param color az ikon színe
+     */
     private BufferedImage speedIcon(int size, Color color) {
         BufferedImage img = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = img.createGraphics();
@@ -121,6 +143,12 @@ public class VInsect implements IIcon {
         return img;
     }
 
+    /**
+     * Megrajzolja a lassító hatás ikonját.
+     *
+     * @param size  az ikon mérete
+     * @param color az ikon színe
+     */
     private BufferedImage slowIcon(int size, Color color) {
         BufferedImage img = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = img.createGraphics();
@@ -140,6 +168,12 @@ public class VInsect implements IIcon {
         return img;
     }
 
+    /**
+     * Megrajzolja és eltárolja a rovar és a hatások ikonjait.
+     *
+     * @param size  az ikon mérete
+     * @param color az ikon színe
+     */
     private void generateImages() {
         Color color = getColor();
         cachedIcon = insectIcon(Cell.SIZE, color);
