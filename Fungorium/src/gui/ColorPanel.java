@@ -2,7 +2,6 @@ package gui;
 
 import java.awt.*;
 import javax.swing.*;
-
 import view.VPlayer;
 
 public class ColorPanel extends JPanel {
@@ -30,6 +29,6 @@ public class ColorPanel extends JPanel {
     }
 
     public void update() {
-        label = new JLabel("pont: " + player.getScore());
+        label.setText("pont: " + player.getScore());
     }
 }
