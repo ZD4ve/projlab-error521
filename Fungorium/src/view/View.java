@@ -13,8 +13,16 @@ import java.util.stream.IntStream;
 import controller.RandomProvider;
 import model.*;
 
-// TODO DOC @Márton
+/***
+ * 2 dimenziós pontot reprezentál egy rácson.
+ */
 class Point {
+    /**
+     * Létrehoz egy új példányt a megadott koordinátákkal.
+     * 
+     * @param x
+     * @param y
+     */
     public Point(int x, int y) {
         this.x = x;
         this.y = y;
@@ -23,6 +31,12 @@ class Point {
     int x;
     int y;
 
+    /**
+     * Kiszámolja a pont és egy másik pont távolságát.
+     * 
+     * @param p a másik pont
+     * @return
+     */
     public double distanceTo(Point p) {
         return Math.sqrt(Math.pow((x - p.x), 2) + Math.pow((y - p.y), 2));
     }
@@ -41,8 +55,16 @@ class Point {
     }
 }
 
-// TODO DOC @Márton
+/**
+ * Játékelemek (rovarok és gombatestek) létrehozásához használt interfész.
+ */
 interface GameElementCreator<T> {
+    /**
+     * Létrehozza a létrehozandó játékelemet a megadott cellán
+     * 
+     * @param cell     A cél cella
+     * @param instance A létrehozandó játékelem szülője
+     */
     void create(Cell cell, T instance);
 }
 
@@ -80,22 +102,39 @@ public class View {
         g.dispose();
     }
 
-    // TODO DOC @Márton
-    private static Set<Point> createControlPoints(int tecNum, int minUnitCols, int minUnitRows, int minDst) {
+    /**
+     * Vezérlőpontokat generál adott méretű rácson úgy, hogy egy helyen ne lehessen 2 vezérlőpont.
+     * 
+     * @param count  vezérlőpontok száma
+     * @param cols   oszlopok száma a rácsban
+     * @param rows   sorok száma a rácsban
+     * @param minDst egy cella minimális szélessége és hosszúsága
+     * @return a vezérlőpontok egy Set-ben
+     */
+    private static Set<Point> createControlPoints(int count, int cols, int rows, int minDst) {
+        int minUnitCols = cols / minDst;
+        int minUnitRows = rows / minDst;
         Set<Point> controlPoints = new HashSet<>();
-        for (int i = 0; i < tecNum; i++) {
+        for (int i = 0; i < count; i++) {
             Point p;
             do {
-                p = new Point(RandomProvider.nextInt(minUnitCols) * minDst + 2,
-                        RandomProvider.nextInt(minUnitRows) * minDst + 2);
+                p = new Point(RandomProvider.nextInt(minUnitCols) * minDst + minDst / 2,
+                        RandomProvider.nextInt(minUnitRows) * minDst + minDst / 2);
             } while (controlPoints.contains(p));
             controlPoints.add(p);
         }
         return controlPoints;
     }
 
-    // TODO DOC @Márton
-    private static HashMap<Point, List<Cell>> calculateTectonCells(final int rows, final int cols,
+    /**
+     * Minden vezérlőponthoz megkeresi azokat a cellákat, melyek az érintett vezérlőponthoz vannak legközeleb.
+     * 
+     * @param rows          a rács sorai
+     * @param cols          a rács oszlopai
+     * @param controlPoints vezérlőpontok
+     * @return
+     */
+    private static HashMap<Point, List<Cell>> groupCellsByControlPoint(final int cols, final int rows,
             Set<Point> controlPoints) {
         HashMap<Point, List<Cell>> tectonsCells = new HashMap<>();
         for (int i = 0; i < cols; i++) {
@@ -111,7 +150,11 @@ public class View {
         return tectonsCells;
     }
 
-    // TODO DOC @Márton
+    /**
+     * Létrehoz egy véletlen típusú tektont.
+     * 
+     * @return
+     */
     private static Tecton createRandomTypeTecton() {
         Tecton tecton;
         double rand = RandomProvider.nextRand();
@@ -129,7 +172,14 @@ public class View {
         return tecton;
     }
 
-    // TODO DOC @Márton
+    /**
+     * Véletlenszerű tektonokat keres, majd ezeket a megtölti.
+     * 
+     * @param <T>           A létrehozandó játékelem típusa
+     * @param emptyVTectons Az üres tektonok
+     * @param all           A létrehozandó játékelemek szülői
+     * @param creator       A létrehozást vezérlő objektum
+     */
     private static <T> void putStuffOnEmptyTectons(List<VTecton> emptyVTectons, List<T> all,
             GameElementCreator<T> creator) {
         for (T f : all) {
@@ -140,8 +190,13 @@ public class View {
         }
     }
 
-    // TODO DOC @Márton
-    // TODO tecNum must be greater than fungiNum + colNum @Tamasz
+    /**
+     * Inicializál egy új játékot, annak térképét, valamint a résztvevő játékosokat és játékelemeket.
+     * 
+     * @param tecNum   létrehozandó tektonok száma
+     * @param fungiNum létrehozandó gombafajok száma
+     * @param colNum   létrehozandó rovar kolóniák száma
+     */
     public static void create(int tecNum, int fungiNum, int colNum) {
         List<Color> colors = generateColors(fungiNum + colNum);
         allFungi = IntStream.range(0, fungiNum).mapToObj(x -> new VFungus(new Fungus(), colors.get(x))).toList();
@@ -152,14 +207,11 @@ public class View {
         final int rows = (int) Math.ceil(4 * Math.sqrt((tecNum * minDst * minDst)));
         final int cols = 3 * rows / 2;
 
-        final int minUnitRows = rows / minDst;
-        final int minUnitCols = cols / minDst;
-
-        Set<Point> controlPoints = createControlPoints(tecNum, minUnitCols, minUnitRows, minDst);
+        Set<Point> controlPoints = createControlPoints(tecNum, cols, rows, minDst);
 
         map = new VMap(cols, rows);
 
-        HashMap<Point, List<Cell>> tectonsCells = calculateTectonCells(rows, cols, controlPoints);
+        HashMap<Point, List<Cell>> tectonsCells = groupCellsByControlPoint(cols, rows, controlPoints);
 
         List<VTecton> vtectons = new ArrayList<>();
         for (var entry : tectonsCells.entrySet()) {
