@@ -64,7 +64,7 @@ public class Cell {
             if (icon == null) {
                 item = null;
             } else {
-                g.drawImage(item.getIcon(), x, y, SIZE, SIZE, null);
+                g.drawImage(icon, x, y, SIZE, SIZE, null);
             }
         }
         java.util.List<Cell> neighbors = View.getMap().getNeighbors(this);
@@ -95,7 +95,7 @@ public class Cell {
 
     public void setTecton(VTecton tecton) {
         this.tecton = tecton;
-        
+
     }
 
     public int getX() {
