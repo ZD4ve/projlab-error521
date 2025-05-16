@@ -142,12 +142,11 @@ public class VInsect implements IIcon {
 
     private void generateImages() {
         Color color = getColor();
-        int size = Cell.getSize();
-        cachedIcon = insectIcon(size, color);
-        antiChewImage = antiChewIcon(size / 4, color);
-        paraImage = paraIcon(size / 4, color);
-        speedImage = speedIcon(size / 4, color);
-        slowImage = slowIcon(size / 4, color);
+        cachedIcon = insectIcon(Cell.SIZE, color);
+        antiChewImage = antiChewIcon(Cell.SIZE / 4, color);
+        paraImage = paraIcon(Cell.SIZE / 4, color);
+        speedImage = speedIcon(Cell.SIZE / 4, color);
+        slowImage = slowIcon(Cell.SIZE / 4, color);
     }
 
     @Override

@@ -22,14 +22,11 @@ public class VMap {
      * @throws IllegalStateException Ha a cellák mérete még nincs beállítva
      */
     public VMap(int n, int m) {
-        if (Cell.getSize() == -1) {
-            throw new IllegalStateException("Cell size must be set before creating a map.");
-        }
         cells = new ArrayList<>();
         for (int i = 0; i < n; i++) {
             List<Cell> row = new ArrayList<>();
             for (int j = 0; j < m; j++) {
-                row.add(new Cell(i * Cell.getSize(), j * Cell.getSize()));
+                row.add(new Cell(i * Cell.SIZE, j * Cell.SIZE));
             }
             cells.add(row);
         }
@@ -58,8 +55,8 @@ public class VMap {
      */
     public List<Cell> getNeighbors(Cell cell) {
         List<Cell> neighbors = new ArrayList<>();
-        int x = cell.getX() / Cell.getSize();
-        int y = cell.getY() / Cell.getSize();
+        int x = cell.getX() / Cell.SIZE;
+        int y = cell.getY() / Cell.SIZE;
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 if (Math.abs(i) == Math.abs(j))
@@ -82,9 +79,8 @@ public class VMap {
      * @return a cella, ha van ezen a ponton, különben null
      */
     public Cell cellAt(int x, int y) {
-        int size = Cell.getSize();
-        x /= size;
-        y /= size;
+        x /= Cell.SIZE;
+        y /= Cell.SIZE;
         if (x >= 0 && x < cells.size() && y >= 0 && y < cells.get(0).size()) {
             return getCellByIndex(x, y);
         }
