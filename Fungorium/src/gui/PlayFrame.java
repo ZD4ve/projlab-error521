@@ -23,7 +23,7 @@ public class PlayFrame extends JFrame {
 
         sidePanel.add(createColorPointRow(Color.RED, "pont: 2"));
         sidePanel.add(Box.createVerticalStrut(5));
-        sidePanel.add(createColorPointRow(new Color(150, 150, 255), "pont: 1")); // light purple
+        sidePanel.add(createColorPointRow(new Color(150, 150, 255), "pont: 1"));
 
         sidePanel.add(Box.createVerticalStrut(20));
 
@@ -34,7 +34,7 @@ public class PlayFrame extends JFrame {
 
         sidePanel.add(createColorPointRow(Color.YELLOW, "pont: 5"));
         sidePanel.add(Box.createVerticalStrut(5));
-        sidePanel.add(createColorPointRow(new Color(180, 255, 180), "pont: 0")); // light green
+        sidePanel.add(createColorPointRow(new Color(180, 255, 180), "pont: 0"));
 
         sidePanel.add(Box.createVerticalGlue());
 
