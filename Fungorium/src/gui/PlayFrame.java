@@ -34,8 +34,12 @@ public class PlayFrame extends JFrame {
                 @Override
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
                     if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
+                        for (ColorPanel colorPanel : fungusColorPanels) {
+                            colorPanel.colorBox.setBorder(BorderFactory.createEmptyBorder());
+                        }
                         fungus.selectPlayer();
                         colorPanel.colorBox.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.black));
+                        
                     }
                 }
             });
@@ -57,12 +61,15 @@ public class PlayFrame extends JFrame {
                 @Override
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
                     if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
+                        for (ColorPanel colorPanel : colonyColorPanels) {
+                            colorPanel.colorBox.setBorder(BorderFactory.createEmptyBorder());
+                        }
                         colony.selectPlayer();
                         colorPanel.colorBox.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.black));
                     }
                 }
             });
-            fungusColorPanels.add(colorPanel);
+            colonyColorPanels.add(colorPanel);
             sidePanel.add(colorPanel);
         }
 
