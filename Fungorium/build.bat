@@ -14,4 +14,8 @@ if errorlevel 1 (
     echo Compilation failed.
     exit /b 1
 )
+
+:: Copy resources to bin directory
+xcopy /E /I /Y resources bin\resources
+
 jar cfe Fungorium.jar proto.Prototype -C bin .

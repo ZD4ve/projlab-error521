@@ -1,7 +1,10 @@
 package view;
 
+import controller.RandomProvider;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -9,8 +12,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.IntStream;
-
-import controller.RandomProvider;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import model.*;
 
 /***
@@ -244,9 +248,21 @@ public class View {
         return colors;
     }
 
-    // TODO DOC @Tamás
     public static void notifyUser() {
-        // TODO @Tamás
+        try {
+            FileInputStream fis = new FileInputStream("resources/error.wav");
+            BufferedInputStream bis = new BufferedInputStream(fis);
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(bis);
+            Clip clip = AudioSystem.getClip();
+
+            clip.open(audioStream);
+            clip.start();
+            
+            audioStream.close();
+            bis.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -299,6 +315,7 @@ public class View {
     // TODO DOC aki megcsinálja
     public static void endGame() {
         // TODO @Márton @Vazul @Tamás
+        
     }
 
     // #region GETTERS-SETTERS

@@ -1,6 +1,11 @@
 package gui;
 
 import java.awt.*;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import view.View;
 
@@ -51,9 +56,23 @@ public class StartFrame extends JFrame {
                 return;
             }
             
+            this.setVisible(false);
             View.create(sp1, sp2, sp3);
             pf = new PlayFrame();
-            this.setVisible(false);
+            try {
+                FileInputStream fis = new FileInputStream("resources/start.wav");
+                BufferedInputStream bis = new BufferedInputStream(fis);
+                AudioInputStream audioStream = AudioSystem.getAudioInputStream(bis);
+                Clip clip = AudioSystem.getClip();
+
+                clip.open(audioStream);
+                clip.start();
+                
+                audioStream.close();
+                bis.close();
+            } catch (Exception a) {
+                a.printStackTrace();
+            }
         });
 
         mid1.add(label1);
