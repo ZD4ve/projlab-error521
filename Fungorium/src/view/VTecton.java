@@ -5,8 +5,8 @@ import java.util.*;
 import java.awt.Color;
 
 /**
- * Becsomagol egy tektont, nyilvántartja celláit. Elérhetővé teszi a színét a típusának megfelelően. Kezeli a
- * tekton törését, az új tektonok feltöltését a megfelelő elemekkel.
+ * Becsomagol egy tektont, nyilvántartja celláit. Elérhetővé teszi a színét a típusának megfelelően. Kezeli a tekton
+ * törését, az új tektonok feltöltését a megfelelő elemekkel.
  */
 public class VTecton implements ITectonFiller {
     // #region ASSOCIATIONS
@@ -21,9 +21,7 @@ public class VTecton implements ITectonFiller {
     private static final java.util.Map<Class<? extends Tecton>, Color> TECTON_COLORS = Map.of(Tecton.class,
             new Color(239, 239, 239, 255), MyceliumAbsorbingTecton.class, new Color(217, 234, 211, 255),
             MyceliumKeepingTecton.class, new Color(201, 218, 248, 255), NoMushroomTecton.class,
-            new Color(244, 204, 204, 255), SingleMyceliumTecton.class, new Color(255, 242, 204, 255),
-            SingleMyceliumTecton.class, new Color(255, 242, 204, 255), SingleMyceliumTecton.class,
-            new Color(255, 242, 204, 255));
+            new Color(244, 204, 204, 255), SingleMyceliumTecton.class, new Color(255, 242, 204, 255));
     // #endregion
 
     // TODO DOC @Vazul
