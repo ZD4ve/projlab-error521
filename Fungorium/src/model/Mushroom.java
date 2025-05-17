@@ -154,6 +154,7 @@ public class Mushroom implements IActive {
                 cooldown = SPORE_BURST_DELAY;
                 if (burstsLeft <= 0) {
                     location.removeMushroom();
+                    location = null;
                     species.removeMushroom(this);
                     Controller.unregisterActiveObject(this);
                 }
