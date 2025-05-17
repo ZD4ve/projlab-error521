@@ -110,6 +110,8 @@ public class PlayFrame extends JFrame {
         timeLabel.setText(
                 "Hátralévő idő: " + mins + ":" + (secs >= 10 ? Integer.toString(secs) : "0" + Integer.toString(secs)));
         if (playTime <= 0) {
+            timeLabel.setText("Lejárt az idő!");
+            timeLabel.setForeground(Color.red);
             gameTimer.stop();
             View.endGame();
         }

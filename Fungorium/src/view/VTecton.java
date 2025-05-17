@@ -95,6 +95,7 @@ public class VTecton implements ITectonFiller {
      */
     @Override
     public void breaking(Tecton dying, Tecton t1, Tecton t2) {
+        View.notifyTectonBreak();
         Line mainAxis = getMainAxis();
         List<Cell> t1Cells = new ArrayList<>();
         List<Cell> t2Cells = new ArrayList<>();
@@ -110,7 +111,7 @@ public class VTecton implements ITectonFiller {
         }
 
         new VTecton(t1Cells, t1);
-        new VTecton(t2Cells, t2);        
+        new VTecton(t2Cells, t2);
     }
 
     /**

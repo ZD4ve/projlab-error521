@@ -95,6 +95,8 @@ public class View {
     private static List<VFungus> allFungi;
     // #endregion
 
+    private static boolean gameRunning;
+
     /**
      * Újrarajzolja a térképet a megadott Graphics2D objektumra.
      */
@@ -225,6 +227,7 @@ public class View {
         putStuffOnEmptyTectons(vtectons, allColonies,
                 (cell, vf) -> new VInsect(cell, new Insect(cell.getTecton().getTecton(), vf.getColony())));
 
+        gameRunning = true;
     }
 
     /**
@@ -246,8 +249,16 @@ public class View {
     }
 
     public static void notifyUser() {
+        playSound("resources/error.wav");
+    }
+
+    public static void notifyTectonBreak() {
+        playSound("resources/crack.wav");
+    }
+
+    private static void playSound(String source) {
         try (AudioInputStream audioStream = AudioSystem
-                .getAudioInputStream(new BufferedInputStream(new FileInputStream("resources/error.wav")))) {
+                .getAudioInputStream(new BufferedInputStream(new FileInputStream(source)))) {
 
             Clip clip = AudioSystem.getClip();
             clip.open(audioStream);
@@ -268,6 +279,10 @@ public class View {
      * @param y egér y koordinátája
      */
     public static void click(int x, int y) {// NOSONAR complexity, így olvashatóbb
+        if (!gameRunning) {
+            return;
+        }
+
         Cell clicked = map.cellAt(x, y);
         if (clicked == null)
             return;
@@ -304,10 +319,12 @@ public class View {
         selected = null;
     }
 
-    // TODO DOC aki megcsinálja
+    /**
+     * Az idő lejártakor hívandó, letiltja a további felhasználói akciókat.
+     */
     public static void endGame() {
-        // TODO @Márton @Vazul @Tamás
-
+        gameRunning = false;
+        playSound("resources/end.wav");
     }
 
     // #region GETTERS-SETTERS
