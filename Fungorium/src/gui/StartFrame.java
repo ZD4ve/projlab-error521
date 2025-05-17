@@ -56,7 +56,7 @@ public class StartFrame extends JFrame {
 
             this.setVisible(false);
             View.create(sp1, sp2, sp3);
-            pf = new PlayFrame();
+            new PlayFrame();
             playStartSound();
         });
 
@@ -87,7 +87,7 @@ public class StartFrame extends JFrame {
 
             clip.open(audioStream);
             clip.start();
-            
+
             audioStream.close();
             bis.close();
         } catch (Exception a) {
