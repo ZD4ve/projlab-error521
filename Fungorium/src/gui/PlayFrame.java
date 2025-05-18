@@ -1,14 +1,14 @@
 package gui;
 
+import controller.Controller;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
-
-import controller.Controller;
 import view.VColony;
 import view.VFungus;
 import view.View;
+
 
 public class PlayFrame extends JFrame {
 

@@ -9,56 +9,42 @@ import javax.sound.sampled.Clip;
 import javax.swing.*;
 import view.View;
 
+/**
+ * <h3>StartFrame</h3>
+ * 
+ * A játék indításához szükséges ablak.
+ */
 public class StartFrame extends JFrame {
+
+    JPanel topPanel;
+    JPanel middlePanel;
+    JPanel mid1;
+    JPanel mid2;
+    JPanel mid3;
+    JPanel bottomPanel;
+
+    JSpinner spinner1;
+    JSpinner spinner2;
+    JSpinner spinner3;
+
+    JLabel titleLabel;
+    JLabel label1;
+    JLabel label2;
+    JLabel label3;
+
+    JButton start;
 
     public StartFrame() {
         super("Fungorium");
         initFrame();
 
-        JPanel topPanel = new JPanel();
-        JPanel middlePanel = new JPanel();
-        JPanel mid1 = new JPanel();
-        JPanel mid2 = new JPanel();
-        JPanel mid3 = new JPanel();
-        JPanel bottomPanel = new JPanel();
+        initPanels();
 
-        middlePanel.add(mid1);
-        middlePanel.add(mid2);
-        middlePanel.add(mid3);
-        middlePanel.setPreferredSize(new Dimension(150, 100));
-        middlePanel.setLayout(new BoxLayout(middlePanel, BoxLayout.Y_AXIS));
-        bottomPanel.setPreferredSize(new Dimension(150, 50));
-        topPanel.setPreferredSize(new Dimension(150, 40));
+        initSpinners();
 
-        JSpinner spinner1 = new JSpinner(new SpinnerNumberModel(10, 1, Integer.MAX_VALUE, 1));
-        JSpinner spinner2 = new JSpinner(new SpinnerNumberModel(4, 1, Integer.MAX_VALUE, 1));
-        JSpinner spinner3 = new JSpinner(new SpinnerNumberModel(4, 1, Integer.MAX_VALUE, 1));
-        spinner1.setPreferredSize(new Dimension(50, 20));
-        spinner2.setPreferredSize(new Dimension(50, 20));
-        spinner3.setPreferredSize(new Dimension(50, 20));
+        initLabels();
 
-        JLabel titleLabel = new JLabel("Új játék");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
-
-        JLabel label1 = new JLabel("Tektonok:");
-        JLabel label2 = new JLabel("Gombászok:");
-        JLabel label3 = new JLabel("Rovarászok:");
-
-        JButton start = new JButton("Kezdés");
-        start.addActionListener(e -> {
-            int sp1 = (Integer) spinner1.getValue();
-            int sp2 = (Integer) spinner2.getValue();
-            int sp3 = (Integer) spinner3.getValue();
-            if (sp1 < sp2 + sp3) {
-                JOptionPane.showMessageDialog(null, "Több a játékos, mint a tektonok száma!");
-                return;
-            }
-
-            this.setVisible(false);
-            View.create(sp1, sp2, sp3);
-            new PlayFrame();
-            playStartSound();
-        });
+        initButton();
 
         mid1.add(label1);
         mid1.add(spinner1);
@@ -78,18 +64,69 @@ public class StartFrame extends JFrame {
         this.setVisible(true);
     }
 
+    private void initPanels() {
+        topPanel = new JPanel();
+        middlePanel = new JPanel();
+        mid1 = new JPanel();
+        mid2 = new JPanel();
+        mid3 = new JPanel();
+        bottomPanel = new JPanel();
+
+        middlePanel.add(mid1);
+        middlePanel.add(mid2);
+        middlePanel.add(mid3);
+        middlePanel.setPreferredSize(new Dimension(150, 100));
+        middlePanel.setLayout(new BoxLayout(middlePanel, BoxLayout.Y_AXIS));
+        bottomPanel.setPreferredSize(new Dimension(150, 50));
+        topPanel.setPreferredSize(new Dimension(150, 40));
+    }
+
+    private void initSpinners() {
+
+        spinner1 = new JSpinner(new SpinnerNumberModel(10, 1, Integer.MAX_VALUE, 1));
+        spinner2 = new JSpinner(new SpinnerNumberModel(4, 1, Integer.MAX_VALUE, 1));
+        spinner3 = new JSpinner(new SpinnerNumberModel(4, 1, Integer.MAX_VALUE, 1));
+        spinner1.setPreferredSize(new Dimension(50, 20));
+        spinner2.setPreferredSize(new Dimension(50, 20));
+        spinner3.setPreferredSize(new Dimension(50, 20));
+    }
+
+    private void initLabels() {
+        titleLabel = new JLabel("Új játék");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
+
+        label1 = new JLabel("Tektonok:");
+        label2 = new JLabel("Gombászok:");
+        label3 = new JLabel("Rovarászok:");
+    }
+
+    private void initButton() {
+        start = new JButton("Kezdés");
+        start.addActionListener(_ -> {
+            int sp1 = (Integer) spinner1.getValue();
+            int sp2 = (Integer) spinner2.getValue();
+            int sp3 = (Integer) spinner3.getValue();
+            if (sp1 < sp2 + sp3) {
+                JOptionPane.showMessageDialog(null, "Több a játékos, mint a tektonok száma!");
+                return;
+            }
+
+            this.setVisible(false);
+            View.create(sp1, sp2, sp3);
+            new PlayFrame();
+            playStartSound();
+        });
+    }
+
     private void playStartSound() {
-        try {
-            FileInputStream fis = new FileInputStream("resources/start.wav");
-            BufferedInputStream bis = new BufferedInputStream(fis);
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(bis);
+        try (AudioInputStream audioStream = AudioSystem
+                .getAudioInputStream(new BufferedInputStream(new FileInputStream("resources/start.wav")))) {
+
             Clip clip = AudioSystem.getClip();
 
             clip.open(audioStream);
             clip.start();
 
-            audioStream.close();
-            bis.close();
         } catch (Exception a) {
             a.printStackTrace();
         }
