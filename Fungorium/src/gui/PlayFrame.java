@@ -6,17 +6,39 @@ import javax.swing.*;
 import view.VPlayer;
 import view.View;
 
+/**
+ * <h3>PlayFrame</h3>
+ * 
+ * A játék közben megjelenő ablak osztálya.
+ */
 public class PlayFrame extends JFrame {
 
+    // #region ATTRIBUTES
+    /** A képernyőn a játékosok megjelenítéséhez tartozó panel. */
     JPanel sidePanel;
+    /** A képernyőn a "Gombászok" feliratú label. */
     JLabel fungusLabel;
+    /** A képernyőn a "Rovarászok" feliratú label. */
     JLabel colonyLabel;
+    /** A hátralévő időt megjelenítő label. */
     JLabel timeLabel;
+    /** A canvas panel, amelyre a pálya rajzolódik. */
     JPanel canvas;
+    /** Az időzítő, ami a játék idejét méri. */
     Timer gameTimer;
-    static final int UPDATE_INTERVAL = 100;
+    /** Egész szám, a játék hossza (ms). */
     int playTime = 5 * 60 * 1000; // 5 mins
+    // #endregion
 
+    // #region CONSTANTS
+    /** Ennyi időnként frissül a játék (ms). */
+    static final int UPDATE_INTERVAL = 100;
+    // #endregion
+
+    // #region CONSTRUCTOR
+    /**
+     * Konstruktor, amely létrehozza a PlayFrame ablakot. Beállítja a paneleket és labeleket.
+     */
     public PlayFrame() {
         super("Fungorium");
         iniFrame();
@@ -62,7 +84,10 @@ public class PlayFrame extends JFrame {
         view.View.getAllFungi().get(0).selectPlayer();
         ColorPanel.updateAll();
     }
+    // #endregion
 
+    // #region FUNCTIONS
+    /** Metódus, amely a képernyő frissítését kezeli. Frissíti a hátralévő időt megjelenítő labelt. */
     private void refresh() {
         Controller.onTimeElapsed(UPDATE_INTERVAL / 1000d);
         canvas.repaint();
@@ -80,6 +105,7 @@ public class PlayFrame extends JFrame {
         }
     }
 
+    /** Metódus, amely beállítja az ablak tulajdonságait. */
     public final void iniFrame() {
         setLocation(200, 200);
         setMinimumSize(new Dimension(600, 500));
@@ -88,4 +114,6 @@ public class PlayFrame extends JFrame {
         setLayout(new BorderLayout());
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
+
+    // #endregion
 }
