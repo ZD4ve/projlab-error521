@@ -12,28 +12,49 @@ import view.View;
 /**
  * <h3>StartFrame</h3>
  * 
- * A játék indításához szükséges ablak.
+ * A játék indításához szükséges ablak osztálya.
  */
 public class StartFrame extends JFrame {
 
+    // #region ATTRIBUTES
+    /** A képernyőn a címhez tartozó panel. */
     JPanel topPanel;
+    /** Az a panel, amin a labelek és a spinnerek találhatóak. */
     JPanel middlePanel;
+    /** Az tektonok megadásához tartozó panel. */
     JPanel mid1;
+    /** A gombászok megadásához tartozó panel. */
     JPanel mid2;
+    /** A rovarászok megadásához tartozó panel. */
     JPanel mid3;
+    /** A gombhoz tartozó alsó panel. */
     JPanel bottomPanel;
 
+    /** Az tektonok megadásához tartozó spinner. Minimum értéke 1. */
     JSpinner spinner1;
+    /** A gombászok megadásához tartozó spinner. Minimum értéke 1. */
     JSpinner spinner2;
+    /** A rovarászok megadásához tartozó spinner. Minimum értéke 1. */
     JSpinner spinner3;
 
+    /** A címhez tartozó label */
     JLabel titleLabel;
+    /** A "Tektonok" label. */
     JLabel label1;
+    /** A "Gombászok" label. */
     JLabel label2;
+    /** A "Rovarászok" label. */
     JLabel label3;
 
+    /** A kezdéshez tartozó gomb. Akkor indítható a játék, amennyiben több tekton van, mint játékos. */
     JButton start;
+    // #endregion
 
+    // #region CONSTRUCTOR
+    /**
+     * Konstruktor, amely létrehozza a StartFrame ablakot. Beállítja a paneleket, spinnereket, labeleket és a kezdés
+     * gombot.
+     */
     public StartFrame() {
         super("Fungorium");
         initFrame();
@@ -63,7 +84,10 @@ public class StartFrame extends JFrame {
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
+    // #endregion
 
+    // #region FUNCTIONS
+    /** Metódus, amely létrehozza az ablakon található paneleket, beállítja azok tulajdonságait. */
     private void initPanels() {
         topPanel = new JPanel();
         middlePanel = new JPanel();
@@ -81,6 +105,7 @@ public class StartFrame extends JFrame {
         topPanel.setPreferredSize(new Dimension(150, 40));
     }
 
+    /** Metódus, amely létrehozza az ablakon található spinnereket, beállítja azok tulajdonságait. */
     private void initSpinners() {
 
         spinner1 = new JSpinner(new SpinnerNumberModel(10, 1, Integer.MAX_VALUE, 1));
@@ -91,6 +116,7 @@ public class StartFrame extends JFrame {
         spinner3.setPreferredSize(new Dimension(50, 20));
     }
 
+    /** Metódus, amely létrehozza az ablakon található labeleket, beállítja azok tulajdonságait. */
     private void initLabels() {
         titleLabel = new JLabel("Új játék");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
@@ -100,6 +126,10 @@ public class StartFrame extends JFrame {
         label3 = new JLabel("Rovarászok:");
     }
 
+    /**
+     * Metódus, amely létrehozza az ablakon található gombot, beállítja annak tulajdonságait, valamint a hozzá tartozó
+     * ActionListenert.
+     */
     private void initButton() {
         start = new JButton("Kezdés");
         start.addActionListener(e -> {
@@ -118,6 +148,7 @@ public class StartFrame extends JFrame {
         });
     }
 
+    /** Metódus, amely lejátsza az indítási hangot a start.wav fileból. */
     private void playStartSound() {
         try (AudioInputStream audioStream = AudioSystem
                 .getAudioInputStream(new BufferedInputStream(new FileInputStream("resources/start.wav")))) {
@@ -132,6 +163,7 @@ public class StartFrame extends JFrame {
         }
     }
 
+    /** Metódus, amely létrehozza az ablakot, beállítja annak tulajdonságait. */
     public void initFrame() {
         setLocation(200, 200);
         setMinimumSize(new Dimension(320, 250));
@@ -140,4 +172,6 @@ public class StartFrame extends JFrame {
         setLayout(new BorderLayout());
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
+
+    // #endregion
 }
