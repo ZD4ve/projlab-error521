@@ -18,4 +18,4 @@ if errorlevel 1 (
 :: Copy resources to bin directory
 xcopy /E /I /Y resources bin\resources
 
-jar cfe Fungorium.jar proto.Prototype -C bin .
+jar cfe Fungorium.jar gui.Main -C bin .

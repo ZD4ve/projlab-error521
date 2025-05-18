@@ -3,4 +3,5 @@ if [ ! -d "bin" ]; then
     mkdir bin
 fi
 find . -name "*.java" | grep -v "src/tester" | xargs javac -d bin
-jar cfe Fungorium.jar proto.Prototype -C bin .
+cp -r resources bin/
+jar cfe Fungorium.jar gui.Main -C bin .

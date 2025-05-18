@@ -23,10 +23,10 @@ public class CanvasPanel extends JPanel {
         setDoubleBuffered(true);
         var mouseHandler = new java.awt.event.MouseAdapter() {
             @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
+            public void mouseClicked(MouseEvent evt) {
+                if (evt.getButton() == MouseEvent.BUTTON1) {
                     View.click((int) ((evt.getX() - offsetX) / scale), (int) ((evt.getY() - offsetY) / scale));
-                    repaint(); // TODO may need to be removed later
+                    repaint();
                 }
             }
 
