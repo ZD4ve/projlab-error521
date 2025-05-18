@@ -96,6 +96,7 @@ public class View {
     // #endregion
 
     private static boolean gameRunning;
+    private static AudioInputStream audioStream;
 
     /**
      * Újrarajzolja a térképet a megadott Graphics2D objektumra.
@@ -261,9 +262,12 @@ public class View {
     }
 
     private static void playSound(String source) {
-        try (AudioInputStream audioStream = AudioSystem.getAudioInputStream(
-                new BufferedInputStream(View.class.getClassLoader().getResourceAsStream(source)))) {
-
+        try {
+            if (audioStream != null) {
+                audioStream.close();
+            }
+            audioStream = AudioSystem.getAudioInputStream(
+                    new BufferedInputStream(View.class.getClassLoader().getResourceAsStream(source)));
             Clip clip = AudioSystem.getClip();
             clip.open(audioStream);
             clip.start();
@@ -345,6 +349,13 @@ public class View {
     public static void endGame() {
         gameRunning = false;
         playSound("resources/end.wav");
+        try {
+            if (audioStream != null) {
+                audioStream.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         JOptionPane.showMessageDialog(null, "A játék véget ért!");
     }
 
