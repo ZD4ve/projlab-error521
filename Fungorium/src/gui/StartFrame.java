@@ -1,11 +1,6 @@
 package gui;
 
 import java.awt.*;
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.*;
 import view.View;
 
@@ -144,23 +139,8 @@ public class StartFrame extends JFrame {
             this.setVisible(false);
             View.create(sp1, sp2, sp3);
             new PlayFrame();
-            playStartSound();
+            View.playStartSound();
         });
-    }
-
-    /** Metódus, amely lejátsza az indítási hangot a start.wav fileból. */
-    private void playStartSound() {
-        try (AudioInputStream audioStream = AudioSystem
-                .getAudioInputStream(new BufferedInputStream(new FileInputStream("resources/start.wav")))) {
-
-            Clip clip = AudioSystem.getClip();
-
-            clip.open(audioStream);
-            clip.start();
-
-        } catch (Exception a) {
-            a.printStackTrace();
-        }
     }
 
     /** Metódus, amely létrehozza az ablakot, beállítja annak tulajdonságait. */

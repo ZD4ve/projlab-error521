@@ -256,6 +256,10 @@ public class View {
         playSound("resources/crack.wav");
     }
 
+    public static void playStartSound() {
+        playSound("resources/start.wav");
+    }
+
     private static void playSound(String source) {
         try (AudioInputStream audioStream = AudioSystem.getAudioInputStream(
                 new BufferedInputStream(View.class.getClassLoader().getResourceAsStream(source)))) {
