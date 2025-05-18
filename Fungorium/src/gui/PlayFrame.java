@@ -2,17 +2,12 @@ package gui;
 
 import controller.Controller;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.*;
-import view.VColony;
-import view.VFungus;
+import view.VPlayer;
 import view.View;
-
 
 public class PlayFrame extends JFrame {
 
-    private List<ColorPanel> colorPanels;
     JPanel sidePanel;
     JLabel fungusLabel;
     JLabel colonyLabel;
@@ -26,7 +21,6 @@ public class PlayFrame extends JFrame {
         super("Fungorium");
         iniFrame();
         sidePanel = new JPanel();
-        colorPanels = new ArrayList<>();
         sidePanel.setLayout(new BoxLayout(sidePanel, BoxLayout.Y_AXIS));
         sidePanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
@@ -34,24 +28,8 @@ public class PlayFrame extends JFrame {
         fungusLabel.setFont(new Font("Arial", Font.BOLD, 14));
         sidePanel.add(fungusLabel);
         sidePanel.add(Box.createVerticalStrut(5));
-
-        for (VFungus fungus : view.View.getAllFungi()) {
-            ColorPanel colorPanel = new ColorPanel(fungus);
-            colorPanel.addMouseListener(new java.awt.event.MouseAdapter() {
-                @Override
-                public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
-                        for (ColorPanel colorPanel : colorPanels) {
-                            colorPanel.colorBox.setBorder(BorderFactory.createEmptyBorder());
-                        }
-                        fungus.selectPlayer();
-                        colorPanel.colorBox.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.orange));
-
-                    }
-                }
-            });
-            colorPanels.add(colorPanel);
-            sidePanel.add(colorPanel);
+        for (VPlayer player : view.View.getAllFungi()) {
+            sidePanel.add(new ColorPanel(player));
         }
 
         sidePanel.add(Box.createVerticalStrut(20));
@@ -60,24 +38,8 @@ public class PlayFrame extends JFrame {
         colonyLabel.setFont(new Font("Arial", Font.BOLD, 14));
         sidePanel.add(colonyLabel);
         sidePanel.add(Box.createVerticalStrut(5));
-
-        for (VColony colony : view.View.getAllColonies()) {
-
-            ColorPanel colorPanel = new ColorPanel(colony);
-            colorPanel.addMouseListener(new java.awt.event.MouseAdapter() {
-                @Override
-                public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
-                        for (ColorPanel colorPanel : colorPanels) {
-                            colorPanel.colorBox.setBorder(BorderFactory.createEmptyBorder());
-                        }
-                        colony.selectPlayer();
-                        colorPanel.colorBox.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.orange));
-                    }
-                }
-            });
-            colorPanels.add(colorPanel);
-            sidePanel.add(colorPanel);
+        for (VPlayer player : view.View.getAllColonies()) {
+            sidePanel.add(new ColorPanel(player));
         }
 
         sidePanel.add(Box.createVerticalGlue());
@@ -96,14 +58,15 @@ public class PlayFrame extends JFrame {
 
         gameTimer = new Timer(UPDATE_INTERVAL, e -> refresh());
         gameTimer.start();
+
+        view.View.getAllFungi().get(0).selectPlayer();
+        ColorPanel.updateAll();
     }
 
     private void refresh() {
         Controller.onTimeElapsed(UPDATE_INTERVAL / 1000d);
         canvas.repaint();
-        for (ColorPanel colorPanel : colorPanels) {
-            colorPanel.update();
-        }
+        ColorPanel.updateAll();
         playTime -= UPDATE_INTERVAL;
         int mins = playTime / 1000 / 60;
         int secs = playTime / 1000 % 60;
