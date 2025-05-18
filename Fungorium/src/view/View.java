@@ -4,7 +4,6 @@ import controller.RandomProvider;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.BufferedInputStream;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -257,8 +256,8 @@ public class View {
     }
 
     private static void playSound(String source) {
-        try (AudioInputStream audioStream = AudioSystem
-                .getAudioInputStream(new BufferedInputStream(new FileInputStream(source)))) {
+        try (AudioInputStream audioStream = AudioSystem.getAudioInputStream(
+                new BufferedInputStream(View.class.getClassLoader().getResourceAsStream(source)))) {
 
             Clip clip = AudioSystem.getClip();
             clip.open(audioStream);
@@ -278,7 +277,7 @@ public class View {
      * @param x egér x koordinátája
      * @param y egér y koordinátája
      */
-    public static void click(int x, int y) {// NOSONAR complexity, így olvashatóbb
+    public static void click(int x, int y) {
         if (!gameRunning) {
             return;
         }
@@ -290,33 +289,49 @@ public class View {
             selected = clicked;
             return;
         }
-        IIcon item1 = selected.getItem();
-        IIcon item2 = clicked.getItem();
+        boolean actionHappened = processClick(selected, clicked);
+        if (!actionHappened) {
+            notifyUser();
+        }
+        selected = null;
+    }
 
+    /**
+     * Segédfüggvény a kattintás eseménykezelőhöz.
+     * 
+     * @return történik-e akció
+     */
+    private static boolean processClick(Cell cell1, Cell cell2) {// NOSONAR complexity, így olvashatóbb
+        IIcon item1 = cell1.getItem();
+        IIcon item2 = cell2.getItem();
         if (selectedPlayer instanceof VColony colony && item1 instanceof VInsect insect) {
             if (insect.getInsect().getColony() != colony.getColony())
-                return;
-            if (item2 == null)
-                insect.move(clicked);
-            if (item2 instanceof VSpore)
-                insect.eat(clicked);
-            if (item2 instanceof VMycelium)
-                insect.chew(clicked);
+                return false;
+            else if (item2 == null)
+                insect.move(cell2);
+            else if (item2 instanceof VSpore)
+                insect.eat(cell2);
+            else if (item2 instanceof VMycelium)
+                insect.chew(cell2);
+            else
+                return false;
         }
 
         if (selectedPlayer instanceof VFungus fungus) {
             if (item2 != null)
-                return;
-            if (item1 == null) {
-                if (selected == clicked)
-                    fungus.growMushroom(clicked);
-                if (selected != clicked)
-                    fungus.growMycelium(selected, clicked);
-            }
-            if (item1 instanceof VMushroom mushroom && mushroom.getMushroom().getSpecies() == fungus.getFungus())
-                mushroom.burst(clicked);
+                return false;
+            else if (item1 == null) {
+                if (selected == cell2)
+                    fungus.growMushroom(cell2);
+                if (selected != cell2)
+                    fungus.growMycelium(selected, cell2);
+            } else if (item1 instanceof VMushroom mushroom && mushroom.getMushroom().getSpecies() == fungus.getFungus())
+                mushroom.burst(cell2);
+            else
+                return false;
         }
-        selected = null;
+
+        return true;
     }
 
     /**
