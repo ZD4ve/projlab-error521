@@ -1,8 +1,7 @@
 package view;
 
-import java.awt.image.BufferedImage;
 import java.awt.*;
-
+import java.awt.image.BufferedImage;
 import model.Mycelium;
 import model.Tecton;
 
@@ -18,6 +17,7 @@ public class VMycelium implements IIcon {
     // #endregion
 
     // #region ATTRIBUTES
+    /** Az ikon, amely a gombafonalat reprezentálja */
     private BufferedImage cachedIcon;
     // #endregion
 
@@ -38,6 +38,12 @@ public class VMycelium implements IIcon {
     }
     // #endregion
 
+    /**
+     * Visszaadja a gombafonal színét a gombafonal típusának megfelelően.
+     * 
+     * @return a gombafonal színe
+     * @throws IllegalStateException Ha a gombafonal típusa nem található
+     */
     private Color getColor() {
         for (VFungus vf : View.getAllFungi()) {
             if (vf.getFungus() == mycelium.getSpecies()) {
@@ -47,6 +53,11 @@ public class VMycelium implements IIcon {
         throw new IllegalStateException("Fungus not found");
     }
 
+    /**
+     * Legenerálja a gombafonal ikonját a szomszédos cella alapján.
+     * 
+     * @param neighbor szomszédos cella
+     */
     private void generateIcon(Cell neighbor) {
         int dx = neighbor.getX() - cell.getX();
         int dy = neighbor.getY() - cell.getY();
@@ -65,6 +76,10 @@ public class VMycelium implements IIcon {
         cachedIcon = img;
     }
 
+    /**
+     * Visszaadja a gombafonal ikonját. Ha a gombafonalnak nincs vége, akkor null-t ad vissza.
+     * @return a gombafonal ikonját, vagy null-t, ha az egyik vége hiányzik
+     */
     @Override
     public BufferedImage getIcon() {
         Tecton[] ends = mycelium.getEnds();
@@ -74,6 +89,12 @@ public class VMycelium implements IIcon {
     }
 
     // #region GETTERS-SETTERS
+
+    /**
+     * Visszaadja a becsomagolt gombafonalat.
+     * 
+     * @return a hozzá tartozó, becsomagolt gombafonal
+     */
     public Mycelium getMycelium() {
         return mycelium;
     }

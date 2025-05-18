@@ -14,6 +14,7 @@ import java.util.stream.IntStream;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.swing.JOptionPane;
 import model.*;
 
 /***
@@ -340,6 +341,7 @@ public class View {
     public static void endGame() {
         gameRunning = false;
         playSound("resources/end.wav");
+        JOptionPane.showMessageDialog(null, "A játék véget ért!");
     }
 
     // #region GETTERS-SETTERS

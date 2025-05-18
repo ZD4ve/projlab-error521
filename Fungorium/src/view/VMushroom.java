@@ -1,10 +1,9 @@
 package view;
 
-import model.Mushroom;
-import model.Tecton;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import model.Mushroom;
+import model.Tecton;
 
 /**
  * Becsomagol egy gombatestet, nyilvántartja annak a helyét és kezeli kirajzolását. A gombatest akcióit elérhetővé teszi
@@ -19,11 +18,21 @@ public class VMushroom implements IIcon {
     // #endregion
 
     // #region ATTRIBUTES
+    /** A gombatesthez tartozó ikon */
     private BufferedImage cachedIcon;
+
+    /** Ellenőrző boolean, hogy a gombatest fejlett állapotban van-e */
     private boolean isCachedGrown = false;
     // #endregion
 
     // #region ICON GENERATION
+
+    /**
+     * Visszaadja a gombatest színét a gombatest típusának megfelelően.
+     *
+     * @return a gombatest színe
+     * @throws IllegalStateException Ha a gombatest típusa nem található
+     */
     private Color getColor() {
         for (VFungus vf : View.getAllFungi()) {
             if (vf.getFungus() == mushroom.getSpecies()) {
@@ -33,7 +42,11 @@ public class VMushroom implements IIcon {
         throw new IllegalStateException("Fungus not found");
     }
 
-    /** Megrajzolja a fejletlen gombatest ikonját. */
+    /**
+     * Megrajzolja a fejletlen gombatest ikonját.
+     *
+     * @return a fejletlen gombatest ikonja
+     */
     private BufferedImage mushroomSmallIcon() {
         int size = Cell.SIZE;
         Color color = getColor();
@@ -48,7 +61,11 @@ public class VMushroom implements IIcon {
         return img;
     }
 
-    /** Megrajzolja a fejlett gombatest ikonját. */
+    /** 
+     * Megrajzolja a fejlett gombatest ikonját.
+     *
+     * @return a fejlett gombatest ikonja
+     */
     private BufferedImage mushroomBigIcon() {
         int size = Cell.SIZE;
         Color color = getColor();
@@ -64,6 +81,11 @@ public class VMushroom implements IIcon {
         return img;
     }
 
+    /**
+     * Visszaadja a gombatest ikonját. Ha a gombatestnek nincs helye, akkor null-t ad vissza.
+     * 
+     * @return a gombatest ikonját, vagy null-t, ha a gombatestnek nincs helye
+     */
     @Override
     public BufferedImage getIcon() {
         if (mushroom.getLocation() == null)
@@ -116,10 +138,20 @@ public class VMushroom implements IIcon {
     // #endregion
 
     // #region GETTERS SETTERS
+
+    /**
+     * Visszaadja a gombatestet.
+     * 
+     * @return a gombatest
+     */
     public Mushroom getMushroom() {
         return mushroom;
     }
 
+    /**
+     * Visszaadja a cellát, amin a gombatest található.
+     * @return a cella
+     */
     public Cell getCell() {
         return cell;
     }
